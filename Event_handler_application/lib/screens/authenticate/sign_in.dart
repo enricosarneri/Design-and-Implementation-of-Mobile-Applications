@@ -56,18 +56,14 @@ class _SignInState extends State<SignIn> {
                   log('error signing in');
                 }
                 else{
-                  log('signed in');
-                  log(result.email);
-                  log(result.uid);
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
-
+                  log('signed in as: '+ result.email);
                 }
               },),
             ElevatedButton(
               child: const Text('Sign up'),
               onPressed: (){
                 _authService.createUserWithEmailAndPassword(_email, _password);
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
+                //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
             }),   
           ],)],),
     );

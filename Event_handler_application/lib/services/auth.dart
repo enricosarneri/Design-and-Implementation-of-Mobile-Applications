@@ -46,7 +46,7 @@ class AuthService{
 
   Stream<AppUser?> get user{
     log((_auth.authStateChanges().map((User? user) => _userFromFirebaseUser(user))).toString());
-    return _auth.authStateChanges().map((User? user) => _userFromFirebaseUser(user!));
+    return _auth.authStateChanges().map((User? user) => _userFromFirebaseUser(user));
   }
 
 }

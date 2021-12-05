@@ -18,7 +18,7 @@ class Wrapper extends StatelessWidget {
       return Authenticate();
     }
     else{
-      log(user.toString());
+      log("user not null");
       return Home();
     }
   } 

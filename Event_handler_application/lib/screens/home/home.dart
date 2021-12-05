@@ -17,7 +17,6 @@ class Home extends StatelessWidget {
           TextButton.icon(
             onPressed: () async{
               await _authService.signOut();
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Authenticate()));
               //to be changed
             },
             icon: Icon(Icons.person),
