@@ -2,22 +2,27 @@ import 'dart:developer';
 
 import 'package:event_handler/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class AuthService{
 
   final FirebaseAuth _auth=FirebaseAuth.instance;
+  String errorMessage='';
   //create user obj based on FirebaseUser
   AppUser? _userFromFirebaseUser(User? user){
     return user!=null ? AppUser(user.uid,user.email,user.displayName) : null;
   }
 
   Future signInWithEmailAndPassword (String email, String password) async {
+    UserCredential userCredential;
     try{
-    UserCredential userCredential= await _auth.signInWithEmailAndPassword(email: email, password: password);
+    userCredential= await _auth.signInWithEmailAndPassword(email: email, password: password);
     User? user= userCredential.user;
     return _userFromFirebaseUser(user);
-    } catch(e){
-      log(e.toString());
+    } on  FirebaseAuthException catch (error){
+      errorMessage= error.message!;
+      Fluttertoast.showToast(msg: errorMessage);
       return null;
     }
   }
@@ -27,8 +32,9 @@ class AuthService{
     UserCredential userCredential= await _auth.createUserWithEmailAndPassword(email: email, password: password);
     User? user= userCredential.user;
     return user;
-    } catch(e){
-      log(e.toString());
+    }  on  FirebaseAuthException catch (error){
+      errorMessage= error.message!;
+      Fluttertoast.showToast(msg: errorMessage);
       return null;
     }
   }
