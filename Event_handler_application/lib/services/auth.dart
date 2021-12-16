@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:event_handler/models/user.dart';
+import 'package:event_handler/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -27,11 +28,15 @@ class AuthService{
     }
   }
 
-    Future createUserWithEmailAndPassword (String email, String password) async {
+    Future createUserWithEmailAndPassword (String email, String password, String name, String surname, bool isOwner) async {
     try{
     UserCredential userCredential= await _auth.createUserWithEmailAndPassword(email: email, password: password);
     User? user= userCredential.user;
-    return user;
+    if (user== null) return null;
+    else{
+      await DatabaseService(user.uid).updateUserData(email, password, name, surname, isOwner);
+      return user;
+      }
     }  on  FirebaseAuthException catch (error){
       errorMessage= error.message!;
       Fluttertoast.showToast(msg: errorMessage);

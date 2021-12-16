@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:event_handler/screens/authenticate/registration.dart';
 import 'package:event_handler/screens/home/home.dart';
 import 'package:event_handler/services/auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -74,25 +76,27 @@ class _SignInState extends State<SignIn> {
                   setState(() => isSignInLoading= false);
 
                 },),
-              ElevatedButton(
-                 child: isSignUpLoading
-                 ? CircularProgressIndicator(color: Colors.white,) 
-                 : const Text('Sign up'),
-                onPressed: () async{
-                  setState(() => isSignUpLoading= true);
-                  if(_key.currentState!.validate()){
-                  dynamic result= await _authService.createUserWithEmailAndPassword(_email, _password);
-                  if (result== null){
-                    log('error signing up');
-                  }
-                  else{
-                    log('signed up as: '+ result.email);
-                    }
-                  }
-                  setState(() => isSignUpLoading= false);
-                  //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
-              }),   
-            ],)],),
+              const Padding(
+                padding: EdgeInsets.only(left: 20.0),
+                child: Text("If you don't have an account click"),  
+                ),
+              Padding(
+              padding: EdgeInsets.zero,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Registration()));
+                },
+                child: const Padding(
+                  padding:  EdgeInsets.all(10.0),
+                  child:  Text("here", style: TextStyle(
+                            color: Colors.blue,
+                          )),
+                  ),
+              ),
+              )   
+            ],
+            ),
+            ],),
       ),
     );
   }
