@@ -1,4 +1,5 @@
 import 'package:event_handler/models/user.dart';
+import 'package:event_handler/screens/home/application_block.dart';
 import 'package:event_handler/screens/wrapper.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/splash.dart';
@@ -19,8 +20,11 @@ class MyApp extends StatelessWidget {
     return StreamProvider<AppUser?>.value(
       value: AuthService().user,
       initialData: null,
-      child: MaterialApp(
-        home: Wrapper(),
+      child: ChangeNotifierProvider(
+        create: (context) => ApplicationBlock(),
+        child: MaterialApp(
+          home: Wrapper(),
+        ),
       ),
     );
   }

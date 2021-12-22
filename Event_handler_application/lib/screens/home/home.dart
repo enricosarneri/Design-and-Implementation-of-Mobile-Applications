@@ -1,8 +1,10 @@
 import 'package:event_handler/screens/authenticate/authenticate.dart';
+import 'package:event_handler/screens/home/application_block.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:event_handler/screens/home/google_map_screen.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   final AuthService _authService = AuthService();
@@ -22,7 +24,7 @@ class Home extends StatelessWidget {
                 //to be changed
               },
               icon: Icon(Icons.person),
-              label: Text('logout'))
+              label: Text('Logout'))
         ],
       ),
       floatingActionButton: FloatingActionButton(
