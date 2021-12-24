@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:event_handler/models/user.dart';
 import 'package:event_handler/screens/home/home.dart';
+import 'package:event_handler/screens/wrapper.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -102,8 +103,6 @@ class _RegistrationState extends State<Registration> {
 
   @override
   Widget build(BuildContext context) {
-    final AppUser? user = Provider.of<AppUser?> (context);
-      if(user == null ){
     return Scaffold(
       appBar: AppBar(title: Text('Registration')),
       body: Container(
@@ -142,8 +141,7 @@ class _RegistrationState extends State<Registration> {
                 log('error signing up');
                 }
               else{
-                //TODO Cercare di gestire il navigator meglio
-                //Navigator.pop(context);
+                Navigator.pop(context);
                 log('signed up as: '+ result.email);
               }
               if(this.mounted){
@@ -156,10 +154,7 @@ class _RegistrationState extends State<Registration> {
           ),
         ),
       ),
-    );}
-    else{
-      return Home();
-    }
+    );
   }
 }
 

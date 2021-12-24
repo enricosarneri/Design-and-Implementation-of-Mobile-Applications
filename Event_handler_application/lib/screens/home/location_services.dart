@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'package:geocoder/geocoder.dart';
 
 class LocationService {
   final String key = 'AIzaSyCp-EXt7pBSEe6OySbG0CUImR3U_P4Y9Cg';
@@ -23,5 +24,10 @@ class LocationService {
     var json = convert.jsonDecode(response.body);
     var results = json['result'] as Map<String, dynamic>;
     return results;
+  }
+
+  Future<Coordinates> getCoordinatesByAddress(String address) async{
+    var addresses= await Geocoder.local.findAddressesFromQuery(address);
+    return Coordinates(addresses.first.coordinates.latitude, addresses.first.coordinates.longitude);
   }
 }

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:event_handler/screens/home/location_services.dart';
+import 'package:geocoder/geocoder.dart';
 
 class DatabaseService{
   final String uid;
@@ -18,11 +20,19 @@ class DatabaseService{
     );
   }
 
-    Future createEventData (String name, String description, String? eventType, DateTime? date, String maxPartecipants) async{
+
+  Stream<QuerySnapshot> get events{
+    return eventCollection.snapshots();
+  }
+
+
+    Future createEventData (String name, String description, String address,String? eventType, DateTime? date, String maxPartecipants) async{
+      Coordinates coordinates= await LocationService().getCoordinatesByAddress(address);
     return await eventCollection.add({
       'manager' : uid,
       'name' : name,
       'description' : description,
+      'coordinates' : coordinates.toString(),
       'eventType' : eventType,
       'date' : date.toString(),
       'maxPartecipants' : maxPartecipants,

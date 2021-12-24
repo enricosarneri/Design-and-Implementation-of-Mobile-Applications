@@ -23,6 +23,7 @@ class _Create_EventState extends State<Create_Event> {
 
   String? _eventType;
   String _name='';
+  String _address='';
   String _description='';
   String _maxPartecipants='';
   DateTime? _eventDate;
@@ -38,6 +39,22 @@ class _Create_EventState extends State<Create_Event> {
       onChanged: (value){
       setState(() {
       _name= value.trim();
+        });
+      },
+    );
+  }
+
+    Widget _buildAddress(){
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Address'),
+      validator: (String? value){
+        if(value!.isEmpty){
+          return 'Address is Required';
+        }
+      },
+      onChanged: (value){
+      setState(() {
+      _address= value.trim();
         });
       },
     );
@@ -149,19 +166,21 @@ class _Create_EventState extends State<Create_Event> {
             SizedBox(height: 20),
             _buildDescription(),
             SizedBox(height: 20),
+            _buildAddress(),
+            SizedBox(height: 20),
             _buildEventType(),
+            SizedBox(height: 20),
+            _buildDataPicker(context),
             SizedBox(height: 20),
             _buildPartecipantNumber(),
             SizedBox(height: 20),
-            _buildDataPicker(context),
-            SizedBox(height: 100),
             ElevatedButton(
               child: const Text('Create Event'),
               onPressed: () async{
                 if(!_key.currentState!.validate()){
                   return;
                 }
-                await DatabaseService(_authService.getCurrentUser()!.uid).createEventData(_name, _description, _eventType, _eventDate, _maxPartecipants);
+                await DatabaseService(_authService.getCurrentUser()!.uid).createEventData(_name, _description, _address, _eventType, _eventDate, _maxPartecipants);
                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                 Wrapper()), (Route<dynamic> route) => false);
               }), 
