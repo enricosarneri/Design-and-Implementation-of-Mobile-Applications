@@ -7,7 +7,7 @@ class DatabaseService{
   final CollectionReference eventCollection = FirebaseFirestore.instance.collection('events');
 
 
-  Future createUserData (String email, String password, String name, String surname, bool isOwner) async{
+  Future updateUserData (String email, String password, String name, String surname, bool isOwner) async{
     return await userCollection.doc(uid).set({
       'email' : email,
       'password' : password,
@@ -18,8 +18,9 @@ class DatabaseService{
     );
   }
 
-    Future createEventData (String name, String description, String? eventType, DateTime? date, int maxPartecipants) async{
-    return await eventCollection.doc(uid).set({
+    Future createEventData (String name, String description, String? eventType, DateTime? date, String maxPartecipants) async{
+    return await eventCollection.add({
+      'manager' : uid,
       'name' : name,
       'description' : description,
       'eventType' : eventType,

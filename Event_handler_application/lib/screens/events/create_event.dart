@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:event_handler/models/user.dart';
 import 'package:event_handler/screens/home/home.dart';
+import 'package:event_handler/screens/wrapper.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,7 +24,7 @@ class _Create_EventState extends State<Create_Event> {
   String? _eventType;
   String _name='';
   String _description='';
-  int maxPartecipants=0;
+  String _maxPartecipants='';
   DateTime? _eventDate;
 
   Widget _buildName(){
@@ -65,12 +66,27 @@ class _Create_EventState extends State<Create_Event> {
       decoration: const InputDecoration(
        labelText: 'Max number of Partecipants',
        ),
+        validator: (String? value){
+        if(value!.isEmpty){
+          return 'Max number of partecipant is Required';
+        }
+      },
       keyboardType: TextInputType.number,
+            onChanged: (value){
+      setState(() {
+      _maxPartecipants= value.trim();
+        });
+      },
     );
   }
 
   Widget _buildEventType(){
-    return DropdownButton<String>(
+    return DropdownButtonFormField<String>(
+      validator: (String? value){
+        if(value== null){
+          return 'Event type is Required';
+        }
+      },
       isExpanded: true,
       value: _eventType,
       items: EventTypes.map(buildMenuItems).toList(),
@@ -96,13 +112,21 @@ class _Create_EventState extends State<Create_Event> {
       );
   }
 
+  bool _decideWhichDayToEnable(DateTime day) {
+  if ((day.isAfter(DateTime.now().subtract(Duration(days: 1))))) {
+      return true;
+    }
+    return false;
+  }
+
   Future pickDate (BuildContext context) async{
     final initialDate= DateTime.now();
     final newDate= await showDatePicker(
       context: context,
       initialDate: initialDate,
-      firstDate: DateTime(DateTime.now().year-5), 
-      lastDate: DateTime(DateTime.now().year+5),
+      firstDate: DateTime(DateTime.now().year-1), 
+      lastDate: DateTime(DateTime.now().year+2),
+      selectableDayPredicate: _decideWhichDayToEnable,
       );
       if (newDate == null) return;
 
@@ -134,9 +158,12 @@ class _Create_EventState extends State<Create_Event> {
             ElevatedButton(
               child: const Text('Create Event'),
               onPressed: () async{
-                await DatabaseService(_authService.getCurrentUser()!.uid).createEventData(_name, _description, _eventType, _eventDate, maxPartecipants);
-                
-                //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
+                if(!_key.currentState!.validate()){
+                  return;
+                }
+                await DatabaseService(_authService.getCurrentUser()!.uid).createEventData(_name, _description, _eventType, _eventDate, _maxPartecipants);
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                Wrapper()), (Route<dynamic> route) => false);
               }), 
             ],
           ),
