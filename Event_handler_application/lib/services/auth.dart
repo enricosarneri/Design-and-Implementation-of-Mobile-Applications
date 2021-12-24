@@ -34,7 +34,7 @@ class AuthService{
     User? user= userCredential.user;
     if (user== null) return null;
     else{
-      await DatabaseService(user.uid).updateUserData(email, password, name, surname, isOwner);
+      await DatabaseService(user.uid).createUserData(email, password, name, surname, isOwner);
       return user;
       }
     }  on  FirebaseAuthException catch (error){
@@ -53,7 +53,9 @@ class AuthService{
       }
     }
 
-
+  User? getCurrentUser(){
+    return _auth.currentUser;
+  }
 
   Stream<AppUser?> get user{
     log((_auth.authStateChanges().map((User? user) => _userFromFirebaseUser(user))).toString());

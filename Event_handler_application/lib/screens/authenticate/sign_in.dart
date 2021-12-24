@@ -77,7 +77,9 @@ class _SignInState extends State<SignIn> {
                         log('signed in as: ' + result.email);
                       }
                     }
-                    setState(() => isSignInLoading = false);
+                    if(this.mounted){
+                      setState(() => isSignInLoading= false);
+                    }
                   },
                 ),
                 const Padding(

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       initialData: null,
       child: ChangeNotifierProvider(
         create: (context) => ApplicationBlock(),
-        child: MaterialApp(
+        child: const MaterialApp(
           home: Wrapper(),
         ),
       ),
