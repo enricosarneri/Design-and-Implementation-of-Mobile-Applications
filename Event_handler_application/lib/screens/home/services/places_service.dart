@@ -1,4 +1,4 @@
-import 'package:event_handler/screens/home/place_search.dart';
+import 'package:event_handler/screens/home/services/place_search.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 

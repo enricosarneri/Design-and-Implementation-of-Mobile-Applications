@@ -26,8 +26,9 @@ class LocationService {
     return results;
   }
 
-  Future<Coordinates> getCoordinatesByAddress(String address) async{
-    var addresses= await Geocoder.local.findAddressesFromQuery(address);
-    return Coordinates(addresses.first.coordinates.latitude, addresses.first.coordinates.longitude);
+  Future<Coordinates> getCoordinatesByAddress(String address) async {
+    var addresses = await Geocoder.local.findAddressesFromQuery(address);
+    return Coordinates(addresses.first.coordinates.latitude,
+        addresses.first.coordinates.longitude);
   }
 }

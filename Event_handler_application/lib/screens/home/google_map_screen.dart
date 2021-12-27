@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:event_handler/screens/home/application_block.dart';
-import 'package:event_handler/screens/home/location_services.dart';
+import 'package:event_handler/screens/home/services/application_block.dart';
+import 'package:event_handler/screens/home/services/location_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'place.dart';
+import 'services/place.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   @override

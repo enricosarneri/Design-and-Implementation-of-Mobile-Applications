@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:event_handler/screens/home/geolocator_service.dart';
-import 'package:event_handler/screens/home/place_search.dart';
-import 'package:event_handler/screens/home/places_service.dart';
+import 'package:event_handler/screens/home/services/geolocator_service.dart';
+import 'package:event_handler/screens/home/services/place_search.dart';
+import 'package:event_handler/screens/home/services/places_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 
