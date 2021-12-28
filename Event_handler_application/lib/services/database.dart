@@ -29,12 +29,12 @@ class DatabaseService {
 
   List<Event> eventListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((e){
-      return Event(e.get('managerId'), e.get('name'), e.get('description'), e.get('latitude'), e.get('longitude'), e.get('placeName'), e.get('eventType'),
-        e.get('date'), e.get('maxPartecipants',));
+      return Event(e.get('manager'), e.get('name'), e.get('description'), double.parse(e.get('latitude')), double.parse(e.get('longitude')), e.get('placeName'), e.get('eventType'),
+        e.get('date'), int.parse(e.get('maxPartecipants')));
     }).toList();
   }
 
-  Stream<List<Event>> get Events{
+  Stream<List<Event>> get events{
     return eventCollection.snapshots().map(eventListFromSnapshot);
   }
 

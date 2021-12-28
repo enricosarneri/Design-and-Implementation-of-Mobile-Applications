@@ -30,15 +30,16 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   @override
   void initState() {
-            final Stream<QuerySnapshot> events =
-        DatabaseService(_authService.getCurrentUser()!.uid).getEvents();
-    eventsListener = events.listen((event) {
-      for (var i = 0; i < event.size; i++) {
-        setState(() {
-          markers.add(createMarker(double.parse(event.docs[i]['latitude']), double.parse(event.docs[i]['longitude']), event.docs[i]['placeName']));
-        });
-      }
-    });
+        final  Stream<List<Event>> eventsList =
+        DatabaseService(_authService.getCurrentUser()!.uid).events;
+        eventsListener = eventsList.listen((event) {
+        for (var i = 0; i < event.length; i++) {
+          setState(() {
+            markers.add(createMarker(event[i].latitude,event[i].longitude, event[i].placeName));
+          });
+        }
+      });
+
     final applicationBlock =
         Provider.of<ApplicationBlock>(context, listen: false);
     locationSubscription =
@@ -58,8 +59,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   Marker createMarker(double latitude, double longitude, String placeName) {
-    log('latitude' + latitude.toString());
-    log('latitude' + longitude.toString());
+    log('latitude ' + latitude.toString());
+    log('latitude ' + longitude.toString());
     return Marker(
       markerId: MarkerId(placeName),
       infoWindow: InfoWindow(title: placeName),
