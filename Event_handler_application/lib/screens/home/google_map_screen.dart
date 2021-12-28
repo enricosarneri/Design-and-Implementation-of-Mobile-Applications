@@ -53,9 +53,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   @override
   void dispose() {
-    final applicationBlock =
-        Provider.of<ApplicationBlock>(context, listen: false);
-    applicationBlock.dispose();
     locationSubscription!.cancel();
     eventsListener!.cancel();
     super.dispose();
@@ -84,8 +81,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             )
           : Stack(
               children: [
-                Expanded(
-                  child: Container(
+                     Container(
                     child: GoogleMap(
                       mapType: _currentMapType,
                       myLocationButtonEnabled: true,
@@ -107,7 +103,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       },
                     ),
                   ),
-                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 150, left: 340),
                   child: FloatingActionButton(
