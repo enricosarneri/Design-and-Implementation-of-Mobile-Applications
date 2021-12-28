@@ -22,22 +22,21 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _searchController = TextEditingController();
   final AuthService _authService = AuthService();
-  List<double> latList = [];
-  List<double> longList = [];
-  List<String> placeName = [];
+  List<Marker> markers=[];
   StreamSubscription? locationSubscription;
   StreamSubscription? eventsListener;
   MapType _currentMapType = MapType.normal;
 
+
   @override
   void initState() {
-    final Stream<QuerySnapshot> events =
+            final Stream<QuerySnapshot> events =
         DatabaseService(_authService.getCurrentUser()!.uid).getEvents();
     eventsListener = events.listen((event) {
       for (var i = 0; i < event.size; i++) {
-        latList.add(double.parse(event.docs[i]['latitude']));
-        longList.add(double.parse(event.docs[i]['longitude']));
-        placeName.add(event.docs[i]['placeName']);
+        setState(() {
+          markers.add(createMarker(double.parse(event.docs[i]['latitude']), double.parse(event.docs[i]['longitude']), event.docs[i]['placeName']));
+        });
       }
     });
     final applicationBlock =
@@ -61,8 +60,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Marker createMarker(double latitude, double longitude, String placeName) {
     log('latitude' + latitude.toString());
     log('latitude' + longitude.toString());
-    log('latitude');
-
     return Marker(
       markerId: MarkerId(placeName),
       infoWindow: InfoWindow(title: placeName),
@@ -81,27 +78,28 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             )
           : Stack(
               children: [
-                Container(
-                  child: GoogleMap(
-                    mapType: _currentMapType,
-                    myLocationEnabled: true,
-                    zoomControlsEnabled: false,
-                    indoorViewEnabled: true,
-                    myLocationButtonEnabled: false,
-                    markers: {
-                      for (var i = 0; i < latList.length; i++)
-                        createMarker(latList[i], longList[i], placeName[i])
-                    },
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(applicationBlock.currentLocation!.latitude,
-                          applicationBlock.currentLocation!.longitude),
-                      zoom: 14,
+                     Container(
+                    child: GoogleMap(
+                      mapType: _currentMapType,
+                      myLocationEnabled: true,
+                      zoomControlsEnabled: false,
+                      indoorViewEnabled: true,
+                      myLocationButtonEnabled: false,
+                      markers: {
+                        for (var i = 0; i < markers.length; i++)
+                          markers[i]
+                      },
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(
+                            applicationBlock.currentLocation!.latitude,
+                            applicationBlock.currentLocation!.longitude),
+                        zoom: 14,
+                      ),
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
                     ),
-                    onMapCreated: (GoogleMapController controller) {
-                      _controller.complete(controller);
-                    },
                   ),
-                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 130, left: 330),
                   child: FloatingActionButton(
@@ -110,11 +108,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     materialTapTargetSize: MaterialTapTargetSize.padded,
                     mini: true,
                     backgroundColor: Colors.white,
-                    child: const Icon(
-                      Icons.layers,
-                      size: 20.0,
-                      color: Colors.black54,
-                    ),
+                    child: const Icon(Icons.layers, size: 28.0, color: Colors.black54,),
                   ),
                 ),
                 if (applicationBlock.searchResults != null &&
@@ -278,9 +272,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Future<void> _goToPlace2(Place place) async {
     print("go to place2 is called");
     final GoogleMapController controller = await _controller.future;
-    print(place.geometry!.location!.lat!.toString() +
-        " long: " +
-        place.geometry!.location!.lng!.toString());
     controller.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -290,18 +281,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       ),
     );
   }
-
-  // Future<void> _goToTheLake() async {
-  //   final GoogleMapController controller = await _controller.future;
-  //   controller.animateCamera(
-  //     CameraUpdate.newCameraPosition(
-  //       CameraPosition(
-  //           target: LatLng(applicationBlock.currentLocation!.latitude,
-  //               applicationBlock.currentLocation!.longitude),
-  //           zoom: 14),
-  //     ),
-  //   );
-  // }
 
   void _onToggleMapTypePressed() {
     final nextType = (_currentMapType == MapType.normal)
