@@ -81,37 +81,40 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             )
           : Stack(
               children: [
-                     Container(
-                    child: GoogleMap(
-                      mapType: _currentMapType,
-                      myLocationButtonEnabled: true,
-                      myLocationEnabled: true,
-                      padding: EdgeInsets.only(top: 500.0),
-                      indoorViewEnabled: true,
-                      markers: {
-                        for (var i = 0; i < latList.length; i++)
-                          createMarker(latList[i], longList[i], placeName[i])
-                      },
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                            applicationBlock.currentLocation!.latitude,
-                            applicationBlock.currentLocation!.longitude),
-                        zoom: 14,
-                      ),
-                      onMapCreated: (GoogleMapController controller) {
-                        _controller.complete(controller);
-                      },
+                Container(
+                  child: GoogleMap(
+                    mapType: _currentMapType,
+                    myLocationEnabled: true,
+                    zoomControlsEnabled: false,
+                    indoorViewEnabled: true,
+                    myLocationButtonEnabled: false,
+                    markers: {
+                      for (var i = 0; i < latList.length; i++)
+                        createMarker(latList[i], longList[i], placeName[i])
+                    },
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(applicationBlock.currentLocation!.latitude,
+                          applicationBlock.currentLocation!.longitude),
+                      zoom: 14,
                     ),
+                    onMapCreated: (GoogleMapController controller) {
+                      _controller.complete(controller);
+                    },
                   ),
+                ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 150, left: 340),
+                  padding: const EdgeInsets.only(top: 130, left: 330),
                   child: FloatingActionButton(
                     heroTag: 'toggle_map_type_button',
                     onPressed: _onToggleMapTypePressed,
                     materialTapTargetSize: MaterialTapTargetSize.padded,
                     mini: true,
-                    backgroundColor: Colors.teal[300],
-                    child: const Icon(Icons.layers, size: 28.0),
+                    backgroundColor: Colors.white,
+                    child: const Icon(
+                      Icons.layers,
+                      size: 20.0,
+                      color: Colors.black54,
+                    ),
                   ),
                 ),
                 if (applicationBlock.searchResults != null &&
@@ -206,18 +209,24 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                           borderRadius: BorderRadius.circular(50),
                           borderSide: BorderSide(color: Colors.transparent),
                         ),
-                        suffixIcon: IconButton(
-                          onPressed: () async {
-                            var place = await LocationService()
-                                .getPlace(_searchController.text);
-                            _goToPlace(place);
-                          },
-                          icon: Icon(
-                            Icons.search,
-                            color: Colors.blueGrey,
+                        suffixIcon: Padding(
+                          padding: const EdgeInsetsDirectional.only(end: 4.0),
+                          child: IconButton(
+                            onPressed: () async {
+                              var place = await LocationService()
+                                  .getPlace(_searchController.text);
+                              _goToPlace(place);
+                            },
+                            icon: Icon(
+                              Icons.search,
+                              color: Colors.blueGrey,
+                            ),
                           ),
                         ),
-                        prefixIcon: Icon(Icons.person),
+                        prefixIcon: Padding(
+                          padding: const EdgeInsetsDirectional.only(start: 4.0),
+                          child: Icon(Icons.person),
+                        ),
                       ),
                       cursorColor: Colors.black,
                       onChanged: (value) =>
@@ -225,14 +234,32 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 315, top: 650),
+                  child: FloatingActionButton(
+                    onPressed: () async {
+                      final GoogleMapController controller =
+                          await _controller.future;
+                      controller.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                              target: LatLng(
+                                  applicationBlock.currentLocation!.latitude,
+                                  applicationBlock.currentLocation!.longitude),
+                              zoom: 14),
+                        ),
+                      );
+                    },
+                    child: const Icon(
+                      Icons.my_location,
+                      size: 25.0,
+                      color: Colors.black54,
+                    ),
+                    backgroundColor: Colors.white,
+                  ),
+                ),
               ],
             ),
-
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: _goToTheLake,
-      //   label: Text('To the lake!'),
-      //   icon: Icon(Icons.directions_boat),
-      // ),
     );
   }
 
@@ -263,6 +290,18 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       ),
     );
   }
+
+  // Future<void> _goToTheLake() async {
+  //   final GoogleMapController controller = await _controller.future;
+  //   controller.animateCamera(
+  //     CameraUpdate.newCameraPosition(
+  //       CameraPosition(
+  //           target: LatLng(applicationBlock.currentLocation!.latitude,
+  //               applicationBlock.currentLocation!.longitude),
+  //           zoom: 14),
+  //     ),
+  //   );
+  // }
 
   void _onToggleMapTypePressed() {
     final nextType = (_currentMapType == MapType.normal)
