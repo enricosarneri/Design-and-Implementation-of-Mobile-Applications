@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/screens/home/services/location_services.dart';
+import 'package:event_handler/models/event.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:geocoder/geocoder.dart';
 
 class DatabaseService {
@@ -21,22 +23,34 @@ class DatabaseService {
     });
   }
 
-  Stream<QuerySnapshot> get events {
+  Stream<QuerySnapshot> getEvents(){
     return eventCollection.snapshots();
   }
 
-  Future createEventData(String name, String description, String address,
-      String? eventType, DateTime? date, String maxPartecipants) async {
-    Coordinates coordinates =
-        await LocationService().getCoordinatesByAddress(address);
+  List<Event> eventListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((e){
+      return Event(e.get('managerId'), e.get('name'), e.get('description'), e.get('latitude'), e.get('longitude'), e.get('placeName'), e.get('eventType'),
+        e.get('date'), e.get('maxPartecipants',));
+    }).toList();
+  }
+
+  Stream<List<Event>> get Events{
+    return eventCollection.snapshots().map(eventListFromSnapshot);
+  }
+
+    Future createEventData (String name, String description, String address,String placeName,String? eventType, DateTime? date, String maxPartecipants) async{
+      Coordinates coordinates= await LocationService().getCoordinatesByAddress(address);
     return await eventCollection.add({
-      'manager': uid,
-      'name': name,
-      'description': description,
-      'coordinates': coordinates.toString(),
-      'eventType': eventType,
-      'date': date.toString(),
-      'maxPartecipants': maxPartecipants,
-    });
+      'manager' : uid,
+      'name' : name,
+      'description' : description,
+      'latitude' : coordinates.latitude.toString(),
+      'longitude' : coordinates.longitude.toString(),
+      'placeName' : placeName,
+      'eventType' : eventType,
+      'date' : date.toString(),
+      'maxPartecipants' : maxPartecipants,
+      }  
+    );
   }
 }

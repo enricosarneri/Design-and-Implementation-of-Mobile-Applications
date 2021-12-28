@@ -20,10 +20,11 @@ class _Create_EventState extends State<Create_Event> {
   final EventTypes = ['Public', 'Private'];
 
   String? _eventType;
-  String _name = '';
-  String _address = '';
-  String _description = '';
-  String _maxPartecipants = '';
+  String _name='';
+  String _address='';
+  String _placeName='';
+  String _description='';
+  String _maxPartecipants='';
   DateTime? _eventDate;
 
   Widget _buildName() {
@@ -58,8 +59,24 @@ class _Create_EventState extends State<Create_Event> {
     );
   }
 
-  Widget _buildDescription() {
+    Widget _buildPlaceName(){
     return TextFormField(
+      decoration: InputDecoration(labelText: 'Place Name'),
+      validator: (String? value){
+        if(value!.isEmpty){
+          return 'Name is Required';
+        }
+      },
+      onChanged: (value){
+      setState(() {
+      _placeName= value.trim();
+        });
+      },
+    );
+  }
+
+    Widget _buildDescription(){
+      return TextFormField(
       keyboardType: TextInputType.multiline,
       maxLines: null,
       decoration: InputDecoration(labelText: 'Description'),
@@ -155,46 +172,43 @@ class _Create_EventState extends State<Create_Event> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    {
-      return Scaffold(
-        appBar: AppBar(title: Text('Create_Event')),
-        body: Container(
-          margin: EdgeInsets.all(24),
-          child: Form(
-            key: _key,
-            child: ListView(
-              children: <Widget>[
-                _buildName(),
-                SizedBox(height: 20),
-                _buildDescription(),
-                SizedBox(height: 20),
-                _buildAddress(),
-                SizedBox(height: 20),
-                _buildEventType(),
-                SizedBox(height: 20),
-                _buildDataPicker(context),
-                SizedBox(height: 20),
-                _buildPartecipantNumber(),
-                SizedBox(height: 20),
-                ElevatedButton(
-                    child: const Text('Create Event'),
-                    onPressed: () async {
-                      if (!_key.currentState!.validate()) {
-                        return;
-                      }
-                      await DatabaseService(_authService.getCurrentUser()!.uid)
-                          .createEventData(_name, _description, _address,
-                              _eventType, _eventDate, _maxPartecipants);
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => Wrapper()),
-                          (Route<dynamic> route) => false);
-                    }),
-              ],
-            ),
+  Widget build(BuildContext context) {{
+    return Scaffold(
+      appBar: AppBar(title: Text('Create_Event')),
+      body: Container(
+        margin: EdgeInsets.all(24),
+        child: Form(
+          key: _key,
+          child: ListView(
+          children: <Widget>[
+            _buildName(),
+            SizedBox(height: 20),
+            _buildDescription(),
+            SizedBox(height: 20),
+            _buildAddress(),
+            SizedBox(height: 20),
+            _buildPlaceName(),
+            SizedBox(height: 20),
+            _buildEventType(),
+            SizedBox(height: 20),
+            _buildDataPicker(context),
+            SizedBox(height: 20),
+            _buildPartecipantNumber(),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: const Text('Create Event'),
+              onPressed: () async{
+                if(!_key.currentState!.validate()){
+                  return;
+                }
+                await DatabaseService(_authService.getCurrentUser()!.uid).createEventData(_name, _description, _address, _placeName, _eventType, _eventDate, _maxPartecipants);
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                Wrapper()), (Route<dynamic> route) => false);
+              }), 
+            ],
           ),
         ),
-      );
+      ));
     }
   }
 }

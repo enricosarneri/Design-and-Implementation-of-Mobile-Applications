@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:event_handler/models/event.dart';
 import 'package:event_handler/screens/home/services/application_block.dart';
 import 'package:event_handler/screens/home/services/location_services.dart';
+import 'package:event_handler/screens/home/services/place.dart';
+import 'package:event_handler/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-
-import 'services/place.dart';
+import 'package:event_handler/services/auth.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   @override
@@ -16,9 +21,23 @@ class GoogleMapScreen extends StatefulWidget {
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _searchController = TextEditingController();
+  final AuthService _authService = AuthService();
+  List<double> latList= [];
+  List<double> longList= [];
+  List<String> placeName = [];
   StreamSubscription? locationSubscription;
+  StreamSubscription? eventsListener;
 
-  void initState() {
+  @override
+  void initState() { 
+    final Stream<QuerySnapshot> events= DatabaseService(_authService.getCurrentUser()!.uid).getEvents();
+    eventsListener = events.listen((event) {
+      for (var i = 0; i < event.size; i++) {
+        latList.add(double.parse(event.docs[i]['latitude']));
+        longList.add(double.parse(event.docs[i]['longitude']));     
+        placeName.add(event.docs[i]['placeName']);
+      }
+     });
     final applicationBlock =
         Provider.of<ApplicationBlock>(context, listen: false);
     locationSubscription =
@@ -36,15 +55,21 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         Provider.of<ApplicationBlock>(context, listen: false);
     applicationBlock.dispose();
     locationSubscription!.cancel();
+    eventsListener!.cancel();
     super.dispose();
   }
 
-  static final Marker _kGooglePlexMarker = Marker(
-    markerId: MarkerId('_kGooglePlex'),
-    infoWindow: InfoWindow(title: 'Google Plex'),
+  Marker createMarker(double latitude, double longitude, String placeName){
+    log('latitude'+ latitude.toString());
+    log('latitude'+ longitude.toString());
+    log('latitude');
+
+    return Marker(
+    markerId: MarkerId(placeName),
+    infoWindow: InfoWindow(title: placeName),
     icon: BitmapDescriptor.defaultMarker,
-    position: LatLng(37.43296265331129, -122.08832357078792),
-  );
+    position: LatLng(latitude, longitude),);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +114,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                         myLocationButtonEnabled: true,
                         myLocationEnabled: true,
                         markers: {
-                          //_kGooglePlexMarker,
+                          for (var i = 0; i < latList.length; i++) 
+                            createMarker(latList[i], longList[i], placeName[i])
                         },
                         initialCameraPosition: CameraPosition(
                           target: LatLng(
@@ -159,7 +185,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   Future<void> _goToPlace2(Place place) async {
+    print("go to place2 is called");
     final GoogleMapController controller = await _controller.future;
+    print(place.geometry!.location!.lat!.toString()+ " long: "+ place.geometry!.location!.lng!.toString());
     controller.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
