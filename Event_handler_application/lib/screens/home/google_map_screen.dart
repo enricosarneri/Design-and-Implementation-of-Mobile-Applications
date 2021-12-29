@@ -74,7 +74,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Widget build(BuildContext context) {
     final applicationBlock = Provider.of<ApplicationBlock>(context);
     return Scaffold(
-      drawer: SideFilter(),
+      //drawer: SideFilter(),
       body: (applicationBlock.currentLocation == null)
           ? Center(
               child: CircularProgressIndicator(),
@@ -257,6 +257,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     backgroundColor: Colors.white,
                   ),
                 ),
+                SideFilter(),
               ],
             ),
     );

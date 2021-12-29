@@ -41,6 +41,7 @@ dependencies:
   fluttertoast: ^8.0.8
   geolocator: ^8.0.1
   geocoder: ^0.2.1
+  rxdart: ^0.27.3
 
 dev_dependencies:
   flutter_test:

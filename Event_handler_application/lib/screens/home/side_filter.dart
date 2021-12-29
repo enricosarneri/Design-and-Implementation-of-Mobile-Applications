@@ -1,70 +1,97 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
-class SideFilter extends StatelessWidget {
-  final padding = EdgeInsets.symmetric(horizontal: 20);
+class SideFilter extends StatefulWidget {
+  @override
+  _SideFilterState createState() => _SideFilterState();
+}
+
+class _SideFilterState extends State<SideFilter>
+    with SingleTickerProviderStateMixin<SideFilter> {
+  AnimationController? _animationController;
+  StreamController<bool>? isSideBarOpenedStreamController;
+  Stream<bool>? isSideBarOpenedStream;
+  StreamSink<bool>? isSideBarOpenedSink;
+  final _animationDuration = const Duration(milliseconds: 500);
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: _animationDuration);
+    isSideBarOpenedStreamController = PublishSubject<bool>();
+    isSideBarOpenedStream = isSideBarOpenedStreamController!.stream;
+    isSideBarOpenedSink = isSideBarOpenedStreamController!.sink;
+  }
+
+  @override
+  void dispose() {
+    _animationController!.dispose();
+    isSideBarOpenedStreamController!.close();
+    isSideBarOpenedSink!.close();
+    super.dispose();
+  }
+
+  void onIconPressed() {
+    final animationStatus = _animationController!.status;
+    final isAnimationCompleted = animationStatus == AnimationStatus.completed;
+    if (isAnimationCompleted) {
+      isSideBarOpenedSink!.add(false);
+      _animationController!.reverse();
+    } else {
+      isSideBarOpenedSink!.add(true);
+      _animationController!.forward();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final isCollapsed = false;
+    final screenWidth = MediaQuery.of(context).size.width;
 
-    return Container(
-      height: 250,
-      width: isCollapsed ? MediaQuery.of(context).size.width * 0.05 : null,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30), bottomRight: Radius.circular(30)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26.withOpacity(0.2),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(1, 3),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20.0),
-              bottomRight: Radius.circular(20)),
-          child: Drawer(
-            child: Container(
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 20,
-                    child: buildHeader(isCollapsed),
-                  ),
-                ],
+    return StreamBuilder<bool>(
+      initialData: false,
+      stream: isSideBarOpenedStream,
+      builder: (context, isSideBarOpenedAsync) {
+        return AnimatedPositioned(
+          duration: _animationDuration,
+          top: 0,
+          bottom: 0,
+          left: isSideBarOpenedAsync.data ? 0 : 0,
+          right: isSideBarOpenedAsync.data
+              ? screenWidth - (screenWidth * 0.75)
+              : screenWidth - 20,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  width: screenWidth * 0.75,
+                  height: 250,
+                  color: Colors.white,
+                ),
               ),
-            ),
+              GestureDetector(
+                onTap: () {
+                  onIconPressed();
+                },
+                child: Container(
+                    width: 20,
+                    height: 250,
+                    color: Colors.amber,
+                    alignment: Alignment.centerLeft,
+                    child: AnimatedIcon(
+                      progress: _animationController!.view,
+                      icon: AnimatedIcons.menu_close,
+                      color: Colors.black87,
+                      size: 20,
+                    )),
+              ),
+            ],
           ),
-        ),
-      ),
+        );
+      },
     );
   }
-
-  Widget buildHeader(bool isCollapsed) => Row(
-        children: [
-          const SizedBox(
-            width: 24,
-          ),
-          FlutterLogo(
-            size: 24,
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-          Text(
-            'Filters',
-            style: TextStyle(
-              fontSize: 32,
-              color: Colors.black,
-            ),
-          ),
-        ],
-      );
 }
