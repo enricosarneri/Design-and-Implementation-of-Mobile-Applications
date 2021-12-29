@@ -1,9 +1,13 @@
+import 'package:event_handler/main.dart';
+import 'package:event_handler/screens/authenticate/registration.dart';
 import 'package:event_handler/screens/events/create_event.dart';
+import 'package:event_handler/screens/home/side_filter.dart';
 import 'package:event_handler/screens/profile/profile.dart';
 import 'package:event_handler/screens/share_link/share_link.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:event_handler/screens/home/google_map_screen.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -19,6 +23,7 @@ class _HomeState extends State<Home> {
     Create_Event(),
     Profile(),
   ];
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: screens[index],
@@ -26,10 +31,10 @@ class _HomeState extends State<Home> {
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+                topRight: Radius.circular(20), topLeft: Radius.circular(20)),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: Offset(0, 3),
@@ -38,8 +43,8 @@ class _HomeState extends State<Home> {
           ),
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(30),
-              topLeft: Radius.circular(30),
+              topRight: Radius.circular(20),
+              topLeft: Radius.circular(20),
             ),
             child: NavigationBarTheme(
               data: NavigationBarThemeData(
@@ -116,194 +121,6 @@ class _HomeState extends State<Home> {
               //         },
               //         icon: const Icon(Icons.person),
               //         label: const Text('Logout'))
-              //   ],
-              // ),
-              // floatingActionButton: FloatingActionButton(
-              //   onPressed: () => Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => GoogleMapScreen(),
-              //     ),
-              //   ),
-              //   tooltip: 'GoogleMap',
-              //   child: const Icon(Icons.pin_drop_outlined),
-              // ),
-              // body: Container(
-              //   alignment: Alignment.bottomLeft,
-              //   padding: EdgeInsets.only(left: 15.0, bottom: 10.0),
-              //   child: ElevatedButton(
-              //     child: const Icon(Icons.add_location_alt_outlined),
-              //     onPressed: () => Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) => Create_Event(),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // body: Column(
-              //   children: <Widget>[
-              //     _index == 0
-              //         ? GoogleMapScreen()
-              //         : (_index == 1
-              //             ? ShareLink(context)
-              //             : _index == 2
-              //                 ? Create_Event()
-              //                 : ShareLink(context)),
-              //     Padding(
-              //       padding: EdgeInsets.only(
-              //           top: 10.0,
-              //           left: 18,
-              //           right: 18,
-              //           bottom: MediaQuery.of(context).padding.bottom),
-              //       child: Row(
-              //         children: <Widget>[
-              //           GestureDetector(
-              //             onTap: () {
-              //               setState(() {
-              //                 _index = 0;
-              //               });
-              //             },
-              //             child: Container(
-              //               decoration: BoxDecoration(
-              //                 color: _index == 0 ? Colors.red : Colors.transparent,
-              //                 borderRadius: BorderRadius.circular(25),
-              //               ),
-              //               child: Padding(
-              //                 padding: const EdgeInsets.symmetric(
-              //                     vertical: 10.0, horizontal: 15),
-              //                 child: Row(
-              //                   children: <Widget>[
-              //                     Icon(
-              //                       Icons.home,
-              //                       color: _index == 0 ? Colors.white : Colors.black,
-              //                     ),
-              //                     Padding(
-              //                       padding: const EdgeInsets.only(left: 12.0),
-              //                       child: Text(
-              //                         _index == 0 ? "Home" : "",
-              //                         style: TextStyle(
-              //                           color:
-              //                               _index == 0 ? Colors.white : Colors.black,
-              //                         ),
-              //                       ),
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //           Spacer(),
-              //           GestureDetector(
-              //             onTap: () {
-              //               setState(() {
-              //                 _index = 1;
-              //               });
-              //             },
-              //             child: Container(
-              //               decoration: BoxDecoration(
-              //                 color: _index == 1 ? Colors.red : Colors.transparent,
-              //                 borderRadius: BorderRadius.circular(25),
-              //               ),
-              //               child: Padding(
-              //                 padding: const EdgeInsets.symmetric(
-              //                     vertical: 10.0, horizontal: 15),
-              //                 child: Row(
-              //                   children: <Widget>[
-              //                     Icon(
-              //                       Icons.mobile_screen_share,
-              //                       color: _index == 1 ? Colors.white : Colors.black,
-              //                     ),
-              //                     Padding(
-              //                       padding: const EdgeInsets.only(left: 12.0),
-              //                       child: Text(
-              //                         _index == 1 ? "Shake Link" : "",
-              //                         style: TextStyle(
-              //                           color:
-              //                               _index == 1 ? Colors.white : Colors.black,
-              //                         ),
-              //                       ),
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //           Spacer(),
-              //           GestureDetector(
-              //             onTap: () {
-              //               setState(() {
-              //                 _index = 2;
-              //               });
-              //             },
-              //             child: Container(
-              //               decoration: BoxDecoration(
-              //                 color: _index == 2 ? Colors.red : Colors.transparent,
-              //                 borderRadius: BorderRadius.circular(25),
-              //               ),
-              //               child: Padding(
-              //                 padding: const EdgeInsets.symmetric(
-              //                     vertical: 10.0, horizontal: 15),
-              //                 child: Row(
-              //                   children: <Widget>[
-              //                     Icon(
-              //                       Icons.add,
-              //                       color: _index == 2 ? Colors.white : Colors.black,
-              //                     ),
-              //                     Padding(
-              //                       padding: const EdgeInsets.only(left: 12.0),
-              //                       child: Text(
-              //                         _index == 2 ? "Create Event" : "",
-              //                         style: TextStyle(
-              //                           color:
-              //                               _index == 2 ? Colors.white : Colors.black,
-              //                         ),
-              //                       ),
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //           Spacer(),
-              //           GestureDetector(
-              //             onTap: () {
-              //               setState(() {
-              //                 _index = 3;
-              //               });
-              //             },
-              //             child: Container(
-              //               decoration: BoxDecoration(
-              //                 color: _index == 3 ? Colors.red : Colors.transparent,
-              //                 borderRadius: BorderRadius.circular(25),
-              //               ),
-              //               child: Padding(
-              //                 padding: const EdgeInsets.symmetric(
-              //                     vertical: 10.0, horizontal: 15),
-              //                 child: Row(
-              //                   children: <Widget>[
-              //                     Icon(
-              //                       Icons.person,
-              //                       color: _index == 3 ? Colors.white : Colors.black,
-              //                     ),
-              //                     Padding(
-              //                       padding: const EdgeInsets.only(left: 12.0),
-              //                       child: Text(
-              //                         _index == 3 ? "Profile" : "",
-              //                         style: TextStyle(
-              //                           color:
-              //                               _index == 3 ? Colors.white : Colors.black,
-              //                         ),
-              //                       ),
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     )
               //   ],
               // ),
             ),

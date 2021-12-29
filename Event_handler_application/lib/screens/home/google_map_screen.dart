@@ -6,6 +6,7 @@ import 'package:event_handler/models/event.dart';
 import 'package:event_handler/screens/home/services/application_block.dart';
 import 'package:event_handler/screens/home/services/location_services.dart';
 import 'package:event_handler/screens/home/services/place.dart';
+import 'package:event_handler/screens/home/side_filter.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
@@ -22,23 +23,23 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _searchController = TextEditingController();
   final AuthService _authService = AuthService();
-  List<Marker> markers=[];
+  List<Marker> markers = [];
   StreamSubscription? locationSubscription;
   StreamSubscription? eventsListener;
   MapType _currentMapType = MapType.normal;
 
-
   @override
   void initState() {
-        final  Stream<List<Event>> eventsList =
+    final Stream<List<Event>> eventsList =
         DatabaseService(_authService.getCurrentUser()!.uid).events;
-        eventsListener = eventsList.listen((event) {
-        for (var i = 0; i < event.length; i++) {
-          setState(() {
-            markers.add(createMarker(event[i].latitude,event[i].longitude, event[i].placeName));
-          });
-        }
-      });
+    eventsListener = eventsList.listen((event) {
+      for (var i = 0; i < event.length; i++) {
+        setState(() {
+          markers.add(createMarker(
+              event[i].latitude, event[i].longitude, event[i].placeName));
+        });
+      }
+    });
 
     final applicationBlock =
         Provider.of<ApplicationBlock>(context, listen: false);
@@ -73,34 +74,33 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Widget build(BuildContext context) {
     final applicationBlock = Provider.of<ApplicationBlock>(context);
     return Scaffold(
+      drawer: SideFilter(),
       body: (applicationBlock.currentLocation == null)
           ? Center(
               child: CircularProgressIndicator(),
             )
           : Stack(
               children: [
-                     Container(
-                    child: GoogleMap(
-                      mapType: _currentMapType,
-                      myLocationEnabled: true,
-                      zoomControlsEnabled: false,
-                      indoorViewEnabled: true,
-                      myLocationButtonEnabled: false,
-                      markers: {
-                        for (var i = 0; i < markers.length; i++)
-                          markers[i]
-                      },
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                            applicationBlock.currentLocation!.latitude,
-                            applicationBlock.currentLocation!.longitude),
-                        zoom: 14,
-                      ),
-                      onMapCreated: (GoogleMapController controller) {
-                        _controller.complete(controller);
-                      },
+                Container(
+                  child: GoogleMap(
+                    mapType: _currentMapType,
+                    myLocationEnabled: true,
+                    zoomControlsEnabled: false,
+                    indoorViewEnabled: true,
+                    myLocationButtonEnabled: false,
+                    markers: {
+                      for (var i = 0; i < markers.length; i++) markers[i]
+                    },
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(applicationBlock.currentLocation!.latitude,
+                          applicationBlock.currentLocation!.longitude),
+                      zoom: 14,
                     ),
+                    onMapCreated: (GoogleMapController controller) {
+                      _controller.complete(controller);
+                    },
                   ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 130, left: 330),
                   child: FloatingActionButton(
@@ -109,7 +109,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     materialTapTargetSize: MaterialTapTargetSize.padded,
                     mini: true,
                     backgroundColor: Colors.white,
-                    child: const Icon(Icons.layers, size: 28.0, color: Colors.black54,),
+                    child: const Icon(
+                      Icons.layers,
+                      size: 28.0,
+                      color: Colors.black54,
+                    ),
                   ),
                 ),
                 if (applicationBlock.searchResults != null &&
@@ -180,7 +184,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     child: TextFormField(
                       textAlignVertical: TextAlignVertical.center,
                       cursorWidth: 2,
-                      cursorHeight: 25,
+                      // cursorHeight: 16,
                       controller: _searchController,
                       textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
