@@ -1,5 +1,5 @@
 import 'package:event_handler/models/user.dart';
-import 'package:event_handler/screens/home/services/application_block.dart';
+import 'package:event_handler/services/localization%20services/application_block.dart';
 import 'package:event_handler/screens/wrapper.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/splash.dart';

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:event_handler/screens/home/services/location_services.dart';
+import 'package:event_handler/models/user.dart';
+import 'package:event_handler/services/localization%20services/location_services.dart';
 import 'package:event_handler/models/event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoder/geocoder.dart';
@@ -36,6 +39,16 @@ class DatabaseService {
 
   Stream<List<Event>> get events{
     return eventCollection.snapshots().map(eventListFromSnapshot);
+  }
+
+  Future<AppUser> getCurrentUser() async{
+    DocumentSnapshot? user;
+    await userCollection.doc(uid).get().then((value) {
+      user= value;
+    });
+    AppUser appUser= AppUser.fromAppUser(uid, user!['email'], user!['name'], user!['surname'], user!['password'], user!['isowner']);
+    log("Current logged user: "+appUser.name);
+    return appUser;
   }
 
     Future createEventData (String name, String description, String address,String placeName,String? eventType, DateTime? date, String maxPartecipants) async{

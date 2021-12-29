@@ -59,8 +59,8 @@ class _SideFilterState extends State<SideFilter>
           duration: _animationDuration,
           top: 0,
           bottom: 0,
-          left: isSideBarOpenedAsync.data ? 0 : 0,
-          right: isSideBarOpenedAsync.data
+          left: isSideBarOpenedAsync.data! ? 0 : 0,
+          right: isSideBarOpenedAsync.data!
               ? screenWidth - (screenWidth * 0.75)
               : screenWidth - 20,
           child: Row(

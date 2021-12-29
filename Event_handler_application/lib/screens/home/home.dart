@@ -1,12 +1,12 @@
 import 'package:event_handler/main.dart';
 import 'package:event_handler/screens/authenticate/registration.dart';
-import 'package:event_handler/screens/events/create_event.dart';
+import 'package:event_handler/screens/home/pages/create_event.dart';
 import 'package:event_handler/screens/home/side_filter.dart';
-import 'package:event_handler/screens/profile/profile.dart';
-import 'package:event_handler/screens/share_link/share_link.dart';
+import 'package:event_handler/screens/home/pages/profile.dart';
+import 'package:event_handler/screens/home/pages/share_link.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:event_handler/screens/home/google_map_screen.dart';
+import 'package:event_handler/screens/home/pages/google_map_screen.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {

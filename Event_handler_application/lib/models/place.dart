@@ -1,4 +1,4 @@
-import 'package:event_handler/screens/home/services/geometry.dart';
+import 'package:event_handler/models/geometry.dart';
 
 class Place {
   final Geometry? geometry;

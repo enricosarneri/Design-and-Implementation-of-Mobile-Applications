@@ -10,9 +10,10 @@ class AuthService{
 
   final FirebaseAuth _auth=FirebaseAuth.instance;
   String errorMessage='';
+  AppUser? appUser;
   //create user obj based on FirebaseUser
   AppUser? _userFromFirebaseUser(User? user){
-    return user!=null ? AppUser(user.uid,user.email,user.displayName) : null;
+    return user!=null ? AppUser(user.uid,user.email!) : null;
   }
 
   Future signInWithEmailAndPassword (String email, String password) async {

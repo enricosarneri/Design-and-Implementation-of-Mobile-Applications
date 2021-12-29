@@ -3,9 +3,9 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/event.dart';
-import 'package:event_handler/screens/home/services/application_block.dart';
-import 'package:event_handler/screens/home/services/location_services.dart';
-import 'package:event_handler/screens/home/services/place.dart';
+import 'package:event_handler/services/localization%20services/application_block.dart';
+import 'package:event_handler/services/localization%20services/location_services.dart';
+import 'package:event_handler/models/place.dart';
 import 'package:event_handler/screens/home/side_filter.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:flutter/material.dart';
@@ -32,14 +32,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   void initState() {
     final Stream<List<Event>> eventsList =
         DatabaseService(_authService.getCurrentUser()!.uid).events;
-    eventsListener = eventsList.listen((event) {
-      for (var i = 0; i < event.length; i++) {
-        setState(() {
-          markers.add(createMarker(
-              event[i].latitude, event[i].longitude, event[i].placeName));
-        });
-      }
-    });
+        DatabaseService(_authService.getCurrentUser()!.uid).getCurrentUser();
+        eventsListener = eventsList.listen((event) {
+        for (var i = 0; i < event.length; i++) {
+          setState(() {
+            markers.add(createMarker(event[i].latitude,event[i].longitude, event[i].placeName));
+          });
+        }
+      });
 
     final applicationBlock =
         Provider.of<ApplicationBlock>(context, listen: false);

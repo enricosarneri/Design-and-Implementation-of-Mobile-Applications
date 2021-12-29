@@ -1,8 +1,8 @@
-import 'package:event_handler/screens/home/services/place_search.dart';
+import 'package:event_handler/services/localization%20services/place_search.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-import 'place.dart';
+import '../../models/place.dart';
 
 class PlacesService {
   final key = 'AIzaSyCp-EXt7pBSEe6OySbG0CUImR3U_P4Y9Cg';

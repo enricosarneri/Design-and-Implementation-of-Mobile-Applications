@@ -1,4 +1,4 @@
-import 'package:event_handler/screens/home/services/location.dart';
+import 'package:event_handler/models/location.dart';
 
 class Geometry {
   final Location? location;
