@@ -8,18 +8,17 @@ import 'package:provider/provider.dart';
 
 //This class listen to the authentication changes, for instance log-in log-out
 class Wrapper extends StatelessWidget {
-  const Wrapper({ Key? key }) : super(key: key);
+  const Wrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final AppUser? user = Provider.of<AppUser?> (context);
-    if(user == null ){
+    final AppUser? user = Provider.of<AppUser?>(context);
+    if (user == null) {
       log("user is null");
       return SignIn();
-    }
-    else{
+    } else {
       log("user not null");
       return Home();
     }
-  } 
-} 
+  }
+}

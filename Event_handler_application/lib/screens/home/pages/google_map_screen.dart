@@ -18,6 +18,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   @override
+  final setSlidingUpPanelFuncion;
+  GoogleMapScreen ({Key? key, this.setSlidingUpPanelFuncion}): super(key: key);
   _GoogleMapScreenState createState() => _GoogleMapScreenState();
 }
 
@@ -30,6 +32,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   StreamSubscription? eventsListener;
   MapType _currentMapType = MapType.normal;
   PageController _pageController = new PageController();
+
   @override
   void initState() {
     final Stream<List<Event>> eventsList =
@@ -39,7 +42,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       for (var i = 0; i < event.length; i++) {
         setState(() {
           markers.add(createMarker(
-              event[i].latitude, event[i].longitude, event[i].placeName));
+              event[i].latitude, event[i].longitude, event[i].placeName, event[i].date, event[i].description, event[i].eventType, event[i].managerId, event[i].maxPartecipants, event[i].name));
         });
       }
     });
@@ -62,14 +65,16 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     super.dispose();
   }
 
-  Marker createMarker(double latitude, double longitude, String placeName) {
-    log('latitude ' + latitude.toString());
-    log('latitude ' + longitude.toString());
+  Marker createMarker(double latitude, double longitude, String placeName, String date, String description, String eventType, String managerId, int maxPartecipants, String name) {
+    Event event= Event(managerId, name, description, latitude, longitude, placeName, eventType, date, maxPartecipants);
     return Marker(
       markerId: MarkerId(placeName),
       infoWindow: InfoWindow(title: placeName),
       icon: BitmapDescriptor.defaultMarker,
       position: LatLng(latitude, longitude),
+      onTap: (){
+        widget.setSlidingUpPanelFuncion(event);
+      }
     );
   }
 
@@ -77,347 +82,335 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Widget build(BuildContext context) {
     final applicationBlock = Provider.of<ApplicationBlock>(context);
     return Scaffold(
-      body: DraggableBottomSheet(
-        backgroundWidget: Scaffold(
-          // body: Container(
-          //   height: MediaQuery.of(context).size.height,
-          //   color: Colors.red,
-          // ),
-
-          body: (applicationBlock.currentLocation == null)
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Stack(
-                  children: [
-                    Container(
-                      child: GoogleMap(
-                        mapType: _currentMapType,
-                        myLocationEnabled: true,
-                        zoomControlsEnabled: false,
-                        indoorViewEnabled: true,
-                        myLocationButtonEnabled: false,
-                        markers: {
-                          for (var i = 0; i < markers.length; i++) markers[i]
-                        },
-                        initialCameraPosition: CameraPosition(
-                          target: LatLng(
-                              applicationBlock.currentLocation!.latitude,
-                              applicationBlock.currentLocation!.longitude),
-                          zoom: 14,
-                        ),
-                        onMapCreated: (GoogleMapController controller) {
-                          _controller.complete(controller);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 130, left: 330),
-                      child: FloatingActionButton(
-                        heroTag: 'toggle_map_type_button',
-                        onPressed: _onToggleMapTypePressed,
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        mini: true,
-                        backgroundColor: Colors.white,
-                        child: const Icon(
-                          Icons.layers,
-                          size: 28.0,
-                          color: Colors.black54,
+        body: DraggableBottomSheet(
+          backgroundWidget: Scaffold(
+            body: (applicationBlock.currentLocation == null)
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Stack(
+                    children: [
+                      Container(
+                        child: GoogleMap(
+                          mapType: _currentMapType,
+                          myLocationEnabled: true,
+                          zoomControlsEnabled: false,
+                          indoorViewEnabled: true,
+                          myLocationButtonEnabled: false,
+                          markers: {
+                            for (var i = 0; i < markers.length; i++) markers[i]
+                          },
+                          initialCameraPosition: CameraPosition(
+                            target: LatLng(
+                                applicationBlock.currentLocation!.latitude,
+                                applicationBlock.currentLocation!.longitude),
+                            zoom: 14,
+                          ),
+                          onMapCreated: (GoogleMapController controller) {
+                            _controller.complete(controller);
+                          },
                         ),
                       ),
-                    ),
-                    if (applicationBlock.searchResults != null &&
-                        applicationBlock.searchResults!.length != 0)
                       Padding(
-                        padding: const EdgeInsets.only(
-                            right: 12.0, left: 12.0, top: 70),
+                        padding: const EdgeInsets.only(top: 130, left: 330),
+                        child: FloatingActionButton(
+                          heroTag: 'toggle_map_type_button',
+                          onPressed: _onToggleMapTypePressed,
+                          materialTapTargetSize: MaterialTapTargetSize.padded,
+                          mini: true,
+                          backgroundColor: Colors.white,
+                          child: const Icon(
+                            Icons.layers,
+                            size: 28.0,
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ),
+                      if (applicationBlock.searchResults != null &&
+                          applicationBlock.searchResults!.length != 0)
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              right: 12.0, left: 12.0, top: 70),
+                          child: Container(
+                            height: 300.0,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(.6),
+                              backgroundBlendMode: BlendMode.darken,
+                              borderRadius: BorderRadius.circular(30),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      if (applicationBlock.searchResults != null &&
+                          applicationBlock.searchResults!.length != 0)
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 12.0, right: 12.0, top: 70),
+                          child: Container(
+                            height: 300.0,
+                            child: ListView.builder(
+                              itemCount: applicationBlock.searchResults!.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text(
+                                    applicationBlock
+                                        .searchResults![index].description!,
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onTap: () {
+                                    applicationBlock.setSelectedLocation(
+                                        applicationBlock
+                                            .searchResults![index].placeId!);
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 12, right: 12, top: 70),
                         child: Container(
-                          height: 300.0,
-                          width: double.infinity,
+                          height: 50,
                           decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(.6),
-                            backgroundBlendMode: BlendMode.darken,
-                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(50),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
+                                color: Colors.grey.withOpacity(0.3),
                                 spreadRadius: 5,
                                 blurRadius: 7,
                                 offset: Offset(0, 3),
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                    if (applicationBlock.searchResults != null &&
-                        applicationBlock.searchResults!.length != 0)
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 12.0, right: 12.0, top: 70),
-                        child: Container(
-                          height: 300.0,
-                          child: ListView.builder(
-                            itemCount: applicationBlock.searchResults!.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(
-                                  applicationBlock
-                                      .searchResults![index].description!,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onTap: () {
-                                  applicationBlock.setSelectedLocation(
-                                      applicationBlock
-                                          .searchResults![index].placeId!);
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 12, right: 12, top: 70),
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: TextFormField(
-                          textAlignVertical: TextAlignVertical.center,
-                          cursorWidth: 2,
-                          // cursorHeight: 16,
-                          controller: _searchController,
-                          textCapitalization: TextCapitalization.words,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.zero,
-                            hintText: 'Search by City...',
-                            hintStyle: TextStyle(fontSize: 16),
-                            labelStyle: TextStyle(fontSize: 16),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            suffixIcon: Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.only(end: 4.0),
-                              child: IconButton(
-                                onPressed: () async {
-                                  var place = await LocationService()
-                                      .getPlace(_searchController.text);
-                                  _goToPlace(place);
-                                },
-                                icon: Icon(
-                                  Icons.search,
-                                  color: Colors.blueGrey,
-                                ),
+                          child: TextFormField(
+                            textAlignVertical: TextAlignVertical.center,
+                            cursorWidth: 2,
+                            // cursorHeight: 16,
+                            controller: _searchController,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              hintText: 'Search by City...',
+                              hintStyle: TextStyle(fontSize: 16),
+                              labelStyle: TextStyle(fontSize: 16),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                borderSide: BorderSide(color: Colors.transparent),
                               ),
-                            ),
-                            prefixIcon: Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.only(start: 4.0),
-                              child: Icon(Icons.person),
-                            ),
-                          ),
-                          cursorColor: Colors.black,
-                          onChanged: (value) =>
-                              applicationBlock.searchPlaces(value),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 315, top: 630),
-                      child: FloatingActionButton(
-                        onPressed: () async {
-                          final GoogleMapController controller =
-                              await _controller.future;
-                          controller.animateCamera(
-                            CameraUpdate.newCameraPosition(
-                              CameraPosition(
-                                  target: LatLng(
-                                      applicationBlock
-                                          .currentLocation!.latitude,
-                                      applicationBlock
-                                          .currentLocation!.longitude),
-                                  zoom: 14),
-                            ),
-                          );
-                        },
-                        child: const Icon(
-                          Icons.my_location,
-                          size: 25.0,
-                          color: Colors.black54,
-                        ),
-                        backgroundColor: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-        ),
-        expandedChild: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3),
-              ),
-            ],
-            color: Colors.black54,
-          ),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Colors.black,
-                  size: 27,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(right: 2, left: 2),
-                height: MediaQuery.of(context).size.height * 0.35 - 68 - 45,
-                child: Stack(
-                  children: [
-                    PageView(
-                      controller: _pageController,
-                      children: [
-                        Container(
-                          color: Colors.red,
-                          margin: EdgeInsets.only(),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(right: 8, left: 8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                height: 40,
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: rowChips(),
-                                ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                borderSide: BorderSide(color: Colors.transparent),
                               ),
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 8, left: 8),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(50),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                borderSide: BorderSide(color: Colors.transparent),
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                borderSide: BorderSide(color: Colors.transparent),
+                              ),
+                              suffixIcon: Padding(
+                                padding:
+                                    const EdgeInsetsDirectional.only(end: 4.0),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    var place = await LocationService()
+                                        .getPlace(_searchController.text);
+                                    _goToPlace(place);
+                                  },
+                                  icon: Icon(
+                                    Icons.search,
+                                    color: Colors.blueGrey,
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          color: Colors.blue,
-                          child: Center(
-                            child: Text(
-                              'Page2',
+                              ),
+                              prefixIcon: Padding(
+                                padding:
+                                    const EdgeInsetsDirectional.only(start: 4.0),
+                                child: Icon(Icons.person),
+                              ),
                             ),
+                            cursorColor: Colors.black,
+                            onChanged: (value) =>
+                                applicationBlock.searchPlaces(value),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                color: Colors.blue,
-                height: 20,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      color: Colors.transparent,
-                      padding: const EdgeInsets.all(2),
-                      child: Center(
-                        child: SmoothPageIndicator(
-                          controller: _pageController,
-                          count: 2,
-                          effect: WormEffect(
-                              type: WormType.thin,
-                              dotHeight: 10,
-                              dotWidth: 10,
-                              dotColor: Colors.black38,
-                              activeDotColor: Colors.black),
-                          onDotClicked: (index) =>
-                              _pageController.animateToPage(index,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.bounceOut),
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-            ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 315, top: 630),
+                        child: FloatingActionButton(
+                          onPressed: () async {
+                            final GoogleMapController controller =
+                                await _controller.future;
+                            controller.animateCamera(
+                              CameraUpdate.newCameraPosition(
+                                CameraPosition(
+                                    target: LatLng(
+                                        applicationBlock
+                                            .currentLocation!.latitude,
+                                        applicationBlock
+                                            .currentLocation!.longitude),
+                                    zoom: 14),
+                              ),
+                            );
+                          },
+                          child: const Icon(
+                            Icons.my_location,
+                            size: 25.0,
+                            color: Colors.black54,
+                          ),
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
           ),
-        ),
-        previewChild: Container(
-          padding: EdgeInsets.only(top: 8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
+          expandedChild: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3),
+                ),
+              ],
+              color: Colors.black54,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3),
-              ),
-            ],
-            color: Colors.black54,
-          ),
-          child: Column(
-            children: [
-              Container(
-                height: 3.5,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(50.0),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.black,
+                    size: 27,
+                  ),
                 ),
-              ),
-            ],
+                Container(
+                  padding: EdgeInsets.only(right: 2, left: 2),
+                  height: MediaQuery.of(context).size.height * 0.35 - 68 - 45,
+                  child: Stack(
+                    children: [
+                      PageView(
+                        controller: _pageController,
+                        children: [
+                          Container(
+                            color: Colors.transparent,
+                            margin: EdgeInsets.only(
+                              right: 8.0,
+                              left: 8.0,
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  color: Colors.transparent,
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: rowChips(),
+                                  ),
+                                ),
+                                Container(
+                                  color: Colors.yellow,
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                            color: Colors.transparent,
+                            child: Center(
+                              child: Text(
+                                'Page2',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.transparent,
+                  height: 20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        color: Colors.transparent,
+                        padding: const EdgeInsets.all(2),
+                        child: Center(
+                          child: SmoothPageIndicator(
+                            controller: _pageController,
+                            count: 2,
+                            effect: WormEffect(
+                                type: WormType.thin,
+                                dotHeight: 10,
+                                dotWidth: 10,
+                                dotColor: Colors.black38,
+                                activeDotColor: Colors.black),
+                            onDotClicked: (index) =>
+                                _pageController.animateToPage(index,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.bounceOut),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
+          previewChild: Container(
+            padding: EdgeInsets.only(top: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                topRight: Radius.circular(30.0),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3),
+                ),
+              ],
+              color: Colors.black54,
+            ),
+            child: Column(
+              children: [
+                Container(
+                  height: 3.5,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          minExtent: 80,
+          expansionExtent: 150,
+          maxExtent: MediaQuery.of(context).size.height * 0.35,
         ),
-        minExtent: 80,
-        expansionExtent: 150,
-        maxExtent: MediaQuery.of(context).size.height * 0.35,
-      ),
     );
   }
 
