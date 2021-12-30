@@ -59,7 +59,9 @@ class _SideFilterState extends State<SideFilter>
           duration: _animationDuration,
           top: 0,
           bottom: 0,
-          left: isSideBarOpenedAsync.data! ? 0 : 0,
+          left: isSideBarOpenedAsync.data!
+              ? 0
+              : -(screenWidth - (screenWidth * 0.75)),
           right: isSideBarOpenedAsync.data!
               ? screenWidth - (screenWidth * 0.75)
               : screenWidth - 20,
@@ -68,30 +70,64 @@ class _SideFilterState extends State<SideFilter>
               Expanded(
                 child: Container(
                   width: screenWidth * 0.75,
-                  height: 250,
-                  color: Colors.white,
+                  height: 270,
+                  color: Color(0xFFf1f5fb),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  onIconPressed();
-                },
-                child: Container(
-                    width: 20,
-                    height: 250,
-                    color: Colors.amber,
-                    alignment: Alignment.centerLeft,
-                    child: AnimatedIcon(
-                      progress: _animationController!.view,
-                      icon: AnimatedIcons.menu_close,
-                      color: Colors.black87,
-                      size: 20,
-                    )),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.6),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    onIconPressed();
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                    child: Container(
+                        width: 20,
+                        height: 270,
+                        color: Colors.black,
+                        alignment: Alignment.center,
+                        child: buildIcon(context, isSideBarOpenedAsync.data!)),
+                  ),
+                ),
               ),
             ],
           ),
         );
       },
+    );
+  }
+
+  Widget buildIcon(BuildContext context, bool isCollapsed) {
+    final icon = isCollapsed
+        ? Icons.keyboard_arrow_left_rounded
+        : Icons.keyboard_arrow_right_rounded;
+    return Container(
+      width: 20,
+      color: Color(0xFFf1f5fb),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0),
+        child: Icon(
+          icon,
+          color: Colors.black87,
+          size: 20,
+        ),
+      ),
     );
   }
 }

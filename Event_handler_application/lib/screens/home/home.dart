@@ -31,20 +31,20 @@ class _HomeState extends State<Home> {
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20), topLeft: Radius.circular(20)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3),
-              ),
-            ],
+                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.grey.withOpacity(0.5),
+            //     spreadRadius: 5,
+            //     blurRadius: 7,
+            //     offset: Offset(0, 3),
+            //   ),
+            // ],
           ),
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(20),
-              topLeft: Radius.circular(20),
+              topRight: Radius.circular(30),
+              topLeft: Radius.circular(30),
             ),
             child: NavigationBarTheme(
               data: NavigationBarThemeData(
