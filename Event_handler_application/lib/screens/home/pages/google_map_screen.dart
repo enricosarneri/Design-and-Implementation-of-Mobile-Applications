@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   @override
@@ -33,6 +34,24 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   MapType _currentMapType = MapType.normal;
   PageController _pageController = new PageController();
 
+  late bool _isSelected;
+
+  late List<String> reportList = [
+    'Cinema',
+    'Theatre',
+    'Restaurant',
+    'Bar/Pub',
+    'Disco',
+    'Private Setting',
+  ];
+  List<String> selectedReportList = [];
+  late List<int> _dynamicChipsColor = [
+    0xFFff8a65,
+    0xFF4fc3f7,
+    0xFF9575cd,
+    0xFF4db6ac,
+    0xFF5cda65,
+    0xFFff8a65,
   ];
 
   late List<EventLocation> _locations;
