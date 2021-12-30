@@ -310,29 +310,36 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       controller: _pageController,
                       children: [
                         Container(
-                          color: Colors.transparent,
-                          margin: EdgeInsets.only(
-                            right: 8.0,
-                            left: 8.0,
-                          ),
+                          color: Colors.red,
+                          margin: EdgeInsets.only(),
                           child: Column(
                             children: [
                               Container(
+                                margin: EdgeInsets.only(right: 8, left: 8),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
                                 height: 40,
-                                color: Colors.transparent,
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: rowChips(),
                                 ),
                               ),
-                              Container(
-                                color: Colors.yellow,
+                              Expanded(
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 8, left: 8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                ),
                               )
                             ],
                           ),
                         ),
                         Container(
-                          color: Colors.transparent,
+                          color: Colors.blue,
                           child: Center(
                             child: Text(
                               'Page2',
@@ -345,7 +352,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 ),
               ),
               Container(
-                color: Colors.transparent,
+                color: Colors.blue,
                 height: 20,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -450,7 +457,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   rowChips() {
-    return Expanded(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.purple,
+        borderRadius: BorderRadius.circular(30),
+      ),
       child: Row(
         children: <Widget>[
           chipForRow('Cinema', Color(0xFFff8a65)),
@@ -467,7 +478,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Widget chipForRow(String label, Color color) {
     return FittedBox(
       child: Container(
-        margin: EdgeInsets.only(right: 8.0, left: 8.0, top: 2),
+        margin: EdgeInsets.only(right: 8.0, left: 8.0),
         child: Chip(
           labelPadding: EdgeInsets.all(5.0),
           avatar: CircleAvatar(
