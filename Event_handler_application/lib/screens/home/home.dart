@@ -39,10 +39,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    screens[0]=GoogleMapScreen(setSlidingUpPanelFuncion: setSlidingUpPanel);
     return Scaffold(
       extendBody: true,
-      body: (index == 0 ) 
-      ? SlidingUpPanel(
+      body: SlidingUpPanel(
         controller: panelController,
         parallaxEnabled: true,
         parallaxOffset: .5,
@@ -131,99 +131,9 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-          body: GoogleMapScreen(setSlidingUpPanelFuncion: setSlidingUpPanel,),
+          body: screens[index],
         ) 
-      )
-      : Scaffold(
-        body: screens[index],
-        bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.grey.withOpacity(0.5),
-          //     spreadRadius: 5,
-          //     blurRadius: 7,
-          //     offset: Offset(0, 3),
-          //   ),
-          // ],
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(30),
-            topLeft: Radius.circular(30),
-          ),
-          child: NavigationBarTheme(
-            data: NavigationBarThemeData(
-              indicatorColor: Colors.blue.shade100,
-              labelTextStyle: MaterialStateProperty.all(
-                TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-              ),
-            ),
-            child: NavigationBar(
-              height: 60,
-              backgroundColor: Color(0xFFf1f5fb),
-              labelBehavior:
-                  NavigationDestinationLabelBehavior.onlyShowSelected,
-              selectedIndex: index,
-              animationDuration: Duration(seconds: 1),
-              onDestinationSelected: (index) =>
-                  setState(() => this.index = index),
-              destinations: [
-                NavigationDestination(
-                  icon: Icon(
-                    Icons.location_on_outlined,
-                    size: 25,
-                  ),
-                  selectedIcon: Icon(
-                    Icons.location_on,
-                    size: 25,
-                  ),
-                  label: 'Home',
-                ),
-                NavigationDestination(
-                  icon: Icon(
-                    Icons.share_outlined,
-                    size: 25,
-                  ),
-                  selectedIcon: Icon(
-                    Icons.share_sharp,
-                    size: 25,
-                  ),
-                  label: 'Share Link',
-                ),
-                NavigationDestination(
-                  icon: Icon(
-                    Icons.add_box_outlined,
-                    size: 25,
-                  ),
-                  selectedIcon: Icon(
-                    Icons.add_box,
-                    size: 25,
-                  ),
-                  label: 'Create Event',
-                ),
-                NavigationDestination(
-                  icon: Icon(
-                    Icons.person_outlined,
-                    size: 25,
-                  ),
-                  selectedIcon: Icon(
-                    Icons.person,
-                    size: 25,
-                  ),
-                  label: 'Profile',
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      )
-      
-      ,
-    );
+      ));
   }
 }
 
