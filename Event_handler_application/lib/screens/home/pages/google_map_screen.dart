@@ -361,28 +361,65 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       controller: _pageController,
                       children: [
                         Container(
-                          color: Colors.transparent,
-                          margin: EdgeInsets.only(
-                            right: 8.0,
-                            left: 8.0,
-                          ),
+                          color: Colors.red,
+                          margin: EdgeInsets.only(),
                           child: Column(
                             children: [
                               Container(
+                                margin: EdgeInsets.only(right: 8, left: 8),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
                                 height: 40,
-                                color: Colors.transparent,
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
-                                  child: rowChips(),
+                                  child: FittedBox(
+                                    child: Wrap(
+                                      spacing: 8,
+                                      runSpacing: 8,
+                                      children: locationWidgets.toList(),
+                                    ),
+                                  ),
                                 ),
                               ),
-                              Container(
-                                color: Colors.yellow,
+                              Expanded(
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 8, left: 8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: Center(
+                                    child: Theme(
+                                      data: Theme.of(context).copyWith(
+                                          scrollbarTheme: ScrollbarThemeData(
+                                              thumbColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.yellow),
+                                              crossAxisMargin: 20)),
+                                      child: Scrollbar(
+                                        isAlwaysShown: true,
+                                        child: ListView.builder(
+                                            itemCount: 5,
+                                            itemBuilder: (context, index) {
+                                              return Card(
+                                                child: ListTile(
+                                                  title: Text(
+                                                      "Iten: ${index + 1}"),
+                                                ),
+                                              );
+                                            }),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               )
                             ],
                           ),
                         ),
                         Container(
+                          margin: EdgeInsets.only(top: 5),
                           color: Colors.transparent,
                           child: Center(
                             child: Text(
@@ -396,8 +433,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 ),
               ),
               Container(
-                color: Colors.transparent,
-                height: 20,
+                margin: EdgeInsets.only(top: 4),
+                color: Colors.blue,
+                height: 18,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -500,48 +538,44 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     });
   }
 
-  rowChips() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.purple,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Row(
-        children: <Widget>[
-          chipForRow('Cinema', Color(0xFFff8a65)),
-          chipForRow('Theatre', Color(0xFF4fc3f7)),
-          chipForRow('Bar/Pub', Color(0xFF9575cd)),
-          chipForRow('Restaurant', Color(0xFF4db6ac)),
-          chipForRow('Disco', Color(0xFF5cda65)),
-          chipForRow('Private Location', Color(0xFFff8a65)),
-        ],
-      ),
-    );
-  }
-
-  Widget chipForRow(String label, Color color) {
-    return FittedBox(
-      child: Container(
-        margin: EdgeInsets.only(right: 8.0, left: 8.0),
-        child: Chip(
+  Iterable<Widget> get locationWidgets sync* {
+    for (EventLocation location in _locations) {
+      yield Padding(
+        padding: const EdgeInsets.all(0),
+        child: FilterChip(
           labelPadding: EdgeInsets.all(5.0),
           avatar: CircleAvatar(
             backgroundColor: Colors.grey.shade600,
-            child: Text('AB'),
+            child: Text(
+              location.location[0].toUpperCase(),
+            ),
           ),
           label: Text(
-            label,
+            location.location,
             style: TextStyle(
               color: Colors.white,
             ),
           ),
-          backgroundColor: color,
           elevation: 6.0,
           shadowColor: Colors.grey[60],
-          padding: EdgeInsets.all(6),
+          selected: _filters.contains(location.location),
+          backgroundColor: Color(location.color),
+          //padding: EdgeInsets.all(6),
+          onSelected: (bool selected) {
+            setState(() {
+              if (selected) {
+                _filters.add(location.location);
+              } else {
+                _filters.removeWhere((String name) {
+                  return name == location.location;
+                });
+              }
+            });
+          },
+          selectedColor: Colors.grey,
         ),
-      ),
-    );
+      );
+    }
   }
 }
 
