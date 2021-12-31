@@ -14,8 +14,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   @override
@@ -33,8 +36,12 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   StreamSubscription? eventsListener;
   MapType _currentMapType = MapType.normal;
   PageController _pageController = new PageController();
-
   late bool _isSelected;
+  late SfRangeValues _valuesPeople = new SfRangeValues(0, 100);
+  late SfRangeValues _valuesPrices = new SfRangeValues(0, 100);
+  late SfRangeValues _valuesKm = new SfRangeValues(0, 100);
+  DateRangePickerController _dateRangePickerController =
+      DateRangePickerController();
 
   late List<String> reportList = [
     'Cinema',
@@ -133,216 +140,19 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Widget build(BuildContext context) {
     final applicationBlock = Provider.of<ApplicationBlock>(context);
     return Scaffold(
-      body: DraggableBottomSheet(
-        backgroundWidget: Scaffold(
-          body: (applicationBlock.currentLocation == null)
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Stack(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      child: GoogleMap(
-                        mapType: _currentMapType,
-                        myLocationEnabled: true,
-                        zoomControlsEnabled: false,
-                        indoorViewEnabled: true,
-                        myLocationButtonEnabled: false,
-                        markers: {
-                          for (var i = 0; i < markers.length; i++) markers[i]
-                        },
-                        initialCameraPosition: CameraPosition(
-                          target: LatLng(
-                              applicationBlock.currentLocation!.latitude,
-                              applicationBlock.currentLocation!.longitude),
-                          zoom: 14,
-                        ),
-                        onMapCreated: (GoogleMapController controller) {
-                          _controller.complete(controller);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 130, left: 330),
-                      child: FloatingActionButton(
-                        heroTag: 'toggle_map_type_button',
-                        onPressed: _onToggleMapTypePressed,
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        mini: true,
-                        backgroundColor: Colors.white,
-                        child: const Icon(
-                          Icons.layers,
-                          size: 28.0,
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ),
-                    if (applicationBlock.searchResults != null &&
-                        applicationBlock.searchResults!.length != 0)
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            right: 12.0, left: 12.0, top: 70),
-                        child: Container(
-                          height: 300.0,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(.6),
-                            backgroundBlendMode: BlendMode.darken,
-                            borderRadius: BorderRadius.circular(30),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    if (applicationBlock.searchResults != null &&
-                        applicationBlock.searchResults!.length != 0)
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 12.0, right: 12.0, top: 70),
-                        child: Container(
-                          height: 300.0,
-                          child: ListView.builder(
-                            itemCount: applicationBlock.searchResults!.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(
-                                  applicationBlock
-                                      .searchResults![index].description!,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onTap: () {
-                                  applicationBlock.setSelectedLocation(
-                                      applicationBlock
-                                          .searchResults![index].placeId!);
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 12, right: 12, top: 70),
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: TextFormField(
-                          textAlignVertical: TextAlignVertical.center,
-                          cursorWidth: 2,
-                          // cursorHeight: 16,
-                          controller: _searchController,
-                          textCapitalization: TextCapitalization.words,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.zero,
-                            hintText: 'Search by City...',
-                            hintStyle: TextStyle(fontSize: 16),
-                            labelStyle: TextStyle(fontSize: 16),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            suffixIcon: Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.only(end: 4.0),
-                              child: IconButton(
-                                onPressed: () async {
-                                  var place = await LocationService()
-                                      .getPlace(_searchController.text);
-                                  _goToPlace(place);
-                                },
-                                icon: Icon(
-                                  Icons.search,
-                                  color: Colors.blueGrey,
-                                ),
-                              ),
-                            ),
-                            prefixIcon: Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.only(start: 4.0),
-                              child: Icon(Icons.person),
-                            ),
-                          ),
-                          cursorColor: Colors.black,
-                          onChanged: (value) =>
-                              applicationBlock.searchPlaces(value),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 315, top: 630),
-                      child: FloatingActionButton(
-                        onPressed: () async {
-                          final GoogleMapController controller =
-                              await _controller.future;
-                          controller.animateCamera(
-                            CameraUpdate.newCameraPosition(
-                              CameraPosition(
-                                  target: LatLng(
-                                      applicationBlock
-                                          .currentLocation!.latitude,
-                                      applicationBlock
-                                          .currentLocation!.longitude),
-                                  zoom: 14),
-                            ),
-                          );
-                        },
-                        child: const Icon(
-                          Icons.my_location,
-                          size: 25.0,
-                          color: Colors.black54,
-                        ),
-                        backgroundColor: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-        ),
-        expandedChild: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3),
-              ),
-            ],
-            color: Colors.black54,
-          ),
+      body: SlidingUpPanel(
+        color: Color(0xFFf1f5fb),
+        minHeight: MediaQuery.of(context).size.height / 10,
+        maxHeight: MediaQuery.of(context).size.height / 3,
+        backdropEnabled: true,
+        backdropOpacity: 0.6,
+        boxShadow: const <BoxShadow>[
+          BoxShadow(blurRadius: 30.0, color: Color.fromRGBO(0, 0, 0, 0.30))
+        ],
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        panel: Container(
+          color: Colors.transparent,
           child: Column(
             children: [
               Align(
@@ -350,26 +160,27 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 child: Icon(
                   Icons.keyboard_arrow_down,
                   color: Colors.black,
-                  size: 27,
+                  size: 20,
                 ),
               ),
               Container(
+                color: Colors.transparent,
                 padding: EdgeInsets.only(right: 2, left: 2),
-                height: MediaQuery.of(context).size.height * 0.35 - 68 - 45,
+                height: MediaQuery.of(context).size.height * 0.35 - 68 - 50,
                 child: Stack(
                   children: [
                     PageView(
                       controller: _pageController,
                       children: [
                         Container(
-                          color: Colors.red,
+                          color: Colors.transparent,
                           margin: EdgeInsets.only(),
                           child: Column(
                             children: [
                               Container(
-                                margin: EdgeInsets.only(right: 8, left: 8),
+                                padding: EdgeInsets.only(right: 4, left: 4),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Colors.transparent,
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 height: 40,
@@ -386,33 +197,104 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                               ),
                               Expanded(
                                 child: Container(
-                                  margin: EdgeInsets.only(right: 8, left: 8),
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: Colors.transparent,
                                     borderRadius: BorderRadius.circular(50),
                                   ),
-                                  child: Center(
-                                    child: Theme(
-                                      data: Theme.of(context).copyWith(
-                                          scrollbarTheme: ScrollbarThemeData(
-                                              thumbColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.yellow),
-                                              crossAxisMargin: 20)),
-                                      child: Scrollbar(
-                                        isAlwaysShown: true,
-                                        child: ListView.builder(
-                                            primary: false,
-                                            itemCount: 5,
-                                            itemBuilder: (context, index) {
-                                              return Card(
-                                                child: ListTile(
-                                                  title: Text(
-                                                      "Iten: ${index + 1}"),
-                                                ),
-                                              );
-                                            }),
-                                      ),
+                                  child: Scrollbar(
+                                    isAlwaysShown: true,
+                                    child: ListView(
+                                      primary: false,
+                                      padding: const EdgeInsets.all(4),
+                                      children: <Widget>[
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                            top: 5,
+                                            bottom: 5,
+                                          ),
+                                          height: 40,
+                                          color: Colors.transparent,
+                                        ),
+                                        Container(
+                                          height: 60,
+                                          color: Colors.transparent,
+                                          child: SfRangeSlider(
+                                            min: 0.0,
+                                            max: 100.0,
+                                            values: _valuesPrices,
+                                            interval: 20,
+                                            showTicks: true,
+                                            showLabels: true,
+                                            enableTooltip: true,
+                                            minorTicksPerInterval: 1,
+                                            activeColor: Colors.black54,
+                                            stepSize: 5,
+                                            onChanged: (SfRangeValues values) {
+                                              setState(() {
+                                                _valuesPrices = values;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                            top: 5,
+                                            bottom: 5,
+                                          ),
+                                          height: 40,
+                                          color: Colors.transparent,
+                                        ),
+                                        Container(
+                                          height: 60,
+                                          color: Colors.transparent,
+                                          child: SfRangeSlider(
+                                            min: 0.0,
+                                            max: 100.0,
+                                            values: _valuesPeople,
+                                            interval: 20,
+                                            showTicks: true,
+                                            showLabels: true,
+                                            enableTooltip: true,
+                                            minorTicksPerInterval: 1,
+                                            activeColor: Colors.black54,
+                                            stepSize: 1,
+                                            onChanged: (SfRangeValues values) {
+                                              setState(() {
+                                                _valuesPeople = values;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                            top: 5,
+                                            bottom: 5,
+                                          ),
+                                          height: 40,
+                                          color: Colors.transparent,
+                                        ),
+                                        Container(
+                                          height: 60,
+                                          color: Colors.transparent,
+                                          child: SfRangeSlider(
+                                            min: 0.0,
+                                            max: 100.0,
+                                            values: _valuesKm,
+                                            interval: 20,
+                                            showTicks: true,
+                                            showLabels: true,
+                                            enableTooltip: true,
+                                            minorTicksPerInterval: 1,
+                                            activeColor: Colors.black54,
+                                            stepSize: 5,
+                                            onChanged: (SfRangeValues values) {
+                                              setState(() {
+                                                _valuesKm = values;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -421,11 +303,25 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 5),
+                          margin: EdgeInsets.only(
+                            top: 5,
+                          ),
                           color: Colors.transparent,
-                          child: Center(
-                            child: Text(
-                              'Page2',
+                          child: Container(
+                            child: SfDateRangePicker(
+                              backgroundColor: Colors.transparent,
+                              selectionMode:
+                                  DateRangePickerSelectionMode.multiRange,
+                              onSelectionChanged: _onSelectionChanged,
+                              //showActionButtons: true,
+                              onSubmit: (Object? val) {
+                                print(val);
+                              },
+                              controller: _dateRangePickerController,
+                              onCancel: () {
+                                _dateRangePickerController.selectedRanges =
+                                    null;
+                              },
                             ),
                           ),
                         ),
@@ -436,7 +332,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 4),
-                color: Colors.blue,
+                color: Colors.transparent,
                 height: 18,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -451,8 +347,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                           count: 2,
                           effect: WormEffect(
                               type: WormType.thin,
-                              dotHeight: 10,
-                              dotWidth: 10,
+                              dotHeight: 8,
+                              dotWidth: 8,
                               dotColor: Colors.black38,
                               activeDotColor: Colors.black),
                           onDotClicked: (index) =>
@@ -468,39 +364,212 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             ],
           ),
         ),
-        previewChild: Container(
-          padding: EdgeInsets.only(top: 8),
+        collapsed: Container(
           decoration: BoxDecoration(
+            color: Color(0xFFf1f5fb),
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3),
-              ),
-            ],
-            color: Colors.black54,
           ),
-          child: Column(
-            children: [
-              Container(
-                height: 3.5,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(50.0),
-                ),
-              ),
-            ],
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Icon(
+              Icons.keyboard_arrow_up,
+              color: Colors.black,
+              size: 20,
+            ),
           ),
         ),
-        minExtent: 80,
-        expansionExtent: 150,
-        maxExtent: MediaQuery.of(context).size.height * 0.35,
+        body: (applicationBlock.currentLocation == null)
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Stack(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: GoogleMap(
+                      mapType: _currentMapType,
+                      myLocationEnabled: true,
+                      zoomControlsEnabled: false,
+                      indoorViewEnabled: true,
+                      myLocationButtonEnabled: false,
+                      markers: {
+                        for (var i = 0; i < markers.length; i++) markers[i]
+                      },
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(
+                            applicationBlock.currentLocation!.latitude,
+                            applicationBlock.currentLocation!.longitude),
+                        zoom: 14,
+                      ),
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 130, left: 330),
+                    child: FloatingActionButton(
+                      heroTag: 'toggle_map_type_button',
+                      onPressed: _onToggleMapTypePressed,
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      mini: true,
+                      backgroundColor: Colors.white,
+                      child: const Icon(
+                        Icons.layers,
+                        size: 28.0,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ),
+                  if (applicationBlock.searchResults != null &&
+                      applicationBlock.searchResults!.length != 0)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 12.0, left: 12.0, top: 70),
+                      child: Container(
+                        height: 300.0,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(.6),
+                          backgroundBlendMode: BlendMode.darken,
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  if (applicationBlock.searchResults != null &&
+                      applicationBlock.searchResults!.length != 0)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 12.0, right: 12.0, top: 70),
+                      child: Container(
+                        height: 300.0,
+                        child: ListView.builder(
+                          itemCount: applicationBlock.searchResults!.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(
+                                applicationBlock
+                                    .searchResults![index].description!,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onTap: () {
+                                applicationBlock.setSelectedLocation(
+                                    applicationBlock
+                                        .searchResults![index].placeId!);
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 12, right: 12, top: 70),
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(50),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        textAlignVertical: TextAlignVertical.center,
+                        cursorWidth: 2,
+                        // cursorHeight: 16,
+                        controller: _searchController,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.zero,
+                          hintText: 'Search by City...',
+                          hintStyle: TextStyle(fontSize: 16),
+                          labelStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsetsDirectional.only(end: 4.0),
+                            child: IconButton(
+                              onPressed: () async {
+                                var place = await LocationService()
+                                    .getPlace(_searchController.text);
+                                _goToPlace(place);
+                              },
+                              icon: Icon(
+                                Icons.search,
+                                color: Colors.blueGrey,
+                              ),
+                            ),
+                          ),
+                          prefixIcon: Padding(
+                            padding:
+                                const EdgeInsetsDirectional.only(start: 4.0),
+                            child: Icon(Icons.person),
+                          ),
+                        ),
+                        cursorColor: Colors.black,
+                        onChanged: (value) =>
+                            applicationBlock.searchPlaces(value),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 315, top: 630),
+                    child: FloatingActionButton(
+                      onPressed: () async {
+                        final GoogleMapController controller =
+                            await _controller.future;
+                        controller.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                                target: LatLng(
+                                    applicationBlock.currentLocation!.latitude,
+                                    applicationBlock
+                                        .currentLocation!.longitude),
+                                zoom: 14),
+                          ),
+                        );
+                      },
+                      child: const Icon(
+                        Icons.my_location,
+                        size: 25.0,
+                        color: Colors.black54,
+                      ),
+                      backgroundColor: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -579,6 +648,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       );
     }
   }
+
+  void _onSelectionChanged(
+      DateRangePickerSelectionChangedArgs
+          dateRangePickerSelectionChangedArgs) {}
 }
 
 class EventLocation {
