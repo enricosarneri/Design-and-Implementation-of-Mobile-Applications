@@ -6,8 +6,12 @@ class Share_Link extends StatelessWidget {
     return MaterialApp(
       title: 'Welcome to Flutter',
       home: Scaffold(
-        body: const Center(
-          child: Text('Link'),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          color: Colors.red,
+          child: const Center(
+            child: Text('Link'),
+          ),
         ),
       ),
     );

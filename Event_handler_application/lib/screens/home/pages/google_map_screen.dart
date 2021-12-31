@@ -142,6 +142,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               : Stack(
                   children: [
                     Container(
+                      height: MediaQuery.of(context).size.height,
                       child: GoogleMap(
                         mapType: _currentMapType,
                         myLocationEnabled: true,
@@ -401,6 +402,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                       child: Scrollbar(
                                         isAlwaysShown: true,
                                         child: ListView.builder(
+                                            primary: false,
                                             itemCount: 5,
                                             itemBuilder: (context, index) {
                                               return Card(

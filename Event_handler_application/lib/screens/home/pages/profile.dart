@@ -8,7 +8,7 @@ class Profile extends StatelessWidget {
       title: 'Welcome to Flutter',
       home: Scaffold(
         body: const Center(
-          child: Text('Profile'),
+          child: Text('Profe'),
         ),
       ),
     );
