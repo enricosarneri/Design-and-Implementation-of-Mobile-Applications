@@ -33,6 +33,10 @@ class DatabaseService {
     return eventCollection.snapshots();
   }
 
+    Stream<QuerySnapshot> getUsers() {
+    return userCollection.snapshots();
+  }
+
   List<Event> eventListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((e) {
       return Event(
