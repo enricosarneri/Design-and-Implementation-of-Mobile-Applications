@@ -46,6 +46,9 @@ class DatabaseService {
           e.get('date'),
           e.get('maxPartecipants'),
           e.get('eventId'),
+          List<String>.from(e.get('partecipants')),
+          List<String>.from(e.get('applicants')),
+          List<String>.from(e.get('qrCodeList')),
           );
     }).toList();
   }
@@ -73,10 +76,14 @@ class DatabaseService {
       String? eventType,
       DateTime? date,
       String maxPartecipants,
-      String eventId) async {
+      ) async {
+      List<String> partecipants=[];
+      List<String> applicants=[];
+      List<String> qrcodes=[];
+      String eventId=  name+DateTime.now().microsecondsSinceEpoch.toString();
     Coordinates coordinates =
         await LocationService().getCoordinatesByAddress(address);
-    Event event= Event(uid, name, description, coordinates.latitude, coordinates.longitude, placeName, eventType!, date.toString(), int.parse(maxPartecipants), eventId);
+    Event event= Event(uid, name, description, coordinates.latitude, coordinates.longitude, placeName, eventType!, date.toString(), int.parse(maxPartecipants), eventId, partecipants, applicants,qrcodes);
     List<String> qrCodeList= getRandomQrList(event.maxPartecipants);
     return await eventCollection.add({
       'manager': uid,
@@ -88,9 +95,9 @@ class DatabaseService {
       'eventType': event.eventType,
       'date': event.date,
       'maxPartecipants': event.maxPartecipants,
-      'qrCodeList' : event.qrCodeList,
-      'partecipants' : event.partecipantList,
-      'applicants' : event.applicantsList,
+      'qrCodeList' : event.qrCodes,
+      'partecipants' : event.partecipants,
+      'applicants' : event.applicants,
       'eventId' : event.eventId,
     });
   }
@@ -114,11 +121,10 @@ class DatabaseService {
             'eventType': event.eventType,
             'date': event.date,
             'maxPartecipants': event.maxPartecipants,
-            'qrCodeList' : event.qrCodeList,
-            'partecipants' : event.partecipantList,
-            'applicants' : event.applicantsList,
+            'qrCodeList' : event.qrCodes,
+            'partecipants' : event.partecipants,
+            'applicants' : event.applicants,
             'eventId' : event.eventId,
-            'applicants' : applicantsList
           })
         }
       }

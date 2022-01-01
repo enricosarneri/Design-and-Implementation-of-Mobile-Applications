@@ -9,11 +9,11 @@ class Event{
   final String date;
   final int maxPartecipants;
   final String eventId;
-  List<String> partecipantList=[];
-  List<String> applicantsList=[];
-  List<String> qrCodeList=[];
+  List<String> partecipants=[];
+  List<String> applicants=[];
+  List<String> qrCodes=[];
 
-  get getQrCodeList => qrCodeList;
+  get getQrCodeList => qrCodes;
 
   get getEventId => eventId;
 
@@ -45,12 +45,12 @@ class Event{
   get getMaxPartecipants => maxPartecipants;
 
 
-  get getPartecipantList => partecipantList;
+  get getPartecipantList => partecipants;
 
 
-  get getApplicantList => applicantsList;
+  get getApplicantList => applicants;
 
  
 
-  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId);
+  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
 }
