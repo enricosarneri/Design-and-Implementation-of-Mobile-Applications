@@ -6,6 +6,9 @@ import 'package:event_handler/services/localization%20services/location_services
 import 'package:event_handler/models/event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid_util.dart';
+
 
 class DatabaseService {
   final String uid;
@@ -36,12 +39,14 @@ class DatabaseService {
           e.get('manager'),
           e.get('name'),
           e.get('description'),
-          double.parse(e.get('latitude')),
-          double.parse(e.get('longitude')),
+          e.get('latitude'),
+          e.get('longitude'),
           e.get('placeName'),
           e.get('eventType'),
           e.get('date'),
-          int.parse(e.get('maxPartecipants')));
+          e.get('maxPartecipants'),
+          e.get('eventId'),
+          );
     }).toList();
   }
 
@@ -67,19 +72,67 @@ class DatabaseService {
       String placeName,
       String? eventType,
       DateTime? date,
-      String maxPartecipants) async {
+      String maxPartecipants,
+      String eventId) async {
     Coordinates coordinates =
         await LocationService().getCoordinatesByAddress(address);
+    Event event= Event(uid, name, description, coordinates.latitude, coordinates.longitude, placeName, eventType!, date.toString(), int.parse(maxPartecipants), eventId);
+    List<String> qrCodeList= getRandomQrList(event.maxPartecipants);
     return await eventCollection.add({
       'manager': uid,
-      'name': name,
-      'description': description,
-      'latitude': coordinates.latitude.toString(),
-      'longitude': coordinates.longitude.toString(),
-      'placeName': placeName,
-      'eventType': eventType,
-      'date': date.toString(),
-      'maxPartecipants': maxPartecipants,
+      'name': event.name,
+      'description': event.description,
+      'latitude': event.latitude,
+      'longitude': event.longitude,
+      'placeName': event.placeName,
+      'eventType': event.eventType,
+      'date': event.date,
+      'maxPartecipants': event.maxPartecipants,
+      'qrCodeList' : event.qrCodeList,
+      'partecipants' : event.partecipantList,
+      'applicants' : event.applicantsList,
+      'eventId' : event.eventId,
     });
   }
+
+  void addEventApplicants(Event event) async{
+    List<String> applicantsList=event.getApplicantList;
+    applicantsList.add(uid);
+    eventCollection.get().then((value) => {
+      for (var i = 0; i < value.size; i++) {
+        log("my eventId: "+event.eventId),
+        log("document eventID: " +value.docs[i].get('eventId')),
+        if(value.docs[i].get('eventId') == event.eventId) {
+          log('sono dentro l if' ),
+          eventCollection.doc(value.docs[i].id).set({
+            'manager': uid,
+            'name': event.name,
+            'description': event.description,
+            'latitude': event.latitude,
+            'longitude': event.longitude,
+            'placeName': event.placeName,
+            'eventType': event.eventType,
+            'date': event.date,
+            'maxPartecipants': event.maxPartecipants,
+            'qrCodeList' : event.qrCodeList,
+            'partecipants' : event.partecipantList,
+            'applicants' : event.applicantsList,
+            'eventId' : event.eventId,
+            'applicants' : applicantsList
+          })
+        }
+      }
+    });
+  }
+
+  List<String> getRandomQrList(int quantity){
+    var uuid= Uuid();
+    List<String> qrCodeList=[];
+    for (var i = 0; i < quantity; i++) {
+      qrCodeList.add(uuid.v1());
+    }
+    return qrCodeList;
+  }
+
+
 }

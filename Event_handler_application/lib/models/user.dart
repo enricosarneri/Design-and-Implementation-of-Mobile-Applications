@@ -6,22 +6,22 @@ class AppUser {
    String password='';
    bool isOwner=false;
   
-  get getUid => this.uid;
+  get getUid => uid;
 
 
-  get getEmail => this.email;
+  get getEmail => email;
 
 
-  get getName => this.name;
+  get getName => name;
 
 
-  get getSurname => this.surname;
+  get getSurname => surname;
 
 
-  get getPassword => this.password;
+  get getPassword => password;
 
 
-  get getIsOwner => this.isOwner;
+  get getIsOwner => isOwner;
 
   //const AppUser (this.uid, this.email, this.name, this.surname, this.password,this.isOwner );
   AppUser (this.uid, this.email);

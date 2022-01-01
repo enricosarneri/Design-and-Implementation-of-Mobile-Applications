@@ -8,32 +8,49 @@ class Event{
   final String eventType;
   final String date;
   final int maxPartecipants;
+  final String eventId;
+  List<String> partecipantList=[];
+  List<String> applicantsList=[];
+  List<String> qrCodeList=[];
 
-  get getManagerId => this.managerId;
+  get getQrCodeList => qrCodeList;
 
-
-  get getName => this.name;
-
-
-  get getDescription => this.description;
-
-
-  get getLatitude => this.latitude;
+  get getEventId => eventId;
 
 
-  get getLongitude => this.longitude;
+  get getManagerId => managerId;
 
 
-  get getPlaceName => this.placeName;
+  get getName => name;
 
 
-  get getEventType => this.eventType;
+  get getDescription => description;
 
 
-  get getDate => this.date;
+  get getLatitude => latitude;
 
 
-  get getMaxPartecipants => this.maxPartecipants;
+  get getLongitude => longitude;
 
-  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants);
+
+  get getPlaceName => placeName;
+
+
+  get getEventType => eventType;
+
+
+  get getDate => date;
+
+
+  get getMaxPartecipants => maxPartecipants;
+
+
+  get getPartecipantList => partecipantList;
+
+
+  get getApplicantList => applicantsList;
+
+ 
+
+  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId);
 }

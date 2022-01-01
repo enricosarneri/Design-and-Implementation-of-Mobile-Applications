@@ -91,7 +91,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               event[i].eventType,
               event[i].managerId,
               event[i].maxPartecipants,
-              event[i].name));
+              event[i].name,
+              event[i].eventId));
         });
       }
     });
@@ -123,9 +124,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       String eventType,
       String managerId,
       int maxPartecipants,
-      String name) {
+      String name,
+      String eventId) {
     Event event = Event(managerId, name, description, latitude, longitude,
-        placeName, eventType, date, maxPartecipants);
+        placeName, eventType, date, maxPartecipants, eventId);
     return Marker(
         markerId: MarkerId(placeName),
         infoWindow: InfoWindow(title: placeName),
