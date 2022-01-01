@@ -28,7 +28,7 @@ class PanelWidget extends StatelessWidget {
               child: const Text('Ask to Partecipate'),
               onPressed: () async{
                 final AuthService _authService = AuthService();
-                DatabaseService(_authService.getCurrentUser()!.uid).addEventApplicants(event);
+                DatabaseService(_authService.getCurrentUser()!.uid).addEventApplicant(event);
                 //oppure mostrare un messagio con scritto Richiesta inviata con successo
                 panelController.close();
               }),

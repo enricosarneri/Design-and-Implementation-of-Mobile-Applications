@@ -79,12 +79,11 @@ class DatabaseService {
       ) async {
       List<String> partecipants=[];
       List<String> applicants=[];
-      List<String> qrcodes=[];
+      List<String> qrCodes= getRandomQrCodes(int.parse(maxPartecipants));
       String eventId=  name+DateTime.now().microsecondsSinceEpoch.toString();
     Coordinates coordinates =
         await LocationService().getCoordinatesByAddress(address);
-    Event event= Event(uid, name, description, coordinates.latitude, coordinates.longitude, placeName, eventType!, date.toString(), int.parse(maxPartecipants), eventId, partecipants, applicants,qrcodes);
-    List<String> qrCodeList= getRandomQrList(event.maxPartecipants);
+    Event event= Event(uid, name, description, coordinates.latitude, coordinates.longitude, placeName, eventType!, date.toString(), int.parse(maxPartecipants), eventId, partecipants, applicants,qrCodes);
     return await eventCollection.add({
       'manager': uid,
       'name': event.name,
@@ -95,43 +94,28 @@ class DatabaseService {
       'eventType': event.eventType,
       'date': event.date,
       'maxPartecipants': event.maxPartecipants,
-      'qrCodeList' : event.qrCodes,
+      'qrCodeList' : qrCodes,
       'partecipants' : event.partecipants,
       'applicants' : event.applicants,
       'eventId' : event.eventId,
     });
   }
 
-  void addEventApplicants(Event event) async{
+  void addEventApplicant(Event event) async{
     List<String> applicantsList=event.getApplicantList;
     applicantsList.add(uid);
     eventCollection.get().then((value) => {
       for (var i = 0; i < value.size; i++) {
-        log("my eventId: "+event.eventId),
-        log("document eventID: " +value.docs[i].get('eventId')),
         if(value.docs[i].get('eventId') == event.eventId) {
-          log('sono dentro l if' ),
-          eventCollection.doc(value.docs[i].id).set({
-            'manager': uid,
-            'name': event.name,
-            'description': event.description,
-            'latitude': event.latitude,
-            'longitude': event.longitude,
-            'placeName': event.placeName,
-            'eventType': event.eventType,
-            'date': event.date,
-            'maxPartecipants': event.maxPartecipants,
-            'qrCodeList' : event.qrCodes,
-            'partecipants' : event.partecipants,
+          eventCollection.doc(value.docs[i].id).update({
             'applicants' : event.applicants,
-            'eventId' : event.eventId,
           })
         }
       }
     });
   }
 
-  List<String> getRandomQrList(int quantity){
+  List<String> getRandomQrCodes(int quantity){
     var uuid= Uuid();
     List<String> qrCodeList=[];
     for (var i = 0; i < quantity; i++) {
