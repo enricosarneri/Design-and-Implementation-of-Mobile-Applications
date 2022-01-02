@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:event_handler/screens/authenticate/change_password.dart';
 import 'package:event_handler/screens/authenticate/registration.dart';
 import 'package:event_handler/screens/home/home.dart';
 import 'package:event_handler/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -277,7 +279,14 @@ class _SignInState extends State<SignIn> {
                               style:
                                   TextStyle(color: Colors.black, fontSize: 14),
                             ),
-                            onPressed: () => {},
+                            onPressed: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Change_Password(),
+                                ),
+                              ),
+                            },
                           ),
                         ),
                         SizedBox(
@@ -392,7 +401,7 @@ class _SignInState extends State<SignIn> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               GestureDetector(
-                                onTap: () => () {},
+                                onTap: () {},
                                 child: Container(
                                   height: 40,
                                   width: 40,
@@ -405,7 +414,20 @@ class _SignInState extends State<SignIn> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () => () {},
+                                onTap: () async {
+                                  await _authService
+                                      .signInWithGoogle()
+                                      .then((UserCredential value) {
+                                    final displayName = value.user!.displayName;
+                                    print(displayName);
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Home()),
+                                        (route) => false);
+                                  });
+                                  setState(() {});
+                                },
                                 child: Container(
                                   height: 40,
                                   width: 40,
@@ -440,6 +462,20 @@ class _SignInState extends State<SignIn> {
       ),
     );
   }
+
+  // Future<void> signInWithFacebook() async {
+  //   try{
+  //     var facebookLogin = new FacebookLogin();
+  //     var result = await facebookLogin.logIn(['email']);
+
+  //     if(result.status == FacebookLoginStatus.loggedIn) {
+  //       final AuthCredential credential = FacebookAuthProvider.getCredential(
+  //         accessToken: result.accessToken.token,
+  //       );
+  //       final FirebaseUser user =
+  //     }
+  //   }
+  // }
 }
 
 String? validateEmail(String? formEmail) {
