@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/event.dart';
+import 'package:event_handler/screens/qr_scan_page.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:flutter/material.dart';
@@ -200,6 +201,15 @@ class _EventScreenState extends State<EventScreen> {
                           }
                         });
                   }),
+
+                  ElevatedButton(
+              child: const Text('Scan Qr'),
+              onPressed: () async{
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => QrScanPage()),
+                  );
+              }),
 
             ],
           ),
