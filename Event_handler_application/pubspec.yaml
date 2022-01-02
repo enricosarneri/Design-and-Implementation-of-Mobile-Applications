@@ -45,9 +45,9 @@ dependencies:
   draggable_bottom_sheet: ^0.1.2
   smooth_page_indicator: ^1.0.0+2
   uuid: 3.0.5
-
+  animations: ^2.0.2
   sliding_up_panel: ^2.0.0+1
-
+  flutter_svg: ^1.0.0
   draggable_scrollbar: ^0.1.0
   
   syncfusion_flutter_sliders: ^19.4.40
