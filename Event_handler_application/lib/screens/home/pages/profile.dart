@@ -23,7 +23,7 @@ class Profile extends StatelessWidget {
                 onPressed: () async {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MyEvents()),
+                    MaterialPageRoute(builder: (context) => ManagerEvents()),
                   );
                 }),
             SizedBox(height: 20),

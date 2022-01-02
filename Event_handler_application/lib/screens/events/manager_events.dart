@@ -5,7 +5,7 @@ import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:flutter/material.dart';
 
-class MyEvents extends StatelessWidget {
+class ManagerEvents extends StatelessWidget {
   final AuthService _authService = AuthService();
 
   @override
