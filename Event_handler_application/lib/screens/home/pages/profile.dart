@@ -1,3 +1,4 @@
+import 'package:event_handler/screens/events/manager_events.dart';
 import 'package:event_handler/screens/events/my_events.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +20,7 @@ class Profile extends StatelessWidget {
                 }),
             SizedBox(height: 20),
             ElevatedButton(
-                child: Text('My events'),
+                child: Text('Organized events'),
                 onPressed: () async {
                   Navigator.push(
                     context,
@@ -27,6 +28,14 @@ class Profile extends StatelessWidget {
                   );
                 }),
             SizedBox(height: 20),
+                        ElevatedButton(
+                child: Text('My events'),
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyEvents()),
+                  );
+                }),
           ])),
     );
   }

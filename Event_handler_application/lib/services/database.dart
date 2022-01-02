@@ -17,7 +17,7 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('users');
   final CollectionReference eventCollection =
       FirebaseFirestore.instance.collection('events');
-  final CollectionReference userQrCodes= FirebaseFirestore.instance.collection('userQrCodes');
+  final CollectionReference userQrCodesCollection= FirebaseFirestore.instance.collection('userQrCodes');
 
   Future updateUserData(String email, String password, String name,
       String surname, bool isOwner) async {
@@ -36,6 +36,10 @@ class DatabaseService {
 
     Stream<QuerySnapshot> getUsers() {
     return userCollection.snapshots();
+  }
+
+    Stream<QuerySnapshot> getUserQrCodes() {
+    return userQrCodesCollection.snapshots();
   }
 
   List<Event> eventListFromSnapshot(QuerySnapshot snapshot) {
@@ -62,6 +66,7 @@ class DatabaseService {
   Stream<List<Event>> get events {
     return eventCollection.snapshots().map(eventListFromSnapshot);
   }
+  
 
   Future<AppUser> getCurrentUser() async {
     DocumentSnapshot? user;
@@ -143,13 +148,14 @@ class DatabaseService {
           eventCollection.doc(value.docs[i].id).update({
             'partecipants' : partecipants,
             'applicants' : applicantsList,
-            'firstFreeQrCode' : event.firstFreeQrCode+1,
+            'firstFreeQrCode' : event.firstFreeQrCode++,
           })
         }
       }
     });
+    log(event.firstFreeQrCode.toString());
     String userQrCode= event.getQrCodeList[event.firstFreeQrCode];
-    await userQrCodes.add({
+    await userQrCodesCollection.add({
       'user' : userId,
       'event' : event.getEventId,
       'qrCode' : userQrCode
@@ -171,4 +177,18 @@ class DatabaseService {
     });
   }
 
+  Future<String> getQrCodeByUserEvent(Event event, String userId) async {
+    String qrCode='';
+    await userQrCodesCollection.get().then((value) => {
+      for (var i = 0; i < value.size; i++) {
+        if(value.docs[i].get('event')== event.getEventId && 
+           value.docs[i].get('user')== userId){
+             qrCode=value.docs[i].get('qrCode')
+           }
+      }
+    });
+    log(qrCode);
+    return qrCode;
+
+  }
 }
