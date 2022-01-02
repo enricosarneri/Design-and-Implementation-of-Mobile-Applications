@@ -5,7 +5,6 @@ import 'package:event_handler/screens/home/home.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -21,6 +20,7 @@ class _SignInState extends State<SignIn> {
   String _password = '';
   bool isSignInLoading = false;
   bool isSignUpLoading = false;
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -138,10 +138,6 @@ class _SignInState extends State<SignIn> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SvgPicture.asset(
-                      "",
-                      height: size.height * 0.25,
-                    ),
                     Text(
                       "Sign In",
                       style: TextStyle(
@@ -158,7 +154,10 @@ class _SignInState extends State<SignIn> {
                         Container(
                             padding: EdgeInsets.only(
                                 left: size.width / 10, right: size.width / 10),
-                            child: Text('Email')),
+                            child: Text(
+                              'Email',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )),
                         SizedBox(
                           height: size.height / 60,
                         ),
@@ -200,7 +199,10 @@ class _SignInState extends State<SignIn> {
                         Container(
                             padding: EdgeInsets.only(
                                 left: size.width / 10, right: size.width / 10),
-                            child: Text('Password')),
+                            child: Text(
+                              'Password',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )),
                         SizedBox(
                           height: size.height / 60,
                         ),
@@ -216,7 +218,7 @@ class _SignInState extends State<SignIn> {
                           ),
                           height: size.height / 14,
                           child: TextFormField(
-                            obscureText: true,
+                            obscureText: _obscureText,
                             cursorColor: Colors.black,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -226,9 +228,17 @@ class _SignInState extends State<SignIn> {
                                   Icons.lock,
                                   color: Colors.black,
                                 ),
-                                suffixIcon: Icon(
-                                  Icons.visibility,
-                                  color: Colors.black,
+                                suffixIcon: IconButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      _obscureText =
+                                          _obscureText == true ? false : true;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.visibility,
+                                    color: Colors.black,
+                                  ),
                                 ),
                                 hintText: 'Enter your Password'),
                             onChanged: (value) {
@@ -240,13 +250,18 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                         Container(
+                          height: size.height / 24,
+                          // color: Colors.green,
                           padding: EdgeInsets.only(
                               left: size.width / 10, right: size.width / 10),
+                          // margin: EdgeInsets.only(
+                          //     left: size.width / 25, right: size.width / 25),
                           alignment: Alignment.centerRight,
                           child: TextButton(
                             child: Text(
                               'Forgot Password?',
-                              style: TextStyle(color: Colors.black),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 14),
                             ),
                             onPressed: () => {},
                           ),
@@ -320,6 +335,9 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: size.height / 40,
+                        ),
                         Container(
                           padding: EdgeInsets.only(
                               left: size.width / 10, right: size.width / 10),
@@ -340,6 +358,18 @@ class _SignInState extends State<SignIn> {
                               buildDivider(),
                             ],
                           ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(
+                              left: size.width / 10, right: size.width / 10),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Sign in with',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height / 50,
                         ),
                         Container(
                           padding: EdgeInsets.only(

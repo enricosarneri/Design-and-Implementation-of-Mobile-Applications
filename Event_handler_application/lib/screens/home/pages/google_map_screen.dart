@@ -83,20 +83,20 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       for (var i = 0; i < event.length; i++) {
         setState(() {
           markers.add(createMarker(
-              event[i].latitude,
-              event[i].longitude,
-              event[i].placeName,
-              event[i].date,
-              event[i].description,
-              event[i].eventType,
-              event[i].managerId,
-              event[i].maxPartecipants,
-              event[i].name,
-              event[i].eventId,
-              event[i].partecipants,
-              event[i].applicants,
-              event[i].qrCodes,    
-              ));
+            event[i].latitude,
+            event[i].longitude,
+            event[i].placeName,
+            event[i].date,
+            event[i].description,
+            event[i].eventType,
+            event[i].managerId,
+            event[i].maxPartecipants,
+            event[i].name,
+            event[i].eventId,
+            event[i].partecipants,
+            event[i].applicants,
+            event[i].qrCodes,
+          ));
         });
       }
     });
@@ -120,23 +120,34 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   Marker createMarker(
-      double latitude,
-      double longitude,
-      String placeName,
-      String date,
-      String description,
-      String eventType,
-      String managerId,
-      int maxPartecipants,
-      String name,
-      String eventId,
-      List<String> partecipants,
-      List<String> applicants,
-      List<String> qrcodes
-      ,
-      ) {
-    Event event = Event(managerId, name, description, latitude, longitude,
-        placeName, eventType, date, maxPartecipants, eventId, partecipants, applicants, qrcodes);
+    double latitude,
+    double longitude,
+    String placeName,
+    String date,
+    String description,
+    String eventType,
+    String managerId,
+    int maxPartecipants,
+    String name,
+    String eventId,
+    List<String> partecipants,
+    List<String> applicants,
+    List<String> qrcodes,
+  ) {
+    Event event = Event(
+        managerId,
+        name,
+        description,
+        latitude,
+        longitude,
+        placeName,
+        eventType,
+        date,
+        maxPartecipants,
+        eventId,
+        partecipants,
+        applicants,
+        qrcodes);
     return Marker(
         markerId: MarkerId(placeName),
         infoWindow: InfoWindow(title: placeName),
@@ -490,7 +501,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Colors.white.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(50),
                         boxShadow: [
                           BoxShadow(
