@@ -5,6 +5,7 @@ import 'package:event_handler/screens/authenticate/registration.dart';
 import 'package:event_handler/screens/home/home.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -49,88 +50,6 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-            // child: Form(
-            //   key: _key,
-            //   child: Column(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Padding(
-            //         padding: const EdgeInsets.all(8.0),
-            //         child: TextFormField(
-            //           validator: validateEmail,
-            //           keyboardType: TextInputType.emailAddress,
-            //           decoration: const InputDecoration(hintText: 'Email'),
-            //           onChanged: (value) {
-            //             setState(() {
-            //               _email = value.trim();
-            //             });
-            //           },
-            //         ),
-            //       ),
-            //       Padding(
-            //         padding: const EdgeInsets.all(8.0),
-            //         child: TextFormField(
-            //           //validator: validatePassword,
-            //           obscureText: true,
-            //           decoration: const InputDecoration(hintText: 'Password'),
-            //           onChanged: (value) {
-            //             setState(() {
-            //               _password = value.trim();
-            //             });
-            //           },
-            //         ),
-            //       ),
-            //       Row(
-            //         children: [
-            //           ElevatedButton(
-            //             child: isSignInLoading
-            //                 ? CircularProgressIndicator(
-            //                     color: Colors.white,
-            //                   )
-            //                 : const Text('Sign in'),
-            //             onPressed: () async {
-            //               setState(() => isSignInLoading = true);
-            //               if (_key.currentState!.validate()) {
-            //                 dynamic result = await _authService
-            //                     .signInWithEmailAndPassword(_email, _password);
-            //                 if (result == null) {
-            //                   log('error signing in');
-            //                 } else {
-            //                   log('signed in as: ' + result.email);
-            //                 }
-            //               }
-            //               if (this.mounted) {
-            //                 setState(() => isSignInLoading = false);
-            //               }
-            //             },
-            //           ),
-            //           const Padding(
-            //             padding: EdgeInsets.only(left: 20.0),
-            //             child: Text("If you don't have an account click"),
-            //           ),
-            //           Padding(
-            //             padding: EdgeInsets.zero,
-            //             child: InkWell(
-            //               onTap: () {
-            //                 Navigator.push(
-            //                     context,
-            //                     MaterialPageRoute(
-            //                         builder: (context) => Registration()));
-            //               },
-            //               child: const Padding(
-            //                 padding: EdgeInsets.all(10.0),
-            //                 child: Text("here",
-            //                     style: TextStyle(
-            //                       color: Colors.blue,
-            //                     )),
-            //               ),
-            //             ),
-            //           )
-            //         ],
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ),
           Form(
             key: _key,
@@ -167,117 +86,145 @@ class _SignInState extends State<SignIn> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Container(
-                            padding: EdgeInsets.only(
-                                left: size.width / 10, right: size.width / 10),
-                            child: Text(
-                              'Email',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )),
                         SizedBox(
                           height: size.height / 60,
                         ),
                         Container(
                           margin: EdgeInsets.only(
-                              left: size.width / 10, right: size.width / 10),
-                          padding: EdgeInsets.only(
-                              left: size.width / 25, right: size.width / 25),
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(150),
-                            color: Colors.white,
+                            left: size.width / 10,
+                            right: size.width / 10,
                           ),
+                          alignment: Alignment.centerLeft,
+                          // color: Colors.white,
                           height: size.height / 14,
-                          child: TextFormField(
-                            cursorColor: Colors.black,
-                            validator: validateEmail,
-                            keyboardType: TextInputType.emailAddress,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.only(top: 14),
-                                prefixIcon: Icon(
-                                  Icons.person,
+                          child: Container(
+                            height: double.infinity,
+                            width: double.infinity,
+                            child: SizedBox.expand(
+                              child: TextFormField(
+                                cursorColor: Colors.black,
+                                validator: validateEmail,
+                                keyboardType: TextInputType.emailAddress,
+                                style: TextStyle(
                                   color: Colors.black,
                                 ),
-                                hintText: 'Enter your Email'),
-                            onChanged: (value) {
-                              setState(() {
-                                _email = value.trim();
-                                print(_email);
-                              });
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height / 60,
-                        ),
-                        Container(
-                            padding: EdgeInsets.only(
-                                left: size.width / 10, right: size.width / 10),
-                            child: Text(
-                              'Password',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )),
-                        SizedBox(
-                          height: size.height / 60,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: size.width / 10, right: size.width / 10),
-                          padding: EdgeInsets.only(
-                              left: size.width / 25, right: size.width / 25),
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(150),
-                            color: Colors.white,
-                          ),
-                          height: size.height / 14,
-                          child: TextFormField(
-                            obscureText: _obscureText,
-                            cursorColor: Colors.black,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.only(top: 14),
-                                prefixIcon: Icon(
-                                  Icons.lock,
-                                  color: Colors.black,
-                                ),
-                                suffixIcon: IconButton(
-                                  onPressed: () async {
-                                    setState(() {
-                                      _obscureText =
-                                          _obscureText == true ? false : true;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.visibility,
+                                textAlignVertical: TextAlignVertical.center,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    gapPadding: 25,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(width: 1.2),
+                                  ),
+                                  prefixIcon: Icon(
+                                    Icons.person,
                                     color: Colors.black,
                                   ),
+                                  hintText: 'Enter your Email',
+                                  hintStyle: TextStyle(
+                                      fontSize: 14, color: Colors.black),
+                                  labelText: "Email",
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
                                 ),
-                                hintText: 'Enter your Password'),
-                            onChanged: (value) {
-                              setState(() {
-                                _password = value.trim();
-                                print(_password);
-                              });
-                            },
+                                onChanged: (value) {
+                                  setState(() {
+                                    _email = value.trim();
+                                    print(_email);
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height / 50,
+                        ),
+                        SizedBox(
+                          height: size.height / 50,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                            left: size.width / 10,
+                            right: size.width / 10,
+                          ),
+                          alignment: Alignment.centerLeft,
+                          height: size.height / 14,
+                          child: Container(
+                            height: double.infinity,
+                            width: double.infinity,
+                            child: SizedBox.expand(
+                              child: TextFormField(
+                                obscureText: _obscureText,
+                                cursorColor: Colors.black,
+                                style: TextStyle(color: Colors.black),
+                                textAlignVertical: TextAlignVertical.center,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    gapPadding: 25,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(width: 0.7),
+                                  ),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    color: Colors.black,
+                                  ),
+                                  hintText: 'Enter your Password',
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  hintStyle: TextStyle(
+                                      fontSize: 14, color: Colors.black),
+                                  labelText: "Password",
+                                  suffixIcon: IconButton(
+                                    onPressed: () async {
+                                      setState(() {
+                                        _obscureText =
+                                            _obscureText == true ? false : true;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      Icons.visibility,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _password = value.trim();
+                                    print(_password);
+                                  });
+                                },
+                              ),
+                            ),
                           ),
                         ),
                         Container(
-                          height: size.height / 24,
+                          margin: EdgeInsets.only(
+                            left: size.width / 10,
+                            right: size.width / 10,
+                          ),
                           // color: Colors.green,
-                          padding: EdgeInsets.only(
-                              left: size.width / 10, right: size.width / 10),
+                          height: size.height / 24,
+
+                          padding: EdgeInsets.all(0),
                           // margin: EdgeInsets.only(
                           //     left: size.width / 25, right: size.width / 25),
                           alignment: Alignment.centerRight,
+
                           child: TextButton(
                             child: Text(
                               'Forgot Password?',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              textAlign: TextAlign.right,
                             ),
                             onPressed: () => {
                               Navigator.push(
@@ -332,40 +279,13 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                         SizedBox(
-                          height: size.height / 15,
+                          height: size.height / 45,
                         ),
                         Container(
                           padding: EdgeInsets.only(
-                              left: size.width / 10, right: size.width / 10),
-                          alignment: Alignment.center,
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(text: 'Don\'t have an Account?'),
-                                TextSpan(
-                                  text: '  Register',
-                                  style: TextStyle(color: Colors.black),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Registration()));
-                                    },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height / 40,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: size.width / 10, right: size.width / 10),
+                              left: size.width / 2.7, right: size.width / 2.7),
                           margin: EdgeInsets.symmetric(
-                              vertical: size.height * 0.02),
+                              vertical: size.height * 0.005),
                           alignment: Alignment.center,
                           child: Row(
                             children: <Widget>[
@@ -381,14 +301,22 @@ class _SignInState extends State<SignIn> {
                               buildDivider(),
                             ],
                           ),
+                          // child: Text(
+                          //   'OR',
+                          //   style: TextStyle(
+                          //       color: Colors.black,
+                          //       fontWeight: FontWeight.w600),
+                          // ),
                         ),
                         Container(
                           padding: EdgeInsets.only(
                               left: size.width / 10, right: size.width / 10),
                           alignment: Alignment.center,
                           child: Text(
-                            'Sign in with',
-                            style: TextStyle(color: Colors.white),
+                            'Sign In with',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal),
                           ),
                         ),
                         SizedBox(
@@ -442,6 +370,50 @@ class _SignInState extends State<SignIn> {
                             ],
                           ),
                         ),
+                        SizedBox(
+                          height: size.height / 13,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: size.width / 10, right: size.width / 10),
+                          child: Divider(
+                            color: Colors.black45,
+                            height: 15,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height / 50,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(
+                              left: size.width / 10, right: size.width / 10),
+                          alignment: Alignment.center,
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Don\'t have an Account?',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal),
+                                ),
+                                TextSpan(
+                                  text: '  Sign Up',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Registration()));
+                                    },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -457,8 +429,8 @@ class _SignInState extends State<SignIn> {
   Expanded buildDivider() {
     return Expanded(
       child: Divider(
-        color: Color(0xFFD9D9D9),
-        height: 2,
+        color: Colors.black45,
+        height: 15,
       ),
     );
   }
