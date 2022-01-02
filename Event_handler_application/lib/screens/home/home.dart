@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
   final panelController = PanelController();
   int index = 0;
   double panelPosition = 200;
-  Event event = Event('', '', '', 0, 0, '', '', '', 0, '',[], [],[]);
+  Event event = Event('', '', '', 0, 0, '', '', '', 0, '',[], [],[],0);
   final screens = [
     GoogleMapScreen(),
     Share_Link(),

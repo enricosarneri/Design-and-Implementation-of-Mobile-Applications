@@ -9,6 +9,7 @@ class Event{
   final String date;
   final int maxPartecipants;
   final String eventId;
+  int firstFreeQrCode;
   List<String> partecipants=[];
   List<String> applicants=[];
   List<String> qrCodes=[];
@@ -52,5 +53,5 @@ class Event{
 
  
 
-  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
+  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes, this.firstFreeQrCode);
 }

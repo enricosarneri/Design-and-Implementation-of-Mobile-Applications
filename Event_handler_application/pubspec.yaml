@@ -53,6 +53,8 @@ dependencies:
   syncfusion_flutter_sliders: ^19.4.40
   syncfusion_flutter_datepicker: ^19.4.40
   google_sign_in: ^5.2.1
+  qr_code_scanner: ^0.6.1
+  qr_flutter: ^4.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

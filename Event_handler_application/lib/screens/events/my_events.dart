@@ -70,7 +70,8 @@ class MyEvents extends StatelessWidget {
                                             onPressed: () {
                                               Event event= Event(data.docs[index]['manager'],data.docs[index]['name'],data.docs[index]['description'],data.docs[index]['latitude'],data.docs[index]['longitude']
                                               ,data.docs[index]['placeName'],data.docs[index]['eventType'],data.docs[index]['date'],data.docs[index]['maxPartecipants'],data.docs[index]['eventId'],
-                                              List<String>.from(data.docs[index]['partecipants']),List<String>.from(data.docs[index]['applicants']), List<String>.from(data.docs[index]['qrCodeList']));
+                                              List<String>.from(data.docs[index]['partecipants']),List<String>.from(data.docs[index]['applicants']), List<String>.from(data.docs[index]['qrCodeList']),
+                                              data.docs[index]['firstFreeQrCode']);
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(builder: (context) => EventScreen(event: event,)),

@@ -202,7 +202,7 @@ class _Create_EventState extends State<Create_Event> {
                   return;
                 }
                 await DatabaseService(_authService.getCurrentUser()!.uid).createEventData(_name, _description, _address, _placeName, _eventType, _eventDate,
-                 _maxPartecipants);
+                 _maxPartecipants,0);
                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                 Wrapper()), (Route<dynamic> route) => false);
               }), 

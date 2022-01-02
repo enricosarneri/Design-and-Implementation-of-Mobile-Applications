@@ -17,6 +17,7 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('users');
   final CollectionReference eventCollection =
       FirebaseFirestore.instance.collection('events');
+  final CollectionReference userQrCodes= FirebaseFirestore.instance.collection('userQrCodes');
 
   Future updateUserData(String email, String password, String name,
       String surname, bool isOwner) async {
@@ -53,6 +54,7 @@ class DatabaseService {
           List<String>.from(e.get('partecipants')),
           List<String>.from(e.get('applicants')),
           List<String>.from(e.get('qrCodeList')),
+          e.get('firstFreeQrCode'),
           );
     }).toList();
   }
@@ -80,6 +82,7 @@ class DatabaseService {
       String? eventType,
       DateTime? date,
       String maxPartecipants,
+      int firstFreeQrCode,
       ) async {
       List<String> partecipants=[];
       List<String> applicants=[];
@@ -87,7 +90,7 @@ class DatabaseService {
       String eventId=  name+DateTime.now().microsecondsSinceEpoch.toString();
     Coordinates coordinates =
         await LocationService().getCoordinatesByAddress(address);
-    Event event= Event(uid, name, description, coordinates.latitude, coordinates.longitude, placeName, eventType!, date.toString(), int.parse(maxPartecipants), eventId, partecipants, applicants,qrCodes);
+    Event event= Event(uid, name, description, coordinates.latitude, coordinates.longitude, placeName, eventType!, date.toString(), int.parse(maxPartecipants), eventId, partecipants, applicants,qrCodes,firstFreeQrCode);
     return await eventCollection.add({
       'manager': uid,
       'name': event.name,
@@ -102,6 +105,7 @@ class DatabaseService {
       'partecipants' : event.partecipants,
       'applicants' : event.applicants,
       'eventId' : event.eventId,
+      'firstFreeQrCode' : event.firstFreeQrCode,
     });
   }
 
@@ -139,10 +143,18 @@ class DatabaseService {
           eventCollection.doc(value.docs[i].id).update({
             'partecipants' : partecipants,
             'applicants' : applicantsList,
+            'firstFreeQrCode' : event.firstFreeQrCode+1,
           })
         }
       }
     });
+    String userQrCode= event.getQrCodeList[event.firstFreeQrCode];
+    await userQrCodes.add({
+      'user' : userId,
+      'event' : event.getEventId,
+      'qrCode' : userQrCode
+      }
+    );
   }
 
   void refuseApplicance(Event event, String userId) async{

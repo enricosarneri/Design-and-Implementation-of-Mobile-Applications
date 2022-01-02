@@ -96,6 +96,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             event[i].partecipants,
             event[i].applicants,
             event[i].qrCodes,
+            event[i].firstFreeQrCode,
           ));
         });
       }
@@ -133,6 +134,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     List<String> partecipants,
     List<String> applicants,
     List<String> qrcodes,
+    int firstFreeQrCode
   ) {
     Event event = Event(
         managerId,
@@ -147,7 +149,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         eventId,
         partecipants,
         applicants,
-        qrcodes);
+        qrcodes,
+        firstFreeQrCode);
     return Marker(
         markerId: MarkerId(placeName),
         infoWindow: InfoWindow(title: placeName),
