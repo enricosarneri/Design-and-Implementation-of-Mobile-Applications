@@ -128,5 +128,35 @@ class DatabaseService {
     return qrCodeList;
   }
 
+  void acceptApplicance(Event event, String userId) async{
+    List<String> applicantsList=event.getApplicantList;
+    applicantsList.remove(userId);
+    List<String> partecipants=event.getPartecipantList;
+    partecipants.add(userId);
+    eventCollection.get().then((value) => {
+      for (var i = 0; i < value.size; i++) {
+        if(value.docs[i].get('eventId') == event.eventId) {
+          eventCollection.doc(value.docs[i].id).update({
+            'partecipants' : partecipants,
+            'applicants' : applicantsList,
+          })
+        }
+      }
+    });
+  }
+
+  void refuseApplicance(Event event, String userId) async{
+    List<String> applicantsList=event.getApplicantList;
+    applicantsList.remove(userId);
+    eventCollection.get().then((value) => {
+      for (var i = 0; i < value.size; i++) {
+        if(value.docs[i].get('eventId') == event.eventId) {
+          eventCollection.doc(value.docs[i].id).update({
+            'applicants' : applicantsList,
+          })
+        }
+      }
+    });
+  }
 
 }
