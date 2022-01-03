@@ -5,6 +5,7 @@ import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share/share.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({Key? key, required this.event}) : super(key: key);
@@ -225,7 +226,12 @@ class _EventScreenState extends State<EventScreen> {
                   backgroundColor: Colors.white,
                   );
                   }
-              )
+              ),
+              if(!isManager) IconButton(
+                icon: Icon(Icons.share_outlined),
+                onPressed: (){
+                  Share.share(widget.event.getEventId); })
+
             ],
           ),
         ),

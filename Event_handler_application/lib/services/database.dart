@@ -144,7 +144,7 @@ class DatabaseService {
     partecipants.add(userId);
     eventCollection.get().then((value) => {
       for (var i = 0; i < value.size; i++) {
-        if(value.docs[i].get('eventId') == event.eventId) {
+        if(value.docs[i].get('eventId') == event.eventId && value.docs[i].get('manager')!= userId) {
           eventCollection.doc(value.docs[i].id).update({
             'partecipants' : partecipants,
             'applicants' : applicantsList,
@@ -168,7 +168,7 @@ class DatabaseService {
     applicantsList.remove(userId);
     eventCollection.get().then((value) => {
       for (var i = 0; i < value.size; i++) {
-        if(value.docs[i].get('eventId') == event.eventId) {
+        if(value.docs[i].get('eventId') == event.eventId && value.docs[i].get('manager')!= userId) {
           eventCollection.doc(value.docs[i].id).update({
             'applicants' : applicantsList,
           })
@@ -188,6 +188,46 @@ class DatabaseService {
       }
     });
     return qrCode;
+
+  }
+
+  Future<Event> getEventByid(String eventid) async {
+  String managerId='';
+  String name='';
+  String description='';
+  double latitude=0;
+  double longitude=0;
+  String placeName='';
+  String eventType='';
+  String date='';
+  int maxPartecipants=0;
+  String eventId='';
+  int firstFreeQrCode=0;
+  List<String> partecipants=[];
+  List<String> applicants=[];
+  List<String> qrCodes=[];
+    await eventCollection.get().then((value) => {
+              for (var i = 0; i < value.size; i++) {
+        if(value.docs[i].get('eventId')== eventid){
+              managerId= value.docs[i].get('manager'),
+              name= value.docs[i].get('name'),
+              description= value.docs[i].get('description'),
+              latitude= value.docs[i].get('latitude'),
+              longitude= value.docs[i].get('longitude'),
+              placeName= value.docs[i].get('placeName'),
+              eventType= value.docs[i].get('eventType'),
+              date= value.docs[i].get('date'),
+              maxPartecipants= value.docs[i].get('maxPartecipants'),
+              eventId= eventid,
+              firstFreeQrCode= value.docs[i].get('firstFreeQrCode'),
+              partecipants= List<String>.from(value.docs[i].get('partecipants')),
+              applicants= List<String>.from(value.docs[i].get('applicants')),
+              qrCodes= List<String>.from(value.docs[i].get('qrCodeList')),
+          }
+      }
+    });
+    Event event = Event(managerId, name, description, latitude, longitude, placeName, eventType, date, maxPartecipants, eventId, partecipants, applicants,qrCodes,firstFreeQrCode);
+    return event;
 
   }
 }
