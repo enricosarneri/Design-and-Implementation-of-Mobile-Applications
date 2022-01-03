@@ -94,147 +94,172 @@ class _SignInState extends State<SignIn> {
                             left: size.width / 10,
                             right: size.width / 10,
                           ),
-                          alignment: Alignment.centerLeft,
+                          alignment: Alignment.topLeft,
                           // color: Colors.white,
-                          height: size.height / 14,
+                          height: size.height / 10,
                           child: Container(
-                            height: double.infinity,
+                            // height: size.height / 7,
                             width: double.infinity,
-                            child: SizedBox.expand(
-                              child: TextFormField(
-                                cursorColor: Colors.black,
-                                validator: validateEmail,
-                                keyboardType: TextInputType.emailAddress,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    gapPadding: 25,
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(width: 1.2),
-                                  ),
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: Colors.black,
-                                  ),
-                                  hintText: 'Enter your Email',
-                                  hintStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
-                                  labelText: "Email",
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _email = value.trim();
-                                    print(_email);
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height / 50,
-                        ),
-                        SizedBox(
-                          height: size.height / 50,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: size.width / 10,
-                            right: size.width / 10,
-                          ),
-                          alignment: Alignment.centerLeft,
-                          height: size.height / 14,
-                          child: Container(
-                            height: double.infinity,
-                            width: double.infinity,
-                            child: SizedBox.expand(
-                              child: TextFormField(
-                                obscureText: _obscureText,
-                                cursorColor: Colors.black,
-                                style: TextStyle(color: Colors.black),
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    gapPadding: 25,
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(width: 0.7),
-                                  ),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
-                                  prefixIcon: Icon(
-                                    Icons.lock,
-                                    color: Colors.black,
-                                  ),
-                                  hintText: 'Enter your Password',
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  hintStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
-                                  labelText: "Password",
-                                  suffixIcon: IconButton(
-                                    onPressed: () async {
-                                      setState(() {
-                                        _obscureText =
-                                            _obscureText == true ? false : true;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.visibility,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _password = value.trim();
-                                    print(_password);
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: size.width / 10,
-                            right: size.width / 10,
-                          ),
-                          // color: Colors.green,
-                          height: size.height / 24,
-
-                          padding: EdgeInsets.all(0),
-                          // margin: EdgeInsets.only(
-                          //     left: size.width / 25, right: size.width / 25),
-                          alignment: Alignment.centerRight,
-
-                          child: TextButton(
-                            child: Text(
-                              'Forgot Password?',
+                            child: TextFormField(
+                              cursorColor: Colors.black,
+                              validator: validateEmail,
+                              keyboardType: TextInputType.emailAddress,
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
                               ),
-                              textAlign: TextAlign.right,
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: InputDecoration(
+                                helperText: ' ',
+                                contentPadding:
+                                    EdgeInsets.only(top: 0, bottom: 0),
+                                border: OutlineInputBorder(
+                                  gapPadding: 25,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  gapPadding: 25,
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: new BorderSide(
+                                    color: Colors.red.shade700,
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(width: 1.2),
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.person,
+                                  color: Colors.black,
+                                ),
+                                hintText: 'Enter your Email',
+                                hintStyle: TextStyle(
+                                    fontSize: 14, color: Colors.black),
+                                labelText: "Email",
+                                labelStyle: TextStyle(color: Colors.black),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  _email = value.trim();
+                                  print(_email);
+                                });
+                              },
                             ),
-                            onPressed: () => {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Change_Password(),
+                          ),
+                        ),
+                        Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                left: size.width / 10,
+                                right: size.width / 10,
+                              ),
+                              alignment: Alignment.centerLeft,
+                              height: size.height / 8,
+                              child: Container(
+                                height: double.infinity,
+                                width: double.infinity,
+                                child: SizedBox.expand(
+                                  child: TextFormField(
+                                    validator: validatePassword,
+                                    obscureText: _obscureText,
+                                    cursorColor: Colors.black,
+                                    style: TextStyle(color: Colors.black),
+                                    textAlignVertical: TextAlignVertical.center,
+                                    decoration: InputDecoration(
+                                      contentPadding:
+                                          EdgeInsets.only(top: 0, bottom: 0),
+                                      border: OutlineInputBorder(
+                                        gapPadding: 25,
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(width: 0.7),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        gapPadding: 25,
+                                        borderRadius: BorderRadius.circular(50),
+                                        borderSide: new BorderSide(
+                                          color: Colors.red.shade700,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        gapPadding: 20,
+                                        borderRadius: BorderRadius.circular(50),
+                                        borderSide: new BorderSide(
+                                          color: Colors.red.shade700,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      prefixIcon: Icon(
+                                        Icons.lock,
+                                        color: Colors.black,
+                                      ),
+                                      hintText: 'Enter your Password',
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                      hintStyle: TextStyle(
+                                          fontSize: 14, color: Colors.black),
+                                      labelText: "Password",
+                                      suffixIcon: IconButton(
+                                        onPressed: () async {
+                                          setState(() {
+                                            _obscureText = _obscureText == true
+                                                ? false
+                                                : true;
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.visibility,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _password = value.trim();
+                                        print(_password);
+                                      });
+                                    },
+                                  ),
                                 ),
                               ),
-                            },
-                          ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: size.width / 10,
+                                  right: size.width / 10,
+                                  top: 50),
+                              // color: Colors.green,
+                              height: size.height / 24,
+
+                              // margin: EdgeInsets.only(
+                              //     left: size.width / 25, right: size.width / 25),
+                              alignment: Alignment.bottomRight,
+
+                              child: TextButton(
+                                child: Text(
+                                  'Forgot Password?',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  textAlign: TextAlign.right,
+                                ),
+                                onPressed: () => {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Change_Password(),
+                                    ),
+                                  ),
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: size.height / 30,
@@ -257,7 +282,7 @@ class _SignInState extends State<SignIn> {
                                     color: Colors.black,
                                   )
                                 : const Text(
-                                    'Sign in',
+                                    'Sign In',
                                     style: TextStyle(color: Colors.black),
                                   ),
                             onPressed: () async {
@@ -462,13 +487,13 @@ String? validateEmail(String? formEmail) {
 String? validatePassword(String? formPassword) {
   if (formPassword == null || formPassword.isEmpty)
     return 'Password address is required';
-  String pattern =
-      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-  RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formPassword))
-    return '''
-      Password must be at least 8 characters,
-      include an uppercase letter, number and symbol.
-      ''';
-  return null;
+  // String pattern =
+  //     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  // RegExp regex = RegExp(pattern);
+  // if (!regex.hasMatch(formPassword))
+  //   return '''
+  //     Password must be at least 8 characters,
+  //     include an uppercase letter, number and symbol.
+  //     ''';
+  // return null;
 }

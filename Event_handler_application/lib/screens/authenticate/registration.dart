@@ -33,7 +33,7 @@ class _RegistrationState extends State<Registration> {
       decoration: InputDecoration(labelText: 'Name'),
       validator: (String? value) {
         if (value!.isEmpty) {
-          return 'Name is Required';
+          return 'Name is required';
         }
       },
       onChanged: (value) {
@@ -49,7 +49,7 @@ class _RegistrationState extends State<Registration> {
       decoration: InputDecoration(labelText: 'Surname'),
       validator: (String? value) {
         if (value!.isEmpty) {
-          return 'Surname is Required';
+          return 'Surname is required';
         }
       },
       onChanged: (value) {
@@ -232,7 +232,7 @@ class _RegistrationState extends State<Registration> {
                             width: double.infinity,
                             child: SizedBox.expand(
                               child: TextFormField(
-                                maxLength: 30,
+                                maxLength: 50,
                                 cursorColor: Colors.black,
                                 validator: validateEmail,
                                 keyboardType: TextInputType.emailAddress,
@@ -241,12 +241,30 @@ class _RegistrationState extends State<Registration> {
                                 ),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.only(top: 0, bottom: 0),
                                   border: OutlineInputBorder(
                                     gapPadding: 25,
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(width: 1.2),
+                                    borderSide: BorderSide(
+                                        width: 0.7, color: Colors.black),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    gapPadding: 20,
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: new BorderSide(
+                                      color: Colors.red.shade700,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    gapPadding: 25,
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: new BorderSide(
+                                      color: Colors.red.shade700,
+                                    ),
                                   ),
                                   prefixIcon: Icon(
                                     Icons.person,
@@ -292,12 +310,29 @@ class _RegistrationState extends State<Registration> {
                                 style: TextStyle(color: Colors.black),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.only(top: 0, bottom: 0),
                                   border: OutlineInputBorder(
                                     gapPadding: 25,
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(width: 0.7),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    gapPadding: 25,
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: new BorderSide(
+                                      color: Colors.red.shade700,
+                                    ),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    gapPadding: 20,
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: new BorderSide(
+                                      color: Colors.red.shade700,
+                                      width: 2,
+                                    ),
                                   ),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
@@ -342,28 +377,49 @@ class _RegistrationState extends State<Registration> {
                             right: size.width / 10,
                           ),
                           alignment: Alignment.centerLeft,
-                          height: size.height / 15,
+                          height: size.height / 10,
                           child: Container(
-                            height: double.infinity,
+                            // height: size.height / 5,
+
                             width: double.infinity,
-                            child: SizedBox.expand(
+                            child: Center(
                               child: TextFormField(
                                 validator: (String? value) {
                                   if (value!.isEmpty) {
                                     return 'Name is Required';
                                   }
                                 },
-                                obscureText: _obscureText,
                                 cursorColor: Colors.black,
                                 style: TextStyle(color: Colors.black),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
+                                  helperText: ' ',
+                                  contentPadding: EdgeInsets.only(
+                                    top: 0,
+                                    bottom: 5,
+                                    left: 48,
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    gapPadding: 25,
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: new BorderSide(
+                                      color: Colors.red.shade700,
+                                    ),
+                                  ),
                                   border: OutlineInputBorder(
-                                    gapPadding: 5,
+                                    gapPadding: 25,
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(width: 0.7),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    gapPadding: 20,
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: new BorderSide(
+                                      color: Colors.red.shade700,
+                                      width: 2,
+                                    ),
                                   ),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
@@ -383,7 +439,7 @@ class _RegistrationState extends State<Registration> {
                           ),
                         ),
                         SizedBox(
-                          height: size.height / 30,
+                          height: size.height / 200,
                         ),
                         Container(
                           margin: EdgeInsets.only(
@@ -391,7 +447,7 @@ class _RegistrationState extends State<Registration> {
                             right: size.width / 10,
                           ),
                           alignment: Alignment.centerLeft,
-                          height: size.height / 15,
+                          height: size.height / 10,
                           child: Container(
                             height: double.infinity,
                             width: double.infinity,
@@ -402,13 +458,33 @@ class _RegistrationState extends State<Registration> {
                                     return 'Surname is Required';
                                   }
                                 },
-                                obscureText: _obscureText,
                                 cursorColor: Colors.black,
                                 style: TextStyle(color: Colors.black),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
+                                  helperText: ' ',
+                                  contentPadding: EdgeInsets.only(
+                                    top: 0,
+                                    bottom: 5,
+                                    left: 48,
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    gapPadding: 20,
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: new BorderSide(
+                                      color: Colors.red.shade700,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    gapPadding: 25,
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: new BorderSide(
+                                      color: Colors.red.shade700,
+                                    ),
+                                  ),
                                   border: OutlineInputBorder(
-                                    gapPadding: 5,
+                                    gapPadding: 25,
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
@@ -432,7 +508,7 @@ class _RegistrationState extends State<Registration> {
                           ),
                         ),
                         SizedBox(
-                          height: size.height / 25,
+                          height: size.height / 50,
                         ),
                         Container(
                           height: size.height / 16,
@@ -641,12 +717,13 @@ String? validateEmail(String? formEmail) {
 String? validatePassword(String? formPassword) {
   if (formPassword == null || formPassword.isEmpty)
     return 'Password is required';
-  //String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-  //RegExp regex = RegExp(pattern);
-  //if (!regex.hasMatch(formPassword))
-  //return '''
-  //Password must be at least 8 characters,
-  //include an uppercase letter, number and symbol.
-  //''';
-  return null;
+  // String pattern =
+  //     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  // RegExp regex = RegExp(pattern);
+  // if (!regex.hasMatch(formPassword))
+  //   return '''
+  //     Password must be at least 8 characters,
+  //     include an uppercase letter, number and symbol.
+  //     ''';
+  // return null;
 }
