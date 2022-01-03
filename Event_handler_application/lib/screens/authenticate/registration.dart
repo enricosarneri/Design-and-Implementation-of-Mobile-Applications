@@ -191,7 +191,7 @@ class _RegistrationState extends State<Registration> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      height: size.height * 0.17,
+                      height: size.height * 0.14,
                       width: 40,
                       decoration: BoxDecoration(
                           // image: DecorationImage(
@@ -505,6 +505,26 @@ class _RegistrationState extends State<Registration> {
                                 },
                               ),
                             ),
+                          ),
+                        ),
+                        Container(
+                          height: size.height / 25,
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Are you an owner of a local?",
+                                textAlign: TextAlign.center,
+                              ),
+                              Switch(
+                                  value: _isOwner,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _isOwner = value;
+                                    });
+                                  })
+                            ],
                           ),
                         ),
                         SizedBox(
