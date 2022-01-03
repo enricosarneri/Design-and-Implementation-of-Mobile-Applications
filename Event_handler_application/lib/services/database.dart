@@ -144,7 +144,7 @@ class DatabaseService {
     partecipants.add(userId);
     eventCollection.get().then((value) => {
       for (var i = 0; i < value.size; i++) {
-        if(value.docs[i].get('eventId') == event.eventId) {
+        if(value.docs[i].get('eventId') == event.eventId && value.docs[i].get('manager')!= userId) {
           eventCollection.doc(value.docs[i].id).update({
             'partecipants' : partecipants,
             'applicants' : applicantsList,
@@ -168,7 +168,7 @@ class DatabaseService {
     applicantsList.remove(userId);
     eventCollection.get().then((value) => {
       for (var i = 0; i < value.size; i++) {
-        if(value.docs[i].get('eventId') == event.eventId) {
+        if(value.docs[i].get('eventId') == event.eventId && value.docs[i].get('manager')!= userId) {
           eventCollection.doc(value.docs[i].id).update({
             'applicants' : applicantsList,
           })
