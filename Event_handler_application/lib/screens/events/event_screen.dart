@@ -23,7 +23,7 @@ class _EventScreenState extends State<EventScreen> {
     final String userId= _authService.getCurrentUser()!.uid;
     Stream<QuerySnapshot> users =
         DatabaseService(userId).getUsers();
-    
+    bool isManager= userId== widget.event.getManagerId;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(24),
@@ -50,13 +50,13 @@ class _EventScreenState extends State<EventScreen> {
                 'Place : ' + widget.event.placeName,
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
               ),
-              SizedBox(height: 24),
-              Text(
+              if(isManager) SizedBox(height: 24),
+                Text(
                 'People asking to join: ' +
                     widget.event.applicants.length.toString(),
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
-              StreamBuilder(
+              if(isManager) StreamBuilder(
                   stream: users,
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -149,11 +149,11 @@ class _EventScreenState extends State<EventScreen> {
                           }
                         });
                   }),
-              Text(
+              if(isManager)Text(
                 'Partecipants ' + widget.event.partecipants.length.toString(),
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
-              StreamBuilder(
+              if(isManager) StreamBuilder(
                   stream: users,
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -207,15 +207,15 @@ class _EventScreenState extends State<EventScreen> {
                           }
                         });
                   }),
-              ElevatedButton(
+              if(isManager) ElevatedButton(
                   child: const Text('Scan Qr'),
                   onPressed: () async {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => QrScanPage()),
+                      MaterialPageRoute(builder: (context) => QrScanPage(event: widget.event,)),
                     );
                   }),
-              FutureBuilder(
+              if(!isManager)FutureBuilder(
                 future: DatabaseService(_authService.getCurrentUser()!.uid).getQrCodeByUserEvent(widget.event, userId),
                 initialData: "Loading text..",
                 builder: (BuildContext context, AsyncSnapshot<String> text) {

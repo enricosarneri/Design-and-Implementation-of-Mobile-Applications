@@ -137,18 +137,3 @@ class _HomeState extends State<Home> {
             )));
   }
 }
-
-@override
-Widget ShareLink(BuildContext context) {
-  return Expanded(
-    child: Container(
-      color: Colors.red,
-      child: Center(
-        child: Text(
-          "Link",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-      ),
-    ),
-  );
-}

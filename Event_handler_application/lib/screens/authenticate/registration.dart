@@ -281,7 +281,6 @@ class _RegistrationState extends State<Registration> {
                                 onChanged: (value) {
                                   setState(() {
                                     _email = value.trim();
-                                    print(_email);
                                   });
                                 },
                               ),
@@ -361,7 +360,6 @@ class _RegistrationState extends State<Registration> {
                                 onChanged: (value) {
                                   setState(() {
                                     _password = value.trim();
-                                    print(_password);
                                   });
                                 },
                               ),
@@ -573,9 +571,6 @@ class _RegistrationState extends State<Registration> {
                               if (this.mounted) {
                                 setState(() => isSignUpLoading = false);
                               }
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()));
                             },
                           ),
                         ),
@@ -601,10 +596,7 @@ class _RegistrationState extends State<Registration> {
                                       fontWeight: FontWeight.bold),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => SignIn()));
+                                      Navigator.pop(context);
                                     },
                                 ),
                               ],
@@ -681,11 +673,7 @@ class _RegistrationState extends State<Registration> {
                                       .then((UserCredential value) {
                                     final displayName = value.user!.displayName;
                                     print(displayName);
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Home()),
-                                        (route) => false);
+                                    Navigator.pop(context);
                                   });
                                   setState(() {});
                                 },

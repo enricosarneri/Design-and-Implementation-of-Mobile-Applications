@@ -187,7 +187,6 @@ class DatabaseService {
            }
       }
     });
-    log(qrCode);
     return qrCode;
 
   }

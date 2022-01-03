@@ -1,9 +1,13 @@
 import 'dart:io';
 
+import 'package:event_handler/models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QrScanPage extends StatefulWidget{
+  const QrScanPage({Key? key, required this.event}) : super(key: key);
+  final Event event;
+
   @override
   State<StatefulWidget> createState()=> _QrScanPageState();
 }
@@ -37,6 +41,7 @@ class _QrScanPageState extends State<QrScanPage> {
       color: Colors.white24,
     ),
     child: Text(
+      //(barcode != null && widget.event.getPartecipantList.contains(barcode!.code)) ? 'The Qr code is OK!' : 'Scan a code',
       barcode != null ? 'Result : ${barcode!.code}' : 'Scan a code',
       maxLines: 3,
     ),

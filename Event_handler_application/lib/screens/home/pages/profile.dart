@@ -1,6 +1,8 @@
+import 'package:event_handler/models/user.dart';
 import 'package:event_handler/screens/events/manager_events.dart';
 import 'package:event_handler/screens/events/my_events.dart';
 import 'package:event_handler/services/auth.dart';
+import 'package:event_handler/services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +30,7 @@ class Profile extends StatelessWidget {
                   );
                 }),
             SizedBox(height: 20),
-                        ElevatedButton(
+            ElevatedButton(
                 child: Text('My events'),
                 onPressed: () async {
                   Navigator.push(
