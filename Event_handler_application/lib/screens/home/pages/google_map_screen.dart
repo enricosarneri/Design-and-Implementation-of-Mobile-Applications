@@ -9,6 +9,7 @@ import 'package:event_handler/models/place.dart';
 import 'package:event_handler/screens/home/side_filter.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
+import 'package:intl/intl.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   @override
@@ -37,9 +40,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   MapType _currentMapType = MapType.normal;
   PageController _pageController = new PageController();
   late bool _isSelected;
-  late SfRangeValues _valuesPeople = new SfRangeValues(0, 100);
+  late SfRangeValues _valuesPeople = new SfRangeValues(0, 300);
   late SfRangeValues _valuesPrices = new SfRangeValues(0, 100);
-  late SfRangeValues _valuesKm = new SfRangeValues(0, 100);
+  late SfRangeValues _valuesKm = new SfRangeValues(0, 200);
   DateRangePickerController _dateRangePickerController =
       DateRangePickerController();
 
@@ -121,21 +124,20 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
 
   Marker createMarker(
-    double latitude,
-    double longitude,
-    String placeName,
-    String date,
-    String description,
-    String eventType,
-    String managerId,
-    int maxPartecipants,
-    String name,
-    String eventId,
-    List<String> partecipants,
-    List<String> applicants,
-    List<String> qrcodes,
-    int firstFreeQrCode
-  ) {
+      double latitude,
+      double longitude,
+      String placeName,
+      String date,
+      String description,
+      String eventType,
+      String managerId,
+      int maxPartecipants,
+      String name,
+      String eventId,
+      List<String> partecipants,
+      List<String> applicants,
+      List<String> qrcodes,
+      int firstFreeQrCode) {
     Event event = Event(
         managerId,
         name,
@@ -163,6 +165,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _scrollController = FixedExtentScrollController();
+
+    Size size_screen = MediaQuery.of(context).size;
+
     final applicationBlock = Provider.of<ApplicationBlock>(context);
     return Scaffold(
       body: SlidingUpPanel(
@@ -189,61 +195,43 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 ),
               ),
               Container(
-                color: Colors.transparent,
-                padding: EdgeInsets.only(right: 2, left: 2),
-                height: MediaQuery.of(context).size.height * 0.35 - 68 - 50,
+                height: size_screen.height * 0.20,
                 child: Stack(
                   children: [
                     PageView(
                       controller: _pageController,
                       children: [
                         Container(
-                          color: Colors.transparent,
-                          margin: EdgeInsets.only(),
-                          child: Column(
+                          margin: EdgeInsets.symmetric(horizontal: 2),
+                          child: ListView(
+                            itemExtent: size_screen.height * 0.10,
                             children: [
-                              Container(
-                                padding: EdgeInsets.only(right: 4, left: 4),
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                height: 40,
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: FittedBox(
-                                    child: Wrap(
-                                      spacing: 8,
-                                      runSpacing: 8,
-                                      children: locationWidgets.toList(),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
+                              SizedBox(
+                                height: (size_screen.height * 0.10),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: Scrollbar(
-                                    isAlwaysShown: true,
-                                    child: ListView(
-                                      primary: false,
-                                      padding: const EdgeInsets.all(4),
-                                      children: <Widget>[
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                            top: 5,
-                                            bottom: 5,
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size_screen.width / 20),
+                                  decoration: BoxDecoration(color: Colors.red),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: (size_screen.height * 0.10) / 5,
+                                        child: Container(
+                                          //     color: Colors.green,
+                                          child: Center(
+                                            child: Text("Prices"),
                                           ),
-                                          height: 40,
-                                          color: Colors.transparent,
                                         ),
-                                        Container(
-                                          height: 60,
-                                          color: Colors.transparent,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 2),
+                                          //   color: Colors.yellow,
                                           child: SfRangeSlider(
+                                            numberFormat: NumberFormat("\$"),
+                                            stepSize: 1,
                                             min: 0.0,
                                             max: 100.0,
                                             values: _valuesPrices,
@@ -252,78 +240,89 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                             showLabels: true,
                                             enableTooltip: true,
                                             minorTicksPerInterval: 1,
-                                            activeColor: Colors.black54,
-                                            stepSize: 5,
                                             onChanged: (SfRangeValues values) {
-                                              setState(() {
-                                                _valuesPrices = values;
-                                              });
+                                              setState(
+                                                () {
+                                                  _valuesPrices = values;
+                                                },
+                                              );
                                             },
                                           ),
                                         ),
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                            top: 5,
-                                            bottom: 5,
-                                          ),
-                                          height: 40,
-                                          color: Colors.transparent,
-                                        ),
-                                        Container(
-                                          height: 60,
-                                          color: Colors.transparent,
-                                          child: SfRangeSlider(
-                                            min: 0.0,
-                                            max: 100.0,
-                                            values: _valuesPeople,
-                                            interval: 20,
-                                            showTicks: true,
-                                            showLabels: true,
-                                            enableTooltip: true,
-                                            minorTicksPerInterval: 1,
-                                            activeColor: Colors.black54,
-                                            stepSize: 1,
-                                            onChanged: (SfRangeValues values) {
-                                              setState(() {
-                                                _valuesPeople = values;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                            top: 5,
-                                            bottom: 5,
-                                          ),
-                                          height: 40,
-                                          color: Colors.transparent,
-                                        ),
-                                        Container(
-                                          height: 60,
-                                          color: Colors.transparent,
-                                          child: SfRangeSlider(
-                                            min: 0.0,
-                                            max: 100.0,
-                                            values: _valuesKm,
-                                            interval: 20,
-                                            showTicks: true,
-                                            showLabels: true,
-                                            enableTooltip: true,
-                                            minorTicksPerInterval: 1,
-                                            activeColor: Colors.black54,
-                                            stepSize: 5,
-                                            onChanged: (SfRangeValues values) {
-                                              setState(() {
-                                                _valuesKm = values;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      )
+                                    ],
                                   ),
                                 ),
-                              )
+                              ),
+                              SizedBox(
+                                height: size_screen.height * 0.10,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size_screen.width / 20),
+                                  decoration:
+                                      BoxDecoration(color: Colors.green),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: (size_screen.height * 0.10) / 5,
+                                        child: Container(
+                                          //     color: Colors.green,
+                                          child: Center(
+                                            child:
+                                                Text("Number of Partecipants"),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 2),
+                                          //   color: Colors.yellow,
+                                          child: SfRangeSlider(
+                                            stepSize: 5,
+                                            min: 0.0,
+                                            max: 300.0,
+                                            values: _valuesPeople,
+                                            interval: 50,
+                                            showTicks: true,
+                                            showLabels: true,
+                                            enableTooltip: true,
+                                            minorTicksPerInterval: 1,
+                                            onChanged: (SfRangeValues values) {
+                                              setState(
+                                                () {
+                                                  _valuesPeople = values;
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: size_screen.height * 0.10,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size_screen.width / 20),
+                                  decoration: BoxDecoration(color: Colors.red),
+                                  child: Center(
+                                    child: Text("Bella"),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: size_screen.height * 0.10,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size_screen.width / 20),
+                                  decoration:
+                                      BoxDecoration(color: Colors.yellow),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -434,8 +433,30 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       },
                     ),
                   ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: size_screen.height / 6.5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    height: size_screen.height / 13,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: FittedBox(
+                        child: Wrap(
+                          spacing: 2,
+                          runSpacing: 2,
+                          children: locationWidgets.toList(),
+                        ),
+                      ),
+                    ),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 130, left: 330),
+                    padding: EdgeInsets.only(
+                        top: size_screen.height / 4.5,
+                        left: size_screen.width * 0.85),
                     child: FloatingActionButton(
                       heroTag: 'toggle_map_type_button',
                       onPressed: _onToggleMapTypePressed,
@@ -569,7 +590,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 315, top: 630),
+                    padding: EdgeInsets.only(
+                        left: size_screen.width * 0.80, top: 630),
                     child: FloatingActionButton(
                       onPressed: () async {
                         final GoogleMapController controller =
@@ -637,7 +659,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Iterable<Widget> get locationWidgets sync* {
     for (EventLocation location in _locations) {
       yield Padding(
-        padding: const EdgeInsets.all(0),
+        padding: const EdgeInsets.only(top: 8, bottom: 8, right: 4, left: 4),
         child: FilterChip(
           labelPadding: EdgeInsets.all(5.0),
           avatar: CircleAvatar(

@@ -126,6 +126,14 @@ class _SignInState extends State<SignIn> {
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(width: 1.2),
                                 ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  gapPadding: 20,
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: new BorderSide(
+                                    color: Colors.red.shade700,
+                                    width: 2,
+                                  ),
+                                ),
                                 prefixIcon: Icon(
                                   Icons.person,
                                   color: Colors.black,
@@ -243,6 +251,7 @@ class _SignInState extends State<SignIn> {
                                 child: Text(
                                   'Forgot Password?',
                                   style: TextStyle(
+                                    decoration: TextDecoration.underline,
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
