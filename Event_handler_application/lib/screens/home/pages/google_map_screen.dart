@@ -11,6 +11,7 @@ import 'package:event_handler/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:event_handler/services/auth.dart';
@@ -79,31 +80,31 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       const EventLocation('Disco', 0xFF5cda65),
       const EventLocation('Private Setting', 0xFFff8a65),
     ];
-    final Stream<List<Event>> eventsList =
-        DatabaseService(_authService.getCurrentUser()!.uid).events;
+    // final Stream<List<Event>> eventsList =
+    //     DatabaseService(_authService.getCurrentUser()!.uid).events;
     DatabaseService(_authService.getCurrentUser()!.uid).getCurrentUser();
-    eventsListener = eventsList.listen((event) {
-      for (var i = 0; i < event.length; i++) {
-        setState(() {
-          markers.add(createMarker(
-            event[i].latitude,
-            event[i].longitude,
-            event[i].placeName,
-            event[i].date,
-            event[i].description,
-            event[i].eventType,
-            event[i].managerId,
-            event[i].maxPartecipants,
-            event[i].name,
-            event[i].eventId,
-            event[i].partecipants,
-            event[i].applicants,
-            event[i].qrCodes,
-            event[i].firstFreeQrCode,
-          ));
-        });
-      }
-    });
+    // eventsListener = eventsList.listen((event) {
+    //   for (var i = 0; i < event.length; i++) {
+    //     setState(() {
+    //       markers.add(createMarker(
+    //         event[i].latitude,
+    //         event[i].longitude,
+    //         event[i].placeName,
+    //         event[i].date,
+    //         event[i].description,
+    //         event[i].eventType,
+    //         event[i].managerId,
+    //         event[i].maxPartecipants,
+    //         event[i].name,
+    //         event[i].eventId,
+    //         event[i].partecipants,
+    //         event[i].applicants,
+    //         event[i].qrCodes,
+    //         event[i].firstFreeQrCode,
+    //       ));
+    //     });
+    //   }
+    // });
 
     final applicationBlock =
         Provider.of<ApplicationBlock>(context, listen: false);
@@ -163,6 +164,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         });
   }
 
+  List<Event> event_list = [];
   @override
   Widget build(BuildContext context) {
     final _scrollController = FixedExtentScrollController();
@@ -170,6 +172,28 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     Size size_screen = MediaQuery.of(context).size;
 
     final applicationBlock = Provider.of<ApplicationBlock>(context);
+
+    final Stream<List<Event>> eventsListStream =
+        DatabaseService(_authService.getCurrentUser()!.uid).events;
+    eventsListener = eventsListStream.listen((event) {
+      event_list = [];
+      for (var i = 0; i < event.length; i++) {
+        setState(() {
+          event_list.add(event[i]);
+        });
+      }
+    });
+    List<Event> filterMarkers_people(max_num_people) {
+      List<Event> result = [];
+      for (int i = 0; i < event_list.length; i++) {
+        if (event_list[i].maxPartecipants < max_num_people) {
+          result.add(event_list[i]);
+        }
+      }
+      event_list = result;
+      return event_list;
+    }
+
     return Scaffold(
       body: SlidingUpPanel(
         color: Color(0xFFf1f5fb),
@@ -280,7 +304,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                               horizontal: 2),
                                           //   color: Colors.yellow,
                                           child: SfRangeSlider(
-                                            stepSize: 5,
+                                            stepSize: 1,
                                             min: 0.0,
                                             max: 300.0,
                                             values: _valuesPeople,
@@ -293,8 +317,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                               setState(
                                                 () {
                                                   _valuesPeople = values;
+                                                  //   print(_valuesPeople.end);
                                                 },
                                               );
+                                            },
+                                            onChangeEnd:
+                                                (SfRangeValues values) {
+                                              print(_valuesPeople.end);
+                                              filterMarkers_people(
+                                                  _valuesPeople.end);
                                             },
                                           ),
                                         ),
@@ -420,7 +451,23 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       indoorViewEnabled: true,
                       myLocationButtonEnabled: false,
                       markers: {
-                        for (var i = 0; i < markers.length; i++) markers[i]
+                        for (var i = 0; i < event_list.length; i++)
+                          createMarker(
+                            event_list[i].latitude,
+                            event_list[i].longitude,
+                            event_list[i].placeName,
+                            event_list[i].date,
+                            event_list[i].description,
+                            event_list[i].eventType,
+                            event_list[i].managerId,
+                            event_list[i].maxPartecipants,
+                            event_list[i].name,
+                            event_list[i].eventId,
+                            event_list[i].partecipants,
+                            event_list[i].applicants,
+                            event_list[i].qrCodes,
+                            event_list[i].firstFreeQrCode,
+                          ),
                       },
                       initialCameraPosition: CameraPosition(
                         target: LatLng(
