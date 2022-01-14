@@ -5,6 +5,7 @@ class Event {
   final double latitude;
   final double longitude;
   final String placeName;
+  final String typeOfPlace;
   final String eventType;
   final String date;
   final int maxPartecipants;
@@ -32,6 +33,8 @@ class Event {
 
   get getPlaceName => placeName;
 
+  get getTypeOfPlace => typeOfPlace;
+
   get getEventType => eventType;
 
   get getDate => date;
@@ -51,6 +54,7 @@ class Event {
       this.latitude,
       this.longitude,
       this.placeName,
+      this.typeOfPlace,
       this.eventType,
       this.date,
       this.maxPartecipants,

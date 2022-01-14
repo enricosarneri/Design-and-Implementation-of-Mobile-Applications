@@ -76,6 +76,8 @@ class ManagerEvents extends StatelessWidget {
                                                   data.docs[index]['latitude'],
                                                   data.docs[index]['longitude'],
                                                   data.docs[index]['placeName'],
+                                                  data.docs[index]
+                                                      ['typeOfPlace'],
                                                   data.docs[index]['eventType'],
                                                   data.docs[index]['date'],
                                                   data.docs[index]

@@ -51,6 +51,7 @@ class DatabaseService {
         e.get('latitude'),
         e.get('longitude'),
         e.get('placeName'),
+        e.get('typeOfPlace'),
         e.get('eventType'),
         e.get('date'),
         e.get('maxPartecipants'),
@@ -84,6 +85,7 @@ class DatabaseService {
     String description,
     String address,
     String placeName,
+    String? typeOfPlace,
     String? eventType,
     DateTime? date,
     String maxPartecipants,
@@ -103,6 +105,7 @@ class DatabaseService {
         coordinates.latitude,
         coordinates.longitude,
         placeName,
+        typeOfPlace!,
         eventType!,
         date.toString(),
         int.parse(maxPartecipants),
@@ -119,6 +122,7 @@ class DatabaseService {
       'latitude': event.latitude,
       'longitude': event.longitude,
       'placeName': event.placeName,
+      'typeOfPlace': event.typeOfPlace,
       'eventType': event.eventType,
       'date': event.date,
       'maxPartecipants': event.maxPartecipants,
@@ -218,6 +222,7 @@ class DatabaseService {
     double latitude = 0;
     double longitude = 0;
     String placeName = '';
+    String typeOfPlace = '';
     String eventType = '';
     String date = '';
     int maxPartecipants = 0;
@@ -239,6 +244,7 @@ class DatabaseService {
                   latitude = value.docs[i].get('latitude'),
                   longitude = value.docs[i].get('longitude'),
                   placeName = value.docs[i].get('placeName'),
+                  typeOfPlace = value.docs[i].get('typeOfPlace'),
                   eventType = value.docs[i].get('eventType'),
                   date = value.docs[i].get('date'),
                   maxPartecipants = value.docs[i].get('maxPartecipants'),
@@ -260,6 +266,7 @@ class DatabaseService {
         latitude,
         longitude,
         placeName,
+        typeOfPlace,
         eventType,
         date,
         maxPartecipants,

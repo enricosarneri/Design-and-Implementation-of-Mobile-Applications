@@ -49,8 +49,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   late double _valuesKm = 500;
   late RangeValues _valuesPeopleR = new RangeValues(0, 100);
   late RangeValues _valuesPricesR = new RangeValues(0, 100);
-  late RangeValues _valuesKmR = new RangeValues(0, 200);
-
+  late RangeValues _valuesKmR = new RangeValues(0, 300);
+  late List<PickerDateRange> _valuesDates = [];
   DateRangePickerController _dateRangePickerController =
       DateRangePickerController();
 
@@ -146,6 +146,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       String placeName,
       String date,
       String description,
+      String typeOfPlace,
       String eventType,
       String managerId,
       int maxPartecipants,
@@ -163,6 +164,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         latitude,
         longitude,
         placeName,
+        typeOfPlace,
         eventType,
         date,
         maxPartecipants,
@@ -208,12 +210,39 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             "   " +
             _event_list[i].longitude.toString());
         print((distance_rounded / 1000).toString());
-        if ((_event_list[i].maxPartecipants < _valuesPeople.end) &&
-            (_event_list[i].partecipants.length >= _valuesPeople.start) &&
-            (_valuesPricesR.start < _event_list[i].price) &&
-            (_valuesPricesR.end > _event_list[i].price) &&
-            ((distance_rounded / 1000) < _valuesKm)) {
-          result.add(_event_list[i]);
+        print("Lunghezza lista date: " + _valuesDates.length.toString());
+
+        if (_valuesDates.length == 0) {
+          if ((_event_list[i].maxPartecipants <= _valuesPeopleR.end) &&
+              (_event_list[i].partecipants.length >= _valuesPeopleR.start) &&
+              (_valuesPricesR.start <= _event_list[i].price) &&
+              (_valuesPricesR.end >= _event_list[i].price) &&
+              ((distance_rounded / 1000) <= _valuesKmR.end) &&
+              ((distance_rounded / 1000) >= _valuesKmR.start)) {
+            result.add(_event_list[i]);
+          }
+        } else {
+          int exit = 0;
+          for (int j = 0; j < _valuesDates.length; j++) {
+            PickerDateRange temp = _valuesDates[j];
+
+            if (DateTime.parse(_event_list[i].date)
+                    .isAfter(temp.startDate!.subtract(Duration(days: 1))) &&
+                DateTime.parse(_event_list[i].date)
+                    .isBefore(temp.endDate!.add(Duration(days: 1)))) {
+              exit++;
+            }
+          }
+          if (exit != 0) {
+            if ((_event_list[i].maxPartecipants <= _valuesPeopleR.end) &&
+                (_event_list[i].partecipants.length >= _valuesPeopleR.start) &&
+                (_valuesPricesR.start <= _event_list[i].price) &&
+                (_valuesPricesR.end >= _event_list[i].price) &&
+                ((distance_rounded / 1000) <= _valuesKmR.end) &&
+                ((distance_rounded / 1000) >= _valuesKmR.start)) {
+              result.add(_event_list[i]);
+            }
+          }
         }
       }
 
@@ -225,7 +254,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       body: SlidingUpPanel(
         color: Color(0xFFf1f5fb),
         minHeight: MediaQuery.of(context).size.height / 10,
-        maxHeight: MediaQuery.of(context).size.height / 3,
+        maxHeight: MediaQuery.of(context).size.height / 2.7,
         backdropEnabled: true,
         backdropOpacity: 0.6,
         boxShadow: const <BoxShadow>[
@@ -246,7 +275,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 ),
               ),
               Container(
-                height: size_screen.height * 0.20,
+                height: size_screen.height * 0.23,
                 child: Stack(
                   children: [
                     PageView(
@@ -271,7 +300,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                         child: Container(
                                           //     color: Colors.green,
                                           child: Center(
-                                            child: Text("Prices"),
+                                            child: Text("Prices (€)"),
                                           ),
                                         ),
                                       ),
@@ -293,7 +322,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                                 rangeThumbShape:
                                                     RoundRangeSliderThumbShape(
                                                         enabledThumbRadius: 10,
-                                                        disabledThumbRadius: 5,
+                                                        disabledThumbRadius: 3,
                                                         elevation: 8,
                                                         pressedElevation: 10),
                                                 overlayShape:
@@ -399,54 +428,119 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                       ),
                                       Expanded(
                                         child: Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 2),
-                                          //   color: Colors.yellow,
+                                            // margin: EdgeInsets.symmetric(
+                                            //     horizontal: 2),
+                                            // //   color: Colors.yellow,
 
-                                          child: SfRangeSliderTheme(
-                                            data: SfRangeSliderThemeData(
-                                              activeDividerColor:
-                                                  Colors.transparent,
-                                              activeTrackHeight: 4,
-                                              inactiveTrackHeight: 2,
-                                              inactiveDividerRadius: 4,
-                                              activeDividerRadius: 5,
-                                              thumbStrokeWidth: 100,
-                                              inactiveDividerStrokeWidth: 15,
-                                            ),
-                                            child: SfRangeSlider(
-                                              activeColor: Color(0xFF78909C),
-                                              showDividers: true,
-                                              stepSize: 5,
-                                              min: 0.0,
-                                              max: 100.0,
-                                              values: _valuesPeople,
-                                              interval: 20,
-                                              showTicks: true,
-                                              showLabels: true,
-                                              enableTooltip: true,
-                                              minorTicksPerInterval: 2,
-                                              dragMode: SliderDragMode.onThumb,
-                                              tooltipShape:
-                                                  SfPaddleTooltipShape(),
-                                              onChanged:
-                                                  (SfRangeValues values) {
-                                                setState(
-                                                  () {
-                                                    _valuesPeople = values;
-                                                  },
-                                                );
-                                              },
-                                              onChangeEnd:
-                                                  (SfRangeValues values) {
-                                                setState(() {
-                                                  print(_valuesPeople.end);
-                                                  filterMarkers_people();
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                        ),
+                                            // child: SfRangeSliderTheme(
+                                            //   data: SfRangeSliderThemeData(
+                                            //     activeDividerColor:
+                                            //         Colors.transparent,
+                                            //     activeTrackHeight: 4,
+                                            //     inactiveTrackHeight: 2,
+                                            //     inactiveDividerRadius: 4,
+                                            //     activeDividerRadius: 5,
+                                            //     thumbStrokeWidth: 100,
+                                            //     inactiveDividerStrokeWidth: 15,
+                                            //   ),
+                                            //   child: SfRangeSlider(
+                                            //     activeColor: Color(0xFF78909C),
+                                            //     showDividers: true,
+                                            //     stepSize: 5,
+                                            //     min: 0.0,
+                                            //     max: 100.0,
+                                            //     values: _valuesPeople,
+                                            //     interval: 20,
+                                            //     showTicks: false,
+                                            //     showLabels: true,
+                                            //     enableTooltip: true,
+                                            //     minorTicksPerInterval: 0,
+                                            //     dragMode: SliderDragMode.onThumb,
+                                            //     tooltipShape:
+                                            //         SfPaddleTooltipShape(),
+                                            //     onChanged:
+                                            //         (SfRangeValues values) {
+                                            //       setState(
+                                            //         () {
+                                            //           _valuesPeople = values;
+                                            //         },
+                                            //       );
+                                            //     },
+                                            //     onChangeEnd:
+                                            //         (SfRangeValues values) {
+                                            //       setState(() {
+                                            //         print(_valuesPeople.end);
+                                            //         filterMarkers_people();
+                                            //       });
+                                            //     },
+                                            //   ),
+                                            // ),
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 2),
+                                            //   color: Colors.yellow,
+
+                                            child: SliderTheme(
+                                              data: SliderThemeData(
+                                                activeTickMarkColor:
+                                                    Colors.black,
+                                                disabledInactiveTickMarkColor:
+                                                    Colors.black,
+                                                inactiveTickMarkColor:
+                                                    Colors.black,
+                                                trackHeight: 2,
+                                                rangeThumbShape:
+                                                    RoundRangeSliderThumbShape(
+                                                        enabledThumbRadius: 10,
+                                                        disabledThumbRadius: 3,
+                                                        elevation: 8,
+                                                        pressedElevation: 10),
+                                                overlayShape:
+                                                    RoundSliderOverlayShape(
+                                                        overlayRadius: 25),
+                                                minThumbSeparation: 10,
+                                                rangeTrackShape:
+                                                    RoundedRectRangeSliderTrackShape(),
+                                                rangeTickMarkShape:
+                                                    RoundRangeSliderTickMarkShape(
+                                                        tickMarkRadius: 8),
+                                                showValueIndicator:
+                                                    ShowValueIndicator.always,
+                                                rangeValueIndicatorShape:
+                                                    PaddleRangeSliderValueIndicatorShape(),
+                                                valueIndicatorColor:
+                                                    Colors.black38,
+                                              ),
+                                              child: RangeSlider(
+                                                inactiveColor: Colors.black12,
+                                                values: _valuesPeopleR,
+                                                divisions: 100,
+                                                min: 0,
+                                                max: 100,
+                                                labels: RangeLabels(
+                                                  _valuesPeopleR.start
+                                                      .toInt()
+                                                      .toString(),
+                                                  _valuesPeopleR.end
+                                                      .toInt()
+                                                      .toString(),
+                                                ),
+                                                onChanged:
+                                                    (RangeValues values) {
+                                                  setState(
+                                                    () {
+                                                      _valuesPeopleR = values;
+                                                    },
+                                                  );
+                                                },
+                                                onChangeEnd:
+                                                    (RangeValues values) {
+                                                  setState(() {
+                                                    filterMarkers_people();
+                                                    print(_valuesPeopleR.end);
+                                                  });
+                                                },
+                                              ),
+                                            )),
                                       )
                                     ],
                                   ),
@@ -467,42 +561,107 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                         child: Container(
                                           //     color: Colors.green,
                                           child: Center(
-                                            child: Text("Distance in Km"),
+                                            child: Text("Distance (Km)"),
                                           ),
                                         ),
                                       ),
                                       Expanded(
                                         child: Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 2),
-                                          //   color: Colors.yellow,
-                                          child: SfSlider(
-                                            activeColor: Color(0xFF78909C),
-                                            showDividers: true,
-                                            stepSize: 5,
-                                            min: 0.0,
-                                            max: 500.0,
-                                            value: _valuesKm,
-                                            interval: 50,
-                                            showTicks: true,
-                                            showLabels: true,
-                                            enableTooltip: true,
-                                            minorTicksPerInterval: 1,
-                                            onChanged: (dynamic value) {
-                                              setState(
-                                                () {
-                                                  _valuesKm = value;
+                                            // margin: EdgeInsets.symmetric(
+                                            //     horizontal: 2),
+                                            // //   color: Colors.yellow,
+                                            // child: SfSlider(
+                                            //   activeColor: Color(0xFF78909C),
+                                            //   showDividers: true,
+                                            //   stepSize: 5,
+                                            //   min: 0.0,
+                                            //   max: 500.0,
+                                            //   value: _valuesKm,
+                                            //   interval: 50,
+                                            //   showTicks: true,
+                                            //   showLabels: true,
+                                            //   enableTooltip: true,
+                                            //   minorTicksPerInterval: 1,
+                                            //   onChanged: (dynamic value) {
+                                            //     setState(
+                                            //       () {
+                                            //         _valuesKm = value;
+                                            //       },
+                                            //     );
+                                            //   },
+                                            //   onChangeEnd: (dynamic value) {
+                                            //     setState(() {
+                                            //       filterMarkers_people();
+                                            //     });
+                                            //   },
+                                            // ),
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 2),
+                                            //   color: Colors.yellow,
+
+                                            child: SliderTheme(
+                                              data: SliderThemeData(
+                                                activeTickMarkColor:
+                                                    Colors.black,
+                                                disabledInactiveTickMarkColor:
+                                                    Colors.black,
+                                                inactiveTickMarkColor:
+                                                    Colors.black,
+                                                trackHeight: 2,
+                                                rangeThumbShape:
+                                                    RoundRangeSliderThumbShape(
+                                                        enabledThumbRadius: 10,
+                                                        disabledThumbRadius: 3,
+                                                        elevation: 8,
+                                                        pressedElevation: 10),
+                                                overlayShape:
+                                                    RoundSliderOverlayShape(
+                                                        overlayRadius: 25),
+                                                minThumbSeparation: 10,
+                                                rangeTrackShape:
+                                                    RoundedRectRangeSliderTrackShape(),
+                                                rangeTickMarkShape:
+                                                    RoundRangeSliderTickMarkShape(
+                                                        tickMarkRadius: 8),
+                                                showValueIndicator:
+                                                    ShowValueIndicator.always,
+                                                rangeValueIndicatorShape:
+                                                    PaddleRangeSliderValueIndicatorShape(),
+                                                valueIndicatorColor:
+                                                    Colors.black38,
+                                              ),
+                                              child: RangeSlider(
+                                                inactiveColor: Colors.black12,
+                                                values: _valuesKmR,
+                                                divisions: 60,
+                                                min: 0,
+                                                max: 300,
+                                                labels: RangeLabels(
+                                                  _valuesKmR.start
+                                                      .toInt()
+                                                      .toString(),
+                                                  _valuesKmR.end
+                                                      .toInt()
+                                                      .toString(),
+                                                ),
+                                                onChanged:
+                                                    (RangeValues values) {
+                                                  setState(
+                                                    () {
+                                                      _valuesKmR = values;
+                                                    },
+                                                  );
                                                 },
-                                              );
-                                            },
-                                            onChangeEnd: (dynamic value) {
-                                              setState(() {
-                                                filterMarkers_people();
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      )
+                                                onChangeEnd:
+                                                    (RangeValues values) {
+                                                  setState(() {
+                                                    filterMarkers_people();
+                                                    print(_valuesKmR.end);
+                                                  });
+                                                },
+                                              ),
+                                            )),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -511,16 +670,43 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(
-                            top: 5,
-                          ),
+                          margin: EdgeInsets.only(top: 5, right: 5, left: 5),
                           color: Colors.transparent,
                           child: Container(
                             child: SfDateRangePicker(
+                              showNavigationArrow: false,
+
+                              selectionRadius: 40,
+                              headerHeight: 35,
                               backgroundColor: Colors.transparent,
                               selectionMode:
                                   DateRangePickerSelectionMode.multiRange,
-                              onSelectionChanged: _onSelectionChanged,
+                              onSelectionChanged:
+                                  (DateRangePickerSelectionChangedArgs
+                                      dateRangePickerSelectionChangedArgs) {
+                                setState(
+                                  () {
+                                    _valuesDates =
+                                        dateRangePickerSelectionChangedArgs
+                                            .value;
+                                    int exit = 0;
+                                    for (int i = 0;
+                                        i < _valuesDates.length;
+                                        i++) {
+                                      PickerDateRange temp = _valuesDates[i];
+                                      if (temp.endDate == null) {
+                                        exit++;
+                                      }
+                                    }
+                                    if (exit == 0) {
+                                      filterMarkers_people();
+                                    }
+                                    print(_valuesDates);
+                                    print(_valuesDates.length);
+                                    ;
+                                  },
+                                );
+                              },
                               //showActionButtons: true,
                               onSubmit: (Object? val) {
                                 print(val);
@@ -611,6 +797,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                             listaDaFiltrare[i].placeName,
                             listaDaFiltrare[i].date,
                             listaDaFiltrare[i].description,
+                            listaDaFiltrare[i].typeOfPlace,
                             listaDaFiltrare[i].eventType,
                             listaDaFiltrare[i].managerId,
                             listaDaFiltrare[i].maxPartecipants,
@@ -884,10 +1071,12 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             setState(() {
               if (selected) {
                 _filters.add(location.location);
+                print("Lista Filtri: " + _filters.toString());
               } else {
                 _filters.removeWhere((String name) {
                   return name == location.location;
                 });
+                print("Lista Filtri: " + _filters.toString());
               }
             });
           },
@@ -896,10 +1085,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       );
     }
   }
-
-  void _onSelectionChanged(
-      DateRangePickerSelectionChangedArgs
-          dateRangePickerSelectionChangedArgs) {}
 }
 
 class EventLocation {

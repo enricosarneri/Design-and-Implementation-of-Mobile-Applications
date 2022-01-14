@@ -85,6 +85,8 @@ class MyEvents extends StatelessWidget {
                                                         ['placeName'],
                                                     data.docs[index]
                                                         ['eventType'],
+                                                    data.docs[index]
+                                                        ['typeOfPlace'],
                                                     data.docs[index]['date'],
                                                     data.docs[index]
                                                         ['maxPartecipants'],

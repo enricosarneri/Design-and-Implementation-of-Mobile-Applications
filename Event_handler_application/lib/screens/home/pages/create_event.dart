@@ -18,8 +18,16 @@ class _Create_EventState extends State<Create_Event> {
   final AuthService _authService = AuthService();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final EventTypes = ['Public', 'Private'];
-
+  final TypeOfPlace = [
+    'Cinema',
+    'Theatre',
+    'Restaurant',
+    'Bar/Pub',
+    'Disco',
+    'Private Setting'
+  ];
   String? _eventType;
+  String? _typeOfPlace;
   String _name = '';
   String _address = '';
   String _placeName = '';
@@ -147,6 +155,20 @@ class _Create_EventState extends State<Create_Event> {
     );
   }
 
+  Widget _buildTypeOfPlace() {
+    return DropdownButtonFormField<String>(
+      validator: (String? value) {
+        if (value == null) {
+          return 'Type of place is Required';
+        }
+      },
+      isExpanded: true,
+      value: _typeOfPlace,
+      items: TypeOfPlace.map(buildMenuItems).toList(),
+      onChanged: (value) => setState(() => _typeOfPlace = value!),
+    );
+  }
+
   DropdownMenuItem<String> buildMenuItems(String item) => DropdownMenuItem(
         value: item,
         child: Text(
@@ -211,6 +233,8 @@ class _Create_EventState extends State<Create_Event> {
                   SizedBox(height: 20),
                   _buildPlaceName(),
                   SizedBox(height: 20),
+                  _buildTypeOfPlace(),
+                  SizedBox(height: 20),
                   _buildEventType(),
                   SizedBox(height: 20),
                   _buildDataPicker(context),
@@ -232,6 +256,7 @@ class _Create_EventState extends State<Create_Event> {
                                 _description,
                                 _address,
                                 _placeName,
+                                _typeOfPlace,
                                 _eventType,
                                 _eventDate,
                                 _maxPartecipants,
