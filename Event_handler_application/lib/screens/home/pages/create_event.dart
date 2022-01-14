@@ -20,11 +20,13 @@ class _Create_EventState extends State<Create_Event> {
   final EventTypes = ['Public', 'Private'];
 
   String? _eventType;
-  String _name='';
-  String _address='';
-  String _placeName='';
-  String _description='';
-  String _maxPartecipants='';
+  String _name = '';
+  String _address = '';
+  String _placeName = '';
+  String _description = '';
+  String _maxPartecipants = '';
+
+  String _price = '';
   DateTime? _eventDate;
 
   Widget _buildName() {
@@ -59,24 +61,24 @@ class _Create_EventState extends State<Create_Event> {
     );
   }
 
-    Widget _buildPlaceName(){
+  Widget _buildPlaceName() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Place Name'),
-      validator: (String? value){
-        if(value!.isEmpty){
+      validator: (String? value) {
+        if (value!.isEmpty) {
           return 'Name is Required';
         }
       },
-      onChanged: (value){
-      setState(() {
-      _placeName= value.trim();
+      onChanged: (value) {
+        setState(() {
+          _placeName = value.trim();
         });
       },
     );
   }
 
-    Widget _buildDescription(){
-      return TextFormField(
+  Widget _buildDescription() {
+    return TextFormField(
       keyboardType: TextInputType.multiline,
       maxLines: null,
       decoration: InputDecoration(labelText: 'Description'),
@@ -93,7 +95,7 @@ class _Create_EventState extends State<Create_Event> {
     );
   }
 
-  Widget _buildPartecipantNumber() {
+  Widget _buildMaxPartecipantNumber() {
     return TextFormField(
       decoration: const InputDecoration(
         labelText: 'Max number of Partecipants',
@@ -107,6 +109,25 @@ class _Create_EventState extends State<Create_Event> {
       onChanged: (value) {
         setState(() {
           _maxPartecipants = value.trim();
+        });
+      },
+    );
+  }
+
+  Widget _buildPrice() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: 'Price (€)',
+      ),
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return 'Price (€) is Required';
+        }
+      },
+      keyboardType: TextInputType.number,
+      onChanged: (value) {
+        setState(() {
+          _price = value.trim();
         });
       },
     );
@@ -172,44 +193,58 @@ class _Create_EventState extends State<Create_Event> {
   }
 
   @override
-  Widget build(BuildContext context) {{
-    return Scaffold(
-      appBar: AppBar(title: Text('Create_Event')),
-      body: Container(
-        margin: EdgeInsets.all(24),
-        child: Form(
-          key: _key,
-          child: ListView(
-          children: <Widget>[
-            _buildName(),
-            SizedBox(height: 20),
-            _buildDescription(),
-            SizedBox(height: 20),
-            _buildAddress(),
-            SizedBox(height: 20),
-            _buildPlaceName(),
-            SizedBox(height: 20),
-            _buildEventType(),
-            SizedBox(height: 20),
-            _buildDataPicker(context),
-            SizedBox(height: 20),
-            _buildPartecipantNumber(),
-            SizedBox(height: 20),
-            ElevatedButton(
-              child: const Text('Create Event'),
-              onPressed: () async{
-                if(!_key.currentState!.validate()){
-                  return;
-                }
-                await DatabaseService(_authService.getCurrentUser()!.uid).createEventData(_name, _description, _address, _placeName, _eventType, _eventDate,
-                 _maxPartecipants,0);
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                Wrapper()), (Route<dynamic> route) => false);
-              }), 
-            ],
-          ),
-        ),
-      ));
+  Widget build(BuildContext context) {
+    {
+      return Scaffold(
+          appBar: AppBar(title: Text('Create_Event')),
+          body: Container(
+            margin: EdgeInsets.all(24),
+            child: Form(
+              key: _key,
+              child: ListView(
+                children: <Widget>[
+                  _buildName(),
+                  SizedBox(height: 20),
+                  _buildDescription(),
+                  SizedBox(height: 20),
+                  _buildAddress(),
+                  SizedBox(height: 20),
+                  _buildPlaceName(),
+                  SizedBox(height: 20),
+                  _buildEventType(),
+                  SizedBox(height: 20),
+                  _buildDataPicker(context),
+                  SizedBox(height: 20),
+                  _buildMaxPartecipantNumber(),
+                  SizedBox(height: 20),
+                  _buildPrice(),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                      child: const Text('Create Event'),
+                      onPressed: () async {
+                        if (!_key.currentState!.validate()) {
+                          return;
+                        }
+                        await DatabaseService(
+                                _authService.getCurrentUser()!.uid)
+                            .createEventData(
+                                _name,
+                                _description,
+                                _address,
+                                _placeName,
+                                _eventType,
+                                _eventDate,
+                                _maxPartecipants,
+                                _price,
+                                0);
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => Wrapper()),
+                            (Route<dynamic> route) => false);
+                      }),
+                ],
+              ),
+            ),
+          ));
     }
   }
 }

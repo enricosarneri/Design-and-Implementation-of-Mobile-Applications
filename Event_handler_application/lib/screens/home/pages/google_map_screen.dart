@@ -20,9 +20,12 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
+
 import 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_core/core.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   @override
@@ -41,9 +44,13 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   MapType _currentMapType = MapType.normal;
   PageController _pageController = new PageController();
   late bool _isSelected;
-  late SfRangeValues _valuesPeople = new SfRangeValues(0, 300);
+  late SfRangeValues _valuesPeople = new SfRangeValues(0, 100);
   late SfRangeValues _valuesPrices = new SfRangeValues(0, 100);
-  late SfRangeValues _valuesKm = new SfRangeValues(0, 200);
+  late double _valuesKm = 500;
+  late RangeValues _valuesPeopleR = new RangeValues(0, 100);
+  late RangeValues _valuesPricesR = new RangeValues(0, 100);
+  late RangeValues _valuesKmR = new RangeValues(0, 200);
+
   DateRangePickerController _dateRangePickerController =
       DateRangePickerController();
 
@@ -67,7 +74,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   late List<EventLocation> _locations;
   late List<String> _filters;
-
+  List<Event> _event_list = [];
+  List<Event> listaDaFiltrare = [];
   @override
   void initState() {
     _isSelected = false;
@@ -80,9 +88,17 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       const EventLocation('Disco', 0xFF5cda65),
       const EventLocation('Private Setting', 0xFFff8a65),
     ];
-    // final Stream<List<Event>> eventsList =
-    //     DatabaseService(_authService.getCurrentUser()!.uid).events;
+    final Stream<List<Event>> eventsList =
+        DatabaseService(_authService.getCurrentUser()!.uid).events;
     DatabaseService(_authService.getCurrentUser()!.uid).getCurrentUser();
+    eventsListener = eventsList.listen((event) {
+      for (var i = 0; i < event.length; i++) {
+        setState(() {
+          _event_list.add(event[i]);
+        });
+      }
+    });
+    listaDaFiltrare = _event_list;
     // eventsListener = eventsList.listen((event) {
     //   for (var i = 0; i < event.length; i++) {
     //     setState(() {
@@ -133,6 +149,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       String eventType,
       String managerId,
       int maxPartecipants,
+      double price,
       String name,
       String eventId,
       List<String> partecipants,
@@ -149,6 +166,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         eventType,
         date,
         maxPartecipants,
+        price,
         eventId,
         partecipants,
         applicants,
@@ -164,7 +182,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         });
   }
 
-  List<Event> event_list = [];
   @override
   Widget build(BuildContext context) {
     final _scrollController = FixedExtentScrollController();
@@ -173,25 +190,35 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     final applicationBlock = Provider.of<ApplicationBlock>(context);
 
-    final Stream<List<Event>> eventsListStream =
-        DatabaseService(_authService.getCurrentUser()!.uid).events;
-    eventsListener = eventsListStream.listen((event) {
-      event_list = [];
-      for (var i = 0; i < event.length; i++) {
-        setState(() {
-          event_list.add(event[i]);
-        });
-      }
-    });
-    List<Event> filterMarkers_people(max_num_people) {
+    void filterMarkers_people() {
+      listaDaFiltrare = _event_list;
+      print("lista da filtrare" + listaDaFiltrare.toString());
       List<Event> result = [];
-      for (int i = 0; i < event_list.length; i++) {
-        if (event_list[i].maxPartecipants < max_num_people) {
-          result.add(event_list[i]);
+      for (int i = 0; i < _event_list.length; i++) {
+        double distance = Geolocator.distanceBetween(
+            applicationBlock.currentLocation!.latitude,
+            applicationBlock.currentLocation!.longitude,
+            _event_list[i].latitude,
+            _event_list[i].longitude);
+        int distance_rounded = distance.round().toInt();
+        print(applicationBlock.currentLocation!.latitude.toString() +
+            "   " +
+            applicationBlock.currentLocation!.longitude.toString());
+        print(_event_list[i].latitude.toString() +
+            "   " +
+            _event_list[i].longitude.toString());
+        print((distance_rounded / 1000).toString());
+        if ((_event_list[i].maxPartecipants < _valuesPeople.end) &&
+            (_event_list[i].partecipants.length >= _valuesPeople.start) &&
+            (_valuesPricesR.start < _event_list[i].price) &&
+            (_valuesPricesR.end > _event_list[i].price) &&
+            ((distance_rounded / 1000) < _valuesKm)) {
+          result.add(_event_list[i]);
         }
       }
-      event_list = result;
-      return event_list;
+
+      listaDaFiltrare = result;
+      print(listaDaFiltrare.toString());
     }
 
     return Scaffold(
@@ -235,7 +262,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                 child: Container(
                                   margin: EdgeInsets.symmetric(
                                       horizontal: size_screen.width / 20),
-                                  decoration: BoxDecoration(color: Colors.red),
+                                  //decoration: BoxDecoration(color: Colors.red),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -250,29 +277,101 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                       ),
                                       Expanded(
                                         child: Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 2),
-                                          //   color: Colors.yellow,
-                                          child: SfRangeSlider(
-                                            numberFormat: NumberFormat("\$"),
-                                            stepSize: 1,
-                                            min: 0.0,
-                                            max: 100.0,
-                                            values: _valuesPrices,
-                                            interval: 20,
-                                            showTicks: true,
-                                            showLabels: true,
-                                            enableTooltip: true,
-                                            minorTicksPerInterval: 1,
-                                            onChanged: (SfRangeValues values) {
-                                              setState(
-                                                () {
-                                                  _valuesPrices = values;
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 2),
+                                            //   color: Colors.yellow,
+
+                                            child: SliderTheme(
+                                              data: SliderThemeData(
+                                                activeTickMarkColor:
+                                                    Colors.black,
+                                                disabledInactiveTickMarkColor:
+                                                    Colors.black,
+                                                inactiveTickMarkColor:
+                                                    Colors.black,
+                                                trackHeight: 2,
+                                                rangeThumbShape:
+                                                    RoundRangeSliderThumbShape(
+                                                        enabledThumbRadius: 10,
+                                                        disabledThumbRadius: 5,
+                                                        elevation: 8,
+                                                        pressedElevation: 10),
+                                                overlayShape:
+                                                    RoundSliderOverlayShape(
+                                                        overlayRadius: 25),
+                                                minThumbSeparation: 10,
+                                                rangeTrackShape:
+                                                    RoundedRectRangeSliderTrackShape(),
+                                                rangeTickMarkShape:
+                                                    RoundRangeSliderTickMarkShape(
+                                                        tickMarkRadius: 8),
+                                                showValueIndicator:
+                                                    ShowValueIndicator.always,
+                                                rangeValueIndicatorShape:
+                                                    PaddleRangeSliderValueIndicatorShape(),
+                                                valueIndicatorColor:
+                                                    Colors.black38,
+                                              ),
+                                              child: RangeSlider(
+                                                inactiveColor: Colors.black12,
+                                                values: _valuesPricesR,
+                                                divisions: 20,
+                                                min: 0,
+                                                max: 100,
+                                                labels: RangeLabels(
+                                                  _valuesPricesR.start
+                                                      .toInt()
+                                                      .toString(),
+                                                  _valuesPricesR.end
+                                                      .toInt()
+                                                      .toString(),
+                                                ),
+                                                onChanged:
+                                                    (RangeValues values) {
+                                                  setState(
+                                                    () {
+                                                      _valuesPricesR = values;
+                                                    },
+                                                  );
                                                 },
-                                              );
-                                            },
-                                          ),
-                                        ),
+                                                onChangeEnd:
+                                                    (RangeValues values) {
+                                                  setState(() {
+                                                    filterMarkers_people();
+                                                    print(_valuesPricesR.end);
+                                                  });
+                                                },
+                                              ),
+                                            )
+
+                                            // child: SfRangeSlider(
+                                            //   numberFormat: NumberFormat("\$"),
+                                            //   activeColor: Color(0xFF78909C),
+                                            //   stepSize: 1,
+                                            //   min: 0.0,
+                                            //   max: 100.0,
+                                            //   values: _valuesPrices,
+                                            //   interval: 20,
+                                            //   showTicks: true,
+                                            //   showLabels: true,
+                                            //   enableTooltip: true,
+                                            //   minorTicksPerInterval: 1,
+                                            //   showDividers: true,
+                                            //   onChanged: (SfRangeValues values) {
+                                            //     setState(
+                                            //       () {
+                                            //         _valuesPrices = values;
+                                            //       },
+                                            //     );
+                                            //   },
+                                            //   onChangeEnd:
+                                            //       (SfRangeValues values) {
+                                            //     setState(() {
+                                            //       print(_valuesPrices.end);
+                                            //     });
+                                            //   },
+                                            // ),
+                                            ),
                                       )
                                     ],
                                   ),
@@ -283,8 +382,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                 child: Container(
                                   margin: EdgeInsets.symmetric(
                                       horizontal: size_screen.width / 20),
-                                  decoration:
-                                      BoxDecoration(color: Colors.green),
+                                  // decoration:
+                                  //   BoxDecoration(color: Colors.green),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -303,30 +402,49 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                           margin: EdgeInsets.symmetric(
                                               horizontal: 2),
                                           //   color: Colors.yellow,
-                                          child: SfRangeSlider(
-                                            stepSize: 1,
-                                            min: 0.0,
-                                            max: 300.0,
-                                            values: _valuesPeople,
-                                            interval: 50,
-                                            showTicks: true,
-                                            showLabels: true,
-                                            enableTooltip: true,
-                                            minorTicksPerInterval: 1,
-                                            onChanged: (SfRangeValues values) {
-                                              setState(
-                                                () {
-                                                  _valuesPeople = values;
-                                                  //   print(_valuesPeople.end);
-                                                },
-                                              );
-                                            },
-                                            onChangeEnd:
-                                                (SfRangeValues values) {
-                                              print(_valuesPeople.end);
-                                              filterMarkers_people(
-                                                  _valuesPeople.end);
-                                            },
+
+                                          child: SfRangeSliderTheme(
+                                            data: SfRangeSliderThemeData(
+                                              activeDividerColor:
+                                                  Colors.transparent,
+                                              activeTrackHeight: 4,
+                                              inactiveTrackHeight: 2,
+                                              inactiveDividerRadius: 4,
+                                              activeDividerRadius: 5,
+                                              thumbStrokeWidth: 100,
+                                              inactiveDividerStrokeWidth: 15,
+                                            ),
+                                            child: SfRangeSlider(
+                                              activeColor: Color(0xFF78909C),
+                                              showDividers: true,
+                                              stepSize: 5,
+                                              min: 0.0,
+                                              max: 100.0,
+                                              values: _valuesPeople,
+                                              interval: 20,
+                                              showTicks: true,
+                                              showLabels: true,
+                                              enableTooltip: true,
+                                              minorTicksPerInterval: 2,
+                                              dragMode: SliderDragMode.onThumb,
+                                              tooltipShape:
+                                                  SfPaddleTooltipShape(),
+                                              onChanged:
+                                                  (SfRangeValues values) {
+                                                setState(
+                                                  () {
+                                                    _valuesPeople = values;
+                                                  },
+                                                );
+                                              },
+                                              onChangeEnd:
+                                                  (SfRangeValues values) {
+                                                setState(() {
+                                                  print(_valuesPeople.end);
+                                                  filterMarkers_people();
+                                                });
+                                              },
+                                            ),
                                           ),
                                         ),
                                       )
@@ -339,19 +457,54 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                 child: Container(
                                   margin: EdgeInsets.symmetric(
                                       horizontal: size_screen.width / 20),
-                                  decoration: BoxDecoration(color: Colors.red),
-                                  child: Center(
-                                    child: Text("Bella"),
+                                  // decoration:
+                                  //     BoxDecoration(color: Colors.green),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: (size_screen.height * 0.10) / 5,
+                                        child: Container(
+                                          //     color: Colors.green,
+                                          child: Center(
+                                            child: Text("Distance in Km"),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 2),
+                                          //   color: Colors.yellow,
+                                          child: SfSlider(
+                                            activeColor: Color(0xFF78909C),
+                                            showDividers: true,
+                                            stepSize: 5,
+                                            min: 0.0,
+                                            max: 500.0,
+                                            value: _valuesKm,
+                                            interval: 50,
+                                            showTicks: true,
+                                            showLabels: true,
+                                            enableTooltip: true,
+                                            minorTicksPerInterval: 1,
+                                            onChanged: (dynamic value) {
+                                              setState(
+                                                () {
+                                                  _valuesKm = value;
+                                                },
+                                              );
+                                            },
+                                            onChangeEnd: (dynamic value) {
+                                              setState(() {
+                                                filterMarkers_people();
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: size_screen.height * 0.10,
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: size_screen.width / 20),
-                                  decoration:
-                                      BoxDecoration(color: Colors.yellow),
                                 ),
                               ),
                             ],
@@ -451,22 +604,23 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       indoorViewEnabled: true,
                       myLocationButtonEnabled: false,
                       markers: {
-                        for (var i = 0; i < event_list.length; i++)
+                        for (var i = 0; i < listaDaFiltrare.length; i++)
                           createMarker(
-                            event_list[i].latitude,
-                            event_list[i].longitude,
-                            event_list[i].placeName,
-                            event_list[i].date,
-                            event_list[i].description,
-                            event_list[i].eventType,
-                            event_list[i].managerId,
-                            event_list[i].maxPartecipants,
-                            event_list[i].name,
-                            event_list[i].eventId,
-                            event_list[i].partecipants,
-                            event_list[i].applicants,
-                            event_list[i].qrCodes,
-                            event_list[i].firstFreeQrCode,
+                            listaDaFiltrare[i].latitude,
+                            listaDaFiltrare[i].longitude,
+                            listaDaFiltrare[i].placeName,
+                            listaDaFiltrare[i].date,
+                            listaDaFiltrare[i].description,
+                            listaDaFiltrare[i].eventType,
+                            listaDaFiltrare[i].managerId,
+                            listaDaFiltrare[i].maxPartecipants,
+                            listaDaFiltrare[i].price,
+                            listaDaFiltrare[i].name,
+                            listaDaFiltrare[i].eventId,
+                            listaDaFiltrare[i].partecipants,
+                            listaDaFiltrare[i].applicants,
+                            listaDaFiltrare[i].qrCodes,
+                            listaDaFiltrare[i].firstFreeQrCode,
                           ),
                       },
                       initialCameraPosition: CameraPosition(

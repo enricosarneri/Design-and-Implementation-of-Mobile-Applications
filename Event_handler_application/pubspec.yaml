@@ -50,7 +50,7 @@ dependencies:
   flutter_svg: ^1.0.0
   draggable_scrollbar: ^0.1.0
   flutter_facebook_login: ^3.0.0
-  syncfusion_flutter_sliders: ^19.4.40
+  syncfusion_flutter_sliders: ^19.4.41
   syncfusion_flutter_datepicker: ^19.4.40
   google_sign_in: ^5.2.1
   qr_code_scanner: ^0.6.1

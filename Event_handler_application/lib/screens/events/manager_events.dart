@@ -68,15 +68,39 @@ class ManagerEvents extends StatelessWidget {
                                             'event Type: ${data.docs[index]['eventType']}'),
                                         ElevatedButton(
                                             onPressed: () {
-                                              Event event= Event(data.docs[index]['manager'],data.docs[index]['name'],data.docs[index]['description'],data.docs[index]['latitude'],data.docs[index]['longitude']
-                                              ,data.docs[index]['placeName'],data.docs[index]['eventType'],data.docs[index]['date'],data.docs[index]['maxPartecipants'],data.docs[index]['eventId'],
-                                              List<String>.from(data.docs[index]['partecipants']),List<String>.from(data.docs[index]['applicants']), List<String>.from(data.docs[index]['qrCodeList']),
-                                              data.docs[index]['firstFreeQrCode']);
+                                              Event event = Event(
+                                                  data.docs[index]['manager'],
+                                                  data.docs[index]['name'],
+                                                  data.docs[index]
+                                                      ['description'],
+                                                  data.docs[index]['latitude'],
+                                                  data.docs[index]['longitude'],
+                                                  data.docs[index]['placeName'],
+                                                  data.docs[index]['eventType'],
+                                                  data.docs[index]['date'],
+                                                  data.docs[index]
+                                                      ['maxPartecipants'],
+                                                  data.docs[index]['price'],
+                                                  data.docs[index]['eventId'],
+                                                  List<String>.from(
+                                                      data.docs[index]
+                                                          ['partecipants']),
+                                                  List<String>.from(
+                                                      data.docs[index]
+                                                          ['applicants']),
+                                                  List<String>.from(
+                                                      data.docs[index]
+                                                          ['qrCodeList']),
+                                                  data.docs[index]
+                                                      ['firstFreeQrCode']);
                                               Navigator.push(
                                                 context,
-                                                MaterialPageRoute(builder: (context) => EventScreen(event: event,)),
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EventScreen(
+                                                          event: event,
+                                                        )),
                                                 //  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
-
                                               );
                                             },
                                             child: Text('More info')),

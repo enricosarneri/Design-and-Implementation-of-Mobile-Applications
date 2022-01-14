@@ -38,55 +38,84 @@ class MyEvents extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: data.size,
                         itemBuilder: (context, index) {
-                          for (var i = 0; i < data.docs[index]['partecipants'].length; i++) {
+                          for (var i = 0;
+                              i < data.docs[index]['partecipants'].length;
+                              i++) {
                             if (data.docs[index]['partecipants'][i] ==
-                              _authService.getCurrentUser()!.uid) 
-                              {
-                            return Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    color: Colors.black12),
-                                margin: EdgeInsets.all(10),
-                                child: ListView(
-                                  padding: EdgeInsets.only(
-                                      top: 10, left: 10, right: 10),
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text('${data.docs[index]['name']}'),
-                                        Text('${data.docs[index]['date']}'),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text('${data.docs[index]['placeName']}'),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                            'event Type: ${data.docs[index]['eventType']}'),
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Event event= Event(data.docs[index]['manager'],data.docs[index]['name'],data.docs[index]['description'],data.docs[index]['latitude'],data.docs[index]['longitude']
-                                              ,data.docs[index]['placeName'],data.docs[index]['eventType'],data.docs[index]['date'],data.docs[index]['maxPartecipants'],data.docs[index]['eventId'],
-                                              List<String>.from(data.docs[index]['partecipants']),List<String>.from(data.docs[index]['applicants']), List<String>.from(data.docs[index]['qrCodeList']),
-                                              data.docs[index]['firstFreeQrCode']);
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => EventScreen(event: event,)),
-
-                                              );
-                                            },
-                                            child: Text('More info')),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10),
-                                  ],
-                                ));
+                                _authService.getCurrentUser()!.uid) {
+                              return Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      color: Colors.black12),
+                                  margin: EdgeInsets.all(10),
+                                  child: ListView(
+                                    padding: EdgeInsets.only(
+                                        top: 10, left: 10, right: 10),
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('${data.docs[index]['name']}'),
+                                          Text('${data.docs[index]['date']}'),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                      Text('${data.docs[index]['placeName']}'),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                              'event Type: ${data.docs[index]['eventType']}'),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                Event event = Event(
+                                                    data.docs[index]['manager'],
+                                                    data.docs[index]['name'],
+                                                    data.docs[index]
+                                                        ['description'],
+                                                    data.docs[index]
+                                                        ['latitude'],
+                                                    data.docs[index]
+                                                        ['longitude'],
+                                                    data.docs[index]
+                                                        ['placeName'],
+                                                    data.docs[index]
+                                                        ['eventType'],
+                                                    data.docs[index]['date'],
+                                                    data.docs[index]
+                                                        ['maxPartecipants'],
+                                                    data.docs[index]['price'],
+                                                    data.docs[index]['eventId'],
+                                                    List<String>.from(
+                                                        data.docs[index]
+                                                            ['partecipants']),
+                                                    List<String>.from(
+                                                        data.docs[index]
+                                                            ['applicants']),
+                                                    List<String>.from(
+                                                        data.docs[index]
+                                                            ['qrCodeList']),
+                                                    data.docs[index]
+                                                        ['firstFreeQrCode']);
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          EventScreen(
+                                                            event: event,
+                                                          )),
+                                                );
+                                              },
+                                              child: Text('More info')),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+                                    ],
+                                  ));
                             }
                           }
                           return Container();
