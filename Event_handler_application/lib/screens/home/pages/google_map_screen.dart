@@ -211,14 +211,24 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             _event_list[i].longitude.toString());
         print((distance_rounded / 1000).toString());
         print("Lunghezza lista date: " + _valuesDates.length.toString());
-
+        int filtro_presente = 0;
+        if (_filters.length == 0) {
+          filtro_presente = 1;
+        } else {
+          for (int k = 0; k < _filters.length; k++) {
+            if (_filters[k].compareTo(_event_list[i].typeOfPlace) == 0) {
+              filtro_presente++;
+            }
+          }
+        }
         if (_valuesDates.length == 0) {
           if ((_event_list[i].maxPartecipants <= _valuesPeopleR.end) &&
               (_event_list[i].partecipants.length >= _valuesPeopleR.start) &&
               (_valuesPricesR.start <= _event_list[i].price) &&
               (_valuesPricesR.end >= _event_list[i].price) &&
               ((distance_rounded / 1000) <= _valuesKmR.end) &&
-              ((distance_rounded / 1000) >= _valuesKmR.start)) {
+              ((distance_rounded / 1000) >= _valuesKmR.start) &&
+              filtro_presente != 0) {
             result.add(_event_list[i]);
           }
         } else {
@@ -239,7 +249,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 (_valuesPricesR.start <= _event_list[i].price) &&
                 (_valuesPricesR.end >= _event_list[i].price) &&
                 ((distance_rounded / 1000) <= _valuesKmR.end) &&
-                ((distance_rounded / 1000) >= _valuesKmR.start)) {
+                ((distance_rounded / 1000) >= _valuesKmR.start) &&
+                filtro_presente != 0) {
               result.add(_event_list[i]);
             }
           }
@@ -836,7 +847,260 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                         child: Wrap(
                           spacing: 2,
                           runSpacing: 2,
-                          children: locationWidgets.toList(),
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8, bottom: 8, right: 4, left: 4),
+                              child: FilterChip(
+                                labelPadding: EdgeInsets.all(5.0),
+                                avatar: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade600,
+                                  child: Text(
+                                    _locations[0].location[0].toUpperCase(),
+                                  ),
+                                ),
+                                label: Text(
+                                  _locations[0].location,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                elevation: 6.0,
+                                shadowColor: Colors.grey[60],
+                                selected:
+                                    _filters.contains(_locations[0].location),
+                                backgroundColor: Color(_locations[0].color),
+                                //padding: EdgeInsets.all(6),
+                                onSelected: (bool selected) {
+                                  setState(() {
+                                    if (selected) {
+                                      _filters.add(_locations[0].location);
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    } else {
+                                      _filters.removeWhere((String name) {
+                                        return name == _locations[0].location;
+                                      });
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    }
+                                    filterMarkers_people();
+                                  });
+                                },
+                                selectedColor: Colors.grey,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8, bottom: 8, right: 4, left: 4),
+                              child: FilterChip(
+                                labelPadding: EdgeInsets.all(5.0),
+                                avatar: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade600,
+                                  child: Text(
+                                    _locations[1].location[0].toUpperCase(),
+                                  ),
+                                ),
+                                label: Text(
+                                  _locations[1].location,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                elevation: 6.0,
+                                shadowColor: Colors.grey[60],
+                                selected:
+                                    _filters.contains(_locations[1].location),
+                                backgroundColor: Color(_locations[1].color),
+                                //padding: EdgeInsets.all(6),
+                                onSelected: (bool selected) {
+                                  setState(() {
+                                    if (selected) {
+                                      _filters.add(_locations[1].location);
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    } else {
+                                      _filters.removeWhere((String name) {
+                                        return name == _locations[1].location;
+                                      });
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    }
+                                    filterMarkers_people();
+                                  });
+                                },
+                                selectedColor: Colors.grey,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8, bottom: 8, right: 4, left: 4),
+                              child: FilterChip(
+                                labelPadding: EdgeInsets.all(5.0),
+                                avatar: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade600,
+                                  child: Text(
+                                    _locations[2].location[0].toUpperCase(),
+                                  ),
+                                ),
+                                label: Text(
+                                  _locations[2].location,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                elevation: 6.0,
+                                shadowColor: Colors.grey[60],
+                                selected:
+                                    _filters.contains(_locations[2].location),
+                                backgroundColor: Color(_locations[2].color),
+                                //padding: EdgeInsets.all(6),
+                                onSelected: (bool selected) {
+                                  setState(() {
+                                    if (selected) {
+                                      _filters.add(_locations[2].location);
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    } else {
+                                      _filters.removeWhere((String name) {
+                                        return name == _locations[2].location;
+                                      });
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    }
+                                    filterMarkers_people();
+                                  });
+                                },
+                                selectedColor: Colors.grey,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8, bottom: 8, right: 4, left: 4),
+                              child: FilterChip(
+                                labelPadding: EdgeInsets.all(5.0),
+                                avatar: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade600,
+                                  child: Text(
+                                    _locations[3].location[0].toUpperCase(),
+                                  ),
+                                ),
+                                label: Text(
+                                  _locations[3].location,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                elevation: 6.0,
+                                shadowColor: Colors.grey[60],
+                                selected:
+                                    _filters.contains(_locations[3].location),
+                                backgroundColor: Color(_locations[3].color),
+                                //padding: EdgeInsets.all(6),
+                                onSelected: (bool selected) {
+                                  setState(() {
+                                    if (selected) {
+                                      _filters.add(_locations[3].location);
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    } else {
+                                      _filters.removeWhere((String name) {
+                                        return name == _locations[3].location;
+                                      });
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    }
+                                    filterMarkers_people();
+                                  });
+                                },
+                                selectedColor: Colors.grey,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8, bottom: 8, right: 4, left: 4),
+                              child: FilterChip(
+                                labelPadding: EdgeInsets.all(5.0),
+                                avatar: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade600,
+                                  child: Text(
+                                    _locations[4].location[0].toUpperCase(),
+                                  ),
+                                ),
+                                label: Text(
+                                  _locations[4].location,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                elevation: 6.0,
+                                shadowColor: Colors.grey[60],
+                                selected:
+                                    _filters.contains(_locations[4].location),
+                                backgroundColor: Color(_locations[4].color),
+                                //padding: EdgeInsets.all(6),
+                                onSelected: (bool selected) {
+                                  setState(() {
+                                    if (selected) {
+                                      _filters.add(_locations[4].location);
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    } else {
+                                      _filters.removeWhere((String name) {
+                                        return name == _locations[4].location;
+                                      });
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    }
+                                    filterMarkers_people();
+                                  });
+                                },
+                                selectedColor: Colors.grey,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8, bottom: 8, right: 4, left: 4),
+                              child: FilterChip(
+                                labelPadding: EdgeInsets.all(5.0),
+                                avatar: CircleAvatar(
+                                  backgroundColor: Colors.grey.shade600,
+                                  child: Text(
+                                    _locations[5].location[0].toUpperCase(),
+                                  ),
+                                ),
+                                label: Text(
+                                  _locations[5].location,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                elevation: 6.0,
+                                shadowColor: Colors.grey[60],
+                                selected:
+                                    _filters.contains(_locations[5].location),
+                                backgroundColor: Color(_locations[5].color),
+                                //padding: EdgeInsets.all(6),
+                                onSelected: (bool selected) {
+                                  setState(() {
+                                    if (selected) {
+                                      _filters.add(_locations[5].location);
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    } else {
+                                      _filters.removeWhere((String name) {
+                                        return name == _locations[5].location;
+                                      });
+                                      print("Lista Filtri: " +
+                                          _filters.toString());
+                                    }
+                                    filterMarkers_people();
+                                  });
+                                },
+                                selectedColor: Colors.grey,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
