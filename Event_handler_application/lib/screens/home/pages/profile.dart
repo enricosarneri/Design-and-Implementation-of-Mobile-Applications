@@ -1,6 +1,8 @@
 import 'package:event_handler/models/user.dart';
 import 'package:event_handler/screens/events/manager_events.dart';
 import 'package:event_handler/screens/events/my_events.dart';
+import 'package:event_handler/screens/add_local.dart';
+import 'package:event_handler/screens/my_locals.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,6 +38,15 @@ class Profile extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => MyEvents()),
+                  );
+                }),
+            SizedBox(height: 20),
+            ElevatedButton(
+                child: Text('My Locals'),
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyLocals()),
                   );
                 }),
           ])),

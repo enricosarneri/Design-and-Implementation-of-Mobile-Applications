@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:event_handler/models/local.dart';
 import 'package:event_handler/models/user.dart';
 import 'package:event_handler/screens/home/home.dart';
 import 'package:event_handler/screens/wrapper.dart';
@@ -17,6 +18,8 @@ class Create_Event extends StatefulWidget {
 class _Create_EventState extends State<Create_Event> {
   final AuthService _authService = AuthService();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final locals = ['', '', ''];
+  String localName = '';
   final EventTypes = ['Public', 'Private'];
   final TypeOfPlace = [
     'Cinema',
@@ -33,6 +36,7 @@ class _Create_EventState extends State<Create_Event> {
   String _placeName = '';
   String _description = '';
   String _maxPartecipants = '';
+  final addressesList = [];
 
   String _price = '';
   DateTime? _eventDate;
@@ -148,6 +152,7 @@ class _Create_EventState extends State<Create_Event> {
           return 'Event type is Required';
         }
       },
+      hint: new Text("Select the type of the event"),
       isExpanded: true,
       value: _eventType,
       items: EventTypes.map(buildMenuItems).toList(),
@@ -162,6 +167,7 @@ class _Create_EventState extends State<Create_Event> {
           return 'Type of place is Required';
         }
       },
+      hint: new Text("Select the type of the local"),
       isExpanded: true,
       value: _typeOfPlace,
       items: TypeOfPlace.map(buildMenuItems).toList(),
@@ -229,9 +235,36 @@ class _Create_EventState extends State<Create_Event> {
                   SizedBox(height: 20),
                   _buildDescription(),
                   SizedBox(height: 20),
-                  _buildAddress(),
-                  SizedBox(height: 20),
-                  _buildPlaceName(),
+                  FutureBuilder<List<Local>>(
+                      future:
+                          DatabaseService(_authService.getCurrentUser()!.uid)
+                              .getMyLocals(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<Local>> myLocals) {
+                        if (myLocals.hasError)
+                          return Container(
+                            child: Text('some error may have occured'),
+                          );
+                        return DropdownButtonFormField<String>(
+                          validator: (String? value) {
+                            if (value == null) {
+                              return 'Local is Required';
+                            }
+                          },
+                          isExpanded: true,
+                          hint: new Text("Select a local"),
+                          items: myLocals.data != null
+                              ? myLocals.data!
+                                  .map((local) => DropdownMenuItem(
+                                        child: Text(local.localName),
+                                        value: local.localName,
+                                      ))
+                                  .toList()
+                              : locals.map(buildMenuItems).toList(),
+                          onChanged: (value) =>
+                              setState(() => localName = value!),
+                        );
+                      }),
                   SizedBox(height: 20),
                   _buildTypeOfPlace(),
                   SizedBox(height: 20),
@@ -239,9 +272,9 @@ class _Create_EventState extends State<Create_Event> {
                   SizedBox(height: 20),
                   _buildDataPicker(context),
                   SizedBox(height: 20),
-                  _buildMaxPartecipantNumber(),
-                  SizedBox(height: 20),
                   _buildPrice(),
+                  SizedBox(height: 20),
+                  _buildMaxPartecipantNumber(),
                   SizedBox(height: 20),
                   ElevatedButton(
                       child: const Text('Create Event'),
@@ -261,7 +294,8 @@ class _Create_EventState extends State<Create_Event> {
                                 _eventDate,
                                 _maxPartecipants,
                                 _price,
-                                0);
+                                0,
+                                localName);
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) => Wrapper()),
                             (Route<dynamic> route) => false);

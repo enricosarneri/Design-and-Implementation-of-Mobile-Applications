@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:event_handler/models/local.dart';
 import 'package:event_handler/models/user.dart';
 import 'package:event_handler/services/localization%20services/location_services.dart';
 import 'package:event_handler/models/event.dart';
@@ -18,6 +19,8 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('events');
   final CollectionReference userQrCodesCollection =
       FirebaseFirestore.instance.collection('userQrCodes');
+  final CollectionReference ownerLocals =
+      FirebaseFirestore.instance.collection('ownerLocals');
 
   Future updateUserData(String email, String password, String name,
       String surname, bool isOwner) async {
@@ -91,19 +94,37 @@ class DatabaseService {
     String maxPartecipants,
     String price,
     int firstFreeQrCode,
+    String localName,
   ) async {
     List<String> partecipants = [];
     List<String> applicants = [];
     List<String> qrCodes = getRandomQrCodes(int.parse(maxPartecipants));
     String eventId = name + DateTime.now().microsecondsSinceEpoch.toString();
-    Coordinates coordinates =
-        await LocationService().getCoordinatesByAddress(address);
+
+    String owner = '';
+    double latitude = 0;
+    double longitude = 0;
+    String localAddress = '';
+    await ownerLocals.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].get('localName') == localName &&
+                  value.docs[i].get('owner') == uid)
+                {
+                  owner = uid,
+                  localAddress = value.docs[i].get('localAddress'),
+                  latitude = value.docs[i].get('latitude'),
+                  longitude = value.docs[i].get('longitude'),
+                }
+            }
+        });
+
     Event event = Event(
         uid,
         name,
         description,
-        coordinates.latitude,
-        coordinates.longitude,
+        latitude,
+        longitude,
         placeName,
         typeOfPlace!,
         eventType!,
@@ -119,9 +140,9 @@ class DatabaseService {
       'manager': uid,
       'name': event.name,
       'description': event.description,
-      'latitude': event.latitude,
-      'longitude': event.longitude,
-      'placeName': event.placeName,
+      'latitude': latitude,
+      'longitude': longitude,
+      'placeName': localName,
       'typeOfPlace': event.typeOfPlace,
       'eventType': event.eventType,
       'date': event.date,
@@ -132,6 +153,18 @@ class DatabaseService {
       'applicants': event.applicants,
       'eventId': event.eventId,
       'firstFreeQrCode': event.firstFreeQrCode,
+    });
+  }
+
+  Future addLocalForCurrentUser(String localAddress, String localName) async {
+    Coordinates coordinates =
+        await LocationService().getCoordinatesByAddress(localAddress);
+    return await ownerLocals.add({
+      'owner': uid,
+      'localName': localName,
+      'latitude': coordinates.latitude,
+      'longitude': coordinates.longitude,
+      'localAddress': localAddress,
     });
   }
 
@@ -277,5 +310,25 @@ class DatabaseService {
         qrCodes,
         firstFreeQrCode);
     return event;
+  }
+
+  Future<List<Local>> getMyLocals() async {
+    List<Local> locals = [];
+    await ownerLocals.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].get('owner') == uid)
+                {
+                  locals.add(Local(
+                      uid,
+                      value.docs[i].get('localName'),
+                      value.docs[i].get('localAddress'),
+                      value.docs[i].get('latitude'),
+                      value.docs[i].get('longitude')))
+                }
+            }
+        });
+    log(locals[0].localAddress);
+    return locals;
   }
 }
