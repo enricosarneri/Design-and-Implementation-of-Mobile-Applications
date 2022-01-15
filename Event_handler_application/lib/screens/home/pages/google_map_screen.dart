@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:event_handler/map_completer/searchMapPlaceWidget.dart';
 import 'package:event_handler/models/event.dart';
 import 'package:event_handler/services/localization%20services/application_block.dart';
 import 'package:event_handler/services/localization%20services/location_services.dart';
@@ -832,9 +833,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       },
                     ),
                   ),
+
                   Container(
                     margin: EdgeInsets.only(
-                      top: size_screen.height / 6.5,
+                      top: size_screen.height / 6.6,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.transparent,
@@ -1122,128 +1124,129 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       ),
                     ),
                   ),
-                  if (applicationBlock.searchResults != null &&
-                      applicationBlock.searchResults!.length != 0)
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 12.0, left: 12.0, top: 70),
-                      child: Container(
-                        height: 300.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(.6),
-                          backgroundBlendMode: BlendMode.darken,
-                          borderRadius: BorderRadius.circular(30),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  if (applicationBlock.searchResults != null &&
-                      applicationBlock.searchResults!.length != 0)
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 12.0, right: 12.0, top: 70),
-                      child: Container(
-                        height: 300.0,
-                        child: ListView.builder(
-                          itemCount: applicationBlock.searchResults!.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(
-                                applicationBlock
-                                    .searchResults![index].description!,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onTap: () {
-                                applicationBlock.setSelectedLocation(
-                                    applicationBlock
-                                        .searchResults![index].placeId!);
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 12, right: 12, top: 70),
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(50),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: TextFormField(
-                        textAlignVertical: TextAlignVertical.center,
-                        cursorWidth: 2,
-                        // cursorHeight: 16,
-                        controller: _searchController,
-                        textCapitalization: TextCapitalization.words,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          hintText: 'Search by City...',
-                          hintStyle: TextStyle(fontSize: 16),
-                          labelStyle: TextStyle(fontSize: 16),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(color: Colors.transparent),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(color: Colors.transparent),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(color: Colors.transparent),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(color: Colors.transparent),
-                          ),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsetsDirectional.only(end: 4.0),
-                            child: IconButton(
-                              onPressed: () async {
-                                var place = await LocationService()
-                                    .getPlace(_searchController.text);
-                                _goToPlace(place);
-                              },
-                              icon: Icon(
-                                Icons.search,
-                                color: Colors.blueGrey,
-                              ),
-                            ),
-                          ),
-                          prefixIcon: Padding(
-                            padding:
-                                const EdgeInsetsDirectional.only(start: 4.0),
-                            child: Icon(Icons.person),
-                          ),
-                        ),
-                        cursorColor: Colors.black,
-                        onChanged: (value) =>
-                            applicationBlock.searchPlaces(value),
-                      ),
-                    ),
-                  ),
+                  // if (applicationBlock.searchResults != null &&
+                  //     applicationBlock.searchResults!.length != 0)
+                  //   Padding(
+                  //     padding: const EdgeInsets.only(
+                  //         right: 12.0, left: 12.0, top: 70),
+                  //     child: Container(
+                  //       height: 300.0,
+                  //       width: double.infinity,
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.black.withOpacity(.6),
+                  //         backgroundBlendMode: BlendMode.darken,
+                  //         borderRadius: BorderRadius.circular(30),
+                  //         boxShadow: [
+                  //           BoxShadow(
+                  //             color: Colors.grey.withOpacity(0.5),
+                  //             spreadRadius: 5,
+                  //             blurRadius: 7,
+                  //             offset: Offset(0, 3),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // if (applicationBlock.searchResults != null &&
+                  //     applicationBlock.searchResults!.length != 0)
+                  //   Padding(
+                  //     padding: const EdgeInsets.only(
+                  //         left: 12.0, right: 12.0, top: 70),
+                  //     child: Container(
+                  //       height: 300.0,
+                  //       child: ListView.builder(
+                  //         itemCount: applicationBlock.searchResults!.length,
+                  //         itemBuilder: (context, index) {
+                  //           return ListTile(
+                  //             title: Text(
+                  //               applicationBlock
+                  //                   .searchResults![index].description!,
+                  //               style: TextStyle(color: Colors.white),
+                  //             ),
+                  //             onTap: () {
+                  //               applicationBlock.setSelectedLocation(
+                  //                   applicationBlock
+                  //                       .searchResults![index].placeId!);
+                  //             },
+                  //           );
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.only(left: 12, right: 12, top: 70),
+                  //   child: Container(
+                  //     height: 50,
+                  //     decoration: BoxDecoration(
+                  //       color: Colors.white.withOpacity(0.8),
+                  //       borderRadius: BorderRadius.circular(50),
+                  //       boxShadow: [
+                  //         BoxShadow(
+                  //           color: Colors.grey.withOpacity(0.3),
+                  //           spreadRadius: 5,
+                  //           blurRadius: 7,
+                  //           offset: Offset(0, 3),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     child: TextFormField(
+                  //       textAlignVertical: TextAlignVertical.center,
+                  //       cursorWidth: 2,
+                  //       // cursorHeight: 16,
+                  //       controller: _searchController,
+                  //       textCapitalization: TextCapitalization.words,
+                  //       decoration: InputDecoration(
+                  //         contentPadding: EdgeInsets.zero,
+                  //         hintText: 'Search by City...',
+                  //         hintStyle: TextStyle(fontSize: 16),
+                  //         labelStyle: TextStyle(fontSize: 16),
+                  //         border: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(50),
+                  //           borderSide: BorderSide(color: Colors.transparent),
+                  //         ),
+                  //         focusedBorder: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(50),
+                  //           borderSide: BorderSide(color: Colors.transparent),
+                  //         ),
+                  //         enabledBorder: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(50),
+                  //           borderSide: BorderSide(color: Colors.transparent),
+                  //         ),
+                  //         disabledBorder: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(50),
+                  //           borderSide: BorderSide(color: Colors.transparent),
+                  //         ),
+                  //         suffixIcon: Padding(
+                  //           padding: const EdgeInsetsDirectional.only(end: 4.0),
+                  //           child: IconButton(
+                  //             onPressed: () async {
+                  //               var place = await LocationService()
+                  //                   .getPlace(_searchController.text);
+                  //               _goToPlace(place);
+                  //             },
+                  //             icon: Icon(
+                  //               Icons.search,
+                  //               color: Colors.blueGrey,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         prefixIcon: Padding(
+                  //           padding:
+                  //               const EdgeInsetsDirectional.only(start: 4.0),
+                  //           child: Icon(Icons.person),
+                  //         ),
+                  //       ),
+                  //       cursorColor: Colors.black,
+                  //       onChanged: (value) =>
+                  //           applicationBlock.searchPlaces(value),
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: EdgeInsets.only(
-                        left: size_screen.width * 0.80, top: 630),
+                        left: size_screen.width * 0.81,
+                        top: size_screen.height * 0.8),
                     child: FloatingActionButton(
                       onPressed: () async {
                         final GoogleMapController controller =
@@ -1265,6 +1268,24 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                         color: Colors.black54,
                       ),
                       backgroundColor: Colors.white,
+                    ),
+                  ),
+                  Positioned(
+                    top: size_screen.height / 11.5,
+                    left: MediaQuery.of(context).size.width * 0.04,
+                    right: MediaQuery.of(context).size.width * 0.04,
+                    child: SearchMapPlaceWidget(
+                      apiKey: "AIzaSyCp-EXt7pBSEe6OySbG0CUImR3U_P4Y9Cg",
+                      onSelected: (place) async {
+                        final geolocation = await place.geolocation;
+                        final GoogleMapController controller =
+                            await _controller.future;
+                        controller.animateCamera(
+                            CameraUpdate.newLatLng(geolocation.coordinates));
+                        controller.animateCamera(CameraUpdate.newLatLngBounds(
+                            geolocation.bounds, 0));
+                      },
+                      onSearch: (place) async {},
                     ),
                   ),
                 ],
