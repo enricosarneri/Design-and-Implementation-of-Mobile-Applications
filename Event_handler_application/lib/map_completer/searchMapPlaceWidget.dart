@@ -188,7 +188,7 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget>
         children: <Widget>[
           Icon(
             Icons.person,
-            color: Colors.blue,
+            color: Colors.black54,
           ),
           Container(width: 15),
           Expanded(
@@ -216,8 +216,8 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget>
               child: AnimatedCrossFade(
                 crossFadeState: _crossFadeState!,
                 duration: Duration(milliseconds: 300),
-                firstChild: Icon(widget.icon, color: widget.iconColor),
-                secondChild: Icon(Icons.clear, color: widget.iconColor),
+                firstChild: Icon(widget.icon, color: Colors.black54),
+                secondChild: Icon(Icons.clear, color: Colors.black54),
               ),
             ),
           if (!widget.hasClearButton) Icon(widget.icon, color: widget.iconColor)

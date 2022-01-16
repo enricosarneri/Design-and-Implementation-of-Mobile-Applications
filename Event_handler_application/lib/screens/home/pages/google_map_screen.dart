@@ -36,6 +36,7 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
+  late BitmapDescriptor mapMarker;
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _searchController = TextEditingController();
   final AuthService _authService = AuthService();
@@ -79,6 +80,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   List<Event> listaDaFiltrare = [];
   @override
   void initState() {
+    setCustomMarker();
     _isSelected = false;
     _filters = <String>[];
     _locations = <EventLocation>[
@@ -153,6 +155,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       int maxPartecipants,
       double price,
       String name,
+      String urlImage,
       String eventId,
       List<String> partecipants,
       List<String> applicants,
@@ -161,6 +164,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     Event event = Event(
         managerId,
         name,
+        urlImage,
         description,
         latitude,
         longitude,
@@ -177,12 +181,22 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         firstFreeQrCode);
     return Marker(
         markerId: MarkerId(placeName),
-        infoWindow: InfoWindow(title: placeName),
-        icon: BitmapDescriptor.defaultMarker,
+        infoWindow: InfoWindow(title: placeName, snippet: name),
+        icon: mapMarker,
         position: LatLng(latitude, longitude),
         onTap: () {
           widget.setSlidingUpPanelFuncion(event);
         });
+  }
+
+  void setCustomMarker() async {
+    mapMarker = await BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(
+        devicePixelRatio: 3,
+        size: Size(5, 5),
+      ),
+      'assets/marker1-1.png',
+    );
   }
 
   @override
@@ -815,6 +829,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                             listaDaFiltrare[i].maxPartecipants,
                             listaDaFiltrare[i].price,
                             listaDaFiltrare[i].name,
+                            listaDaFiltrare[i].urlImage,
                             listaDaFiltrare[i].eventId,
                             listaDaFiltrare[i].partecipants,
                             listaDaFiltrare[i].applicants,

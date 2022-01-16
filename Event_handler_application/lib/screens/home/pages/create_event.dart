@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:event_handler/models/local.dart';
 import 'package:event_handler/models/user.dart';
@@ -6,9 +7,12 @@ import 'package:event_handler/screens/home/home.dart';
 import 'package:event_handler/screens/wrapper.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Create_Event extends StatefulWidget {
   @override
@@ -16,6 +20,27 @@ class Create_Event extends StatefulWidget {
 }
 
 class _Create_EventState extends State<Create_Event> {
+  ImagePicker image = ImagePicker();
+  File? file;
+  String _urlImage = '';
+
+  getImage() async {
+    var img = await image.pickImage(source: ImageSource.gallery);
+    setState(() {
+      file = File(img!.path);
+    });
+  }
+
+  uploadFile() async {
+    var imageFile =
+        await FirebaseStorage.instance.ref().child("path").child("/.jpg");
+    UploadTask task = imageFile.putFile(file!);
+    TaskSnapshot snapshot = await task;
+    //for downloading
+    _urlImage = await snapshot.ref.getDownloadURL();
+    print(_urlImage);
+  }
+
   final AuthService _authService = AuthService();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final locals = ['', '', ''];
@@ -40,6 +65,20 @@ class _Create_EventState extends State<Create_Event> {
 
   String _price = '';
   DateTime? _eventDate;
+
+  Widget _buildImage() {
+    return InkWell(
+      onTap: () {
+        getImage();
+      },
+      child: CircleAvatar(
+        radius: 88,
+        backgroundImage: file == null
+            ? AssetImage('assets/facebook.png')
+            : FileImage(File(file!.path)) as ImageProvider,
+      ),
+    );
+  }
 
   Widget _buildName() {
     return TextFormField(
@@ -231,6 +270,14 @@ class _Create_EventState extends State<Create_Event> {
               key: _key,
               child: ListView(
                 children: <Widget>[
+                  _buildImage(),
+                  ElevatedButton(
+                    onPressed: () {
+                      uploadFile();
+                    },
+                    child: Text("Upload Image"),
+                  ),
+                  SizedBox(height: 20),
                   _buildName(),
                   SizedBox(height: 20),
                   _buildDescription(),
@@ -282,10 +329,12 @@ class _Create_EventState extends State<Create_Event> {
                         if (!_key.currentState!.validate()) {
                           return;
                         }
+
                         await DatabaseService(
                                 _authService.getCurrentUser()!.uid)
                             .createEventData(
                                 _name,
+                                _urlImage,
                                 _description,
                                 _address,
                                 _placeName,
@@ -296,6 +345,7 @@ class _Create_EventState extends State<Create_Event> {
                                 _price,
                                 0,
                                 localName);
+
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) => Wrapper()),
                             (Route<dynamic> route) => false);

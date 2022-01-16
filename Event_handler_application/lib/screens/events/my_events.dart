@@ -76,6 +76,8 @@ class MyEvents extends StatelessWidget {
                                                     data.docs[index]['manager'],
                                                     data.docs[index]['name'],
                                                     data.docs[index]
+                                                        ['urlImage'],
+                                                    data.docs[index]
                                                         ['description'],
                                                     data.docs[index]
                                                         ['latitude'],

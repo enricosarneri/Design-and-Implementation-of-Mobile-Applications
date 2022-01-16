@@ -50,6 +50,7 @@ class DatabaseService {
       return Event(
         e.get('manager'),
         e.get('name'),
+        e.get('urlImage'),
         e.get('description'),
         e.get('latitude'),
         e.get('longitude'),
@@ -85,6 +86,7 @@ class DatabaseService {
 
   Future createEventData(
     String name,
+    String urlImage,
     String description,
     String address,
     String placeName,
@@ -122,6 +124,7 @@ class DatabaseService {
     Event event = Event(
         uid,
         name,
+        urlImage,
         description,
         latitude,
         longitude,
@@ -139,6 +142,7 @@ class DatabaseService {
     return await eventCollection.add({
       'manager': uid,
       'name': event.name,
+      'urlImage': event.urlImage,
       'description': event.description,
       'latitude': latitude,
       'longitude': longitude,
@@ -251,6 +255,7 @@ class DatabaseService {
   Future<Event> getEventByid(String eventid) async {
     String managerId = '';
     String name = '';
+    String urlImage = '';
     String description = '';
     double latitude = 0;
     double longitude = 0;
@@ -273,6 +278,7 @@ class DatabaseService {
                 {
                   managerId = value.docs[i].get('manager'),
                   name = value.docs[i].get('name'),
+                  urlImage = value.docs[i].get('urlImage'),
                   description = value.docs[i].get('description'),
                   latitude = value.docs[i].get('latitude'),
                   longitude = value.docs[i].get('longitude'),
@@ -295,6 +301,7 @@ class DatabaseService {
     Event event = Event(
         managerId,
         name,
+        urlImage,
         description,
         latitude,
         longitude,

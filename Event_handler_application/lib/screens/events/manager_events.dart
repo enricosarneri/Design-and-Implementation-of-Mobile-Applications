@@ -71,6 +71,7 @@ class ManagerEvents extends StatelessWidget {
                                               Event event = Event(
                                                   data.docs[index]['manager'],
                                                   data.docs[index]['name'],
+                                                  data.docs[index]['urlImage'],
                                                   data.docs[index]
                                                       ['description'],
                                                   data.docs[index]['latitude'],

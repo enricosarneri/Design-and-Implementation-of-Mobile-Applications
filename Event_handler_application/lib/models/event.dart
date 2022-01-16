@@ -1,6 +1,7 @@
 class Event {
   final String managerId;
   final String name;
+  final String urlImage;
   final String description;
   final double latitude;
   final double longitude;
@@ -24,7 +25,7 @@ class Event {
   get getManagerId => managerId;
 
   get getName => name;
-
+  get getUrlImage => urlImage;
   get getDescription => description;
 
   get getLatitude => latitude;
@@ -50,6 +51,7 @@ class Event {
   Event(
       this.managerId,
       this.name,
+      this.urlImage,
       this.description,
       this.latitude,
       this.longitude,
