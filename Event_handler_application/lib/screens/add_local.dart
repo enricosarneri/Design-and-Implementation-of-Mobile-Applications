@@ -85,6 +85,9 @@ class _AddLocalState extends State<AddLocal> {
                     onPressed: () async {
                       await DatabaseService(_authService.getCurrentUser()!.uid)
                           .addLocalForCurrentUser(_localAddress, _localName);
+                      Navigator.pop(
+                        context,
+                      );
                     })
               ],
             ),

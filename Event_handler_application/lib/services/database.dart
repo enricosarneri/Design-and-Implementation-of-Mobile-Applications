@@ -328,7 +328,6 @@ class DatabaseService {
                 }
             }
         });
-    log(locals[0].localAddress);
     return locals;
   }
 }
