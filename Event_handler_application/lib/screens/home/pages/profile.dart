@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/user.dart';
 import 'package:event_handler/screens/events/manager_events.dart';
 import 'package:event_handler/screens/events/my_events.dart';
@@ -38,7 +39,15 @@ class Profile extends StatelessWidget {
                 onPressed: () async {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MyEvents()),
+                    MaterialPageRoute(
+                        builder: (context) => MyEvents(
+                              databaseService: DatabaseService(
+                                  AuthService(FirebaseAuth.instance)
+                                      .getCurrentUser()!
+                                      .uid,
+                                  FirebaseFirestore.instance),
+                              authService: AuthService(FirebaseAuth.instance),
+                            )),
                   );
                 }),
             SizedBox(height: 20),
@@ -47,7 +56,14 @@ class Profile extends StatelessWidget {
                 onPressed: () async {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MyLocals()),
+                    MaterialPageRoute(
+                        builder: (context) => MyLocals(
+                              databaseService: DatabaseService(
+                                  AuthService(FirebaseAuth.instance)
+                                      .getCurrentUser()!
+                                      .uid,
+                                  FirebaseFirestore.instance),
+                            )),
                   );
                 }),
           ])),

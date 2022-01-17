@@ -7,15 +7,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyLocals extends StatefulWidget {
-  const MyLocals({Key? key}) : super(key: key);
+  const MyLocals({Key? key, required this.databaseService}) : super(key: key);
+  final DatabaseService databaseService;
 
   @override
   _MyLocalsState createState() => _MyLocalsState();
 }
 
 class _MyLocalsState extends State<MyLocals> {
-  final AuthService _authService = AuthService(FirebaseAuth.instance);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,14 +33,12 @@ class _MyLocalsState extends State<MyLocals> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => AddLocal(
-                                authService: _authService,
+                                authService: AuthService(FirebaseAuth.instance),
                               )),
                     );
                   }),
               FutureBuilder(
-                  future: DatabaseService(_authService.getCurrentUser()!.uid,
-                          FirebaseFirestore.instance)
-                      .getMyLocals(),
+                  future: widget.databaseService.getMyLocals(),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<Local>> myLocals) {
                     return Container(
