@@ -28,7 +28,10 @@ class _HomeState extends State<Home> {
       Event('', '', '', '', 0, 0, '', '', '', '', 0, 0, '', [], [], [], 0);
   final screens = [
     GoogleMapScreen(),
-    Share_Link(),
+    Share_Link(
+        databaseService: DatabaseService(
+            AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+            FirebaseFirestore.instance)),
     Create_Event(
       databaseService: DatabaseService(
           AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,

@@ -8,12 +8,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Share_Link extends StatefulWidget {
-  Share_Link({Key? key}) : super(key: key);
+  Share_Link({Key? key, required this.databaseService}) : super(key: key);
+  DatabaseService databaseService;
   _ShareLinkState createState() => _ShareLinkState();
 }
 
 class _ShareLinkState extends State<Share_Link> {
-  final AuthService _authService = AuthService(FirebaseAuth.instance);
   String eventId = '';
 
   @override
@@ -42,9 +42,7 @@ class _ShareLinkState extends State<Share_Link> {
                 ),
                 SizedBox(height: 20),
                 FutureBuilder(
-                    future: DatabaseService(_authService.getCurrentUser()!.uid,
-                            FirebaseFirestore.instance)
-                        .getEventByid(eventId),
+                    future: widget.databaseService.getEventByid(eventId),
                     initialData: "Loading text..",
                     builder:
                         (BuildContext context, AsyncSnapshot<Object> event) {

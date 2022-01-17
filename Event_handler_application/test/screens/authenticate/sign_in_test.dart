@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('sign in ...', (tester) async {
+  testWidgets('Check the presence of the desired widgets', (tester) async {
     await tester.pumpWidget(MaterialApp(
       home: SignIn(
         authServices: AuthService(MockFirebaseAuth()),

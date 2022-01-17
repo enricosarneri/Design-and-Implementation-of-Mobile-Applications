@@ -32,7 +32,10 @@ class _MyLocalsState extends State<MyLocals> {
                   onPressed: () async {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AddLocal()),
+                      MaterialPageRoute(
+                          builder: (context) => AddLocal(
+                                authService: _authService,
+                              )),
                     );
                   }),
               FutureBuilder(
