@@ -5,15 +5,17 @@ import 'package:event_handler/models/event.dart';
 import 'package:event_handler/screens/events/event_screen.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyEvents extends StatelessWidget {
-  final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService(FirebaseAuth.instance);
 
   @override
   Widget build(BuildContext context) {
-    Stream<QuerySnapshot> events =
-        DatabaseService(_authService.getCurrentUser()!.uid).getEvents();
+    Stream<QuerySnapshot> events = DatabaseService(
+            _authService.getCurrentUser()!.uid, FirebaseFirestore.instance)
+        .getEvents();
     return Scaffold(
       appBar: AppBar(title: Text('My events')),
       body: Padding(

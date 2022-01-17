@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AddLocal extends StatefulWidget {
@@ -15,7 +17,7 @@ class AddLocal extends StatefulWidget {
 class _AddLocalState extends State<AddLocal> {
   String _localAddress = '';
   String _localName = '';
-  final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService(FirebaseAuth.instance);
 
   File? file;
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
@@ -83,7 +85,8 @@ class _AddLocalState extends State<AddLocal> {
                 ElevatedButton(
                     child: Text('Add Local'),
                     onPressed: () async {
-                      await DatabaseService(_authService.getCurrentUser()!.uid)
+                      await DatabaseService(_authService.getCurrentUser()!.uid,
+                              FirebaseFirestore.instance)
                           .addLocalForCurrentUser(_localAddress, _localName);
                       Navigator.pop(
                         context,

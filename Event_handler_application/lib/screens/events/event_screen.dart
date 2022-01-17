@@ -3,6 +3,7 @@ import 'package:event_handler/models/event.dart';
 import 'package:event_handler/screens/qr_scan_page.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share/share.dart';
@@ -16,13 +17,14 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
-  final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService(FirebaseAuth.instance);
 
   @override
   Widget build(BuildContext context) {
-    final AuthService _authService = AuthService();
+    final AuthService _authService = AuthService(FirebaseAuth.instance);
     final String userId = _authService.getCurrentUser()!.uid;
-    Stream<QuerySnapshot> users = DatabaseService(userId).getUsers();
+    Stream<QuerySnapshot> users =
+        DatabaseService(userId, FirebaseFirestore.instance).getUsers();
     bool isManager = userId == widget.event.getManagerId;
     return Scaffold(
       body: Container(
@@ -111,9 +113,12 @@ class _EventScreenState extends State<EventScreen> {
                                                       Icons.check_outlined),
                                                   onPressed: () {
                                                     setState(() {
-                                                      DatabaseService(_authService
-                                                              .getCurrentUser()!
-                                                              .uid)
+                                                      DatabaseService(
+                                                              _authService
+                                                                  .getCurrentUser()!
+                                                                  .uid,
+                                                              FirebaseFirestore
+                                                                  .instance)
                                                           .acceptApplicance(
                                                               widget.event,
                                                               data.docs[index]
@@ -126,9 +131,12 @@ class _EventScreenState extends State<EventScreen> {
                                                       Icons.close_outlined),
                                                   onPressed: () {
                                                     setState(() {
-                                                      DatabaseService(_authService
-                                                              .getCurrentUser()!
-                                                              .uid)
+                                                      DatabaseService(
+                                                              _authService
+                                                                  .getCurrentUser()!
+                                                                  .uid,
+                                                              FirebaseFirestore
+                                                                  .instance)
                                                           .refuseApplicance(
                                                               widget.event,
                                                               data.docs[index]
@@ -225,7 +233,8 @@ class _EventScreenState extends State<EventScreen> {
                     }),
               if (!isManager)
                 FutureBuilder(
-                    future: DatabaseService(_authService.getCurrentUser()!.uid)
+                    future: DatabaseService(_authService.getCurrentUser()!.uid,
+                            FirebaseFirestore.instance)
                         .getQrCodeByUserEvent(widget.event, userId),
                     initialData: "Loading text..",
                     builder:

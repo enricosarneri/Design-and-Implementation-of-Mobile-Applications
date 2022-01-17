@@ -5,11 +5,12 @@ import 'package:event_handler/screens/add_local.dart';
 import 'package:event_handler/screens/my_locals.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
-  final AuthService auth = AuthService();
+  final AuthService auth = AuthService(FirebaseAuth.instance);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

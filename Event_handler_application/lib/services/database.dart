@@ -12,15 +12,18 @@ import 'package:uuid/uuid_util.dart';
 
 class DatabaseService {
   final String uid;
-  DatabaseService(this.uid);
-  final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection('users');
-  final CollectionReference eventCollection =
-      FirebaseFirestore.instance.collection('events');
-  final CollectionReference userQrCodesCollection =
-      FirebaseFirestore.instance.collection('userQrCodes');
-  final CollectionReference ownerLocals =
-      FirebaseFirestore.instance.collection('ownerLocals');
+  late final FirebaseFirestore firebaseFirestore;
+  late final CollectionReference eventCollection;
+  late final CollectionReference userQrCodesCollection;
+  late final CollectionReference ownerLocals;
+
+  late final CollectionReference userCollection;
+  DatabaseService(this.uid, this.firebaseFirestore) {
+    userCollection = firebaseFirestore.collection('users');
+    eventCollection = firebaseFirestore.collection('events');
+    userQrCodesCollection = firebaseFirestore.collection('userQrCodes');
+    ownerLocals = firebaseFirestore.collection('ownerLocals');
+  }
 
   Future updateUserData(String email, String password, String name,
       String surname, bool isOwner) async {

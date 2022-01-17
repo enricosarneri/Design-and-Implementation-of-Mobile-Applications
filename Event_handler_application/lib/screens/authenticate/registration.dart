@@ -17,7 +17,7 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
-  final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService(FirebaseAuth.instance);
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   String _name = '';

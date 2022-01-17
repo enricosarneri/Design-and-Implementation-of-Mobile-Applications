@@ -18,7 +18,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService(FirebaseAuth.instance);
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   String _email = '';
   String _password = '';

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/user.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,13 +8,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth;
   String errorMessage = '';
   AppUser? appUser;
   //create user obj based on FirebaseUser
   AppUser? _userFromFirebaseUser(User? user) {
     return user != null ? AppUser(user.uid, user.email!) : null;
   }
+
+  AuthService(this._auth);
 
   Future signInWithEmailAndPassword(String email, String password) async {
     UserCredential userCredential;
@@ -53,7 +56,7 @@ class AuthService {
       if (user == null)
         return null;
       else {
-        await DatabaseService(user.uid)
+        await DatabaseService(user.uid, FirebaseFirestore.instance)
             .updateUserData(email, password, name, surname, isOwner);
         return user;
       }

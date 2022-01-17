@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/main.dart';
 import 'package:event_handler/models/event.dart';
 import 'package:event_handler/screens/authenticate/registration.dart';
@@ -7,6 +8,8 @@ import 'package:event_handler/screens/home/pages/profile.dart';
 import 'package:event_handler/screens/home/pages/share_link.dart';
 import 'package:event_handler/screens/widget.dart/panel_widget.dart';
 import 'package:event_handler/services/auth.dart';
+import 'package:event_handler/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:event_handler/screens/home/pages/google_map_screen.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +21,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final AuthService _authService = AuthService();
   final panelController = PanelController();
   int index = 0;
   double panelPosition = 200;
@@ -27,7 +29,11 @@ class _HomeState extends State<Home> {
   final screens = [
     GoogleMapScreen(),
     Share_Link(),
-    Create_Event(),
+    Create_Event(
+      databaseService: DatabaseService(
+          AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+          FirebaseFirestore.instance),
+    ),
     Profile(),
   ];
 

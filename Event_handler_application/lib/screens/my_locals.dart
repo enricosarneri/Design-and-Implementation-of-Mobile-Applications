@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/local.dart';
 import 'package:event_handler/screens/add_local.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyLocals extends StatefulWidget {
@@ -12,7 +14,7 @@ class MyLocals extends StatefulWidget {
 }
 
 class _MyLocalsState extends State<MyLocals> {
-  final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService(FirebaseAuth.instance);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,8 @@ class _MyLocalsState extends State<MyLocals> {
                     );
                   }),
               FutureBuilder(
-                  future: DatabaseService(_authService.getCurrentUser()!.uid)
+                  future: DatabaseService(_authService.getCurrentUser()!.uid,
+                          FirebaseFirestore.instance)
                       .getMyLocals(),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<Local>> myLocals) {

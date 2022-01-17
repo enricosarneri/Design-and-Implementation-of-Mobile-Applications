@@ -9,6 +9,7 @@ import 'package:event_handler/services/localization%20services/location_services
 import 'package:event_handler/models/place.dart';
 import 'package:event_handler/screens/home/side_filter.dart';
 import 'package:event_handler/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:geocoder/geocoder.dart';
@@ -39,7 +40,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   late BitmapDescriptor mapMarker;
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _searchController = TextEditingController();
-  final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService(FirebaseAuth.instance);
   List<Marker> markers = [];
   StreamSubscription? locationSubscription;
   StreamSubscription? eventsListener;
@@ -91,9 +92,12 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       const EventLocation('Disco', 0xFF5cda65),
       const EventLocation('Private Setting', 0xFFff8a65),
     ];
-    final Stream<List<Event>> eventsList =
-        DatabaseService(_authService.getCurrentUser()!.uid).events;
-    DatabaseService(_authService.getCurrentUser()!.uid).getCurrentUser();
+    final Stream<List<Event>> eventsList = DatabaseService(
+            _authService.getCurrentUser()!.uid, FirebaseFirestore.instance)
+        .events;
+    DatabaseService(
+            _authService.getCurrentUser()!.uid, FirebaseFirestore.instance)
+        .getCurrentUser();
     eventsListener = eventsList.listen((event) {
       for (var i = 0; i < event.length; i++) {
         setState(() {

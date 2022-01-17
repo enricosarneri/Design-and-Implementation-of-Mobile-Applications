@@ -7,6 +7,7 @@ import 'package:event_handler/screens/home/home.dart';
 import 'package:event_handler/screens/wrapper.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,9 @@ import 'package:image_picker/image_picker.dart';
 class Create_Event extends StatefulWidget {
   @override
   _Create_EventState createState() => _Create_EventState();
+  const Create_Event({Key? key, required this.databaseService})
+      : super(key: key);
+  final DatabaseService databaseService;
 }
 
 class _Create_EventState extends State<Create_Event> {
@@ -41,7 +45,6 @@ class _Create_EventState extends State<Create_Event> {
     print(_urlImage);
   }
 
-  final AuthService _authService = AuthService();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final locals = ['', '', ''];
   String localName = '';
@@ -82,6 +85,7 @@ class _Create_EventState extends State<Create_Event> {
 
   Widget _buildName() {
     return TextFormField(
+      key: Key('name'),
       decoration: InputDecoration(labelText: 'Name'),
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -114,6 +118,7 @@ class _Create_EventState extends State<Create_Event> {
 
   Widget _buildPlaceName() {
     return TextFormField(
+      key: Key("place name"),
       decoration: InputDecoration(labelText: 'Place Name'),
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -130,6 +135,7 @@ class _Create_EventState extends State<Create_Event> {
 
   Widget _buildDescription() {
     return TextFormField(
+      key: Key("description"),
       keyboardType: TextInputType.multiline,
       maxLines: null,
       decoration: InputDecoration(labelText: 'Description'),
@@ -283,9 +289,7 @@ class _Create_EventState extends State<Create_Event> {
                   _buildDescription(),
                   SizedBox(height: 20),
                   FutureBuilder<List<Local>>(
-                      future:
-                          DatabaseService(_authService.getCurrentUser()!.uid)
-                              .getMyLocals(),
+                      future: widget.databaseService.getMyLocals(),
                       builder: (BuildContext context,
                           AsyncSnapshot<List<Local>> myLocals) {
                         if (myLocals.hasError)
@@ -330,21 +334,19 @@ class _Create_EventState extends State<Create_Event> {
                           return;
                         }
 
-                        await DatabaseService(
-                                _authService.getCurrentUser()!.uid)
-                            .createEventData(
-                                _name,
-                                _urlImage,
-                                _description,
-                                _address,
-                                _placeName,
-                                _typeOfPlace,
-                                _eventType,
-                                _eventDate,
-                                _maxPartecipants,
-                                _price,
-                                0,
-                                localName);
+                        await widget.databaseService.createEventData(
+                            _name,
+                            _urlImage,
+                            _description,
+                            _address,
+                            _placeName,
+                            _typeOfPlace,
+                            _eventType,
+                            _eventDate,
+                            _maxPartecipants,
+                            _price,
+                            0,
+                            localName);
 
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(builder: (context) => Wrapper()),

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/event.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -14,7 +16,7 @@ class PanelWidget extends StatelessWidget {
   final ScrollController controller;
   final PanelController panelController;
   final Event event;
-  
+
   @override
   Widget build(BuildContext context) => ListView(
         padding: EdgeInsets.zero,
@@ -26,9 +28,12 @@ class PanelWidget extends StatelessWidget {
           SizedBox(height: 24),
           ElevatedButton(
               child: const Text('Ask to Partecipate'),
-              onPressed: () async{
-                final AuthService _authService = AuthService();
-                DatabaseService(_authService.getCurrentUser()!.uid).addEventApplicant(event);
+              onPressed: () async {
+                final AuthService _authService =
+                    AuthService(FirebaseAuth.instance);
+                DatabaseService(_authService.getCurrentUser()!.uid,
+                        FirebaseFirestore.instance)
+                    .addEventApplicant(event);
                 //oppure mostrare un messagio con scritto Richiesta inviata con successo
                 panelController.close();
               }),
@@ -53,7 +58,7 @@ class PanelWidget extends StatelessWidget {
             Text(
               'max partecipants: ' + event.maxPartecipants.toString(),
               style: TextStyle(fontWeight: FontWeight.w400),
-            ), 
+            ),
           ],
         ),
       );
