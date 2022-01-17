@@ -14,10 +14,11 @@ import 'package:provider/provider.dart';
 class Registration extends StatefulWidget {
   @override
   _RegistrationState createState() => _RegistrationState();
+  const Registration({Key? key, required this.authServices}) : super(key: key);
+  final AuthService authServices;
 }
 
 class _RegistrationState extends State<Registration> {
-  final AuthService _authService = AuthService(FirebaseAuth.instance);
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   String _name = '';
@@ -558,7 +559,7 @@ class _RegistrationState extends State<Registration> {
                               log("isOwner is: " + _isOwner.toString());
                               log("name: " + _name);
                               log("surname: " + _surname);
-                              dynamic result = await _authService
+                              dynamic result = await widget.authServices
                                   .createUserWithEmailAndPassword(_email,
                                       _password, _name, _surname, _isOwner);
 
@@ -668,7 +669,7 @@ class _RegistrationState extends State<Registration> {
                               ),
                               GestureDetector(
                                 onTap: () async {
-                                  await _authService
+                                  await widget.authServices
                                       .signInWithGoogle()
                                       .then((UserCredential value) {
                                     final displayName = value.user!.displayName;

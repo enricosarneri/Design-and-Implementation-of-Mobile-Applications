@@ -118,7 +118,6 @@ class _Create_EventState extends State<Create_Event> {
 
   Widget _buildPlaceName() {
     return TextFormField(
-      key: Key("place name"),
       decoration: InputDecoration(labelText: 'Place Name'),
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -154,6 +153,7 @@ class _Create_EventState extends State<Create_Event> {
 
   Widget _buildMaxPartecipantNumber() {
     return TextFormField(
+      key: Key("max partecipants"),
       decoration: const InputDecoration(
         labelText: 'Max number of Partecipants',
       ),
@@ -173,6 +173,7 @@ class _Create_EventState extends State<Create_Event> {
 
   Widget _buildPrice() {
     return TextFormField(
+      key: Key("price"),
       decoration: const InputDecoration(
         labelText: 'Price (€)',
       ),
@@ -192,6 +193,7 @@ class _Create_EventState extends State<Create_Event> {
 
   Widget _buildEventType() {
     return DropdownButtonFormField<String>(
+      key: Key("event type"),
       validator: (String? value) {
         if (value == null) {
           return 'Event type is Required';
@@ -207,6 +209,7 @@ class _Create_EventState extends State<Create_Event> {
 
   Widget _buildTypeOfPlace() {
     return DropdownButtonFormField<String>(
+      key: Key("place type"),
       validator: (String? value) {
         if (value == null) {
           return 'Type of place is Required';
@@ -233,6 +236,7 @@ class _Create_EventState extends State<Create_Event> {
 
   Widget _buildDataPicker(BuildContext context) {
     return ElevatedButton(
+      key: Key('data button'),
       child: Text(_eventDate == null
           ? 'Select Date'
           : '${_eventDate!.day}/${_eventDate!.month}/${_eventDate!.year}'),
@@ -275,9 +279,11 @@ class _Create_EventState extends State<Create_Event> {
             child: Form(
               key: _key,
               child: ListView(
+                key: Key('list view'),
                 children: <Widget>[
                   _buildImage(),
                   ElevatedButton(
+                    key: Key('upload image button'),
                     onPressed: () {
                       uploadFile();
                     },
@@ -303,6 +309,7 @@ class _Create_EventState extends State<Create_Event> {
                             }
                           },
                           isExpanded: true,
+                          key: Key("place name"),
                           hint: new Text("Select a local"),
                           items: myLocals.data != null
                               ? myLocals.data!
@@ -328,6 +335,7 @@ class _Create_EventState extends State<Create_Event> {
                   _buildMaxPartecipantNumber(),
                   SizedBox(height: 20),
                   ElevatedButton(
+                      key: Key('create event button'),
                       child: const Text('Create Event'),
                       onPressed: () async {
                         if (!_key.currentState!.validate()) {

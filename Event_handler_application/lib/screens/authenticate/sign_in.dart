@@ -11,14 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
-
+  const SignIn({Key? key, required this.authServices}) : super(key: key);
+  final AuthService authServices;
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-  final AuthService _authService = AuthService(FirebaseAuth.instance);
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
@@ -297,7 +296,7 @@ class _SignInState extends State<SignIn> {
                             onPressed: () async {
                               setState(() => isSignInLoading = true);
                               if (_key.currentState!.validate()) {
-                                dynamic result = await _authService
+                                dynamic result = await widget.authServices
                                     .signInWithEmailAndPassword(
                                         _email, _password);
                                 if (result == null) {
@@ -377,7 +376,7 @@ class _SignInState extends State<SignIn> {
                               ),
                               GestureDetector(
                                 onTap: () async {
-                                  await _authService
+                                  await widget.authServices
                                       .signInWithGoogle()
                                       .then((UserCredential value) {
                                     final displayName = value.user!.displayName;
@@ -441,7 +440,10 @@ class _SignInState extends State<SignIn> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Registration()));
+                                                  Registration(
+                                                    authServices:
+                                                        widget.authServices,
+                                                  )));
                                     },
                                 ),
                               ],

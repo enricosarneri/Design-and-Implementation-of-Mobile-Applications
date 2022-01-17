@@ -16,7 +16,7 @@ void main() {
   var localcompl = Completer<List<Local>>();
   localcompl.complete(locals);
 
-  testWidgets('create event ...', (tester) async {
+  testWidgets('Check the presence of the desired widgets', (tester) async {
     await tester.pumpWidget(MaterialApp(
       home: Create_Event(
         databaseService: databaseService,
@@ -24,7 +24,27 @@ void main() {
     ));
 
     final nameField = find.byKey(Key('name'));
-    final placNnameField = find.byKey(Key('place name'));
+    final placeNameField = find.byKey(Key('place name'));
     final descriptionField = find.byKey(Key('description'));
+    final maxPartecipantsField = find.byKey(Key('max partecipants'));
+    final priceField = find.byKey(Key('price'));
+    final eventTypeField = find.byKey(Key('event type'));
+    final placeTypeField = find.byKey(Key('place type'));
+    final dataButton = find.byKey(Key('data button'));
+    final createEventButton = find.byKey(Key('create event button'));
+    final uploadImageButton = find.byKey(Key('upload image button'));
+
+    expect(nameField, findsOneWidget);
+    expect(descriptionField, findsOneWidget);
+    expect(placeTypeField, findsOneWidget);
+    expect(uploadImageButton, findsOneWidget);
+    expect(placeNameField, findsOneWidget);
+    await tester.drag(find.byKey(Key('list view')), const Offset(0.0, -500));
+    await tester.pump();
+    expect(priceField, findsOneWidget);
+    expect(eventTypeField, findsOneWidget);
+    expect(dataButton, findsOneWidget);
+    expect(maxPartecipantsField, findsOneWidget);
+    expect(createEventButton, findsOneWidget);
   });
 }
