@@ -103,10 +103,19 @@ class ManagerEvents extends StatelessWidget {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        EventScreen(
-                                                          event: event,
-                                                        )),
+                                                    builder: (context) => EventScreen(
+                                                        event: event,
+                                                        authService: AuthService(
+                                                            FirebaseAuth
+                                                                .instance),
+                                                        databaseService: DatabaseService(
+                                                            AuthService(
+                                                                    FirebaseAuth
+                                                                        .instance)
+                                                                .getCurrentUser()!
+                                                                .uid,
+                                                            FirebaseFirestore
+                                                                .instance))),
                                                 //  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
                                               );
                                             },

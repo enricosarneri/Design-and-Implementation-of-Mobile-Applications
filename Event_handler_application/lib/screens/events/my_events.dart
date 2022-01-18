@@ -110,10 +110,19 @@ class MyEvents extends StatelessWidget {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          EventScreen(
-                                                            event: event,
-                                                          )),
+                                                      builder: (context) => EventScreen(
+                                                          event: event,
+                                                          authService:
+                                                              AuthService(
+                                                                  FirebaseAuth
+                                                                      .instance),
+                                                          databaseService: DatabaseService(
+                                                              AuthService(FirebaseAuth
+                                                                      .instance)
+                                                                  .getCurrentUser()!
+                                                                  .uid,
+                                                              FirebaseFirestore
+                                                                  .instance))),
                                                 );
                                               },
                                               child: Text('More info')),

@@ -53,8 +53,14 @@ class _ShareLinkState extends State<Share_Link> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => EventScreen(
-                                        event: event.data as Event,
-                                      )),
+                                      event: event.data as Event,
+                                      authService:
+                                          AuthService(FirebaseAuth.instance),
+                                      databaseService: DatabaseService(
+                                          AuthService(FirebaseAuth.instance)
+                                              .getCurrentUser()!
+                                              .uid,
+                                          FirebaseFirestore.instance))),
                             );
                           });
                     }),

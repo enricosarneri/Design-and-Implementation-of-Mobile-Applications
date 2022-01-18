@@ -9,27 +9,32 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share/share.dart';
 
 class EventScreen extends StatefulWidget {
-  const EventScreen({Key? key, required this.event}) : super(key: key);
+  const EventScreen({
+    Key? key,
+    required this.event,
+    required this.authService,
+    required this.databaseService,
+  }) : super(key: key);
   final Event event;
+  final AuthService authService;
+  final DatabaseService databaseService;
 
   @override
   _EventScreenState createState() => _EventScreenState();
 }
 
 class _EventScreenState extends State<EventScreen> {
-  final AuthService _authService = AuthService(FirebaseAuth.instance);
-
   @override
   Widget build(BuildContext context) {
-    final AuthService _authService = AuthService(FirebaseAuth.instance);
-    final String userId = _authService.getCurrentUser()!.uid;
-    Stream<QuerySnapshot> users =
-        DatabaseService(userId, FirebaseFirestore.instance).getUsers();
+    final String userId = widget.authService.getCurrentUser()!.uid;
+
+    Stream<QuerySnapshot> users = widget.databaseService.getUsers();
     bool isManager = userId == widget.event.getManagerId;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(24),
         child: SingleChildScrollView(
+          key: Key('scrollable column'),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -113,12 +118,7 @@ class _EventScreenState extends State<EventScreen> {
                                                       Icons.check_outlined),
                                                   onPressed: () {
                                                     setState(() {
-                                                      DatabaseService(
-                                                              _authService
-                                                                  .getCurrentUser()!
-                                                                  .uid,
-                                                              FirebaseFirestore
-                                                                  .instance)
+                                                      widget.databaseService
                                                           .acceptApplicance(
                                                               widget.event,
                                                               data.docs[index]
@@ -131,12 +131,7 @@ class _EventScreenState extends State<EventScreen> {
                                                       Icons.close_outlined),
                                                   onPressed: () {
                                                     setState(() {
-                                                      DatabaseService(
-                                                              _authService
-                                                                  .getCurrentUser()!
-                                                                  .uid,
-                                                              FirebaseFirestore
-                                                                  .instance)
+                                                      widget.databaseService
                                                           .refuseApplicance(
                                                               widget.event,
                                                               data.docs[index]
@@ -177,6 +172,7 @@ class _EventScreenState extends State<EventScreen> {
                       final data = snapshot.requireData;
 
                       return ListView.builder(
+                          key: Key("list view"),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: data.size,
@@ -233,19 +229,20 @@ class _EventScreenState extends State<EventScreen> {
                     }),
               if (!isManager)
                 FutureBuilder(
-                    future: DatabaseService(_authService.getCurrentUser()!.uid,
-                            FirebaseFirestore.instance)
+                    future: widget.databaseService
                         .getQrCodeByUserEvent(widget.event, userId),
                     initialData: "Loading text..",
                     builder:
                         (BuildContext context, AsyncSnapshot<String> text) {
                       return QrImage(
+                        key: Key('qrCode'),
                         data: text.data!,
                         size: 200,
                         backgroundColor: Colors.white,
                       );
                     }),
               IconButton(
+                  key: Key('share button'),
                   icon: Icon(Icons.share_outlined),
                   onPressed: () {
                     Share.share(widget.event.getEventId);
