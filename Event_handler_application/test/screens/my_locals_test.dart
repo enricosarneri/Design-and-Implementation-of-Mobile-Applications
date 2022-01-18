@@ -24,10 +24,22 @@ class MockDatabaseService extends Mock implements DatabaseService {
 
 void main() {
   final MockDatabaseService mockDatabaseService = MockDatabaseService();
-  mockDatabaseService
-      .addToLocal(Local('owner', 'localName', 'localAddress', 0, 0));
 
-  testWidgets('find single address in the list', (tester) async {
+  testWidgets('Find no addresses', (tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: MyLocals(
+        databaseService: mockDatabaseService,
+      ),
+    ));
+    await tester.pump(Duration(seconds: 2));
+    final address = find.text('localAddress');
+    expect(address, findsNothing);
+  });
+
+  testWidgets('Check the presence of a single address', (tester) async {
+    mockDatabaseService
+        .addToLocal(Local('owner', 'localName', 'localAddress', 0, 0));
+
     await tester.pumpWidget(MaterialApp(
       home: MyLocals(
         databaseService: mockDatabaseService,
@@ -38,11 +50,12 @@ void main() {
     expect(address, findsOneWidget);
   });
 
-  mockDatabaseService
-      .addToLocal(Local('owner', 'localName', 'localAddress2', 0, 0));
-  mockDatabaseService
-      .addToLocal(Local('owner', 'localName', 'localAddress3', 0, 0));
-  testWidgets('find more than 1 address in the list', (tester) async {
+  testWidgets('Check the prensence of more than 1 address', (tester) async {
+    mockDatabaseService
+        .addToLocal(Local('owner', 'localName', 'localAddress2', 0, 0));
+    mockDatabaseService
+        .addToLocal(Local('owner', 'localName', 'localAddress3', 0, 0));
+
     await tester.pumpWidget(MaterialApp(
       home: MyLocals(
         databaseService: mockDatabaseService,

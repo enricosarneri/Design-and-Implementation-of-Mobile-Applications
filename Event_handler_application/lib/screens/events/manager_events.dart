@@ -7,13 +7,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ManagerEvents extends StatelessWidget {
-  final AuthService _authService = AuthService(FirebaseAuth.instance);
+  ManagerEvents(
+      {Key? key, required this.databaseService, required this.authService})
+      : super(key: key);
+  final DatabaseService databaseService;
+  final AuthService authService;
 
   @override
   Widget build(BuildContext context) {
-    Stream<QuerySnapshot> events = DatabaseService(
-            _authService.getCurrentUser()!.uid, FirebaseFirestore.instance)
-        .getEvents();
+    Stream<QuerySnapshot> events = databaseService.getEvents();
     return Scaffold(
       appBar: AppBar(title: Text('My events')),
       body: Padding(
@@ -40,7 +42,7 @@ class ManagerEvents extends StatelessWidget {
                         itemCount: data.size,
                         itemBuilder: (context, index) {
                           if (data.docs[index]['manager'] ==
-                              _authService.getCurrentUser()!.uid) {
+                              authService.getCurrentUser()!.uid) {
                             return Container(
                                 decoration: BoxDecoration(
                                     shape: BoxShape.rectangle,

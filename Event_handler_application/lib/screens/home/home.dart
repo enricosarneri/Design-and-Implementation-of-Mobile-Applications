@@ -37,7 +37,12 @@ class _HomeState extends State<Home> {
           AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
           FirebaseFirestore.instance),
     ),
-    Profile(),
+    Profile(
+      databaseService: DatabaseService(
+          AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+          FirebaseFirestore.instance),
+      authService: AuthService(FirebaseAuth.instance),
+    ),
   ];
 
   void setSlidingUpPanel(newEvent) {

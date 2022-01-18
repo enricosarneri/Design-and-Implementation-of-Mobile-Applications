@@ -11,7 +11,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
-  final AuthService auth = AuthService(FirebaseAuth.instance);
+  Profile({Key? key, required this.databaseService, required this.authService})
+      : super(key: key);
+  final DatabaseService databaseService;
+  final AuthService authService;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,16 +26,32 @@ class Profile extends StatelessWidget {
             ElevatedButton(
                 child: Text('log out'),
                 onPressed: () async {
-                  await auth.signOut();
+                  await authService.signOut();
                 }),
             SizedBox(height: 20),
-            ElevatedButton(
-                child: Text('Organized events'),
-                onPressed: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ManagerEvents()),
-                  );
+            FutureBuilder<AppUser>(
+                future: databaseService.getCurrentAppUser(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<AppUser> appUser) {
+                  if (appUser.connectionState == ConnectionState.done) {
+                    if (appUser.data!.isOwner) {
+                      return ElevatedButton(
+                          child: Text('Organized events'),
+                          onPressed: () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ManagerEvents(
+                                      databaseService: databaseService,
+                                      authService: authService)),
+                            );
+                          });
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Container();
+                  }
                 }),
             SizedBox(height: 20),
             ElevatedButton(
@@ -51,20 +71,33 @@ class Profile extends StatelessWidget {
                   );
                 }),
             SizedBox(height: 20),
-            ElevatedButton(
-                child: Text('My Locals'),
-                onPressed: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MyLocals(
-                              databaseService: DatabaseService(
-                                  AuthService(FirebaseAuth.instance)
-                                      .getCurrentUser()!
-                                      .uid,
-                                  FirebaseFirestore.instance),
-                            )),
-                  );
+            FutureBuilder<AppUser>(
+                future: databaseService.getCurrentAppUser(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<AppUser> appUser) {
+                  if (appUser.connectionState == ConnectionState.done) {
+                    if (appUser.data!.isOwner) {
+                      return ElevatedButton(
+                          child: Text('My Locals'),
+                          onPressed: () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyLocals(
+                                        databaseService: DatabaseService(
+                                            AuthService(FirebaseAuth.instance)
+                                                .getCurrentUser()!
+                                                .uid,
+                                            FirebaseFirestore.instance),
+                                      )),
+                            );
+                          });
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Container();
+                  }
                 }),
           ])),
     );

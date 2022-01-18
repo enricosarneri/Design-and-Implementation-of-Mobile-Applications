@@ -340,4 +340,39 @@ class DatabaseService {
         });
     return locals;
   }
+
+  Future<bool> isCurrentUserManager() async {
+    bool isManager = false;
+    await userCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].id == uid)
+                {isManager = value.docs[i].get('isowner')}
+            }
+        });
+    return isManager;
+  }
+
+  Future<AppUser> getCurrentAppUser() async {
+    String email = '';
+    bool isOwner = false;
+    String name = '';
+    String password = '';
+    String surname = '';
+
+    await userCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].id == uid)
+                {
+                  isOwner = value.docs[i].get('isowner'),
+                  email = value.docs[i].get('email'),
+                  name = value.docs[i].get('name'),
+                  password = value.docs[i].get('password'),
+                  surname = value.docs[i].get('surname'),
+                }
+            }
+        });
+    return AppUser.fromAppUser(uid, email, name, surname, password, isOwner);
+  }
 }

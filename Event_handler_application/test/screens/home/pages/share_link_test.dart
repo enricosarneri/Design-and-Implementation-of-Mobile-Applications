@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final firestore = FakeFirebaseFirestore();
   DatabaseService databaseService = DatabaseService('uid', firestore);
-  testWidgets('share link ...', (tester) async {
+  testWidgets('Check the presence of the desired widgets', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Share_Link(databaseService: databaseService),

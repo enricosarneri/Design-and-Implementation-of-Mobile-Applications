@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:event_handler/models/event.dart';
-import 'package:event_handler/screens/events/my_events.dart';
+import 'package:event_handler/screens/events/manager_events.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
@@ -14,21 +13,21 @@ class MockDatabaseService extends Mock implements DatabaseService {
   FakeFirebaseFirestore fakeFirebaseFirestore2 = FakeFirebaseFirestore();
   List<String> applicants = [];
   List<String> qrCodes = [];
+  List<String> partecipants = [];
 
-  CollectionReference addEventToCollection(String uid, String name,
-      String description, List<String> partecipants, String date) {
+  CollectionReference addEventToCollection(String uid, String name) {
     CollectionReference event = fakeFirebaseFirestore2.collection('myEvents');
     String eventCollection = 'myEvents';
     fakeFirebaseFirestore2.collection(eventCollection).add({
       'manager': uid,
       'name': name,
       'urlImage': 'urlImage',
-      'description': description,
+      'description': 'description',
       'latitude': 0,
       'longitude': 0,
       'placeName': 'typeOfPlace',
       'eventType': 'eventType',
-      'date': date,
+      'date': '25/12/2022',
       'maxPartecipants': 6,
       'price': 5,
       'qrCodeList': qrCodes,
@@ -62,64 +61,55 @@ void main() {
   final MockDatabaseService mockDatabaseService = MockDatabaseService();
   final MockAuthService mockAuthService = MockAuthService();
 
-  testWidgets('0 events when i dont partecipate to any', (tester) async {
+  testWidgets('Manager owns no event', (tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: MyEvents(
+      home: ManagerEvents(
         databaseService: mockDatabaseService,
         authService: mockAuthService,
       ),
     ));
-    List<String> partecipants = [];
-    partecipants.add('not myUid');
-    mockDatabaseService.addEventToCollection(
-        'uid', 'eventName', 'description', partecipants, '12/12/2022');
+    mockDatabaseService.addEventToCollection('uid', 'eventName');
     await tester.pump();
     final eventName = find.text('eventName');
     expect(eventName, findsNothing);
   });
 
-  testWidgets('Exactly 1 event when i partecipate to 1 event', (tester) async {
+  testWidgets('Manager owns exactly 1 event', (tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: MyEvents(
+      home: ManagerEvents(
         databaseService: mockDatabaseService,
         authService: mockAuthService,
       ),
     ));
-    List<String> partecipants = [];
-    partecipants.add('myUid');
-    partecipants.add('Uid2');
-    partecipants.add('uid3');
-    mockDatabaseService.addEventToCollection(
-        'uid', 'eventName', 'description', partecipants, '12/12/2022');
+    mockDatabaseService.addEventToCollection('myUid', 'eventName');
+    mockDatabaseService.addEventToCollection('uid123', 'eventName1');
     await tester.pump();
     final eventName = find.text('eventName');
+    final event2Name = find.text('eventName1');
+    expect(event2Name, findsNothing);
     expect(eventName, findsOneWidget);
   });
 
   final MockDatabaseService mockDatabaseService2 = MockDatabaseService();
-
-  testWidgets('More than 1 event when i partecipate to more than 1 event',
-      (tester) async {
+  testWidgets('Manager owns more than 1 event', (tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: MyEvents(
+      home: ManagerEvents(
         databaseService: mockDatabaseService2,
         authService: mockAuthService,
       ),
     ));
-    List<String> partecipants = [];
-    partecipants.add('myUid');
-    mockDatabaseService2.addEventToCollection(
-        'uid', 'eventName', 'description', partecipants, '12/12/2022');
-    mockDatabaseService2.addEventToCollection(
-        'uid', 'eventName2', 'description', partecipants, '12/12/2022');
-    mockDatabaseService2.addEventToCollection(
-        'uid', 'eventName3', 'description', partecipants, '12/12/2022');
+    mockDatabaseService2.addEventToCollection('myUid', 'eventName');
+    mockDatabaseService2.addEventToCollection('myUid', 'eventName2');
+    mockDatabaseService2.addEventToCollection('myUid', 'eventName3');
+    mockDatabaseService2.addEventToCollection('uid123', 'eventName4');
     await tester.pump();
     final eventName = find.text('eventName');
     final event2Name = find.text('eventName2');
     final event3Name = find.text('eventName3');
+    final event4Name = find.text('eventName4');
     expect(eventName, findsOneWidget);
     expect(event2Name, findsOneWidget);
     expect(event3Name, findsOneWidget);
+    expect(event4Name, findsNothing);
   });
 }
