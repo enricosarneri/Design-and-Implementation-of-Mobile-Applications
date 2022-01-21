@@ -22,32 +22,50 @@ class _ShareLinkState extends State<Share_Link> {
       title: 'Welcome to Flutter',
       home: Scaffold(
         body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 30),
           height: MediaQuery.of(context).size.height,
-          color: Colors.white,
-          child: ListView(
-              padding: EdgeInsets.only(top: 250, left: 25, right: 25),
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Event Link'),
-                  validator: (String? value) {
-                    if (value!.isEmpty) {
-                      return 'Event Link is required';
-                    }
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      eventId = value.trim();
-                    });
-                  },
-                ),
-                SizedBox(height: 20),
-                FutureBuilder(
-                    future: widget.databaseService.getEventByid(eventId),
-                    initialData: "Loading text..",
-                    builder:
-                        (BuildContext context, AsyncSnapshot<Object> event) {
-                      return ElevatedButton(
-                          child: Text('Go to event'),
+          color: Color(0xFF121B22),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Event Link'),
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Event Link is required';
+                  }
+                },
+                onChanged: (value) {
+                  setState(() {
+                    eventId = value.trim();
+                  });
+                },
+              ),
+              SizedBox(height: 20),
+              FutureBuilder(
+                  future: widget.databaseService.getEventByid(eventId),
+                  initialData: "Loading text..",
+                  builder: (BuildContext context, AsyncSnapshot<Object> event) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 16,
+
+                      // margin: EdgeInsets.only(
+                      // left: MediaQuery.of(context).size.width / 10, right: MediaQuery.of(context).size.width / 10),
+
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            onPrimary: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                          child: Text(
+                            'Go to the Event',
+                            style: TextStyle(color: Colors.black),
+                          ),
                           onPressed: () async {
                             Navigator.push(
                               context,
@@ -62,9 +80,11 @@ class _ShareLinkState extends State<Share_Link> {
                                               .uid,
                                           FirebaseFirestore.instance))),
                             );
-                          });
-                    }),
-              ]),
+                          }),
+                    );
+                  }),
+            ],
+          ),
         ),
       ),
     );

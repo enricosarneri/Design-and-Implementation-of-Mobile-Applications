@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
   void setSlidingUpPanel(newEvent) {
     setState(() {
       event = newEvent;
-      panelController.panelPosition = 0.3;
+      panelController.panelPosition = 0.33;
     });
   }
 
@@ -58,12 +58,16 @@ class _HomeState extends State<Home> {
     return Scaffold(
         extendBody: true,
         body: SlidingUpPanel(
+            padding: EdgeInsets.all(0),
             controller: panelController,
             parallaxEnabled: true,
             parallaxOffset: .5,
             minHeight: 0,
-            maxHeight: MediaQuery.of(context).size.height,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+            boxShadow: const <BoxShadow>[
+              BoxShadow(blurRadius: 30.0, color: Color.fromRGBO(0, 0, 0, 0.30))
+            ],
+            maxHeight: MediaQuery.of(context).size.height * 0.76,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
             panelBuilder: (controller) => PanelWidget(
                   controller: controller,
                   panelController: panelController,
@@ -84,14 +88,14 @@ class _HomeState extends State<Home> {
                   ),
                   child: NavigationBarTheme(
                     data: NavigationBarThemeData(
-                      indicatorColor: Colors.blue.shade100,
+                      indicatorColor: Colors.grey.shade400,
                       labelTextStyle: MaterialStateProperty.all(
                         TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                       ),
                     ),
                     child: NavigationBar(
                       height: 60,
-                      backgroundColor: Color(0xFFf1f5fb),
+                      backgroundColor: Color(0xFF121B22),
                       labelBehavior:
                           NavigationDestinationLabelBehavior.onlyShowSelected,
                       selectedIndex: index,
@@ -103,10 +107,12 @@ class _HomeState extends State<Home> {
                           icon: Icon(
                             Icons.location_on_outlined,
                             size: 25,
+                            color: Colors.white,
                           ),
                           selectedIcon: Icon(
                             Icons.location_on,
                             size: 25,
+                            color: Colors.white,
                           ),
                           label: 'Home',
                         ),
@@ -114,10 +120,12 @@ class _HomeState extends State<Home> {
                           icon: Icon(
                             Icons.share_outlined,
                             size: 25,
+                            color: Colors.white,
                           ),
                           selectedIcon: Icon(
                             Icons.share_sharp,
                             size: 25,
+                            color: Colors.white,
                           ),
                           label: 'Share Link',
                         ),
@@ -125,10 +133,12 @@ class _HomeState extends State<Home> {
                           icon: Icon(
                             Icons.add_box_outlined,
                             size: 25,
+                            color: Colors.white,
                           ),
                           selectedIcon: Icon(
                             Icons.add_box,
                             size: 25,
+                            color: Colors.white,
                           ),
                           label: 'Create Event',
                         ),
@@ -136,10 +146,12 @@ class _HomeState extends State<Home> {
                           icon: Icon(
                             Icons.person_outlined,
                             size: 25,
+                            color: Colors.white,
                           ),
                           selectedIcon: Icon(
                             Icons.person,
                             size: 25,
+                            color: Colors.white,
                           ),
                           label: 'Profile',
                         ),

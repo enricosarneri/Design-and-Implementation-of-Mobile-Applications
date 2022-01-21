@@ -38,11 +38,11 @@ class _MyLocalsState extends State<MyLocals> {
                     );
                   }),
               FutureBuilder(
-                  future: widget.databaseService.getMyLocals(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Local>> myLocals) {
-                    return Container(
-                        child: Column(
+                future: widget.databaseService.getMyLocals(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Local>> myLocals) {
+                  return Container(
+                    child: Column(
                       children: [
                         if (myLocals.data != null)
                           for (int i = 0; i < myLocals.data!.length; i++)
@@ -51,8 +51,10 @@ class _MyLocalsState extends State<MyLocals> {
                                 : 'You own no local'),
                         SizedBox(height: 20),
                       ],
-                    ));
-                  })
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

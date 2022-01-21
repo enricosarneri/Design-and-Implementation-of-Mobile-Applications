@@ -270,7 +270,7 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget>
       color: widget.darkMode ? Colors.grey[800] : Colors.white,
       borderRadius: BorderRadius.all(Radius.circular(30.0)),
       boxShadow: [
-        BoxShadow(color: Colors.black12, blurRadius: 20, spreadRadius: 10)
+        BoxShadow(color: Colors.black12, blurRadius: 10, spreadRadius: 3)
       ],
     );
   }

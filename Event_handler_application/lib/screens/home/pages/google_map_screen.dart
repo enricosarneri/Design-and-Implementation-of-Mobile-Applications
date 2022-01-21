@@ -248,6 +248,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               ((distance_rounded / 1000) <= _valuesKmR.end) &&
               ((distance_rounded / 1000) >= _valuesKmR.start) &&
               filtro_presente != 0) {
+            //&&   _event_list[i].eventType != "Private") {
             result.add(_event_list[i]);
           }
         } else {
@@ -270,6 +271,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 ((distance_rounded / 1000) <= _valuesKmR.end) &&
                 ((distance_rounded / 1000) >= _valuesKmR.start) &&
                 filtro_presente != 0) {
+              //&&   _event_list[i].eventType != "Private") {
               result.add(_event_list[i]);
             }
           }
@@ -277,7 +279,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       }
 
       listaDaFiltrare = result;
-      print(listaDaFiltrare.toString());
+      print("lista filtrata: " + listaDaFiltrare.toString());
     }
 
     return Scaffold(
@@ -296,12 +298,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           color: Colors.transparent,
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Colors.black,
-                  size: 20,
+              Container(
+                padding: EdgeInsets.only(top: 5),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.black,
+                    size: 20,
+                  ),
                 ),
               ),
               Container(
@@ -314,6 +319,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 2),
                           child: ListView(
+                            padding: EdgeInsets.all(20),
                             itemExtent: size_screen.height * 0.10,
                             children: [
                               SizedBox(
@@ -326,11 +332,19 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
-                                        height: (size_screen.height * 0.10) / 5,
+                                        height: (size_screen.height * 0.10) / 3,
                                         child: Container(
-                                          //     color: Colors.green,
-                                          child: Center(
-                                            child: Text("Prices (€)"),
+                                          //color: Colors.green,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.euro),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text("Prices (€)"),
+                                            ],
                                           ),
                                         ),
                                       ),
@@ -447,12 +461,19 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
-                                        height: (size_screen.height * 0.10) / 5,
+                                        height: (size_screen.height * 0.10) / 3,
                                         child: Container(
                                           //     color: Colors.green,
-                                          child: Center(
-                                            child:
-                                                Text("Number of Partecipants"),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.people),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text("Number of Partecipants"),
+                                            ],
                                           ),
                                         ),
                                       ),
@@ -587,11 +608,20 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
-                                        height: (size_screen.height * 0.10) / 5,
+                                        height: (size_screen.height * 0.10) / 3,
                                         child: Container(
                                           //     color: Colors.green,
-                                          child: Center(
-                                            child: Text("Distance (Km)"),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons
+                                                  .transfer_within_a_station),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text("Distance (Km)"),
+                                            ],
                                           ),
                                         ),
                                       ),
@@ -796,12 +826,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               topRight: Radius.circular(30),
             ),
           ),
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Icon(
-              Icons.keyboard_arrow_up,
-              color: Colors.black,
-              size: 20,
+          child: Container(
+            padding: EdgeInsets.only(top: 5),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Icon(
+                Icons.keyboard_arrow_up,
+                color: Colors.black,
+                size: 20,
+              ),
             ),
           ),
         ),
@@ -846,6 +879,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                             applicationBlock.currentLocation!.latitude,
                             applicationBlock.currentLocation!.longitude),
                         zoom: 14,
+                        bearing: 45,
+                        tilt: 45,
                       ),
                       onMapCreated: (GoogleMapController controller) {
                         _controller.complete(controller);
@@ -855,7 +890,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
                   Container(
                     margin: EdgeInsets.only(
-                      top: size_screen.height / 6.6,
+                      top: size_screen.height / 6.3,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.transparent,
@@ -1128,7 +1163,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        top: size_screen.height / 4.5,
+                        top: size_screen.height / 4.35,
                         left: size_screen.width * 0.85),
                     child: FloatingActionButton(
                       heroTag: 'toggle_map_type_button',
@@ -1277,7 +1312,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                     applicationBlock.currentLocation!.latitude,
                                     applicationBlock
                                         .currentLocation!.longitude),
-                                zoom: 14),
+                                zoom: 14,
+                                bearing: 45,
+                                tilt: 45),
                           ),
                         );
                       },
@@ -1290,7 +1327,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     ),
                   ),
                   Positioned(
-                    top: size_screen.height / 11.5,
+                    top: size_screen.height / 11,
                     left: MediaQuery.of(context).size.width * 0.04,
                     right: MediaQuery.of(context).size.width * 0.04,
                     child: SearchMapPlaceWidget(
@@ -1301,8 +1338,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                             await _controller.future;
                         controller.animateCamera(
                             CameraUpdate.newLatLng(geolocation.coordinates));
-                        controller.animateCamera(CameraUpdate.newLatLngBounds(
-                            geolocation.bounds, 0));
+                        controller.animateCamera(CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                              target: geolocation.coordinates,
+                              zoom: 14,
+                              bearing: 45,
+                              tilt: 45),
+                        ));
+                        // newLatLngBounds(
+                        //     geolocation.bounds, 0));
                       },
                       onSearch: (place) async {},
                     ),
@@ -1320,7 +1364,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(
       CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(lat, lng), zoom: 12),
+        CameraPosition(
+            target: LatLng(lat, lng), zoom: 14, bearing: 45, tilt: 45),
       ),
     );
   }
@@ -1333,7 +1378,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         CameraPosition(
             target: LatLng(
                 place.geometry!.location!.lat!, place.geometry!.location!.lng!),
-            zoom: 14.0),
+            zoom: 14.0,
+            bearing: 45,
+            tilt: 45),
       ),
     );
   }
