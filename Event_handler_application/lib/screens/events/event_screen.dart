@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/event.dart';
+import 'package:event_handler/models/local.dart';
+import 'package:event_handler/screens/events/show_qr.dart';
 import 'package:event_handler/screens/qr_scan_page.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
@@ -26,45 +28,257 @@ class EventScreen extends StatefulWidget {
 class _EventScreenState extends State<EventScreen> {
   @override
   Widget build(BuildContext context) {
+    ScrollController controller = ScrollController();
+    Stream<QuerySnapshot> events = DatabaseService(
+            widget.authService.getCurrentUser()!.uid,
+            FirebaseFirestore.instance)
+        .getEvents();
     final String userId = widget.authService.getCurrentUser()!.uid;
 
     Stream<QuerySnapshot> users = widget.databaseService.getUsers();
     bool isManager = userId == widget.event.getManagerId;
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.close_rounded, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        centerTitle: true,
+        title: Text(
+          '',
+        ),
+        backgroundColor: Color(0xFF121B22),
+        shadowColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Container(
-        padding: EdgeInsets.all(24),
-        child: SingleChildScrollView(
-          key: Key('scrollable column'),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                widget.event.name,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              SizedBox(height: 24),
-              Text(
-                widget.event.description,
-                style: TextStyle(fontWeight: FontWeight.w400),
-              ),
-              SizedBox(height: 24),
-              Text(
-                'max partecipants: ' + widget.event.maxPartecipants.toString(),
-                style: TextStyle(fontWeight: FontWeight.w400),
-              ),
-              SizedBox(height: 24),
-              Text(
-                'Place : ' + widget.event.placeName,
-                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
-              ),
-              if (isManager) SizedBox(height: 24),
-              Text(
-                'People asking to join: ' +
-                    widget.event.applicants.length.toString(),
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-              ),
-              if (isManager)
+        padding: EdgeInsets.symmetric(vertical: 5),
+        color: Color(0xFF121B22),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Stack(
+              children: [
                 StreamBuilder(
+                  stream: events,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('something went wrong');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text('loading');
+                    }
+                    final data = snapshot.requireData;
+                    return ListView.builder(
+                      primary: false,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: data.size,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        if (data.docs[index]['urlImage'] ==
+                            widget.event.getUrlImage) {
+                          return Container(
+                            padding: EdgeInsets.only(top: 0),
+                            margin: EdgeInsets.only(top: 0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //       color: Colors.grey.withOpacity(0.6),
+                              //       offset: const Offset(0, 8),
+                              //       blurRadius: 6.0,
+                              //       spreadRadius: 0)
+                              // ],
+                            ),
+                            height: MediaQuery.of(context).size.height / 5.5,
+                            //   margin: EdgeInsets.only(top: 7, right: 5, left: 5),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15),
+                                bottomLeft: Radius.circular(15),
+                                bottomRight: Radius.circular(15),
+                              ),
+                              child: Container(
+                                padding: EdgeInsets.only(top: 0),
+                                margin: EdgeInsets.only(top: 0),
+                                child: ShaderMask(
+                                  shaderCallback: (rect) {
+                                    return LinearGradient(
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                      colors: [
+                                        Colors.transparent,
+                                        Colors.black38,
+                                        Colors.transparent
+                                      ],
+                                    ).createShader(Rect.fromLTRB(
+                                        0, 0, rect.width, rect.height));
+                                  },
+                                  blendMode: BlendMode.dstIn,
+                                  child: Image.network(
+                                    data.docs[index]['urlImage'],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        return Center();
+                      },
+                    );
+                  },
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height / 5,
+                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.only(bottom: 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        widget.event.name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            fontSize: 32),
+                      ),
+                      Container(
+                        child: FutureBuilder(
+                          future: DatabaseService(
+                                  widget.authService.getCurrentUser()!.uid,
+                                  FirebaseFirestore.instance)
+                              .getMyLocals(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<Local>> myLocals) {
+                            return Container(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Column(
+                                  children: [
+                                    if (myLocals.data != null)
+                                      for (int i = 0;
+                                          i < myLocals.data!.length;
+                                          i++)
+                                        if (myLocals.data![i].localName ==
+                                            widget.event.placeName)
+                                          Text(
+                                            myLocals.data![i].localAddress,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                  ],
+                                ));
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                width: 30,
+                height: 3,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            Align(
+              alignment: Alignment.topCenter,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  margin: EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.black12.withOpacity(0.4),
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  height: MediaQuery.of(context).size.height / 10,
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  child: Scrollbar(
+                    isAlwaysShown: true,
+                    thickness: 10,
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      //   controller: controller,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      children: [
+                        Text(
+                          widget.event.description,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.people,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 5),
+                Text(
+                  'Max Partecipants: ' +
+                      widget.event.maxPartecipants.toString(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      color: Colors.white),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            if (isManager)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.list,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    'People asking to join: ' +
+                        widget.event.applicants.length.toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
+            if (isManager)
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.white),
+                  shape: BoxShape.rectangle,
+                  color: Colors.black12.withOpacity(0.4),
+                ),
+                width: MediaQuery.of(context).size.width / 1.2,
+                margin: EdgeInsets.all(10),
+                child: StreamBuilder(
                     stream: users,
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -76,90 +290,107 @@ class _EventScreenState extends State<EventScreen> {
                       }
                       final data = snapshot.requireData;
 
-                      return ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: data.size,
-                          itemBuilder: (context, index) {
-                            for (var i = 0;
-                                i < widget.event.applicants.length;
-                                i++) {
-                              if (widget.event.applicants.isNotEmpty &&
-                                  widget.event.applicants[i] ==
-                                      data.docs[index].id) {
-                                return Container(
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        color: Colors.black12),
-                                    margin: EdgeInsets.all(10),
-                                    child: ListView(
-                                      padding: EdgeInsets.only(
-                                          top: 10, left: 10, right: 10),
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height / 10,
+                        child: ListView.builder(
+                            primary: false,
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: data.size,
+                            itemBuilder: (context, index) {
+                              for (var i = 0;
+                                  i < widget.event.applicants.length;
+                                  i++) {
+                                if (widget.event.applicants.isNotEmpty &&
+                                    widget.event.applicants[i] ==
+                                        data.docs[index].id) {
+                                  return Container(
+                                    padding: EdgeInsets.only(
+                                        left: 20,
+                                        right: 10,
+                                        top: 5,
+                                        bottom: 10),
+                                    margin: EdgeInsets.symmetric(vertical: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                        Column(
                                           children: [
-                                            Column(
-                                              children: [
-                                                Text(
-                                                    '${data.docs[index]['name']} ${data.docs[index]['surname']} '),
-                                                SizedBox(height: 10),
-                                                Text(
-                                                    '${data.docs[index]['email']}'),
-                                              ],
+                                            Text(
+                                              '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             ),
-                                            Row(
-                                              children: [
-                                                IconButton(
-                                                  icon: const Icon(
-                                                      Icons.check_outlined),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      widget.databaseService
-                                                          .acceptApplicance(
-                                                              widget.event,
-                                                              data.docs[index]
-                                                                  .id);
-                                                    });
-                                                  },
-                                                ),
-                                                IconButton(
-                                                  icon: const Icon(
-                                                      Icons.close_outlined),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      widget.databaseService
-                                                          .refuseApplicance(
-                                                              widget.event,
-                                                              data.docs[index]
-                                                                  .id);
-                                                    });
-                                                  },
-                                                ),
-                                              ],
+                                            SizedBox(height: 5),
+                                            Text('${data.docs[index]['email']}',
+                                                style: TextStyle(
+                                                    color: Colors.white)),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              icon: const Icon(
+                                                Icons.check_outlined,
+                                                color: Colors.white,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  widget.databaseService
+                                                      .acceptApplicance(
+                                                          widget.event,
+                                                          data.docs[index].id);
+                                                });
+                                              },
+                                            ),
+                                            IconButton(
+                                              icon: const Icon(
+                                                Icons.close_outlined,
+                                                color: Colors.white,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  widget.databaseService
+                                                      .refuseApplicance(
+                                                          widget.event,
+                                                          data.docs[index].id);
+                                                });
+                                              },
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: 10),
                                       ],
-                                    ));
+                                    ),
+                                  );
+                                }
                               }
-                            }
-                            {
-                              return Container();
-                            }
-                          });
+                              {
+                                return Container();
+                              }
+                            }),
+                      );
                     }),
-              if (isManager)
-                Text(
-                  'Partecipants ' + widget.event.partecipants.length.toString(),
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+              ),
+            if (isManager)
+              Text(
+                'Partecipants: ' + widget.event.partecipants.length.toString(),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: Colors.white),
+              ),
+            if (isManager)
+              Container(
+                width: MediaQuery.of(context).size.width / 1.2,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.white),
+                  shape: BoxShape.rectangle,
+                  color: Colors.black12.withOpacity(0.4),
                 ),
-              if (isManager)
-                StreamBuilder(
+                margin: EdgeInsets.all(10),
+                child: StreamBuilder(
                     stream: users,
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -171,84 +402,228 @@ class _EventScreenState extends State<EventScreen> {
                       }
                       final data = snapshot.requireData;
 
-                      return ListView.builder(
-                          key: Key("list view"),
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: data.size,
-                          itemBuilder: (context, index) {
-                            for (var i = 0;
-                                i < widget.event.partecipants.length;
-                                i++) {
-                              if (widget.event.partecipants.isNotEmpty &&
-                                  widget.event.partecipants[i] ==
-                                      data.docs[index].id) {
-                                return Container(
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        color: Colors.black12),
-                                    margin: EdgeInsets.all(10),
-                                    child: ListView(
-                                      padding: EdgeInsets.only(
-                                          top: 10, left: 10, right: 10),
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      children: [
-                                        Column(
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height / 10,
+                        child: ListView.builder(
+                            primary: false,
+                            key: Key("list view"),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: data.size,
+                            itemBuilder: (context, index) {
+                              for (var i = 0;
+                                  i < widget.event.partecipants.length;
+                                  i++) {
+                                if (widget.event.partecipants.isNotEmpty &&
+                                    widget.event.partecipants[i] ==
+                                        data.docs[index].id) {
+                                  return Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          color: Colors.black12),
+                                      margin: EdgeInsets.symmetric(vertical: 5),
+                                      child: Container(
+                                        padding: EdgeInsets.only(
+                                            top: 5,
+                                            left: 10,
+                                            right: 10,
+                                            bottom: 0),
+                                        child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                                '${data.docs[index]['name']} ${data.docs[index]['surname']} '),
-                                            SizedBox(height: 10),
+                                                '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
+                                                style: TextStyle(
+                                                    color: Colors.white)),
+                                            SizedBox(height: 5),
                                             Text(
-                                                '${data.docs[index]['email']}'),
+                                              '${data.docs[index]['email']}',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 5, horizontal: 70),
+                                              child: Divider(
+                                                thickness: 1.5,
+                                                color: Colors.white,
+                                                height: 15,
+                                              ),
+                                            ),
                                           ],
                                         ),
-                                        SizedBox(height: 10),
-                                      ],
-                                    ));
+                                      ));
+                                }
                               }
-                            }
-                            {
-                              return Container();
-                            }
-                          });
-                    }),
-              if (isManager)
-                ElevatedButton(
-                    child: const Text('Scan Qr'),
-                    onPressed: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => QrScanPage(
-                                  event: widget.event,
-                                )),
+                              {
+                                return Container();
+                              }
+                            }),
                       );
                     }),
-              if (!isManager)
-                FutureBuilder(
-                    future: widget.databaseService
-                        .getQrCodeByUserEvent(widget.event, userId),
-                    initialData: "Loading text..",
-                    builder:
-                        (BuildContext context, AsyncSnapshot<String> text) {
-                      return QrImage(
-                        key: Key('qrCode'),
-                        data: text.data!,
-                        size: 200,
-                        backgroundColor: Colors.white,
-                      );
-                    }),
-              IconButton(
-                  key: Key('share button'),
-                  icon: Icon(Icons.share_outlined),
-                  onPressed: () {
-                    Share.share(widget.event.getEventId);
-                  })
-            ],
-          ),
+              ),
+            SizedBox(height: 10),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                width: 30,
+                height: 3,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 10, right: 10, top: 20),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height / 18,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          primary: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Colors.white,
+                            ),
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          //  shadowColor: Colors.grey.shade400),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.share_outlined),
+                            SizedBox(width: 5),
+                            Text(
+                              'Shake the Link',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          Share.share(widget.event.getEventId);
+                        },
+                      ),
+                    ),
+                    if (isManager)
+                      Container(
+                        height: MediaQuery.of(context).size.height / 18,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              primary: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: Colors.white,
+                                ),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              //  shadowColor: Colors.grey.shade400),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Scan Qr Code',
+                                  style: TextStyle(
+                                      color: Color(0xFF121B22), fontSize: 16),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(
+                                  Icons.qr_code_scanner,
+                                  color: Color(0xFF121B22),
+                                ),
+                              ],
+                            ),
+                            onPressed: () async {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => QrScanPage(
+                                          event: widget.event,
+                                        )),
+                              );
+                            }),
+                      ),
+                    // if (!isManager)
+                    //   FutureBuilder(
+                    //     future: widget.databaseService
+                    //         .getQrCodeByUserEvent(widget.event, userId),
+                    //     initialData: "Loading text..",
+                    //     builder:
+                    //         (BuildContext context, AsyncSnapshot<String> text) {
+                    //       return QrImage(
+                    //         key: Key('qrCode'),
+                    //         data: text.data!,
+                    //         size: 200,
+                    //         backgroundColor: Colors.white,
+                    //       );
+                    //     },
+                    //   ),
+                    if (!isManager)
+                      Container(
+                        height: MediaQuery.of(context).size.height / 18,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              primary: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: Colors.white,
+                                ),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              //  shadowColor: Colors.grey.shade400),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Show Qr Code',
+                                  style: TextStyle(
+                                      color: Color(0xFF121B22), fontSize: 16),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(
+                                  Icons.qr_code_2,
+                                  color: Color(0xFF121B22),
+                                ),
+                              ],
+                            ),
+                            onPressed: () async {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ShowQr(
+                                        event: widget.event,
+                                        authService:
+                                            AuthService(FirebaseAuth.instance),
+                                        databaseService: DatabaseService(
+                                            AuthService(FirebaseAuth.instance)
+                                                .getCurrentUser()!
+                                                .uid,
+                                            FirebaseFirestore.instance))),
+                                //  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
+                              );
+                            }),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

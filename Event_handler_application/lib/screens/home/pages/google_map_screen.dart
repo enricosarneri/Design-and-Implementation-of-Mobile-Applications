@@ -284,8 +284,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     return Scaffold(
       body: SlidingUpPanel(
-        color: Color(0xFFf1f5fb),
-        minHeight: MediaQuery.of(context).size.height / 10,
+        color: Color(0xFF121B22),
+        minHeight: MediaQuery.of(context).size.height / 9,
         maxHeight: MediaQuery.of(context).size.height / 2.7,
         backdropEnabled: true,
         backdropOpacity: 0.6,
@@ -304,7 +304,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   alignment: Alignment.topCenter,
                   child: Icon(
                     Icons.keyboard_arrow_down,
-                    color: Colors.black,
+                    color: Colors.white,
                     size: 20,
                   ),
                 ),
@@ -339,11 +339,18 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Icon(Icons.euro),
+                                              Icon(
+                                                Icons.euro,
+                                                color: Colors.white,
+                                              ),
                                               SizedBox(
                                                 width: 5,
                                               ),
-                                              Text("Prices (€)"),
+                                              Text(
+                                                "Prices (€)",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -356,6 +363,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
                                             child: SliderTheme(
                                               data: SliderThemeData(
+                                                thumbColor: Colors.black,
+                                                activeTrackColor: Colors.black,
                                                 activeTickMarkColor:
                                                     Colors.black,
                                                 disabledInactiveTickMarkColor:
@@ -384,9 +393,16 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                                     PaddleRangeSliderValueIndicatorShape(),
                                                 valueIndicatorColor:
                                                     Colors.black38,
+                                                valueIndicatorTextStyle:
+                                                    TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w600),
                                               ),
                                               child: RangeSlider(
-                                                inactiveColor: Colors.black12,
+                                                activeColor: Colors.white,
+                                                inactiveColor:
+                                                    Color(0xFF8596a0),
                                                 values: _valuesPricesR,
                                                 divisions: 20,
                                                 min: 0,
@@ -468,11 +484,18 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Icon(Icons.people),
+                                              Icon(
+                                                Icons.people,
+                                                color: Colors.white,
+                                              ),
                                               SizedBox(
                                                 width: 5,
                                               ),
-                                              Text("Number of Partecipants"),
+                                              Text(
+                                                "Number of Partecipants",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -532,37 +555,45 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
                                             child: SliderTheme(
                                               data: SliderThemeData(
-                                                activeTickMarkColor:
-                                                    Colors.black,
-                                                disabledInactiveTickMarkColor:
-                                                    Colors.black,
-                                                inactiveTickMarkColor:
-                                                    Colors.black,
-                                                trackHeight: 2,
-                                                rangeThumbShape:
-                                                    RoundRangeSliderThumbShape(
-                                                        enabledThumbRadius: 10,
-                                                        disabledThumbRadius: 3,
-                                                        elevation: 8,
-                                                        pressedElevation: 10),
-                                                overlayShape:
-                                                    RoundSliderOverlayShape(
-                                                        overlayRadius: 25),
-                                                minThumbSeparation: 10,
-                                                rangeTrackShape:
-                                                    RoundedRectRangeSliderTrackShape(),
-                                                rangeTickMarkShape:
-                                                    RoundRangeSliderTickMarkShape(
-                                                        tickMarkRadius: 8),
-                                                showValueIndicator:
-                                                    ShowValueIndicator.always,
-                                                rangeValueIndicatorShape:
-                                                    PaddleRangeSliderValueIndicatorShape(),
-                                                valueIndicatorColor:
-                                                    Colors.black38,
-                                              ),
+                                                  activeTickMarkColor:
+                                                      Colors.black,
+                                                  disabledInactiveTickMarkColor:
+                                                      Colors.black,
+                                                  inactiveTickMarkColor:
+                                                      Colors.black,
+                                                  trackHeight: 2,
+                                                  rangeThumbShape:
+                                                      RoundRangeSliderThumbShape(
+                                                          enabledThumbRadius:
+                                                              10,
+                                                          disabledThumbRadius:
+                                                              3,
+                                                          elevation: 8,
+                                                          pressedElevation: 10),
+                                                  overlayShape:
+                                                      RoundSliderOverlayShape(
+                                                          overlayRadius: 25),
+                                                  minThumbSeparation: 10,
+                                                  rangeTrackShape:
+                                                      RoundedRectRangeSliderTrackShape(),
+                                                  rangeTickMarkShape:
+                                                      RoundRangeSliderTickMarkShape(
+                                                          tickMarkRadius: 8),
+                                                  showValueIndicator:
+                                                      ShowValueIndicator.always,
+                                                  rangeValueIndicatorShape:
+                                                      PaddleRangeSliderValueIndicatorShape(),
+                                                  valueIndicatorColor:
+                                                      Colors.black38,
+                                                  valueIndicatorTextStyle:
+                                                      TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w600)),
                                               child: RangeSlider(
-                                                inactiveColor: Colors.black12,
+                                                activeColor: Colors.white,
+                                                inactiveColor:
+                                                    Color(0xFF8596a0),
                                                 values: _valuesPeopleR,
                                                 divisions: 100,
                                                 min: 0,
@@ -615,12 +646,18 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Icon(Icons
-                                                  .transfer_within_a_station),
+                                              Icon(
+                                                Icons.transfer_within_a_station,
+                                                color: Colors.white,
+                                              ),
                                               SizedBox(
                                                 width: 5,
                                               ),
-                                              Text("Distance (Km)"),
+                                              Text(
+                                                "Distance (Km)",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -661,37 +698,45 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
                                             child: SliderTheme(
                                               data: SliderThemeData(
-                                                activeTickMarkColor:
-                                                    Colors.black,
-                                                disabledInactiveTickMarkColor:
-                                                    Colors.black,
-                                                inactiveTickMarkColor:
-                                                    Colors.black,
-                                                trackHeight: 2,
-                                                rangeThumbShape:
-                                                    RoundRangeSliderThumbShape(
-                                                        enabledThumbRadius: 10,
-                                                        disabledThumbRadius: 3,
-                                                        elevation: 8,
-                                                        pressedElevation: 10),
-                                                overlayShape:
-                                                    RoundSliderOverlayShape(
-                                                        overlayRadius: 25),
-                                                minThumbSeparation: 10,
-                                                rangeTrackShape:
-                                                    RoundedRectRangeSliderTrackShape(),
-                                                rangeTickMarkShape:
-                                                    RoundRangeSliderTickMarkShape(
-                                                        tickMarkRadius: 8),
-                                                showValueIndicator:
-                                                    ShowValueIndicator.always,
-                                                rangeValueIndicatorShape:
-                                                    PaddleRangeSliderValueIndicatorShape(),
-                                                valueIndicatorColor:
-                                                    Colors.black38,
-                                              ),
+                                                  activeTickMarkColor:
+                                                      Colors.black,
+                                                  disabledInactiveTickMarkColor:
+                                                      Colors.black,
+                                                  inactiveTickMarkColor:
+                                                      Colors.black,
+                                                  trackHeight: 2,
+                                                  rangeThumbShape:
+                                                      RoundRangeSliderThumbShape(
+                                                          enabledThumbRadius:
+                                                              10,
+                                                          disabledThumbRadius:
+                                                              3,
+                                                          elevation: 8,
+                                                          pressedElevation: 10),
+                                                  overlayShape:
+                                                      RoundSliderOverlayShape(
+                                                          overlayRadius: 25),
+                                                  minThumbSeparation: 10,
+                                                  rangeTrackShape:
+                                                      RoundedRectRangeSliderTrackShape(),
+                                                  rangeTickMarkShape:
+                                                      RoundRangeSliderTickMarkShape(
+                                                          tickMarkRadius: 8),
+                                                  showValueIndicator:
+                                                      ShowValueIndicator.always,
+                                                  rangeValueIndicatorShape:
+                                                      PaddleRangeSliderValueIndicatorShape(),
+                                                  valueIndicatorColor:
+                                                      Colors.black38,
+                                                  valueIndicatorTextStyle:
+                                                      TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w600)),
                                               child: RangeSlider(
-                                                inactiveColor: Colors.black12,
+                                                inactiveColor:
+                                                    Color(0xFF8596a0),
+                                                activeColor: Colors.white,
                                                 values: _valuesKmR,
                                                 divisions: 60,
                                                 min: 0,
@@ -733,49 +778,66 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                           margin: EdgeInsets.only(top: 5, right: 5, left: 5),
                           color: Colors.transparent,
                           child: Container(
-                            child: SfDateRangePicker(
-                              showNavigationArrow: false,
+                            child: Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.light(
+                                  onSurface: Colors.white,
+                                  primary: Colors.white,
+                                ),
+                              ),
+                              child: SfDateRangePicker(
+                                selectionTextStyle:
+                                    TextStyle(color: Colors.white),
+                                rangeTextStyle: TextStyle(color: Colors.white),
+                                todayHighlightColor: Color(0xFF8596a0),
+                                showNavigationArrow: false,
+                                selectionRadius: 40,
+                                headerHeight: 35,
+                                backgroundColor: Colors.transparent,
+                                selectionMode:
+                                    DateRangePickerSelectionMode.multiRange,
+                                selectionColor: Color(0xFF8596a0),
+                                rangeSelectionColor: Color(0xFF8596a0),
+                                endRangeSelectionColor: Color(0xFF8596a0),
 
-                              selectionRadius: 40,
-                              headerHeight: 35,
-                              backgroundColor: Colors.transparent,
-                              selectionMode:
-                                  DateRangePickerSelectionMode.multiRange,
-                              onSelectionChanged:
-                                  (DateRangePickerSelectionChangedArgs
-                                      dateRangePickerSelectionChangedArgs) {
-                                setState(
-                                  () {
-                                    _valuesDates =
-                                        dateRangePickerSelectionChangedArgs
-                                            .value;
-                                    int exit = 0;
-                                    for (int i = 0;
-                                        i < _valuesDates.length;
-                                        i++) {
-                                      PickerDateRange temp = _valuesDates[i];
-                                      if (temp.endDate == null) {
-                                        exit++;
+                                startRangeSelectionColor: Color(0xFF8596a0),
+
+                                onSelectionChanged:
+                                    (DateRangePickerSelectionChangedArgs
+                                        dateRangePickerSelectionChangedArgs) {
+                                  setState(
+                                    () {
+                                      _valuesDates =
+                                          dateRangePickerSelectionChangedArgs
+                                              .value;
+                                      int exit = 0;
+                                      for (int i = 0;
+                                          i < _valuesDates.length;
+                                          i++) {
+                                        PickerDateRange temp = _valuesDates[i];
+                                        if (temp.endDate == null) {
+                                          exit++;
+                                        }
                                       }
-                                    }
-                                    if (exit == 0) {
-                                      filterMarkers_people();
-                                    }
-                                    print(_valuesDates);
-                                    print(_valuesDates.length);
-                                    ;
-                                  },
-                                );
-                              },
-                              //showActionButtons: true,
-                              onSubmit: (Object? val) {
-                                print(val);
-                              },
-                              controller: _dateRangePickerController,
-                              onCancel: () {
-                                _dateRangePickerController.selectedRanges =
-                                    null;
-                              },
+                                      if (exit == 0) {
+                                        filterMarkers_people();
+                                      }
+                                      print(_valuesDates);
+                                      print(_valuesDates.length);
+                                      ;
+                                    },
+                                  );
+                                },
+                                //showActionButtons: true,
+                                onSubmit: (Object? val) {
+                                  print(val);
+                                },
+                                controller: _dateRangePickerController,
+                                onCancel: () {
+                                  _dateRangePickerController.selectedRanges =
+                                      null;
+                                },
+                              ),
                             ),
                           ),
                         ),
@@ -803,11 +865,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                               type: WormType.thin,
                               dotHeight: 8,
                               dotWidth: 8,
-                              dotColor: Colors.black38,
-                              activeDotColor: Colors.black),
+                              dotColor: Color(0xFF8596a0),
+                              activeDotColor: Colors.white),
                           onDotClicked: (index) =>
                               _pageController.animateToPage(index,
-                                  duration: Duration(milliseconds: 500),
+                                  duration: Duration(milliseconds: 3000),
                                   curve: Curves.bounceOut),
                         ),
                       ),
@@ -820,10 +882,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         ),
         collapsed: Container(
           decoration: BoxDecoration(
-            color: Color(0xFFf1f5fb),
+            color: Color(0xFF121B22),
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+              topLeft: Radius.circular(50),
+              topRight: Radius.circular(50),
             ),
           ),
           child: Container(
@@ -832,7 +894,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               alignment: Alignment.topCenter,
               child: Icon(
                 Icons.keyboard_arrow_up,
-                color: Colors.black,
+                color: Colors.white,
                 size: 20,
               ),
             ),

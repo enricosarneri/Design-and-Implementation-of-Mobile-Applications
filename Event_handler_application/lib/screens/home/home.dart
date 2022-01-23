@@ -58,6 +58,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         extendBody: true,
         body: SlidingUpPanel(
+            color: Color(0xFF121B22),
             padding: EdgeInsets.all(0),
             controller: panelController,
             parallaxEnabled: true,
@@ -88,13 +89,16 @@ class _HomeState extends State<Home> {
                   ),
                   child: NavigationBarTheme(
                     data: NavigationBarThemeData(
-                      indicatorColor: Colors.grey.shade400,
+                      indicatorColor: Color(0xFF8596a0),
                       labelTextStyle: MaterialStateProperty.all(
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                        TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
                       ),
                     ),
                     child: NavigationBar(
-                      height: 60,
+                      height: MediaQuery.of(context).size.height / 13,
                       backgroundColor: Color(0xFF121B22),
                       labelBehavior:
                           NavigationDestinationLabelBehavior.onlyShowSelected,
@@ -118,16 +122,16 @@ class _HomeState extends State<Home> {
                         ),
                         NavigationDestination(
                           icon: Icon(
-                            Icons.share_outlined,
+                            Icons.add_link_outlined,
                             size: 25,
                             color: Colors.white,
                           ),
                           selectedIcon: Icon(
-                            Icons.share_sharp,
+                            Icons.add_link,
                             size: 25,
                             color: Colors.white,
                           ),
-                          label: 'Share Link',
+                          label: 'Add Link',
                         ),
                         NavigationDestination(
                           icon: Icon(

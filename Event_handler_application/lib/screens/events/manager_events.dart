@@ -17,12 +17,27 @@ class ManagerEvents extends StatelessWidget {
   Widget build(BuildContext context) {
     Stream<QuerySnapshot> events = databaseService.getEvents();
     return Scaffold(
-      appBar: AppBar(title: Text('My events')),
-      body: Padding(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_sharp, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        centerTitle: true,
+        title: Text(
+          'Organized Events',
+        ),
+        backgroundColor: Color(0xFF121B22),
+        shadowColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Container(
+        color: Color(0xFF121B22),
+        height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.all(10.0),
-        child: SingleChildScrollView(
+        child: SizedBox(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               StreamBuilder(
                   stream: events,
@@ -44,87 +59,239 @@ class ManagerEvents extends StatelessWidget {
                           if (data.docs[index]['manager'] ==
                               authService.getCurrentUser()!.uid) {
                             return Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    color: Colors.black12),
-                                margin: EdgeInsets.all(10),
-                                child: ListView(
-                                  padding: EdgeInsets.only(
-                                      top: 10, left: 10, right: 10),
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.transparent),
+                                shape: BoxShape.rectangle,
+                                color: Colors.black12.withOpacity(0.4),
+                              ),
+                              margin: EdgeInsets.all(10),
+                              child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height / 3.5,
+                                child: Stack(
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text('${data.docs[index]['name']}'),
-                                        Text('${data.docs[index]['date']}'),
-                                      ],
+                                    ShaderMask(
+                                      shaderCallback: (rect) {
+                                        return LinearGradient(
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter,
+                                          colors: [
+                                            Colors.transparent,
+                                            Colors.black54,
+                                            Colors.transparent
+                                          ],
+                                        ).createShader(Rect.fromLTRB(
+                                            0, 0, rect.width, rect.height));
+                                      },
+                                      blendMode: BlendMode.dstIn,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          image: new DecorationImage(
+                                              image: new NetworkImage(
+                                                data.docs[index]['urlImage'],
+                                              ),
+                                              fit: BoxFit.cover),
+                                        ),
+                                      ),
                                     ),
-                                    SizedBox(height: 10),
-                                    Text('${data.docs[index]['placeName']}'),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                            'event Type: ${data.docs[index]['eventType']}'),
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Event event = Event(
-                                                  data.docs[index]['manager'],
-                                                  data.docs[index]['name'],
-                                                  data.docs[index]['urlImage'],
-                                                  data.docs[index]
-                                                      ['description'],
-                                                  data.docs[index]['latitude'],
-                                                  data.docs[index]['longitude'],
-                                                  data.docs[index]['placeName'],
-                                                  data.docs[index]
-                                                      ['typeOfPlace'],
-                                                  data.docs[index]['eventType'],
-                                                  data.docs[index]['date'],
-                                                  data.docs[index]
-                                                      ['maxPartecipants'],
-                                                  data.docs[index]['price'],
-                                                  data.docs[index]['eventId'],
-                                                  List<String>.from(
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: 10,
+                                        left: 10,
+                                        right: 10,
+                                        bottom: 10,
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            '${data.docs[index]['name']}',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.date_range_rounded,
+                                                color: Colors.white,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                '${data.docs[index]['date']}'
+                                                    .substring(0, 10),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w300,
+                                                    fontSize: 16,
+                                                    color: Colors.white),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 5),
+                                          Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Container(
+                                              width: 30,
+                                              height: 3,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.place,
+                                                color: Colors.white,
+                                              ),
+                                              Text(
+                                                  '${data.docs[index]['placeName']}',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 16,
+                                                      color: Colors.white)),
+                                            ],
+                                          ),
+                                          SizedBox(height: 5),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.privacy_tip_outlined,
+                                                color: Colors.white,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                  'Event Privacy: ${data.docs[index]['eventType']}',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      fontSize: 16,
+                                                      color: Colors.white)),
+                                            ],
+                                          ),
+                                          SizedBox(height: 5),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  elevation: 0,
+                                                  primary: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                    side: BorderSide(
+                                                      color: Colors.white,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0),
+                                                  ),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      'More Info',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xFF121B22),
+                                                          fontSize: 16),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Icon(
+                                                      Icons.info,
+                                                      color: Color(0xFF121B22),
+                                                    ),
+                                                  ],
+                                                ),
+                                                onPressed: () {
+                                                  Event event = Event(
                                                       data.docs[index]
-                                                          ['partecipants']),
-                                                  List<String>.from(
+                                                          ['manager'],
+                                                      data.docs[index]['name'],
                                                       data.docs[index]
-                                                          ['applicants']),
-                                                  List<String>.from(
+                                                          ['urlImage'],
                                                       data.docs[index]
-                                                          ['qrCodeList']),
-                                                  data.docs[index]
-                                                      ['firstFreeQrCode']);
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => EventScreen(
-                                                        event: event,
-                                                        authService: AuthService(
-                                                            FirebaseAuth
-                                                                .instance),
-                                                        databaseService: DatabaseService(
-                                                            AuthService(
-                                                                    FirebaseAuth
+                                                          ['description'],
+                                                      data.docs[index]
+                                                          ['latitude'],
+                                                      data.docs[index]
+                                                          ['longitude'],
+                                                      data.docs[index]
+                                                          ['placeName'],
+                                                      data.docs[index]
+                                                          ['typeOfPlace'],
+                                                      data.docs[index]
+                                                          ['eventType'],
+                                                      data.docs[index]['date'],
+                                                      data.docs[index]
+                                                          ['maxPartecipants'],
+                                                      data.docs[index]['price'],
+                                                      data.docs[index]
+                                                          ['eventId'],
+                                                      List<String>.from(
+                                                          data.docs[index]
+                                                              ['partecipants']),
+                                                      List<String>.from(
+                                                          data.docs[index]
+                                                              ['applicants']),
+                                                      List<String>.from(
+                                                          data.docs[index]
+                                                              ['qrCodeList']),
+                                                      data.docs[index]
+                                                          ['firstFreeQrCode']);
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) => EventScreen(
+                                                            event: event,
+                                                            authService: AuthService(
+                                                                FirebaseAuth
+                                                                    .instance),
+                                                            databaseService: DatabaseService(
+                                                                AuthService(FirebaseAuth
                                                                         .instance)
-                                                                .getCurrentUser()!
-                                                                .uid,
-                                                            FirebaseFirestore
-                                                                .instance))),
-                                                //  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
-                                              );
-                                            },
-                                            child: Text('More info')),
-                                      ],
+                                                                    .getCurrentUser()!
+                                                                    .uid,
+                                                                FirebaseFirestore
+                                                                    .instance))),
+                                                    //  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    SizedBox(height: 10),
                                   ],
-                                ));
+                                ),
+                              ),
+                            );
                           } else {
                             return Container();
                           }

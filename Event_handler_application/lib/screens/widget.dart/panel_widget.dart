@@ -55,14 +55,15 @@ class PanelWidget extends StatelessWidget {
                 if (data.docs[index]['urlImage'] == event.getUrlImage) {
                   return Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.6),
-                              offset: const Offset(0, 8),
-                              blurRadius: 6.0,
-                              spreadRadius: 0)
-                        ]),
+                      borderRadius: BorderRadius.circular(20),
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //       color: Colors.grey.withOpacity(0.6),
+                      //       offset: const Offset(0, 8),
+                      //       blurRadius: 6.0,
+                      //       spreadRadius: 0)
+                      // ],
+                    ),
                     height: MediaQuery.of(context).size.height / 4 +
                         MediaQuery.of(context).size.height / 40,
                     //   margin: EdgeInsets.only(top: 7, right: 5, left: 5),
@@ -79,10 +80,11 @@ class PanelWidget extends StatelessWidget {
                             colors: [
                               Colors.black87,
                               Colors.transparent,
+                              Colors.black38,
                             ],
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
-                            stops: [0, 0.9],
+                            stops: [0, 0.5, 0.9],
                           ),
                         ),
                         child: Image.network(
@@ -93,9 +95,7 @@ class PanelWidget extends StatelessWidget {
                     ),
                   );
                 }
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+                return Center();
               },
             );
           },
@@ -108,9 +108,10 @@ class PanelWidget extends StatelessWidget {
         ),
         Container(
           color: Colors.transparent,
-          alignment: Alignment.topLeft,
+          alignment: Alignment.topCenter,
           height: MediaQuery.of(context).size.height / 20,
-          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 7),
+          margin:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height / 6.5),
           padding: EdgeInsets.symmetric(horizontal: 8),
           child: Text(
             event.name,
@@ -124,8 +125,9 @@ class PanelWidget extends StatelessWidget {
               .getMyLocals(),
           builder: (BuildContext context, AsyncSnapshot<List<Local>> myLocals) {
             return Container(
+                alignment: Alignment.topCenter,
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 5),
+                    top: MediaQuery.of(context).size.height / 4.9),
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   children: [
@@ -152,45 +154,59 @@ class PanelWidget extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.grey.shade100,
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconShadowWidget(
-                      Icon(
-                        Icons.place,
-                      ),
-                      shadowColor: Colors.black12,
+                    Icon(
+                      Icons.place,
+                      color: Colors.white,
                     ),
                     Text(
                       event.placeName,
                       style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black87,
-                          fontSize: 16),
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
               ),
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Container(
+              //     margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     width: MediaQuery.of(context).size.width / 2,
+              //     child: Divider(
+              //       color: Colors.white,
+              //       height: 15,
+              //     ),
+              //   ),
+              // ),
               Align(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.topCenter,
                 child: Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                  margin: EdgeInsets.only(
+                    top: 5,
+                    bottom: 5,
                   ),
-                  width: MediaQuery.of(context).size.width / 2,
+                  padding: EdgeInsets.symmetric(horizontal: 60),
                   child: Divider(
-                    color: Colors.black45.withOpacity(0.2),
+                    thickness: 1,
+                    color: Colors.white,
                     height: 15,
                   ),
                 ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconShadowWidget(
-                    Icon(Icons.date_range),
-                    shadowColor: Colors.black12,
+                  Icon(
+                    Icons.date_range,
+                    color: Colors.white,
                   ),
                   SizedBox(
                     width: 5,
@@ -198,31 +214,47 @@ class PanelWidget extends StatelessWidget {
                   Text(
                     event.date.toString(),
                     style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black87,
-                        fontSize: 16),
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Container(
+              //     margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     width: MediaQuery.of(context).size.width / 2,
+              //     child: Divider(
+              //       color: Colors.white,
+              //       height: 15,
+              //     ),
+              //   ),
+              // ),
               Align(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.topCenter,
                 child: Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                  margin: EdgeInsets.only(
+                    top: 5,
+                    bottom: 5,
                   ),
-                  width: MediaQuery.of(context).size.width / 2,
+                  padding: EdgeInsets.symmetric(horizontal: 60),
                   child: Divider(
-                    color: Colors.black45.withOpacity(0.2),
+                    thickness: 1,
+                    color: Colors.white,
                     height: 15,
                   ),
                 ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconShadowWidget(
-                    Icon(Icons.people),
-                    shadowColor: Colors.black12,
+                  Icon(
+                    Icons.people,
+                    color: Colors.white,
                   ),
                   SizedBox(
                     width: 5,
@@ -232,31 +264,47 @@ class PanelWidget extends StatelessWidget {
                         "/" +
                         event.maxPartecipants.toString(),
                     style: TextStyle(
-                        fontWeight: FontWeight.w400,
                         fontSize: 16,
-                        color: Colors.black87),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Container(
+              //     margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     width: MediaQuery.of(context).size.width / 2,
+              //     child: Divider(
+              //       color: Colors.white,
+              //       height: 15,
+              //     ),
+              //   ),
+              // ),
               Align(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.topCenter,
                 child: Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                  margin: EdgeInsets.only(
+                    top: 5,
+                    bottom: 5,
                   ),
-                  width: MediaQuery.of(context).size.width / 2,
+                  padding: EdgeInsets.symmetric(horizontal: 60),
                   child: Divider(
-                    color: Colors.black45.withOpacity(0.2),
+                    thickness: 1,
+                    color: Colors.white,
                     height: 15,
                   ),
                 ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconShadowWidget(
-                    Icon(Icons.euro),
-                    shadowColor: Colors.black12,
+                  Icon(
+                    Icons.euro,
+                    color: Colors.white,
                   ),
                   SizedBox(
                     width: 5,
@@ -264,51 +312,68 @@ class PanelWidget extends StatelessWidget {
                   Text(
                     event.price.toString() + " €",
                     style: TextStyle(
-                        fontWeight: FontWeight.w400,
                         fontSize: 16,
-                        color: Colors.black87),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  width: MediaQuery.of(context).size.width / 2,
-                  child: Divider(
-                    color: Colors.black45.withOpacity(0.2),
-                    height: 15,
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Container(
+              //     margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     width: MediaQuery.of(context).size.width / 2,
+              //     child: Divider(
+              //       color: Colors.white,
+              //       height: 15,
+              //     ),
+              //   ),
+              // ),
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Container(
+              //     margin: EdgeInsets.only(
+              //         top: 5,
+              //         bottom: 15,
+              //         left: 30,
+              //         right: MediaQuery.of(context).size.width / 3),
+              //     child: Divider(
+              //       thickness: 1,
+              //       color: Colors.white,
+              //       height: 15,
+              //     ),
+              //   ),
+              // ),
               Align(
                 alignment: Alignment.topCenter,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200.withOpacity(0.5),
-                      ),
-                      height: MediaQuery.of(context).size.height / 10,
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      child: Scrollbar(
-                        isAlwaysShown: true,
-                        thickness: 10,
-                        child: ListView(
-                          controller: ScrollController(),
-                          padding: EdgeInsets.all(8),
-                          children: [
-                            Text(
-                              event.description,
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
-                        ),
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.black12.withOpacity(0.4),
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    height: MediaQuery.of(context).size.height / 10,
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    child: Scrollbar(
+                      isAlwaysShown: true,
+                      thickness: 10,
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        controller: ScrollController(),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        children: [
+                          Text(
+                            event.description,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -329,7 +394,7 @@ class PanelWidget extends StatelessWidget {
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 60),
                   height: MediaQuery.of(context).size.height / 16,
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
@@ -341,9 +406,19 @@ class PanelWidget extends StatelessWidget {
                       ),
                       // side: BorderSide(color: Colors.black)),
                     ),
-                    child: Text(
-                      'Ask to Partecipate',
-                      style: TextStyle(color: Colors.black),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Ask to Partecipate',
+                          style:
+                              TextStyle(color: Color(0xFF121B22), fontSize: 16),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(Icons.notifications, color: Color(0xFF121B22)),
+                      ],
                     ),
                     onPressed: () async {
                       final AuthService _authService =
@@ -392,7 +467,7 @@ class PanelWidget extends StatelessWidget {
           width: 30,
           height: 5,
           decoration: BoxDecoration(
-            color: Colors.black54,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(12),
           ),
         ),

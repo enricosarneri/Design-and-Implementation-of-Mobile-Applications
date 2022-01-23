@@ -18,44 +18,155 @@ class _MyLocalsState extends State<MyLocals> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('My Locals')),
-      body: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20),
-              ElevatedButton(
-                  child: Text('Add Local'),
-                  onPressed: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddLocal(
-                                authService: AuthService(FirebaseAuth.instance),
-                              )),
-                    );
-                  }),
-              FutureBuilder(
-                future: widget.databaseService.getMyLocals(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<Local>> myLocals) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        if (myLocals.data != null)
-                          for (int i = 0; i < myLocals.data!.length; i++)
-                            Text(myLocals.data != null
-                                ? myLocals.data![i].localAddress
-                                : 'You own no local'),
-                        SizedBox(height: 20),
-                      ],
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_sharp, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        centerTitle: true,
+        title: Text(
+          'My Locals',
+        ),
+        backgroundColor: Color(0xFF121B22),
+        shadowColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        color: Color(0xFF121B22),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 18,
+                  padding: EdgeInsets.symmetric(horizontal: 60),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      primary: Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      //  shadowColor: Colors.grey.shade400),
                     ),
-                  );
-                },
-              ),
-            ],
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Add Local',
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                          SizedBox(width: 5),
+                          Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          )
+                        ]),
+                    onPressed: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddLocal(
+                                  authService:
+                                      AuthService(FirebaseAuth.instance),
+                                )),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    width: 30,
+                    height: 3,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                FutureBuilder(
+                  future: widget.databaseService.getMyLocals(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Local>> myLocals) {
+                    return Container(
+                      alignment: Alignment.center,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 40, horizontal: 2),
+                      child: Column(
+                        children: [
+                          if (myLocals.data != null)
+                            for (int i = 0; i < myLocals.data!.length; i++)
+                              Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.place,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        myLocals.data != null
+                                            ? myLocals.data![i].localName
+                                            : 'You own no local',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    myLocals.data != null
+                                        ? myLocals.data![i].localAddress
+                                        : 'You own no local',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.only(top: 10, bottom: 10),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 80),
+                                    child: Divider(
+                                      thickness: 1.5,
+                                      color: Colors.white,
+                                      height: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          SizedBox(height: 20),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
