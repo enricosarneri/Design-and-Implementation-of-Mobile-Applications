@@ -381,240 +381,417 @@ class _Create_EventState extends State<Create_Event> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: SafeArea(
-                  child: ListView(
-                    padding: const EdgeInsets.all(16),
+                  child: Column(
                     children: [
-                      //name + image
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            HeroDialogRoute(
-                              builder: (context) => Center(
-                                child: Hero(
-                                  tag: "1",
-                                  createRectTween: (begin, end) {
-                                    return CustomRectTween(
-                                        begin: begin, end: end);
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height -
+                            size.height / 4.2,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30),
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30)),
+                            child: ListView(
+                              padding: const EdgeInsets.all(16),
+                              children: [
+                                //name + image
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "1",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.event,
+                                                                color: Colors
+                                                                    .black54,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                "Name of the Event",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 4,
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors
+                                                                  .black12,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                            ),
+                                                            child:
+                                                                TextFormField(
+                                                              initialValue:
+                                                                  _name,
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .multiline,
+                                                              maxLines: null,
+                                                              cursorColor:
+                                                                  Colors.black,
+                                                              validator:
+                                                                  (String?
+                                                                      value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return 'Name is Required';
+                                                                }
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
+                                                                  hintText:
+                                                                      'Write the name...',
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  _name = value
+                                                                      .trim();
+                                                                  print(_name);
+                                                                });
+                                                              },
+                                                            ),
+                                                          ),
+                                                          _buildImage(),
+                                                          Container(
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        85),
+                                                            child:
+                                                                ElevatedButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                primary: Colors
+                                                                    .white,
+                                                                onPrimary:
+                                                                    Colors
+                                                                        .white,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30.0),
+                                                                ),
+                                                              ),
+                                                              onPressed: () {
+                                                                uploadFile();
+                                                              },
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(
+                                                                      Icons
+                                                                          .upload,
+                                                                      color: Colors
+                                                                          .black),
+                                                                  Text(
+                                                                    "Upload Image",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(
-                                      16,
-                                    ),
-                                    child: Material(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Color(0xFF8596a0),
-                                      child: SizedBox(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: SingleChildScrollView(
+                                  child: Hero(
+                                    tag: "1",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
                                             child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
+                                              children: <Widget>[
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Icon(
-                                                      Icons.event,
-                                                      color: Colors.black,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
+                                                    Icon(Icons.event,
+                                                        color: Colors.black),
+                                                    SizedBox(width: 5),
                                                     Text(
                                                       "Name of the Event",
-                                                      style: TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 16,
+                                                          color: Colors.white),
                                                     ),
                                                   ],
                                                 ),
                                                 const SizedBox(
                                                   height: 4,
                                                 ),
-                                                Container(
-                                                  margin:
-                                                      const EdgeInsets.all(8),
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.black12,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  child: TextFormField(
-                                                    initialValue: _name,
-                                                    keyboardType:
-                                                        TextInputType.multiline,
-                                                    maxLines: null,
-                                                    cursorColor: Colors.black,
-                                                    validator: (String? value) {
-                                                      if (value!.isEmpty) {
-                                                        return 'Name is Required';
-                                                      }
-                                                    },
-                                                    decoration: InputDecoration(
-                                                        contentPadding:
-                                                            EdgeInsets.all(8),
-                                                        hintText:
-                                                            'Write the name...',
-                                                        border:
-                                                            InputBorder.none),
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        _name = value.trim();
-                                                        print(_name);
-                                                      });
-                                                    },
+                                                // const Divider(
+                                                //   height: 5,
+                                                //   thickness: 1.5,
+                                                //   indent: 160,
+                                                //   endIndent: 160,
+                                                //   color: Colors.black,
+                                                // ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
                                                   ),
                                                 ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
                                                 _buildImage(),
-                                                Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 85),
-                                                  child: ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      primary: Colors.white,
-                                                      onPrimary: Colors.white,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30.0),
-                                                      ),
-                                                    ),
-                                                    onPressed: () {
-                                                      uploadFile();
-                                                    },
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Icon(Icons.upload,
-                                                            color:
-                                                                Colors.black),
-                                                        Text(
-                                                          "Upload Image",
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
+                                                const SizedBox(
+                                                  height: 8,
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                    ),
+                                        )),
                                   ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: "1",
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(begin: begin, end: end);
-                          },
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Material(
-                                color: Color(0xFF8596a0),
-                                borderRadius: BorderRadius.circular(30),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.event,
-                                              color: Colors.black),
-                                          SizedBox(width: 5),
-                                          Text(
-                                            "Name of the Event",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      // const Divider(
-                                      //   height: 5,
-                                      //   thickness: 1.5,
-                                      //   indent: 160,
-                                      //   endIndent: 160,
-                                      //   color: Colors.black,
-                                      // ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              top: 3, bottom: 3),
-                                          width: 30,
-                                          height: 3,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                Colors.black45.withOpacity(0.5),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "2",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .description,
+                                                                color: Colors
+                                                                    .black54,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                "Description of the Event",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 4,
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors
+                                                                  .black12,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                            ),
+                                                            child:
+                                                                TextFormField(
+                                                              initialValue:
+                                                                  _description,
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .multiline,
+                                                              maxLines: null,
+                                                              cursorColor:
+                                                                  Colors.black,
+                                                              validator:
+                                                                  (String?
+                                                                      value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return 'Descripion is Required';
+                                                                }
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
+                                                                  hintText:
+                                                                      'Write the description...',
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  _description =
+                                                                      value
+                                                                          .trim();
+                                                                });
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      _buildImage(),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            HeroDialogRoute(
-                              builder: (context) => Center(
-                                child: Hero(
-                                  tag: "2",
-                                  createRectTween: (begin, end) {
-                                    return CustomRectTween(
-                                        begin: begin, end: end);
+                                    );
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(
-                                      16,
-                                    ),
-                                    child: Material(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Color(0xFF8596a0),
-                                      child: SizedBox(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: SingleChildScrollView(
+                                  child: Hero(
+                                    tag: "2",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
                                             child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
+                                              children: <Widget>[
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -623,927 +800,1072 @@ class _Create_EventState extends State<Create_Event> {
                                                       Icons.description,
                                                       color: Colors.black,
                                                     ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
+                                                    SizedBox(width: 5),
                                                     Text(
                                                       "Description of the Event",
-                                                      style: TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 16,
+                                                          color: Colors.white),
                                                     ),
                                                   ],
                                                 ),
                                                 const SizedBox(
                                                   height: 4,
                                                 ),
-                                                Container(
-                                                  margin:
-                                                      const EdgeInsets.all(8),
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.black12,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  child: TextFormField(
-                                                    initialValue: _description,
-                                                    keyboardType:
-                                                        TextInputType.multiline,
-                                                    maxLines: null,
-                                                    cursorColor: Colors.black,
-                                                    validator: (String? value) {
-                                                      if (value!.isEmpty) {
-                                                        return 'Descripion is Required';
-                                                      }
-                                                    },
-                                                    decoration: InputDecoration(
-                                                        contentPadding:
-                                                            EdgeInsets.all(8),
-                                                        hintText:
-                                                            'Write the description...',
-                                                        border:
-                                                            InputBorder.none),
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        _description =
-                                                            value.trim();
-                                                      });
-                                                    },
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black54,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                    ),
+                                        )),
                                   ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: "2",
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(begin: begin, end: end);
-                          },
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Material(
-                                color: Color(0xFF8596a0),
-                                borderRadius: BorderRadius.circular(30),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.description,
-                                            color: Colors.black,
-                                          ),
-                                          SizedBox(width: 5),
-                                          Text(
-                                            "Description of the Event",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              top: 3, bottom: 3),
-                                          width: 30,
-                                          height: 3,
-                                          decoration: BoxDecoration(
-                                            color: Colors.black54,
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        ),
-                      ),
 
-                      //place of the event
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            HeroDialogRoute(
-                              builder: (context) => Center(
-                                child: Hero(
-                                  tag: "3",
-                                  createRectTween: (begin, end) {
-                                    return CustomRectTween(
-                                        begin: begin, end: end);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(
-                                      16,
-                                    ),
-                                    child: Material(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Color(0xFF8596a0),
-                                      child: SizedBox(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.place,
-                                                      color: Colors.black,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      "Place of the Event",
-                                                      style: TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  height: 8,
-                                                ),
-                                                Container(
-                                                  margin:
-                                                      const EdgeInsets.all(8),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30),
-                                                  ),
-                                                  child: FutureBuilder<
-                                                          List<Local>>(
-                                                      future: widget
-                                                          .databaseService
-                                                          .getMyLocals(),
-                                                      builder: (BuildContext
-                                                              context,
-                                                          AsyncSnapshot<
-                                                                  List<Local>>
-                                                              myLocals) {
-                                                        if (myLocals.hasError)
-                                                          return Container(
-                                                            child: Text(
-                                                                'Some error may have occured'),
-                                                          );
-
-                                                        return DropdownButtonFormField2(
-                                                          value: _typeOfPlace,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            labelStyle: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w200),
-                                                            //Add isDense true and zero Padding.
-                                                            //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                                                            isDense: true,
-                                                            contentPadding:
-                                                                EdgeInsets
-                                                                    .symmetric(
-                                                                        horizontal:
-                                                                            8),
-                                                            border:
-                                                                OutlineInputBorder(
+                                //place of the event
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "3",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.place,
+                                                                color: Colors
+                                                                    .black54,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                "Place of the Event",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            decoration:
+                                                                BoxDecoration(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           30),
                                                             ),
-                                                            //Add more decoration as you want here
-                                                            //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                                                            child: FutureBuilder<
+                                                                    List<
+                                                                        Local>>(
+                                                                future: widget
+                                                                    .databaseService
+                                                                    .getMyLocals(),
+                                                                builder: (BuildContext
+                                                                        context,
+                                                                    AsyncSnapshot<
+                                                                            List<Local>>
+                                                                        myLocals) {
+                                                                  if (myLocals
+                                                                      .hasError)
+                                                                    return Container(
+                                                                      child: Text(
+                                                                          'Some error may have occured'),
+                                                                    );
+
+                                                                  return DropdownButtonFormField2(
+                                                                    value:
+                                                                        _typeOfPlace,
+                                                                    decoration:
+                                                                        InputDecoration(
+                                                                      labelStyle:
+                                                                          TextStyle(
+                                                                              fontWeight: FontWeight.w200),
+                                                                      //Add isDense true and zero Padding.
+                                                                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                                                                      isDense:
+                                                                          true,
+                                                                      contentPadding:
+                                                                          EdgeInsets.symmetric(
+                                                                              horizontal: 8),
+                                                                      border:
+                                                                          OutlineInputBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(30),
+                                                                      ),
+                                                                      //Add more decoration as you want here
+                                                                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                                                                    ),
+                                                                    isExpanded:
+                                                                        true,
+                                                                    hint:
+                                                                        const Text(
+                                                                      'Select the Place of the Event...',
+                                                                      style:
+                                                                          const TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.w400,
+                                                                        fontSize:
+                                                                            16,
+                                                                      ),
+                                                                    ),
+                                                                    icon:
+                                                                        const Icon(
+                                                                      Icons
+                                                                          .arrow_drop_down,
+                                                                      color: Colors
+                                                                          .black45,
+                                                                    ),
+                                                                    iconSize:
+                                                                        30,
+                                                                    buttonHeight:
+                                                                        50,
+                                                                    buttonPadding: const EdgeInsets
+                                                                            .only(
+                                                                        left: 8,
+                                                                        right:
+                                                                            8),
+                                                                    dropdownDecoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              20),
+                                                                    ),
+                                                                    items: myLocals.data !=
+                                                                            null
+                                                                        ? myLocals
+                                                                            .data!
+                                                                            .map((local) =>
+                                                                                DropdownMenuItem<
+                                                                                    String>(
+                                                                                  child: Text(
+                                                                                    local.localName,
+                                                                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                                                                                  ),
+                                                                                  value: local.localName,
+                                                                                ))
+                                                                            .toList()
+                                                                        : locals
+                                                                            .map(buildMenuItems)
+                                                                            .toList(),
+                                                                    validator:
+                                                                        (value) {
+                                                                      if (value ==
+                                                                          null) {
+                                                                        return 'Please select the Place of the Event.';
+                                                                      }
+                                                                    },
+                                                                    onChanged: (value) =>
+                                                                        setState(() =>
+                                                                            localName =
+                                                                                value.toString()),
+                                                                  );
+                                                                }),
                                                           ),
-                                                          isExpanded: true,
-                                                          hint: const Text(
-                                                            'Select the Place of the Event...',
-                                                            style:
-                                                                const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              fontSize: 16,
-                                                            ),
-                                                          ),
-                                                          icon: const Icon(
-                                                            Icons
-                                                                .arrow_drop_down,
-                                                            color:
-                                                                Colors.black45,
-                                                          ),
-                                                          iconSize: 30,
-                                                          buttonHeight: 50,
-                                                          buttonPadding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 8,
-                                                                  right: 8),
-                                                          dropdownDecoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20),
-                                                          ),
-                                                          items: myLocals
-                                                                      .data !=
-                                                                  null
-                                                              ? myLocals.data!
-                                                                  .map((local) =>
-                                                                      DropdownMenuItem<
-                                                                          String>(
-                                                                        child:
-                                                                            Text(
-                                                                          local
-                                                                              .localName,
-                                                                          style: const TextStyle(
-                                                                              fontSize: 16,
-                                                                              fontWeight: FontWeight.w400),
-                                                                        ),
-                                                                        value: local
-                                                                            .localName,
-                                                                      ))
-                                                                  .toList()
-                                                              : locals
-                                                                  .map(
-                                                                      buildMenuItems)
-                                                                  .toList(),
-                                                          validator: (value) {
-                                                            if (value == null) {
-                                                              return 'Please select the Place of the Event.';
-                                                            }
-                                                          },
-                                                          onChanged: (value) =>
-                                                              setState(() =>
-                                                                  localName = value
-                                                                      .toString()),
-                                                        );
-                                                      }),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: "3",
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(begin: begin, end: end);
-                          },
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Material(
-                                color: Color(0xFF8596a0),
-                                borderRadius: BorderRadius.circular(30),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.place,
-                                              color: Colors.black),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "Place of the Event",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              top: 3, bottom: 3),
-                                          width: 30,
-                                          height: 3,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                Colors.black45.withOpacity(0.5),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            HeroDialogRoute(
-                              builder: (context) => Center(
-                                child: Hero(
-                                  tag: "4",
-                                  createRectTween: (begin, end) {
-                                    return CustomRectTween(
-                                        begin: begin, end: end);
+                                    );
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(
-                                      16,
-                                    ),
-                                    child: Material(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Color(0xFF8596a0),
-                                      child: SizedBox(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: SingleChildScrollView(
+                                  child: Hero(
+                                    tag: "3",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
                                             child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
+                                              children: <Widget>[
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Icon(
-                                                      Icons.flag,
-                                                      color: Colors.black,
+                                                    Icon(Icons.place,
+                                                        color: Colors.black),
+                                                    SizedBox(
+                                                      width: 5,
                                                     ),
                                                     Text(
-                                                      "Type of Place",
-                                                      style: TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                      "Place of the Event",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 16,
+                                                          color: Colors.white),
                                                     ),
                                                   ],
                                                 ),
                                                 const SizedBox(
-                                                  height: 8,
+                                                  height: 4,
                                                 ),
-                                                Container(
-                                                  margin:
-                                                      const EdgeInsets.all(8),
-                                                  child:
-                                                      DropdownButtonFormField2(
-                                                    value: _typeOfPlace,
-                                                    decoration: InputDecoration(
-                                                      labelStyle: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w200),
-                                                      //Add isDense true and zero Padding.
-                                                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                                                      isDense: true,
-                                                      contentPadding:
-                                                          EdgeInsets.zero,
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                      ),
-                                                      //Add more decoration as you want here
-                                                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                                                    ),
-                                                    isExpanded: true,
-                                                    hint: const Text(
-                                                      'Select the Type of Place...',
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 16,
-                                                      ),
-                                                    ),
-                                                    icon: const Icon(
-                                                      Icons.arrow_drop_down,
-                                                      color: Colors.black45,
-                                                    ),
-                                                    iconSize: 30,
-                                                    buttonHeight: 50,
-                                                    buttonPadding:
-                                                        const EdgeInsets.only(
-                                                            left: 20,
-                                                            right: 20),
-                                                    dropdownDecoration:
-                                                        BoxDecoration(
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              20),
+                                                              12),
                                                     ),
-                                                    items: TypeOfPlace.map(
-                                                        (item) =>
-                                                            DropdownMenuItem<
-                                                                String>(
-                                                              value: item,
-                                                              child: Text(
-                                                                item,
-                                                                style: const TextStyle(
-                                                                    fontSize:
-                                                                        16,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400),
-                                                              ),
-                                                            )).toList(),
-                                                    validator: (value) {
-                                                      if (value == null) {
-                                                        return 'Please select type of place.';
-                                                      }
-                                                    },
-                                                    onChanged: (value) =>
-                                                        setState(() =>
-                                                            _typeOfPlace = value
-                                                                .toString()),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                    ),
+                                        )),
                                   ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: "4",
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(begin: begin, end: end);
-                          },
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Material(
-                                color: Color(0xFF8596a0),
-                                borderRadius: BorderRadius.circular(30),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.flag, color: Colors.black),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "Type of Place",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              top: 3, bottom: 3),
-                                          width: 30,
-                                          height: 3,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                Colors.black45.withOpacity(0.5),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "4",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.flag,
+                                                                color: Colors
+                                                                    .black54,
+                                                              ),
+                                                              Text(
+                                                                "Type of Place",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child:
+                                                                DropdownButtonFormField2(
+                                                              value:
+                                                                  _typeOfPlace,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                labelStyle: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w200),
+                                                                //Add isDense true and zero Padding.
+                                                                //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                                                                isDense: true,
+                                                                contentPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                border:
+                                                                    OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30),
+                                                                ),
+                                                                //Add more decoration as you want here
+                                                                //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                                                              ),
+                                                              isExpanded: true,
+                                                              hint: const Text(
+                                                                'Select the Type of Place...',
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                              icon: const Icon(
+                                                                Icons
+                                                                    .arrow_drop_down,
+                                                                color: Colors
+                                                                    .black45,
+                                                              ),
+                                                              iconSize: 30,
+                                                              buttonHeight: 50,
+                                                              buttonPadding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      left: 20,
+                                                                      right:
+                                                                          20),
+                                                              dropdownDecoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20),
+                                                              ),
+                                                              items: TypeOfPlace
+                                                                  .map((item) =>
+                                                                      DropdownMenuItem<
+                                                                          String>(
+                                                                        value:
+                                                                            item,
+                                                                        child:
+                                                                            Text(
+                                                                          item,
+                                                                          style: const TextStyle(
+                                                                              fontSize: 16,
+                                                                              fontWeight: FontWeight.w400),
+                                                                        ),
+                                                                      )).toList(),
+                                                              validator:
+                                                                  (value) {
+                                                                if (value ==
+                                                                    null) {
+                                                                  return 'Please select type of place.';
+                                                                }
+                                                              },
+                                                              onChanged: (value) =>
+                                                                  setState(() =>
+                                                                      _typeOfPlace =
+                                                                          value
+                                                                              .toString()),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            HeroDialogRoute(
-                              builder: (context) => Center(
-                                child: Hero(
-                                  tag: "5",
-                                  createRectTween: (begin, end) {
-                                    return CustomRectTween(
-                                        begin: begin, end: end);
+                                    );
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(
-                                      16,
-                                    ),
-                                    child: Material(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Color(0xFF8596a0),
-                                      child: SizedBox(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: SingleChildScrollView(
+                                  child: Hero(
+                                    tag: "4",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
                                             child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
+                                              children: <Widget>[
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Icon(
-                                                      Icons.security,
-                                                      color: Colors.black,
+                                                    Icon(Icons.flag,
+                                                        color: Colors.black),
+                                                    SizedBox(
+                                                      width: 5,
                                                     ),
+                                                    Text(
+                                                      "Type of Place",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 16,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "5",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.security,
+                                                                color: Colors
+                                                                    .black54,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                "Privacy of the Event",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child:
+                                                                DropdownButtonFormField2(
+                                                              value: _eventType,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                labelStyle: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w200),
+                                                                //Add isDense true and zero Padding.
+                                                                //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                                                                isDense: true,
+                                                                contentPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                border:
+                                                                    OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30),
+                                                                ),
+                                                                //Add more decoration as you want here
+                                                                //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                                                              ),
+                                                              isExpanded: true,
+                                                              hint: const Text(
+                                                                'Select the Privacy of the Event...',
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                              icon: const Icon(
+                                                                Icons
+                                                                    .arrow_drop_down,
+                                                                color: Colors
+                                                                    .black45,
+                                                              ),
+                                                              iconSize: 30,
+                                                              buttonHeight: 50,
+                                                              buttonPadding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      left: 20,
+                                                                      right:
+                                                                          20),
+                                                              dropdownDecoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20),
+                                                              ),
+                                                              items: EventTypes
+                                                                  .map((item) =>
+                                                                      DropdownMenuItem<
+                                                                          String>(
+                                                                        value:
+                                                                            item,
+                                                                        child:
+                                                                            Text(
+                                                                          item,
+                                                                          style: const TextStyle(
+                                                                              fontSize: 16,
+                                                                              fontWeight: FontWeight.w400),
+                                                                        ),
+                                                                      )).toList(),
+                                                              validator:
+                                                                  (value) {
+                                                                if (value ==
+                                                                    null) {
+                                                                  return 'Please select the privacy of the event.';
+                                                                }
+                                                              },
+                                                              onChanged:
+                                                                  (value) =>
+                                                                      setState(
+                                                                () => _eventType =
+                                                                    value
+                                                                        .toString(),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "5",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(Icons.security,
+                                                        color: Colors.black),
                                                     SizedBox(
                                                       width: 5,
                                                     ),
                                                     Text(
                                                       "Privacy of the Event",
-                                                      style: TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 16,
+                                                          color: Colors.white),
                                                     ),
                                                   ],
                                                 ),
                                                 const SizedBox(
-                                                  height: 8,
+                                                  height: 4,
                                                 ),
-                                                Container(
-                                                  margin:
-                                                      const EdgeInsets.all(8),
-                                                  child:
-                                                      DropdownButtonFormField2(
-                                                    value: _eventType,
-                                                    decoration: InputDecoration(
-                                                      labelStyle: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w200),
-                                                      //Add isDense true and zero Padding.
-                                                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                                                      isDense: true,
-                                                      contentPadding:
-                                                          EdgeInsets.zero,
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                      ),
-                                                      //Add more decoration as you want here
-                                                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                                                    ),
-                                                    isExpanded: true,
-                                                    hint: const Text(
-                                                      'Select the Privacy of the Event...',
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 16,
-                                                      ),
-                                                    ),
-                                                    icon: const Icon(
-                                                      Icons.arrow_drop_down,
-                                                      color: Colors.black45,
-                                                    ),
-                                                    iconSize: 30,
-                                                    buttonHeight: 50,
-                                                    buttonPadding:
-                                                        const EdgeInsets.only(
-                                                            left: 20,
-                                                            right: 20),
-                                                    dropdownDecoration:
-                                                        BoxDecoration(
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              20),
+                                                              12),
                                                     ),
-                                                    items: EventTypes.map(
-                                                        (item) =>
-                                                            DropdownMenuItem<
-                                                                String>(
-                                                              value: item,
-                                                              child: Text(
-                                                                item,
-                                                                style: const TextStyle(
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "6",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .calendar_today,
+                                                                  color: Colors
+                                                                      .black54,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Text(
+                                                                  "Date",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black54,
                                                                     fontSize:
                                                                         16,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .w400),
-                                                              ),
-                                                            )).toList(),
-                                                    validator: (value) {
-                                                      if (value == null) {
-                                                        return 'Please select the privacy of the event.';
-                                                      }
-                                                    },
-                                                    onChanged: (value) =>
-                                                        setState(
-                                                      () => _eventType =
-                                                          value.toString(),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: "5",
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(begin: begin, end: end);
-                          },
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Material(
-                                color: Color(0xFF8596a0),
-                                borderRadius: BorderRadius.circular(30),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.security,
-                                              color: Colors.black),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "Privacy of the Event",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              top: 3, bottom: 3),
-                                          width: 30,
-                                          height: 3,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                Colors.black45.withOpacity(0.5),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            HeroDialogRoute(
-                              builder: (context) => Center(
-                                child: Hero(
-                                  tag: "6",
-                                  createRectTween: (begin, end) {
-                                    return CustomRectTween(
-                                        begin: begin, end: end);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(
-                                      16,
-                                    ),
-                                    child: Material(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Color(0xFF8596a0),
-                                      child: SizedBox(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.calendar_today,
-                                                        color: Colors.black,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Text(
-                                                        "Date",
-                                                        style: TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ]),
-                                                const SizedBox(
-                                                  height: 8,
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 85),
-                                                  child: ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      primary: Colors.white,
-                                                      onPrimary: Colors.white,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30.0),
-                                                      ),
-                                                    ),
-                                                    onPressed: () async {
-                                                      pickDate(context);
-                                                    },
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          _eventDate == null
-                                                              ? 'Select Date'
-                                                              : '${_eventDate!.day}/${_eventDate!.month}/${_eventDate!.year}',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 13,
-                                                            fontWeight:
-                                                                FontWeight.w500,
+                                                                            .w500,
+                                                                  ),
+                                                                ),
+                                                              ]),
+                                                          const SizedBox(
+                                                            height: 8,
                                                           ),
-                                                        ),
-                                                      ],
+                                                          Container(
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        85),
+                                                            child:
+                                                                ElevatedButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                primary: Colors
+                                                                    .white,
+                                                                onPrimary:
+                                                                    Colors
+                                                                        .white,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30.0),
+                                                                ),
+                                                              ),
+                                                              onPressed:
+                                                                  () async {
+                                                                pickDate(
+                                                                    context);
+                                                              },
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    _eventDate ==
+                                                                            null
+                                                                        ? 'Select Date'
+                                                                        : '${_eventDate!.day}/${_eventDate!.month}/${_eventDate!.year}',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          13,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          // _buildDataPicker(context),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                                // _buildDataPicker(context),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "6",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(Icons.calendar_today,
+                                                        color: Colors.black),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "Date",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 16,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
                                   ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: "6",
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(begin: begin, end: end);
-                          },
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Material(
-                                color: Color(0xFF8596a0),
-                                borderRadius: BorderRadius.circular(30),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.calendar_today,
-                                              color: Colors.black),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "Date",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              top: 3, bottom: 3),
-                                          width: 30,
-                                          height: 3,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                Colors.black45.withOpacity(0.5),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "7",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.euro,
+                                                                color: Colors
+                                                                    .black54,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                "Price",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors
+                                                                  .black12,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                            ),
+                                                            child:
+                                                                TextFormField(
+                                                              initialValue:
+                                                                  _price,
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .number,
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  _price = value
+                                                                      .trim();
+                                                                });
+                                                              },
+                                                              cursorColor:
+                                                                  Colors.black,
+                                                              validator:
+                                                                  (String?
+                                                                      value) {
+                                                                if (value!
+                                                                        .isEmpty ||
+                                                                    value ==
+                                                                        '') {
+                                                                  return 'Price is Required';
+                                                                }
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
+                                                                  hintText:
+                                                                      'Write the Price (€)...',
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            HeroDialogRoute(
-                              builder: (context) => Center(
-                                child: Hero(
-                                  tag: "7",
-                                  createRectTween: (begin, end) {
-                                    return CustomRectTween(
-                                        begin: begin, end: end);
+                                    );
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(
-                                      16,
-                                    ),
-                                    child: Material(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Color(0xFF8596a0),
-                                      child: SizedBox(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: SingleChildScrollView(
+                                  child: Hero(
+                                    tag: "7",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
                                             child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
+                                              children: <Widget>[
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -1555,143 +1877,181 @@ class _Create_EventState extends State<Create_Event> {
                                                     ),
                                                     Text(
                                                       "Price",
-                                                      style: TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 16,
+                                                          color: Colors.white),
                                                     ),
                                                   ],
                                                 ),
                                                 const SizedBox(
-                                                  height: 8,
+                                                  height: 4,
                                                 ),
-                                                Container(
-                                                  margin:
-                                                      const EdgeInsets.all(8),
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.black12,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  child: TextFormField(
-                                                    initialValue: _price,
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        _price = value.trim();
-                                                      });
-                                                    },
-                                                    cursorColor: Colors.black,
-                                                    validator: (String? value) {
-                                                      if (value!.isEmpty) {
-                                                        return 'Price is Required';
-                                                      }
-                                                    },
-                                                    decoration: InputDecoration(
-                                                        contentPadding:
-                                                            EdgeInsets.all(8),
-                                                        hintText:
-                                                            'Write the Price (€)...',
-                                                        border:
-                                                            InputBorder.none),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                    ),
+                                        )),
                                   ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Hero(
-                          tag: "7",
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(begin: begin, end: end);
-                          },
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Material(
-                                color: Color(0xFF8596a0),
-                                borderRadius: BorderRadius.circular(30),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.euro, color: Colors.black),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "Price",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              top: 3, bottom: 3),
-                                          width: 30,
-                                          height: 3,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                Colors.black45.withOpacity(0.5),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "8",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.people,
+                                                                color: Colors
+                                                                    .black54,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                "Maximum of Partecipants",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors
+                                                                  .black12,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                            ),
+                                                            child:
+                                                                TextFormField(
+                                                              initialValue:
+                                                                  _maxPartecipants,
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .number,
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  _maxPartecipants =
+                                                                      value
+                                                                          .trim();
+                                                                });
+                                                              },
+                                                              cursorColor:
+                                                                  Colors.black,
+                                                              validator:
+                                                                  (String?
+                                                                      value) {
+                                                                if (value!
+                                                                        .isEmpty ||
+                                                                    value ==
+                                                                        '') {
+                                                                  return 'Max Partecipants is Required';
+                                                                }
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
+                                                                  hintText:
+                                                                      'Write the Number of Partecipants...',
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            HeroDialogRoute(
-                              builder: (context) => Center(
-                                child: Hero(
-                                  tag: "8",
-                                  createRectTween: (begin, end) {
-                                    return CustomRectTween(
-                                        begin: begin, end: end);
+                                    );
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(
-                                      16,
-                                    ),
-                                    child: Material(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Color(0xFF8596a0),
-                                      child: SizedBox(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: SingleChildScrollView(
+                                  child: Hero(
+                                    tag: "8",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
                                             child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
+                                              children: <Widget>[
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -1703,127 +2063,53 @@ class _Create_EventState extends State<Create_Event> {
                                                     ),
                                                     Text(
                                                       "Maximum of Partecipants",
-                                                      style: TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 16,
+                                                          color: Colors.white),
                                                     ),
                                                   ],
                                                 ),
                                                 const SizedBox(
-                                                  height: 8,
+                                                  height: 4,
                                                 ),
-                                                Container(
-                                                  margin:
-                                                      const EdgeInsets.all(8),
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.black12,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  child: TextFormField(
-                                                    initialValue:
-                                                        _maxPartecipants,
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        _maxPartecipants =
-                                                            value.trim();
-                                                      });
-                                                    },
-                                                    cursorColor: Colors.black,
-                                                    validator: (String? value) {
-                                                      if (value!.isEmpty) {
-                                                        return 'Max Partecipants is Required';
-                                                      }
-                                                    },
-                                                    decoration: InputDecoration(
-                                                        contentPadding:
-                                                            EdgeInsets.all(8),
-                                                        hintText:
-                                                            'Write the Number of Partecipants...',
-                                                        border:
-                                                            InputBorder.none),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                    ),
+                                        )),
                                   ),
                                 ),
-                              ),
+                                SizedBox(height: size.height / 24),
+                              ],
                             ),
-                          );
-                        },
-                        child: Hero(
-                          tag: "8",
-                          createRectTween: (begin, end) {
-                            return CustomRectTween(begin: begin, end: end);
-                          },
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Material(
-                                color: Color(0xFF8596a0),
-                                borderRadius: BorderRadius.circular(30),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.people,
-                                              color: Colors.black),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "Maximum of Partecipants",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              top: 3, bottom: 3),
-                                          width: 30,
-                                          height: 3,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                Colors.black45.withOpacity(0.5),
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )),
+                          ),
                         ),
                       ),
-                      SizedBox(height: size.height / 24),
                       Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
                         height: size.height / 16,
-                        //margin: EdgeInsets.only(
-                        // left: size.width / 10, right: size.width / 10),
-
+                        margin: EdgeInsets.only(top: 10, bottom: 0),
+                        width: size.width - size.width / 6,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
@@ -1842,6 +2128,7 @@ class _Create_EventState extends State<Create_Event> {
                           ),
                           onPressed: () async {
                             if (!_key.currentState!.validate()) {
+                              log('Error creation event');
                               return;
                             }
 
@@ -1854,8 +2141,8 @@ class _Create_EventState extends State<Create_Event> {
                                 _typeOfPlace,
                                 _eventType,
                                 _eventDate,
-                                _maxPartecipants.toString(),
-                                _price.toString(),
+                                _maxPartecipants,
+                                _price,
                                 0,
                                 localName);
 

@@ -137,9 +137,11 @@ class PanelWidget extends StatelessWidget {
                           Text(
                             myLocals.data![i].localAddress,
                             style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 16,
-                                color: Colors.white),
+                              fontWeight: FontWeight.w300,
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                   ],
                 ));

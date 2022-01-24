@@ -201,7 +201,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         devicePixelRatio: 3,
         size: Size(5, 5),
       ),
-      'assets/marker1-1.png',
+      'assets/bap-2.png',
     );
   }
 
@@ -249,7 +249,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               (_valuesPricesR.end >= _event_list[i].price) &&
               ((distance_rounded / 1000) <= _valuesKmR.end) &&
               ((distance_rounded / 1000) >= _valuesKmR.start) &&
-              filtro_presente != 0) {
+              filtro_presente != 0 &&
+              _event_list[i].eventType == 'Public') {
             //&&   _event_list[i].eventType != "Private") {
             result.add(_event_list[i]);
           }
@@ -272,7 +273,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 (_valuesPricesR.end >= _event_list[i].price) &&
                 ((distance_rounded / 1000) <= _valuesKmR.end) &&
                 ((distance_rounded / 1000) >= _valuesKmR.start) &&
-                filtro_presente != 0) {
+                filtro_presente != 0 &&
+                _event_list[i].eventType == 'Public') {
               //&&   _event_list[i].eventType != "Private") {
               result.add(_event_list[i]);
             }
