@@ -52,7 +52,7 @@ class _EventScreenState extends State<EventScreen> {
         elevation: 0,
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 5),
+        padding: EdgeInsets.symmetric(vertical: 10),
         color: Color(0xFF121B22),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -156,7 +156,8 @@ class _EventScreenState extends State<EventScreen> {
                           builder: (BuildContext context,
                               AsyncSnapshot<List<Local>> myLocals) {
                             return Container(
-                                margin: EdgeInsets.only(top: 5),
+                                margin:
+                                    EdgeInsets.only(top: 5, right: 5, left: 5),
                                 child: Column(
                                   children: [
                                     if (myLocals.data != null)
@@ -168,9 +169,11 @@ class _EventScreenState extends State<EventScreen> {
                                           Text(
                                             myLocals.data![i].localAddress,
                                             style: TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 16,
-                                                color: Colors.white),
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                            ),
+                                            textAlign: TextAlign.center,
                                           ),
                                   ],
                                 ));
@@ -194,7 +197,7 @@ class _EventScreenState extends State<EventScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             Align(
               alignment: Alignment.topCenter,
               child: ClipRRect(
@@ -228,25 +231,27 @@ class _EventScreenState extends State<EventScreen> {
               ),
             ),
             SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.people,
-                  color: Colors.white,
-                ),
-                SizedBox(width: 5),
-                Text(
-                  'Max Partecipants: ' +
-                      widget.event.maxPartecipants.toString(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: Colors.white),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
+            if (!isManager)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.people,
+                    color: Colors.white,
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    'Partecipants: ' +
+                        widget.event.partecipants.length.toString() +
+                        '/' +
+                        widget.event.maxPartecipants.toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
             if (isManager)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -373,12 +378,27 @@ class _EventScreenState extends State<EventScreen> {
                     }),
               ),
             if (isManager)
-              Text(
-                'Partecipants: ' + widget.event.partecipants.length.toString(),
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: Colors.white),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.people,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    'Partecipants: ' +
+                        widget.event.partecipants.length.toString() +
+                        '/' +
+                        widget.event.maxPartecipants.toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: Colors.white),
+                  ),
+                ],
               ),
             if (isManager)
               Container(
@@ -463,7 +483,7 @@ class _EventScreenState extends State<EventScreen> {
                       );
                     }),
               ),
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             Align(
               alignment: Alignment.topCenter,
               child: Container(
@@ -476,7 +496,7 @@ class _EventScreenState extends State<EventScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 20),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Row(
@@ -596,26 +616,62 @@ class _EventScreenState extends State<EventScreen> {
                                 SizedBox(
                                   width: 5,
                                 ),
-                                Icon(
-                                  Icons.qr_code_2,
-                                  color: Color(0xFF121B22),
+                                Hero(
+                                  tag: "hero1",
+                                  // child: (FutureBuilder(
+                                  //   future: widget.databaseService
+                                  //       .getQrCodeByUserEvent(
+                                  //           widget.event, userId),
+                                  //   initialData: "Loading text..",
+                                  //   builder: (BuildContext context,
+                                  //       AsyncSnapshot<String> text) {
+                                  //     return QrImage(
+                                  //       size: 42,
+                                  //       key: Key('qrCode'),
+                                  //       data: text.data!,
+                                  //       backgroundColor: Colors.white,
+                                  //     );
+                                  //   },
+                                  // )),
+                                  child: ClipOval(
+                                    child: Icon(
+                                      Icons.qr_code_2,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
                             onPressed: () async {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ShowQr(
-                                        event: widget.event,
-                                        authService:
-                                            AuthService(FirebaseAuth.instance),
-                                        databaseService: DatabaseService(
-                                            AuthService(FirebaseAuth.instance)
-                                                .getCurrentUser()!
-                                                .uid,
-                                            FirebaseFirestore.instance))),
-                                //  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
+                              Navigator.of(context).push(
+                                PageRouteBuilder<Null>(
+                                    pageBuilder: (BuildContext context,
+                                        Animation<double> animation,
+                                        Animation<double> secondaryAnimation) {
+                                      return AnimatedBuilder(
+                                          animation: animation,
+                                          builder: (BuildContext context,
+                                              Widget? child) {
+                                            return Opacity(
+                                              opacity: animation.value,
+                                              child: ShowQr(
+                                                  event: widget.event,
+                                                  authService: AuthService(
+                                                      FirebaseAuth.instance),
+                                                  databaseService:
+                                                      DatabaseService(
+                                                          AuthService(
+                                                                  FirebaseAuth
+                                                                      .instance)
+                                                              .getCurrentUser()!
+                                                              .uid,
+                                                          FirebaseFirestore
+                                                              .instance)),
+                                            );
+                                          });
+                                    },
+                                    transitionDuration:
+                                        Duration(milliseconds: 1000)),
                               );
                             }),
                       ),
