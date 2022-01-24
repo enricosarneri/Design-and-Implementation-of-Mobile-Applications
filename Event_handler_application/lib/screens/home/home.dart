@@ -23,6 +23,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  void isManger = false;
+
   DatabaseService _databaseService = DatabaseService(
       AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
       FirebaseFirestore.instance);

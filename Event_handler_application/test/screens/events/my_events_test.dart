@@ -9,6 +9,7 @@ import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
 class MockDatabaseService extends Mock implements DatabaseService {
   FakeFirebaseFirestore fakeFirebaseFirestore2 = FakeFirebaseFirestore();
@@ -79,47 +80,51 @@ void main() {
   });
 
   testWidgets('Exactly 1 event when i partecipate to 1 event', (tester) async {
-    await tester.pumpWidget(MaterialApp(
-      home: MyEvents(
-        databaseService: mockDatabaseService,
-        authService: mockAuthService,
-      ),
-    ));
-    List<String> partecipants = [];
-    partecipants.add('myUid');
-    partecipants.add('Uid2');
-    partecipants.add('uid3');
-    mockDatabaseService.addEventToCollection(
-        'uid', 'eventName', 'description', partecipants, '12/12/2022');
-    await tester.pump();
-    final eventName = find.text('eventName');
-    expect(eventName, findsOneWidget);
+    mockNetworkImagesFor(() async {
+      await tester.pumpWidget(MaterialApp(
+        home: MyEvents(
+          databaseService: mockDatabaseService,
+          authService: mockAuthService,
+        ),
+      ));
+      List<String> partecipants = [];
+      partecipants.add('myUid');
+      partecipants.add('Uid2');
+      partecipants.add('uid3');
+      mockDatabaseService.addEventToCollection(
+          'uid', 'eventName', 'description', partecipants, '12/12/2022');
+      await tester.pump();
+      final eventName = find.text('eventName');
+      expect(eventName, findsOneWidget);
+    });
   });
 
   final MockDatabaseService mockDatabaseService2 = MockDatabaseService();
 
   testWidgets('More than 1 event when i partecipate to more than 1 event',
       (tester) async {
-    await tester.pumpWidget(MaterialApp(
-      home: MyEvents(
-        databaseService: mockDatabaseService2,
-        authService: mockAuthService,
-      ),
-    ));
-    List<String> partecipants = [];
-    partecipants.add('myUid');
-    mockDatabaseService2.addEventToCollection(
-        'uid', 'eventName', 'description', partecipants, '12/12/2022');
-    mockDatabaseService2.addEventToCollection(
-        'uid', 'eventName2', 'description', partecipants, '12/12/2022');
-    mockDatabaseService2.addEventToCollection(
-        'uid', 'eventName3', 'description', partecipants, '12/12/2022');
-    await tester.pump();
-    final eventName = find.text('eventName');
-    final event2Name = find.text('eventName2');
-    final event3Name = find.text('eventName3');
-    expect(eventName, findsOneWidget);
-    expect(event2Name, findsOneWidget);
-    expect(event3Name, findsOneWidget);
+    mockNetworkImagesFor(() async {
+      await tester.pumpWidget(MaterialApp(
+        home: MyEvents(
+          databaseService: mockDatabaseService2,
+          authService: mockAuthService,
+        ),
+      ));
+      List<String> partecipants = [];
+      partecipants.add('myUid');
+      mockDatabaseService2.addEventToCollection(
+          'uid', 'eventName', 'description', partecipants, '12/12/2022');
+      mockDatabaseService2.addEventToCollection(
+          'uid', 'eventName2', 'description', partecipants, '12/12/2022');
+      mockDatabaseService2.addEventToCollection(
+          'uid', 'eventName3', 'description', partecipants, '12/12/2022');
+      await tester.pump();
+      final eventName = find.text('eventName');
+      final event2Name = find.text('eventName2');
+      final event3Name = find.text('eventName3');
+      expect(eventName, findsOneWidget);
+      expect(event2Name, findsOneWidget);
+      expect(event3Name, findsOneWidget);
+    });
   });
 }

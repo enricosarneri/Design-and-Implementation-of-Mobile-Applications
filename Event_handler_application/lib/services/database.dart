@@ -350,6 +350,7 @@ class DatabaseService {
                 {isManager = value.docs[i].get('isowner')}
             }
         });
+    log("is manager= " + isManager.toString());
     return isManager;
   }
 

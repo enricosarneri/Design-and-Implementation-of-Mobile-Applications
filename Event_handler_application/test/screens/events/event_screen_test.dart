@@ -47,6 +47,12 @@ class MockDatabaseService extends Mock implements DatabaseService {
     CollectionReference users = fakeFirebaseFirestore.collection('users');
     return users.snapshots();
   }
+
+  @override
+  Stream<QuerySnapshot> getEvents() {
+    CollectionReference events = fakeFirebaseFirestore.collection('events');
+    return events.snapshots();
+  }
 }
 
 void main() {
@@ -56,6 +62,7 @@ void main() {
   List<String> partecipants = [];
   List<String> applicants = [];
   List<String> qrCodes = [];
+  int maxPartecipants = 10;
 
   testWidgets('Check the presence of the correct widgets for a partecipant',
       (tester) async {
@@ -73,7 +80,7 @@ void main() {
             'typeOfPlace',
             'eventType',
             'date',
-            10,
+            maxPartecipants,
             5,
             'eventId',
             partecipants,
@@ -85,21 +92,22 @@ void main() {
       ),
     ));
     await tester.pump(Duration(seconds: 3));
-    final maxPartecipantsText = find.text('max partecipants: 10');
-    final placeName = find.text('Place : placeName');
+    final eventName = find.text('name');
     final peopleAskinTojoin =
         find.text('People asking to join: ' + applicants.length.toString());
-    final partecipantsLengthText =
-        find.text('Partecipants ' + partecipants.length.toString());
+    final maxPartecipantText = find.text('Partecipants: ' +
+        partecipants.length.toString() +
+        '/' +
+        maxPartecipants.toString());
     final scanQrButton = find.text('Scan Qr');
     final qrCode = find.text('qrCode');
     final shareButton = find.text('share button');
-    await tester.drag(
-        find.byKey(Key('scrollable column')), const Offset(0.0, -200));
+    //await tester.drag(
+    // find.byKey(Key('scrollable column')), const Offset(0.0, -200));
     await tester.pump();
 
-    expect(maxPartecipantsText, findsOneWidget);
-    expect(placeName, findsOneWidget);
+    expect(maxPartecipantText, findsOneWidget);
+    expect(eventName, findsOneWidget);
     expect(scanQrButton, findsNothing);
     //expect(peopleAskinTojoin, findsNothing);
     //expect(partecipantsLengthText, findsNothing);
@@ -136,22 +144,22 @@ void main() {
       ),
     ));
     await tester.pump(Duration(seconds: 3));
-    final maxPartecipantsText = find.text('max partecipants: 10');
-    final placeName = find.text('Place : placeName');
+    final maxPartecipantText = find.text('Partecipants: ' +
+        partecipants.length.toString() +
+        '/' +
+        maxPartecipants.toString());
+    final eventName = find.text('name');
     final peopleAskinTojoin =
         find.text('People asking to join: ' + applicants.length.toString());
-    final partecipantsLengthText =
-        find.text('Partecipants ' + partecipants.length.toString());
     await tester.drag(find.byKey(Key('list view')), const Offset(0.0, -500));
     await tester.pump();
 
-    final scanQrButton = find.text('Scan Qr');
+    final scanQrButton = find.text('Scan Qr Code');
     final qrCode = find.text('qrCode');
     final shareButton = find.text('share button');
-    expect(maxPartecipantsText, findsOneWidget);
-    expect(placeName, findsOneWidget);
+    expect(maxPartecipantText, findsOneWidget);
+    expect(eventName, findsOneWidget);
     expect(peopleAskinTojoin, findsOneWidget);
-    expect(partecipantsLengthText, findsOneWidget);
     expect(scanQrButton, findsOneWidget);
     expect(qrCode, findsNothing);
     expect(shareButton, findsNothing);
@@ -205,10 +213,18 @@ void main() {
     final email3 = find.text('email3');
 
     expect(name1, findsOneWidget);
-    expect(name2, findsOneWidget);
-    expect(name3, findsOneWidget);
     expect(email1, findsOneWidget);
+
+    await tester.drag(
+        find.byKey(Key('applicant List scroll')), const Offset(0.0, -100));
+    await tester.pump();
+    expect(name2, findsOneWidget);
     expect(email2, findsOneWidget);
+
+    await tester.drag(
+        find.byKey(Key('applicant List scroll')), const Offset(0.0, -100));
+    await tester.pump();
+    expect(name3, findsOneWidget);
     expect(email3, findsOneWidget);
   });
 
@@ -251,8 +267,6 @@ void main() {
       ),
     ));
     await tester.pump(Duration(seconds: 3));
-    await tester.drag(find.byKey(Key('list view')), const Offset(0.0, -500));
-    await tester.pump();
 
     final name1 = find.text('luca cognome ');
     final name2 = find.text('Marco cognome ');
@@ -262,10 +276,15 @@ void main() {
     final email3 = find.text('email3');
 
     expect(name1, findsOneWidget);
-    expect(name2, findsOneWidget);
-    expect(name3, findsOneWidget);
     expect(email1, findsOneWidget);
+    await tester.drag(find.byKey(Key('list view')), const Offset(0.0, -100));
+    await tester.pump();
+
+    expect(name2, findsOneWidget);
     expect(email2, findsOneWidget);
+    await tester.drag(find.byKey(Key('list view')), const Offset(0.0, -100));
+    await tester.pump();
+    expect(name3, findsOneWidget);
     expect(email3, findsOneWidget);
   });
 }

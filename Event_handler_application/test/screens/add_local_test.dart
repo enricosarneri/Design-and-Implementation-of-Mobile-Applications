@@ -11,10 +11,10 @@ void main() {
         authService: AuthService(MockFirebaseAuth()),
       ),
     ));
-    final addresLocalField = find.text('Address of your local');
-    final localNameField = find.text('Local name');
-    final selectFileButton = find.text('Select file');
-    final addLocalButton = find.byKey(Key('add local button'));
+    final addresLocalField = find.text('Enter the Address of the Local...');
+    final localNameField = find.text('Enter the Name of the Local...');
+    final selectFileButton = find.text('Select File');
+    final addLocalButton = find.byKey(Key('Add local button'));
 
     expect(addresLocalField, findsOneWidget);
     expect(localNameField, findsOneWidget);

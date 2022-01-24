@@ -14,7 +14,7 @@ void main() {
       ),
     );
     final eventLinkField = find.text('Event Link');
-    final goToEventButton = find.text('Go to event');
+    final goToEventButton = find.text('Go to the Event');
 
     expect(eventLinkField, findsOneWidget);
     expect(goToEventButton, findsOneWidget);

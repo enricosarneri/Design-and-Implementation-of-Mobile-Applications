@@ -8,6 +8,7 @@ import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
 class MockDatabaseService extends Mock implements DatabaseService {
   FakeFirebaseFirestore fakeFirebaseFirestore2 = FakeFirebaseFirestore();
@@ -75,41 +76,46 @@ void main() {
   });
 
   testWidgets('Manager owns exactly 1 event', (tester) async {
-    await tester.pumpWidget(MaterialApp(
-      home: ManagerEvents(
-        databaseService: mockDatabaseService,
-        authService: mockAuthService,
-      ),
-    ));
-    mockDatabaseService.addEventToCollection('myUid', 'eventName');
-    mockDatabaseService.addEventToCollection('uid123', 'eventName1');
-    await tester.pump();
-    final eventName = find.text('eventName');
-    final event2Name = find.text('eventName1');
-    expect(event2Name, findsNothing);
-    expect(eventName, findsOneWidget);
+    mockNetworkImagesFor(() async {
+      await tester.pumpWidget(MaterialApp(
+        home: ManagerEvents(
+          databaseService: mockDatabaseService,
+          authService: mockAuthService,
+        ),
+      ));
+      mockDatabaseService.addEventToCollection('myUid', 'eventName');
+      mockDatabaseService.addEventToCollection('uid123', 'eventName1');
+      await tester.pump();
+      final eventName = find.text('eventName');
+      final event2Name = find.text('eventName1');
+      expect(event2Name, findsNothing);
+      expect(eventName, findsOneWidget);
+    });
   });
 
   final MockDatabaseService mockDatabaseService2 = MockDatabaseService();
+
   testWidgets('Manager owns more than 1 event', (tester) async {
-    await tester.pumpWidget(MaterialApp(
-      home: ManagerEvents(
-        databaseService: mockDatabaseService2,
-        authService: mockAuthService,
-      ),
-    ));
-    mockDatabaseService2.addEventToCollection('myUid', 'eventName');
-    mockDatabaseService2.addEventToCollection('myUid', 'eventName2');
-    mockDatabaseService2.addEventToCollection('myUid', 'eventName3');
-    mockDatabaseService2.addEventToCollection('uid123', 'eventName4');
-    await tester.pump();
-    final eventName = find.text('eventName');
-    final event2Name = find.text('eventName2');
-    final event3Name = find.text('eventName3');
-    final event4Name = find.text('eventName4');
-    expect(eventName, findsOneWidget);
-    expect(event2Name, findsOneWidget);
-    expect(event3Name, findsOneWidget);
-    expect(event4Name, findsNothing);
+    mockNetworkImagesFor(() async {
+      await tester.pumpWidget(MaterialApp(
+        home: ManagerEvents(
+          databaseService: mockDatabaseService2,
+          authService: mockAuthService,
+        ),
+      ));
+      mockDatabaseService2.addEventToCollection('myUid', 'eventName');
+      mockDatabaseService2.addEventToCollection('myUid', 'eventName2');
+      mockDatabaseService2.addEventToCollection('myUid', 'eventName3');
+      mockDatabaseService2.addEventToCollection('uid123', 'eventName4');
+      await tester.pump();
+      final eventName = find.text('eventName');
+      final event2Name = find.text('eventName2');
+      final event3Name = find.text('eventName3');
+      final event4Name = find.text('eventName4');
+      expect(eventName, findsOneWidget);
+      expect(event2Name, findsOneWidget);
+      expect(event3Name, findsOneWidget);
+      expect(event4Name, findsNothing);
+    });
   });
 }

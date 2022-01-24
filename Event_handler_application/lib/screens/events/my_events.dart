@@ -164,7 +164,7 @@ class MyEvents extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              SizedBox(height: 10),
+                                              SizedBox(height: 5),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -203,104 +203,107 @@ class MyEvents extends StatelessWidget {
                                                           color: Colors.white)),
                                                 ],
                                               ),
-                                              SizedBox(height: 15),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      elevation: 0,
-                                                      primary: Colors.white,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        side: BorderSide(
-                                                          color: Colors.white,
+                                              SizedBox(height: 10),
+                                              Expanded(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        elevation: 0,
+                                                        primary: Colors.white,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          side: BorderSide(
+                                                            color: Colors.white,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
                                                         ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30.0),
                                                       ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'More Info',
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xFF121B22),
+                                                                fontSize: 16),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Icon(
+                                                            Icons.info,
+                                                            color: Color(
+                                                                0xFF121B22),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      onPressed: () {
+                                                        Event event = Event(
+                                                            data.docs[index]
+                                                                ['manager'],
+                                                            data.docs[index]
+                                                                ['name'],
+                                                            data.docs[index]
+                                                                ['urlImage'],
+                                                            data.docs[index]
+                                                                ['description'],
+                                                            data.docs[index]
+                                                                ['latitude'],
+                                                            data.docs[index]
+                                                                ['longitude'],
+                                                            data.docs[index]
+                                                                ['placeName'],
+                                                            data.docs[index]
+                                                                ['typeOfPlace'],
+                                                            data.docs[index]
+                                                                ['eventType'],
+                                                            data.docs[index]
+                                                                ['date'],
+                                                            data.docs[index][
+                                                                'maxPartecipants'],
+                                                            data.docs[index]
+                                                                ['price'],
+                                                            data.docs[index]
+                                                                ['eventId'],
+                                                            List<String>.from(
+                                                                data.docs[index][
+                                                                    'partecipants']),
+                                                            List<String>.from(
+                                                                data.docs[index]['applicants']),
+                                                            List<String>.from(data.docs[index]['qrCodeList']),
+                                                            data.docs[index]['firstFreeQrCode']);
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) => EventScreen(
+                                                                  event: event,
+                                                                  authService:
+                                                                      AuthService(
+                                                                          FirebaseAuth
+                                                                              .instance),
+                                                                  databaseService: DatabaseService(
+                                                                      AuthService(FirebaseAuth
+                                                                              .instance)
+                                                                          .getCurrentUser()!
+                                                                          .uid,
+                                                                      FirebaseFirestore
+                                                                          .instance))),
+                                                          //  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
+                                                        );
+                                                      },
                                                     ),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          'More Info',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF121B22),
-                                                              fontSize: 16),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Icon(
-                                                          Icons.info,
-                                                          color:
-                                                              Color(0xFF121B22),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    onPressed: () {
-                                                      Event event = Event(
-                                                          data.docs[index]
-                                                              ['manager'],
-                                                          data.docs[index]
-                                                              ['name'],
-                                                          data.docs[index]
-                                                              ['urlImage'],
-                                                          data.docs[index]
-                                                              ['description'],
-                                                          data.docs[index]
-                                                              ['latitude'],
-                                                          data.docs[index]
-                                                              ['longitude'],
-                                                          data.docs[index]
-                                                              ['placeName'],
-                                                          data.docs[index]
-                                                              ['typeOfPlace'],
-                                                          data.docs[index]
-                                                              ['eventType'],
-                                                          data.docs[index]
-                                                              ['date'],
-                                                          data.docs[index][
-                                                              'maxPartecipants'],
-                                                          data.docs[index]
-                                                              ['price'],
-                                                          data.docs[index]
-                                                              ['eventId'],
-                                                          List<String>.from(data.docs[index]
-                                                              ['partecipants']),
-                                                          List<String>.from(data
-                                                                  .docs[index]
-                                                              ['applicants']),
-                                                          List<String>.from(data.docs[index]['qrCodeList']),
-                                                          data.docs[index]['firstFreeQrCode']);
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) => EventScreen(
-                                                                event: event,
-                                                                authService:
-                                                                    AuthService(
-                                                                        FirebaseAuth
-                                                                            .instance),
-                                                                databaseService: DatabaseService(
-                                                                    AuthService(FirebaseAuth
-                                                                            .instance)
-                                                                        .getCurrentUser()!
-                                                                        .uid,
-                                                                    FirebaseFirestore
-                                                                        .instance))),
-                                                        //  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
-                                                      );
-                                                    },
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),

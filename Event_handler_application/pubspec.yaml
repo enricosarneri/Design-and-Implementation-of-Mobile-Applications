@@ -66,6 +66,7 @@ dependencies:
   permission_handler: ^8.3.0
   fake_cloud_firestore: ^1.2.0
   firebase_auth_mocks: ^0.8.2
+  network_image_mock: ^2.0.1
 
   numberpicker: ^2.1.1
   icon_shadow: ^1.0.1

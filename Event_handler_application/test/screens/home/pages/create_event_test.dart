@@ -36,21 +36,19 @@ void main() {
       ),
     ));
 
-    final nameField = find.byKey(Key('name'));
-    final placeNameField = find.byKey(Key('place name'));
-    final descriptionField = find.byKey(Key('description'));
-    final maxPartecipantsField = find.byKey(Key('max partecipants'));
-    final priceField = find.byKey(Key('price'));
-    final eventTypeField = find.byKey(Key('event type'));
-    final placeTypeField = find.byKey(Key('place type'));
-    final dataButton = find.byKey(Key('data button'));
-    final createEventButton = find.byKey(Key('create event button'));
-    final uploadImageButton = find.byKey(Key('upload image button'));
+    final nameField = find.text('Name of the Event');
+    final placeNameField = find.text('Place of the Event');
+    final descriptionField = find.text('Description of the Event');
+    final maxPartecipantsField = find.text('Maximum of Partecipants');
+    final priceField = find.text('Price');
+    final eventTypeField = find.text('Type of Place');
+    final placeTypeField = find.text('Place of the Event');
+    final dataButton = find.text('Date');
+    final createEventButton = find.text('Create Event');
 
     expect(nameField, findsOneWidget);
     expect(descriptionField, findsOneWidget);
     expect(placeTypeField, findsOneWidget);
-    expect(uploadImageButton, findsOneWidget);
     expect(placeNameField, findsOneWidget);
     await tester.drag(find.byKey(Key('list view')), const Offset(0.0, -500));
     await tester.pump();

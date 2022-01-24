@@ -397,6 +397,7 @@ class _Create_EventState extends State<Create_Event> {
                                 topLeft: Radius.circular(30),
                                 topRight: Radius.circular(30)),
                             child: ListView(
+                              key: Key("list view"),
                               padding: const EdgeInsets.all(16),
                               children: [
                                 //name + image
@@ -519,6 +520,8 @@ class _Create_EventState extends State<Create_Event> {
                                                                         85),
                                                             child:
                                                                 ElevatedButton(
+                                                              key: Key(
+                                                                  'upload image'),
                                                               style:
                                                                   ElevatedButton
                                                                       .styleFrom(

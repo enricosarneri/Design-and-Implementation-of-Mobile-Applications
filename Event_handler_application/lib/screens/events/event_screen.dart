@@ -29,10 +29,7 @@ class _EventScreenState extends State<EventScreen> {
   @override
   Widget build(BuildContext context) {
     ScrollController controller = ScrollController();
-    Stream<QuerySnapshot> events = DatabaseService(
-            widget.authService.getCurrentUser()!.uid,
-            FirebaseFirestore.instance)
-        .getEvents();
+    Stream<QuerySnapshot> events = widget.databaseService.getEvents();
     final String userId = widget.authService.getCurrentUser()!.uid;
 
     Stream<QuerySnapshot> users = widget.databaseService.getUsers();
@@ -152,10 +149,7 @@ class _EventScreenState extends State<EventScreen> {
                         ),
                         Container(
                           child: FutureBuilder(
-                            future: DatabaseService(
-                                    widget.authService.getCurrentUser()!.uid,
-                                    FirebaseFirestore.instance)
-                                .getMyLocals(),
+                            future: widget.databaseService.getMyLocals(),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<Local>> myLocals) {
                               return Container(
@@ -307,8 +301,7 @@ class _EventScreenState extends State<EventScreen> {
                         onPressed: () async {
                           final AuthService _authService =
                               AuthService(FirebaseAuth.instance);
-                          DatabaseService(_authService.getCurrentUser()!.uid,
-                                  FirebaseFirestore.instance)
+                          widget.databaseService
                               .addEventApplicant(widget.event);
                           //oppure mostrare un messagio con scritto Richiesta inviata con successo
                         },
@@ -403,6 +396,7 @@ class _EventScreenState extends State<EventScreen> {
                         return SizedBox(
                           height: MediaQuery.of(context).size.height / 10,
                           child: ListView.builder(
+                              key: Key("applicant List scroll"),
                               primary: false,
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
@@ -772,14 +766,7 @@ class _EventScreenState extends State<EventScreen> {
                                                     authService: AuthService(
                                                         FirebaseAuth.instance),
                                                     databaseService:
-                                                        DatabaseService(
-                                                            AuthService(
-                                                                    FirebaseAuth
-                                                                        .instance)
-                                                                .getCurrentUser()!
-                                                                .uid,
-                                                            FirebaseFirestore
-                                                                .instance)),
+                                                        widget.databaseService),
                                               );
                                             });
                                       },

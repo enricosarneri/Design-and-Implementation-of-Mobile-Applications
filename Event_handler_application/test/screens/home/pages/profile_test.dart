@@ -41,9 +41,10 @@ void main() {
         authService: mockAuthService,
       ),
     ));
+
     await tester.pump(Duration(seconds: 2));
-    final logoutButton = find.text('log out');
-    final organizedEventButton = find.text('Organized events');
+    final logoutButton = find.text('Log Out');
+    final organizedEventButton = find.text('Organized Events');
     final myEventsButton = find.text('My events');
     final myLocalsButton = find.text('My Locals');
 
@@ -66,7 +67,7 @@ void main() {
     ));
     await tester.pump(Duration(seconds: 2));
 
-    final logoutButton = find.text('log out');
+    final logoutButton = find.text('Log Out');
     final organizedEventButton = find.text('Organized events');
     final myEventsButton = find.text('My events');
     final myLocalsButton = find.text('My Locals');
