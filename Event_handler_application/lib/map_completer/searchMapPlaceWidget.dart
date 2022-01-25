@@ -186,9 +186,10 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget>
     return Center(
       child: Row(
         children: <Widget>[
-          Icon(
-            Icons.person,
-            color: Colors.black54,
+          Container(
+            child: new Tab(
+              icon: new Image.asset("assets/bap.png"),
+            ),
           ),
           Container(width: 15),
           Expanded(

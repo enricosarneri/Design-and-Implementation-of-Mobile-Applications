@@ -52,26 +52,37 @@ class _SignInState extends State<SignIn> {
           ),
           Form(
             key: _key,
-            child: Container(
-              height: double.infinity,
+            child: SizedBox(
+              height: size.height,
               child: SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      height: size.height * 0.25,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          // image: DecorationImage(
-                          //   image: AssetImage("assets/google.png"),
-                          // ),
-                          ),
+                      margin: EdgeInsets.only(top: size.height / 12),
+                      height: size.height * 0.15,
+                      width: size.width,
+                      //   // child: ShaderMask(
+                      //   //   shaderCallback: (rect) {
+                      //   //     return LinearGradient(
+                      //   //       begin: Alignment.bottomCenter,
+                      //   //       end: Alignment.topCenter,
+                      //   //       colors: [
+                      //   //         Colors.transparent,
+                      //   //         Colors.black38,
+                      //   //         Colors.transparent
+                      //   //       ],
+                      //   //     ).createShader(
+                      //   //         Rect.fromLTRB(0, 0, rect.width, rect.height));
+                      //   //   },
+                      //   //   blendMode: BlendMode.dstIn,
+                      //   // child: Image.asset(
+                      //   //   'assets/bap.png',
+                      //   //   fit: BoxFit.cover,
+                      //   // ),
+                      // ),
                     ),
-                    // SvgPicture.asset(
-                    //   "",
-                    //   height: size.height * 0.25,
-                    // ),
                     Text(
                       "Sign In",
                       style: TextStyle(

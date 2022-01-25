@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:event_handler/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 
@@ -12,38 +14,32 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    _navigatetohome();
-  }
-
-  _navigatetohome() async {
-    await Future.delayed(Duration(milliseconds: 1500), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Wrapper()));
+    Timer(
+      Duration(seconds: 7),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Wrapper()),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Container(
+        color: Color(0xFF121B22),
+        width: double.infinity,
+        height: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/logopolimi.png'),
-                  fit: BoxFit.contain,
-                ),
-              ),
+            Image.asset(
+              'assets/bap.png',
+              height: 300,
+              width: 300,
             ),
-            Container(
-              child: Text(
-                'NomeApp',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
+            CircularProgressIndicator(),
           ],
         ),
       ),

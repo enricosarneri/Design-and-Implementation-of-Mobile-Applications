@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       child: ChangeNotifierProvider(
         create: (context) => ApplicationBlock(),
         child: const MaterialApp(
-          home: Wrapper(),
+          home: Splash(),
         ),
       ),
     );
