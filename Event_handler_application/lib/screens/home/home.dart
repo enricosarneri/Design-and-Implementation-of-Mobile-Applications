@@ -20,39 +20,16 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
+  const Home({Key? key}) : super(key: key);
 }
 
 class _HomeState extends State<Home> {
-  void isManger = false;
-
-  DatabaseService _databaseService = DatabaseService(
-      AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
-      FirebaseFirestore.instance);
-  AuthService _authService = AuthService(FirebaseAuth.instance);
-
   final panelController = PanelController();
   int index = 0;
   double panelPosition = 200;
+  bool isManager = false;
   Event event =
       Event('', '', '', '', 0, 0, '', '', '', '', 0, 0, '', [], [], [], 0);
-  final screens = [
-    GoogleMapScreen(),
-    Share_Link(
-        databaseService: DatabaseService(
-            AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
-            FirebaseFirestore.instance)),
-    Create_Event(
-      databaseService: DatabaseService(
-          AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
-          FirebaseFirestore.instance),
-    ),
-    Profile(
-      databaseService: DatabaseService(
-          AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
-          FirebaseFirestore.instance),
-      authService: AuthService(FirebaseAuth.instance),
-    ),
-  ];
 
   void setSlidingUpPanel(newEvent) {
     setState(() {
@@ -61,8 +38,40 @@ class _HomeState extends State<Home> {
     });
   }
 
+  void getIsManger() async {
+    isManager = await DatabaseService(
+            AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+            FirebaseFirestore.instance)
+        .isCurrentUserManager();
+  }
+
   @override
   Widget build(BuildContext context) {
+    getIsManger();
+    final screens = [
+      GoogleMapScreen(),
+      Share_Link(
+          databaseService: DatabaseService(
+              AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+              FirebaseFirestore.instance)),
+      isManager
+          ? Create_Event(
+              databaseService: DatabaseService(
+                  AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+                  FirebaseFirestore.instance),
+            )
+          : MyEvents(
+              databaseService: DatabaseService(
+                  AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+                  FirebaseFirestore.instance),
+              authService: AuthService(FirebaseAuth.instance)),
+      Profile(
+        databaseService: DatabaseService(
+            AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+            FirebaseFirestore.instance),
+        authService: AuthService(FirebaseAuth.instance),
+      ),
+    ];
     screens[0] = GoogleMapScreen(setSlidingUpPanelFuncion: setSlidingUpPanel);
     return Scaffold(
         extendBody: true,
@@ -129,7 +138,7 @@ class _HomeState extends State<Home> {
                           ),
                           label: 'Home',
                         ),
-                        NavigationDestination(
+                        const NavigationDestination(
                           icon: Icon(
                             Icons.add_link_outlined,
                             size: 25,
@@ -142,20 +151,35 @@ class _HomeState extends State<Home> {
                           ),
                           label: 'Add Link',
                         ),
-                        NavigationDestination(
-                          icon: Icon(
-                            Icons.add_box_outlined,
-                            size: 25,
-                            color: Colors.white,
+                        if (!isManager)
+                          const NavigationDestination(
+                            icon: Icon(
+                              Icons.audiotrack_rounded,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                            selectedIcon: Icon(
+                              Icons.audiotrack_rounded,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                            label: 'My Events',
                           ),
-                          selectedIcon: Icon(
-                            Icons.add_box,
-                            size: 25,
-                            color: Colors.white,
+                        if (isManager)
+                          const NavigationDestination(
+                            icon: Icon(
+                              Icons.add_box_outlined,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                            selectedIcon: Icon(
+                              Icons.add_box,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                            label: 'Create Event',
                           ),
-                          label: 'Create Event',
-                        ),
-                        NavigationDestination(
+                        const NavigationDestination(
                           icon: Icon(
                             Icons.person_outlined,
                             size: 25,

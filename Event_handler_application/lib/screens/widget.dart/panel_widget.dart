@@ -395,8 +395,8 @@ class PanelWidget extends StatelessWidget {
                 ),
               ),
               //You will not see the partecipate button if you're the owener of the event or the partecipants reach the maxNumber
-              if (event.getManagerId != _authService.getCurrentUser()!.uid &&
-                  event.firstFreeQrCode + 1 == event.getMaxPartecipants)
+              if (event.getManagerId != _authService.getCurrentUser()!.uid ||
+                  event.firstFreeQrCode + 1 != event.getMaxPartecipants)
                 Align(
                   alignment: Alignment.topCenter,
                   child: Container(

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -302,6 +303,10 @@ class _AddLocalState extends State<AddLocal> {
                         ],
                       ),
                       onPressed: () async {
+                        if (!_key.currentState!.validate()) {
+                          log('Error adding the local');
+                          return;
+                        }
                         await DatabaseService(
                                 widget.authService.getCurrentUser()!.uid,
                                 FirebaseFirestore.instance)

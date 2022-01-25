@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:event_handler/screens/authenticate/change_password.dart';
 import 'package:event_handler/screens/authenticate/registration.dart';
 import 'package:event_handler/screens/home/home.dart';
+import 'package:event_handler/screens/wrapper.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -395,7 +396,7 @@ class _SignInState extends State<SignIn> {
                                     Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Home()),
+                                            builder: (context) => Wrapper()),
                                         (route) => false);
                                   });
                                   setState(() {});

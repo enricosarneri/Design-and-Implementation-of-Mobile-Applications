@@ -266,85 +266,44 @@ class _EventScreenState extends State<EventScreen> {
                 SizedBox(
                   height: 15,
                 ),
-              if (!isManager)
-                if (!widget.event.partecipants
-                    .contains(widget.authService.getCurrentUser()!.uid))
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 90),
-                      height: MediaQuery.of(context).size.height / 18,
-                      width: MediaQuery.of(context).size.width,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
+              if (!isManager &&
+                  !widget.event.partecipants
+                      .contains(widget.authService.getCurrentUser()!.uid) &&
+                  widget.event.firstFreeQrCode + 1 !=
+                      widget.event.getMaxPartecipants)
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(horizontal: 90),
+                    height: MediaQuery.of(context).size.height / 18,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        primary: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.white,
                           ),
-                          // side: BorderSide(color: Colors.black)),
+                          borderRadius: BorderRadius.circular(30.0),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Ask to Partecipate',
-                              style: TextStyle(
-                                  color: Color(0xFF121B22), fontSize: 16),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(Icons.notifications, color: Color(0xFF121B22)),
-                          ],
-                        ),
-                        onPressed: () async {
-                          final AuthService _authService =
-                              AuthService(FirebaseAuth.instance);
-                          widget.databaseService
-                              .addEventApplicant(widget.event);
-                          //oppure mostrare un messagio con scritto Richiesta inviata con successo
-                        },
+                        //  shadowColor: Colors.grey.shade400),
                       ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Ask to Partecipate',
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                          SizedBox(width: 5),
+                          Icon(Icons.notifications),
+                        ],
+                      ),
+                      onPressed: () {},
                     ),
                   ),
-              if (!isManager)
-                if (widget.event.partecipants
-                    .contains(widget.authService.getCurrentUser()!.uid))
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(horizontal: 90),
-                      height: MediaQuery.of(context).size.height / 18,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          primary: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: Colors.white,
-                            ),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          //  shadowColor: Colors.grey.shade400),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Ask to Partecipate',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            ),
-                            SizedBox(width: 5),
-                            Icon(Icons.notifications),
-                          ],
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                  ),
+                ),
               if (!isManager)
                 SizedBox(
                   height: 10,
