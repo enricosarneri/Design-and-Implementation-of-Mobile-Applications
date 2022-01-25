@@ -15,6 +15,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -76,7 +77,7 @@ class _Create_EventState extends State<Create_Event> {
   String _maxPartecipants = '';
   final addressesList = [];
 
-  DateTime? _eventDate;
+  DateTime? _eventDate = DateTime.now();
   // List<Local> myLocals2 = [];
   // @override
   // void initState() {
@@ -614,6 +615,21 @@ class _Create_EventState extends State<Create_Event> {
                                                     ),
                                                   ],
                                                 ),
+                                                TextFormField(
+                                                  readOnly: true,
+                                                  initialValue: _name,
+                                                  textAlign: TextAlign.center,
+                                                  decoration:
+                                                      new InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText: '',
+                                                  ),
+                                                  validator: (String? value) {
+                                                    if (value!.isEmpty) {
+                                                      return 'Name is Required';
+                                                    }
+                                                  },
+                                                ),
                                                 const SizedBox(
                                                   height: 4,
                                                 ),
@@ -813,6 +829,21 @@ class _Create_EventState extends State<Create_Event> {
                                                           color: Colors.white),
                                                     ),
                                                   ],
+                                                ),
+                                                TextFormField(
+                                                  readOnly: true,
+                                                  initialValue: _description,
+                                                  textAlign: TextAlign.center,
+                                                  decoration:
+                                                      new InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText: '',
+                                                  ),
+                                                  validator: (String? value) {
+                                                    if (value!.isEmpty) {
+                                                      return 'Description is Required';
+                                                    }
+                                                  },
                                                 ),
                                                 const SizedBox(
                                                   height: 4,
@@ -1068,6 +1099,21 @@ class _Create_EventState extends State<Create_Event> {
                                                     ),
                                                   ],
                                                 ),
+                                                TextFormField(
+                                                  readOnly: true,
+                                                  initialValue: localName,
+                                                  textAlign: TextAlign.center,
+                                                  decoration:
+                                                      new InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText: '',
+                                                  ),
+                                                  validator: (String? value) {
+                                                    if (value!.isEmpty) {
+                                                      return 'Local name is Required';
+                                                    }
+                                                  },
+                                                ),
                                                 const SizedBox(
                                                   height: 4,
                                                 ),
@@ -1289,6 +1335,21 @@ class _Create_EventState extends State<Create_Event> {
                                                           color: Colors.white),
                                                     ),
                                                   ],
+                                                ),
+                                                TextFormField(
+                                                  readOnly: true,
+                                                  initialValue: _typeOfPlace,
+                                                  textAlign: TextAlign.center,
+                                                  decoration:
+                                                      new InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText: '',
+                                                  ),
+                                                  validator: (String? value) {
+                                                    if (value!.isEmpty) {
+                                                      return 'Type of place is Required';
+                                                    }
+                                                  },
                                                 ),
                                                 const SizedBox(
                                                   height: 4,
@@ -1516,6 +1577,21 @@ class _Create_EventState extends State<Create_Event> {
                                                     ),
                                                   ],
                                                 ),
+                                                TextFormField(
+                                                  readOnly: true,
+                                                  initialValue: _eventType,
+                                                  textAlign: TextAlign.center,
+                                                  decoration:
+                                                      new InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText: '',
+                                                  ),
+                                                  validator: (String? value) {
+                                                    if (value!.isEmpty) {
+                                                      return 'Privacy of the Event is Required';
+                                                    }
+                                                  },
+                                                ),
                                                 const SizedBox(
                                                   height: 4,
                                                 ),
@@ -1705,6 +1781,23 @@ class _Create_EventState extends State<Create_Event> {
                                                     ),
                                                   ],
                                                 ),
+                                                TextFormField(
+                                                  readOnly: true,
+                                                  initialValue:
+                                                      DateFormat('yyyy-MM-dd')
+                                                          .format(_eventDate!),
+                                                  textAlign: TextAlign.center,
+                                                  decoration:
+                                                      new InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText: '',
+                                                  ),
+                                                  validator: (String? value) {
+                                                    if (value!.isEmpty) {
+                                                      return 'Date is Required';
+                                                    }
+                                                  },
+                                                ),
                                                 const SizedBox(
                                                   height: 4,
                                                 ),
@@ -1891,6 +1984,21 @@ class _Create_EventState extends State<Create_Event> {
                                                     ),
                                                   ],
                                                 ),
+                                                TextFormField(
+                                                  readOnly: true,
+                                                  initialValue: _price,
+                                                  textAlign: TextAlign.center,
+                                                  decoration:
+                                                      new InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText: '',
+                                                  ),
+                                                  validator: (String? value) {
+                                                    if (value!.isEmpty) {
+                                                      return 'Price is Required';
+                                                    }
+                                                  },
+                                                ),
                                                 const SizedBox(
                                                   height: 4,
                                                 ),
@@ -2076,6 +2184,22 @@ class _Create_EventState extends State<Create_Event> {
                                                           color: Colors.white),
                                                     ),
                                                   ],
+                                                ),
+                                                TextFormField(
+                                                  readOnly: true,
+                                                  initialValue:
+                                                      _maxPartecipants,
+                                                  textAlign: TextAlign.center,
+                                                  decoration:
+                                                      new InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText: '',
+                                                  ),
+                                                  validator: (String? value) {
+                                                    if (value!.isEmpty) {
+                                                      return 'Maximum number of Partecipants is Required';
+                                                    }
+                                                  },
                                                 ),
                                                 const SizedBox(
                                                   height: 4,
