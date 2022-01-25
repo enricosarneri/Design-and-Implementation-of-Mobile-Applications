@@ -10,6 +10,7 @@ import 'package:event_handler/services/database.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:image_downloader/image_downloader.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -393,47 +394,53 @@ class PanelWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 60),
-                  height: MediaQuery.of(context).size.height / 16,
-                  width: MediaQuery.of(context).size.width,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+              //You will not see the partecipate button if you're the owener of the event or the partecipants reach the maxNumber
+              if (event.getManagerId != _authService.getCurrentUser()!.uid &&
+                  event.firstFreeQrCode + 1 == event.getMaxPartecipants)
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 60),
+                    height: MediaQuery.of(context).size.height / 16,
+                    width: MediaQuery.of(context).size.width,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        onPrimary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        // side: BorderSide(color: Colors.black)),
                       ),
-                      // side: BorderSide(color: Colors.black)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Ask to Partecipate',
+                            style: TextStyle(
+                                color: Color(0xFF121B22), fontSize: 16),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(Icons.notifications, color: Color(0xFF121B22)),
+                        ],
+                      ),
+                      onPressed: () async {
+                        final AuthService _authService =
+                            AuthService(FirebaseAuth.instance);
+                        DatabaseService(_authService.getCurrentUser()!.uid,
+                                FirebaseFirestore.instance)
+                            .addEventApplicant(event);
+                        //oppure mostrare un messagio con scritto Richiesta inviata con successo
+                        panelController.close();
+                        Fluttertoast.showToast(
+                            msg: "You've succesfully applied for the event!",
+                            gravity: ToastGravity.CENTER);
+                      },
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Ask to Partecipate',
-                          style:
-                              TextStyle(color: Color(0xFF121B22), fontSize: 16),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Icon(Icons.notifications, color: Color(0xFF121B22)),
-                      ],
-                    ),
-                    onPressed: () async {
-                      final AuthService _authService =
-                          AuthService(FirebaseAuth.instance);
-                      DatabaseService(_authService.getCurrentUser()!.uid,
-                              FirebaseFirestore.instance)
-                          .addEventApplicant(event);
-                      //oppure mostrare un messagio con scritto Richiesta inviata con successo
-                      panelController.close();
-                    },
                   ),
                 ),
-              ),
             ],
           ),
         ),

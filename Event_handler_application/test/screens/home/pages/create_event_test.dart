@@ -66,9 +66,10 @@ void main() {
       ),
     ));
 
-    final placeTypeField = find.byKey(Key('place type'));
+    final placeTypeField = find.byKey(Key('Type of Place'));
     await tester.tap(placeTypeField);
     await tester.pumpAndSettle();
+
     final dropdownItem = find.text('Cinema').last;
     final dropdownItem2 = find.text('Theatre').last;
     final dropdownItem3 = find.text('Restaurant').last;
@@ -98,7 +99,7 @@ void main() {
 
     await tester.drag(find.byKey(Key('list view')), const Offset(0.0, -500));
     await tester.pump();
-    final eventTypeField = find.byKey(Key('event type'));
+    final eventTypeField = find.byKey(Key('Privacy of the Event'));
     await tester.tap(eventTypeField);
     await tester.pumpAndSettle();
     final dropdownItem = find.text('Public').last;
@@ -126,7 +127,7 @@ void main() {
 
     await tester.pumpAndSettle(Duration(seconds: 1));
 
-    final placeNameField = find.byKey(Key('place name'));
+    final placeNameField = find.byKey(Key('Place of the Event'));
     await tester.tap(placeNameField);
     await tester.pumpAndSettle();
 

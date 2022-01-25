@@ -177,18 +177,21 @@ class DatabaseService {
 
   void addEventApplicant(Event event) async {
     List<String> applicantsList = event.getApplicantList;
-    applicantsList.add(uid);
-    eventCollection.get().then((value) => {
-          for (var i = 0; i < value.size; i++)
-            {
-              if (value.docs[i].get('eventId') == event.eventId)
-                {
-                  eventCollection.doc(value.docs[i].id).update({
-                    'applicants': event.applicants,
-                  })
-                }
-            }
-        });
+
+    if (!applicantsList.contains(uid)) {
+      applicantsList.add(uid);
+      eventCollection.get().then((value) => {
+            for (var i = 0; i < value.size; i++)
+              {
+                if (value.docs[i].get('eventId') == event.eventId)
+                  {
+                    eventCollection.doc(value.docs[i].id).update({
+                      'applicants': event.applicants,
+                    })
+                  }
+              }
+          });
+    }
   }
 
   List<String> getRandomQrCodes(int quantity) {

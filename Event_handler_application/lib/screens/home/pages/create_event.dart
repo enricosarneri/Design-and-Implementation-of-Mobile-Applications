@@ -842,6 +842,7 @@ class _Create_EventState extends State<Create_Event> {
 
                                 //place of the event
                                 GestureDetector(
+                                  key: Key("Place of the Event"),
                                   onTap: () {
                                     Navigator.of(context).push(
                                       HeroDialogRoute(
@@ -1094,6 +1095,7 @@ class _Create_EventState extends State<Create_Event> {
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key("Type of Place"),
                                   onTap: () {
                                     Navigator.of(context).push(
                                       HeroDialogRoute(
@@ -1315,6 +1317,7 @@ class _Create_EventState extends State<Create_Event> {
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key("Privacy of the Event"),
                                   onTap: () {
                                     Navigator.of(context).push(
                                       HeroDialogRoute(
