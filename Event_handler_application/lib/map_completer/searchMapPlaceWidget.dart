@@ -188,7 +188,7 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget>
         children: <Widget>[
           Container(
             child: new Tab(
-              icon: new Image.asset("assets/bap.png"),
+              icon: new Image.asset("assets/mappa_2.png"),
             ),
           ),
           Container(width: 15),
