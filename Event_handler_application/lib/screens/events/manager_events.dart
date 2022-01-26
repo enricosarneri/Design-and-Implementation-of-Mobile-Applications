@@ -135,7 +135,7 @@ class ManagerEvents extends StatelessWidget {
                                                 width: 5,
                                               ),
                                               Text(
-                                                '${data.docs[index]['date']}'
+                                                '${data.docs[index]['dateBegin']}'
                                                     .substring(0, 10),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w300,
@@ -260,7 +260,9 @@ class ManagerEvents extends StatelessWidget {
                                                         data.docs[index]
                                                             ['eventType'],
                                                         data.docs[index]
-                                                            ['date'],
+                                                            ['dateBegin'],
+                                                        data.docs[index]
+                                                            ['dateEnd'],
                                                         data.docs[index]
                                                             ['maxPartecipants'],
                                                         data.docs[index]

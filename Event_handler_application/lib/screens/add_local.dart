@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -18,7 +19,7 @@ class AddLocal extends StatefulWidget {
 class _AddLocalState extends State<AddLocal> {
   String _localAddress = '';
   String _localName = '';
-
+  late Timer _timer;
   File? file;
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
@@ -41,6 +42,7 @@ class _AddLocalState extends State<AddLocal> {
       style: TextStyle(color: Colors.white, fontSize: 16),
       cursorColor: Colors.white,
       decoration: InputDecoration(
+        // errorStyle: TextStyle(height: 0.7),
         filled: true,
         fillColor: Colors.black12.withOpacity(0.4),
         helperText: ' ',
@@ -62,7 +64,7 @@ class _AddLocalState extends State<AddLocal> {
           left: 30,
         ),
         errorBorder: OutlineInputBorder(
-          gapPadding: 25,
+          gapPadding: 10,
           borderRadius: BorderRadius.circular(50),
           borderSide: new BorderSide(
             color: Colors.red.shade700,
@@ -77,7 +79,7 @@ class _AddLocalState extends State<AddLocal> {
           borderSide: BorderSide(width: 0.2),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          gapPadding: 20,
+          gapPadding: 5,
           borderRadius: BorderRadius.circular(50),
           borderSide: new BorderSide(
             color: Colors.red.shade700,
@@ -121,6 +123,7 @@ class _AddLocalState extends State<AddLocal> {
       style: TextStyle(color: Colors.white, fontSize: 16),
       cursorColor: Colors.white,
       decoration: InputDecoration(
+        // errorStyle: TextStyle(height: 0.7),
         filled: true,
         fillColor: Colors.black12.withOpacity(0.4),
         helperText: ' ',
@@ -142,7 +145,7 @@ class _AddLocalState extends State<AddLocal> {
           left: 30,
         ),
         errorBorder: OutlineInputBorder(
-          gapPadding: 25,
+          gapPadding: 10,
           borderRadius: BorderRadius.circular(50),
           borderSide: new BorderSide(
             color: Colors.red.shade700,
@@ -157,7 +160,7 @@ class _AddLocalState extends State<AddLocal> {
           borderSide: BorderSide(width: 0.2),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          gapPadding: 20,
+          gapPadding: 5,
           borderRadius: BorderRadius.circular(50),
           borderSide: new BorderSide(
             color: Colors.red.shade700,
@@ -219,8 +222,9 @@ class _AddLocalState extends State<AddLocal> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 _buildAddress(),
-                SizedBox(height: 5),
+                SizedBox(height: 12),
                 _buildLocalName(),
+                SizedBox(height: 10),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 16,
@@ -311,6 +315,39 @@ class _AddLocalState extends State<AddLocal> {
                                 widget.authService.getCurrentUser()!.uid,
                                 FirebaseFirestore.instance)
                             .addLocalForCurrentUser(_localAddress, _localName);
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext builderContext) {
+                              _timer = Timer(Duration(milliseconds: 1200), () {
+                                Navigator.of(context).pop();
+                              });
+
+                              return Container(
+                                margin: EdgeInsets.only(
+                                    bottom: 50, left: 12, right: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                                child: AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30)),
+                                  elevation: 20,
+                                  backgroundColor:
+                                      Colors.white.withOpacity(0.8),
+                                  content: SingleChildScrollView(
+                                    child: Text(
+                                      'Your local has been added successfully!',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).then((val) {
+                          if (_timer.isActive) {
+                            _timer.cancel();
+                          }
+                        });
                         Navigator.pop(
                           context,
                         );

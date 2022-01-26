@@ -29,7 +29,25 @@ class _HomeState extends State<Home> {
   double panelPosition = 200;
   bool isManager = false;
   Event event =
-      Event('', '', '', '', 0, 0, '', '', '', '', 0, 0, '', [], [], [], 0);
+      Event('', '', '', '', 0, 0, '', '', '', '', '', 0, 0, '', [], [], [], 0);
+  final screens = [
+    GoogleMapScreen(),
+    Share_Link(
+        databaseService: DatabaseService(
+            AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+            FirebaseFirestore.instance)),
+    Create_Event(
+      databaseService: DatabaseService(
+          AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+          FirebaseFirestore.instance),
+    ),
+    Profile(
+      databaseService: DatabaseService(
+          AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+          FirebaseFirestore.instance),
+      authService: AuthService(FirebaseAuth.instance),
+    ),
+  ];
 
   void setSlidingUpPanel(newEvent) {
     setState(() {

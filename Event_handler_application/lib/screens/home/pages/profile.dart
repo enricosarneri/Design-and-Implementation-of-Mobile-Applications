@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,6 +6,8 @@ import 'package:event_handler/models/user.dart';
 import 'package:event_handler/screens/events/manager_events.dart';
 import 'package:event_handler/screens/events/my_events.dart';
 import 'package:event_handler/screens/add_local.dart';
+import 'package:event_handler/screens/home/pages/custom_rect_tween.dart';
+import 'package:event_handler/screens/home/pages/hero_dialogue_route.dart';
 import 'package:event_handler/screens/my_locals.dart';
 import 'package:event_handler/services/auth.dart';
 import 'package:event_handler/services/database.dart';
@@ -18,6 +21,8 @@ class Profile extends StatelessWidget {
       : super(key: key);
   final DatabaseService databaseService;
   final AuthService authService;
+  String _contactUs = "";
+  late Timer _timer;
   //bool isManger = true;
 
 /*
@@ -412,17 +417,242 @@ class Profile extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                TextButton(
-                                  child: Text(
-                                    'Contact us',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
+                                Hero(
+                                  tag: "20",
+                                  child: TextButton(
+                                    child: Text(
+                                      'Contact us',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    textAlign: TextAlign.center,
+                                    onPressed: () => {
+                                      Navigator.of(context).push(
+                                        HeroDialogRoute(
+                                          builder: (context) => Center(
+                                            child: Hero(
+                                              tag: "20",
+                                              createRectTween: (begin, end) {
+                                                return CustomRectTween(
+                                                    begin: begin, end: end);
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(
+                                                  16,
+                                                ),
+                                                child: Material(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  color: Color(0xFF8596a0),
+                                                  child: SizedBox(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              16),
+                                                      child:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            SingleChildScrollView(
+                                                              scrollDirection:
+                                                                  Axis.horizontal,
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons.help,
+                                                                    color: Colors
+                                                                        .black54,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 5,
+                                                                  ),
+                                                                  Text(
+                                                                    "Contact Us",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black54,
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 4,
+                                                            ),
+                                                            Container(
+                                                              margin:
+                                                                  const EdgeInsets
+                                                                      .all(8),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .black12,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20),
+                                                              ),
+                                                              child:
+                                                                  TextFormField(
+                                                                initialValue:
+                                                                    _contactUs,
+                                                                keyboardType:
+                                                                    TextInputType
+                                                                        .multiline,
+                                                                maxLines: null,
+                                                                cursorColor:
+                                                                    Colors
+                                                                        .black,
+                                                                decoration: InputDecoration(
+                                                                    contentPadding:
+                                                                        EdgeInsets
+                                                                            .all(
+                                                                                8),
+                                                                    hintText:
+                                                                        'Write the message...',
+                                                                    border:
+                                                                        InputBorder
+                                                                            .none),
+                                                                onChanged:
+                                                                    (value) {
+                                                                  _contactUs =
+                                                                      value
+                                                                          .trim();
+                                                                },
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          30),
+                                                              child:
+                                                                  ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  elevation: 0,
+                                                                  primary: Colors
+                                                                      .white,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            30.0),
+                                                                  ),
+                                                                  //  shadowColor: Colors.grey.shade400),
+                                                                ),
+                                                                child:
+                                                                    Container(
+                                                                  padding: EdgeInsets
+                                                                      .symmetric(
+                                                                          horizontal:
+                                                                              20),
+                                                                  child:
+                                                                      SingleChildScrollView(
+                                                                    scrollDirection:
+                                                                        Axis.horizontal,
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Text(
+                                                                          'Send',
+                                                                          style: TextStyle(
+                                                                              color: Color(0xFF121B22),
+                                                                              fontSize: 16),
+                                                                        ),
+                                                                        SizedBox(
+                                                                            width:
+                                                                                5),
+                                                                        Icon(
+                                                                          Icons
+                                                                              .send,
+                                                                          color:
+                                                                              Color(0xFF121B22),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                onPressed:
+                                                                    () async {
+                                                                  if (_contactUs !=
+                                                                      "")
+                                                                    showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (BuildContext
+                                                                                builderContext) {
+                                                                          _timer = Timer(
+                                                                              Duration(milliseconds: 1200),
+                                                                              () {
+                                                                            Navigator.of(context).pop();
+                                                                          });
+
+                                                                          return Container(
+                                                                            margin: EdgeInsets.only(
+                                                                                bottom: 50,
+                                                                                left: 12,
+                                                                                right: 12),
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Colors.transparent,
+                                                                              borderRadius: BorderRadius.circular(40),
+                                                                            ),
+                                                                            child:
+                                                                                AlertDialog(
+                                                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                                                                              elevation: 20,
+                                                                              backgroundColor: Colors.white.withOpacity(0.8),
+                                                                              content: SingleChildScrollView(
+                                                                                child: Text(
+                                                                                  'Your message has been sent successfully!',
+                                                                                  textAlign: TextAlign.center,
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }).then((val) {
+                                                                      if (_timer
+                                                                          .isActive) {
+                                                                        _timer
+                                                                            .cancel();
+                                                                      }
+                                                                    });
+                                                                  _contactUs =
+                                                                      "";
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    },
                                   ),
-                                  onPressed: () => {},
                                 ),
                                 Icon(
                                   Icons.help,
@@ -438,7 +668,10 @@ class Profile extends StatelessWidget {
                 ),
               );
             } else
-              return Center(child: CircularProgressIndicator());
+              return Center(
+                  child: CircularProgressIndicator(
+                color: Colors.white,
+              ));
           }),
     );
   }

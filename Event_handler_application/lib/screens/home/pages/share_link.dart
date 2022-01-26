@@ -53,7 +53,7 @@ class _ShareLinkState extends State<Share_Link> {
                       left: 30,
                     ),
                     errorBorder: OutlineInputBorder(
-                      gapPadding: 25,
+                      gapPadding: 10,
                       borderRadius: BorderRadius.circular(50),
                       borderSide: new BorderSide(
                         color: Colors.red.shade700,
@@ -68,7 +68,7 @@ class _ShareLinkState extends State<Share_Link> {
                       borderSide: BorderSide(width: 0.2),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
-                      gapPadding: 20,
+                      gapPadding: 5,
                       borderRadius: BorderRadius.circular(50),
                       borderSide: new BorderSide(
                         color: Colors.red.shade700,
@@ -94,7 +94,7 @@ class _ShareLinkState extends State<Share_Link> {
                 ),
                 Align(
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 0),
+                    margin: EdgeInsets.symmetric(vertical: 3),
                     width: 30,
                     height: 3,
                     decoration: BoxDecoration(

@@ -544,7 +544,7 @@ class _RegistrationState extends State<Registration> {
                             ),
                             child: isSignUpLoading
                                 ? CircularProgressIndicator(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                   )
                                 : const Text(
                                     'Sign Up',

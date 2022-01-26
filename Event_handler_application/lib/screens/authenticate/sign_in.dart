@@ -299,7 +299,7 @@ class _SignInState extends State<SignIn> {
                             ),
                             child: isSignInLoading
                                 ? CircularProgressIndicator(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                   )
                                 : const Text(
                                     'Sign In',

@@ -8,7 +8,8 @@ class Event {
   final String placeName;
   final String typeOfPlace;
   final String eventType;
-  final String date;
+  final String dateBegin;
+  final String dateEnd;
   final int maxPartecipants;
 
   final double price;
@@ -38,7 +39,9 @@ class Event {
 
   get getEventType => eventType;
 
-  get getDate => date;
+  get getDateBegin => dateBegin;
+
+  get getDateEnd => dateEnd;
 
   get getMaxPartecipants => maxPartecipants;
 
@@ -58,7 +61,8 @@ class Event {
       this.placeName,
       this.typeOfPlace,
       this.eventType,
-      this.date,
+      this.dateBegin,
+      this.dateEnd,
       this.maxPartecipants,
       this.price,
       this.eventId,

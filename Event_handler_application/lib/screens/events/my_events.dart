@@ -268,18 +268,20 @@ class MyEvents extends StatelessWidget {
                                                             data.docs[index]
                                                                 ['eventType'],
                                                             data.docs[index]
-                                                                ['date'],
+                                                                ['dateBegin'],
+                                                            data.docs[index]
+                                                                ['dateEnd'],
                                                             data.docs[index][
                                                                 'maxPartecipants'],
                                                             data.docs[index]
                                                                 ['price'],
                                                             data.docs[index]
                                                                 ['eventId'],
-                                                            List<String>.from(
-                                                                data.docs[index][
-                                                                    'partecipants']),
-                                                            List<String>.from(
-                                                                data.docs[index]['applicants']),
+                                                            List<String>.from(data
+                                                                    .docs[index]
+                                                                [
+                                                                'partecipants']),
+                                                            List<String>.from(data.docs[index]['applicants']),
                                                             List<String>.from(data.docs[index]['qrCodeList']),
                                                             data.docs[index]['firstFreeQrCode']);
                                                         Navigator.push(

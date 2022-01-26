@@ -153,7 +153,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       double latitude,
       double longitude,
       String placeName,
-      String date,
+      String dateBegin,
+      String dateEnd,
       String description,
       String typeOfPlace,
       String eventType,
@@ -177,7 +178,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         placeName,
         typeOfPlace,
         eventType,
-        date,
+        dateBegin,
+        dateEnd,
         maxPartecipants,
         price,
         eventId,
@@ -203,6 +205,13 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       ),
       'assets/bap-2.png',
     );
+  }
+
+  bool _decideWhichDayToEnable(DateTime day) {
+    if ((day.isAfter(DateTime.now().subtract(Duration(days: 1))))) {
+      return true;
+    }
+    return false;
   }
 
   @override
@@ -250,8 +259,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               ((distance_rounded / 1000) <= _valuesKmR.end) &&
               ((distance_rounded / 1000) >= _valuesKmR.start) &&
               filtro_presente != 0 &&
-              _event_list[i].eventType == 'Public') {
-            //&&   _event_list[i].eventType != "Private") {
+              _event_list[i].eventType == 'Public' &&
+              DateTime.parse(_event_list[i].dateEnd).isAfter(
+                DateTime.now(),
+              )) {
             result.add(_event_list[i]);
           }
         } else {
@@ -259,9 +270,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           for (int j = 0; j < _valuesDates.length; j++) {
             PickerDateRange temp = _valuesDates[j];
 
-            if (DateTime.parse(_event_list[i].date)
+            if (DateTime.parse(_event_list[i].dateBegin)
                     .isAfter(temp.startDate!.subtract(Duration(days: 1))) &&
-                DateTime.parse(_event_list[i].date)
+                DateTime.parse(_event_list[i].dateBegin)
                     .isBefore(temp.endDate!.add(Duration(days: 1)))) {
               exit++;
             }
@@ -275,7 +286,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 ((distance_rounded / 1000) >= _valuesKmR.start) &&
                 filtro_presente != 0 &&
                 _event_list[i].eventType == 'Public') {
-              //&&   _event_list[i].eventType != "Private") {
               result.add(_event_list[i]);
             }
           }
@@ -798,6 +808,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                 selectionRadius: 40,
                                 headerHeight: 35,
                                 backgroundColor: Colors.transparent,
+                                selectableDayPredicate: _decideWhichDayToEnable,
                                 selectionMode:
                                     DateRangePickerSelectionMode.multiRange,
                                 selectionColor: Color(0xFF8596a0),
@@ -906,7 +917,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         ),
         body: (applicationBlock.currentLocation == null)
             ? Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
               )
             : Stack(
                 children: [
@@ -924,7 +937,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                             listaDaFiltrare[i].latitude,
                             listaDaFiltrare[i].longitude,
                             listaDaFiltrare[i].placeName,
-                            listaDaFiltrare[i].date,
+                            listaDaFiltrare[i].dateBegin,
+                            listaDaFiltrare[i].dateEnd,
                             listaDaFiltrare[i].description,
                             listaDaFiltrare[i].typeOfPlace,
                             listaDaFiltrare[i].eventType,

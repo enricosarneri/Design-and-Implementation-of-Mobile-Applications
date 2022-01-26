@@ -60,7 +60,8 @@ class DatabaseService {
         e.get('placeName'),
         e.get('typeOfPlace'),
         e.get('eventType'),
-        e.get('date'),
+        e.get('dateBegin'),
+        e.get('dateEnd'),
         e.get('maxPartecipants'),
         e.get('price'),
         e.get('eventId'),
@@ -95,11 +96,12 @@ class DatabaseService {
     String placeName,
     String? typeOfPlace,
     String? eventType,
-    DateTime? date,
+    DateTime? dateBegin,
+    DateTime? dateEnd,
     String maxPartecipants,
     String price,
     int firstFreeQrCode,
-    String localName,
+    String? localName,
   ) async {
     List<String> partecipants = [];
     List<String> applicants = [];
@@ -134,7 +136,8 @@ class DatabaseService {
         placeName,
         typeOfPlace!,
         eventType!,
-        date.toString(),
+        dateBegin.toString(),
+        dateEnd.toString(),
         int.parse(maxPartecipants),
         double.parse(price),
         eventId,
@@ -152,7 +155,8 @@ class DatabaseService {
       'placeName': localName,
       'typeOfPlace': event.typeOfPlace,
       'eventType': event.eventType,
-      'date': event.date,
+      'dateBegin': event.dateBegin,
+      'dateEnd': event.dateEnd,
       'maxPartecipants': event.maxPartecipants,
       'price': event.price,
       'qrCodeList': qrCodes,
@@ -268,7 +272,8 @@ class DatabaseService {
     String placeName = '';
     String typeOfPlace = '';
     String eventType = '';
-    String date = '';
+    String dateBegin = '';
+    String dateEnd = '';
     int maxPartecipants = 0;
 
     double price = 0;
@@ -291,7 +296,8 @@ class DatabaseService {
                   placeName = value.docs[i].get('placeName'),
                   typeOfPlace = value.docs[i].get('typeOfPlace'),
                   eventType = value.docs[i].get('eventType'),
-                  date = value.docs[i].get('date'),
+                  dateBegin = value.docs[i].get('dateBegin'),
+                  dateEnd = value.docs[i].get('dateEnd'),
                   maxPartecipants = value.docs[i].get('maxPartecipants'),
                   price = value.docs[i].get('price'),
                   eventId = eventid,
@@ -314,7 +320,8 @@ class DatabaseService {
         placeName,
         typeOfPlace,
         eventType,
-        date,
+        dateBegin,
+        dateEnd,
         maxPartecipants,
         price,
         eventId,

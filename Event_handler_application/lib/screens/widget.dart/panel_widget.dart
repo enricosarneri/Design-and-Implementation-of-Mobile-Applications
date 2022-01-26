@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:icon_shadow/icon_shadow.dart';
 import 'package:image_downloader/image_downloader.dart';
+import 'package:share/share.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -215,7 +216,7 @@ class PanelWidget extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    event.date.toString(),
+                    event.dateBegin.toString(),
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -401,7 +402,7 @@ class PanelWidget extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 60),
-                    height: MediaQuery.of(context).size.height / 16,
+                    height: MediaQuery.of(context).size.height / 18,
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -441,6 +442,36 @@ class PanelWidget extends StatelessWidget {
                     ),
                   ),
                 ),
+              Container(
+                height: MediaQuery.of(context).size.height / 18,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    primary: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: Colors.white,
+                      ),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    //  shadowColor: Colors.grey.shade400),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.share_outlined),
+                      SizedBox(width: 5),
+                      Text(
+                        'Shake the Link',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    Share.share(event.getEventId);
+                  },
+                ),
+              ),
             ],
           ),
         ),
