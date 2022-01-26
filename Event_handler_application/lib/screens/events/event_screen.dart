@@ -31,6 +31,8 @@ class _EventScreenState extends State<EventScreen> {
     ScrollController controller = ScrollController();
     Stream<QuerySnapshot> events = widget.databaseService.getEvents();
     final String userId = widget.authService.getCurrentUser()!.uid;
+    List<String> partecipantList = widget.event.getPartecipantList;
+    List<String> applicantList = widget.event.getApplicantList;
 
     Stream<QuerySnapshot> users = widget.databaseService.getUsers();
     bool isManager = userId == widget.event.getManagerId;
@@ -267,7 +269,9 @@ class _EventScreenState extends State<EventScreen> {
                   height: 15,
                 ),
               if (!isManager &&
-                  !widget.event.partecipants
+                  !partecipantList
+                      .contains(widget.authService.getCurrentUser()!.uid) &&
+                  !applicantList
                       .contains(widget.authService.getCurrentUser()!.uid) &&
                   widget.event.firstFreeQrCode + 1 !=
                       widget.event.getMaxPartecipants)
@@ -548,6 +552,18 @@ class _EventScreenState extends State<EventScreen> {
                         );
                       }),
                 ),
+              if (partecipantList
+                  .contains(widget.authService.getCurrentUser()!.uid))
+                Container(
+                  child: Text("You're already partecipating to this event",
+                      style: TextStyle(color: Colors.white)),
+                ),
+              if (applicantList
+                  .contains(widget.authService.getCurrentUser()!.uid))
+                Container(
+                  child: Text("Waiting for the response of the owner",
+                      style: TextStyle(color: Colors.white)),
+                ),
               SizedBox(height: 5),
               Align(
                 alignment: Alignment.topCenter,
@@ -587,7 +603,7 @@ class _EventScreenState extends State<EventScreen> {
                               Icon(Icons.share_outlined),
                               SizedBox(width: 5),
                               Text(
-                                'Shake the Link',
+                                'Share the Link',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16),
                               ),
@@ -655,6 +671,7 @@ class _EventScreenState extends State<EventScreen> {
                       //       );
                       //     },
                       //   ),
+
                       if (!isManager)
                         Container(
                           height: MediaQuery.of(context).size.height / 18,

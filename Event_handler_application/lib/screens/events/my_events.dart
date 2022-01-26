@@ -140,7 +140,7 @@ class MyEvents extends StatelessWidget {
                                                     width: 5,
                                                   ),
                                                   Text(
-                                                    '${data.docs[index]['date']}'
+                                                    '${data.docs[index]['dateBegin']}'
                                                         .substring(0, 10),
                                                     style: TextStyle(
                                                         fontWeight:
