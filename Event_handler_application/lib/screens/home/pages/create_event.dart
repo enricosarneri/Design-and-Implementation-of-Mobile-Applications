@@ -801,7 +801,7 @@ class _Create_EventState extends State<Create_Event> {
                                                           .withOpacity(0.1),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              30),
+                                                              20),
                                                     ),
                                                     child: TextFormField(
                                                       readOnly: true,
@@ -1976,7 +1976,7 @@ class _Create_EventState extends State<Create_Event> {
                                                                       _eventDateBegin ==
                                                                               null
                                                                           ? 'Select End Date'
-                                                                          : 'Start date: ${_eventDateBegin.day}/${_eventDateBegin.month}/${_eventDateBegin.year}',
+                                                                          : '${_eventDateBegin.day}/${_eventDateBegin.month}/${_eventDateBegin.year}',
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2033,7 +2033,7 @@ class _Create_EventState extends State<Create_Event> {
                                                                       _startEventTime ==
                                                                               null
                                                                           ? 'Select End Time'
-                                                                          : 'Start Time: ${_startEventTime.hour}:${_startEventTime.minute}',
+                                                                          : '${_startEventTime.hour}:${_startEventTime.minute}',
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2289,7 +2289,7 @@ class _Create_EventState extends State<Create_Event> {
                                                                       _eventDateEnd ==
                                                                               null
                                                                           ? 'Select End Date'
-                                                                          : 'End Date: ${_eventDateEnd.day}/${_eventDateEnd.month}/${_eventDateEnd.year}',
+                                                                          : '${_eventDateEnd.day}/${_eventDateEnd.month}/${_eventDateEnd.year}',
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
@@ -2346,7 +2346,7 @@ class _Create_EventState extends State<Create_Event> {
                                                                       _endEventTime ==
                                                                               null
                                                                           ? 'Select End Time'
-                                                                          : 'End Time: ${_endEventTime.hour}:${_endEventTime.minute}',
+                                                                          : '${_endEventTime.hour}:${_endEventTime.minute}',
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors

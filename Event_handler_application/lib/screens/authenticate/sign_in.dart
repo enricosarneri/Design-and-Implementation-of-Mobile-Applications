@@ -10,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key, required this.authServices}) : super(key: key);
@@ -308,13 +310,34 @@ class _SignInState extends State<SignIn> {
                             onPressed: () async {
                               setState(() => isSignInLoading = true);
                               if (_key.currentState!.validate()) {
-                                dynamic result = await widget.authServices
-                                    .signInWithEmailAndPassword(
-                                        _email, _password);
-                                if (result == null) {
-                                  log('Error signing in');
+                                if (await Permission.location
+                                        .request()
+                                        .isDenied ||
+                                    await Permission.storage
+                                        .request()
+                                        .isDenied ||
+                                    await Permission.camera
+                                        .request()
+                                        .isDenied) {
+                                  await [
+                                    Permission.location,
+                                    Permission.storage,
+                                    Permission.camera
+                                  ].request();
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          "Please accept the permissions otherwise the app won't be able to run correctly :(",
+                                      gravity: ToastGravity.CENTER,
+                                      toastLength: Toast.LENGTH_LONG);
                                 } else {
-                                  log('Signed in as: ' + result.email);
+                                  dynamic result = await widget.authServices
+                                      .signInWithEmailAndPassword(
+                                          _email, _password);
+                                  if (result == null) {
+                                    log('Error signing in');
+                                  } else {
+                                    log('Signed in as: ' + result.email);
+                                  }
                                 }
                               }
                               if (this.mounted) {
