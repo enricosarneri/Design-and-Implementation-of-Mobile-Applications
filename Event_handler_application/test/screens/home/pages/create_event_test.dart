@@ -43,7 +43,7 @@ void main() {
     final priceField = find.text('Price');
     final eventTypeField = find.text('Type of Place');
     final placeTypeField = find.text('Place of the Event');
-    final dataButton = find.text('Date');
+    final dataButton = find.text('Start Date-Time');
     final createEventButton = find.text('Create Event');
 
     expect(nameField, findsOneWidget);
@@ -55,10 +55,13 @@ void main() {
     expect(priceField, findsOneWidget);
     expect(eventTypeField, findsOneWidget);
     expect(dataButton, findsOneWidget);
+    await tester.drag(find.byKey(Key('list view')), const Offset(0.0, -500));
+    await tester.pump();
     expect(maxPartecipantsField, findsOneWidget);
     expect(createEventButton, findsOneWidget);
   });
 
+/*
   testWidgets('Check the presence of the correct local type', (tester) async {
     await tester.pumpWidget(MaterialApp(
       home: Create_Event(
@@ -67,6 +70,8 @@ void main() {
     ));
 
     final placeTypeField = find.byKey(Key('Type of Place'));
+    await tester.drag(find.byKey(Key('list view')), const Offset(0.0, -100));
+    await tester.pump();
     await tester.tap(placeTypeField);
     await tester.pumpAndSettle();
 
@@ -142,4 +147,5 @@ void main() {
 
     expect(dropdownItem, findsOneWidget);
   });
+*/
 }

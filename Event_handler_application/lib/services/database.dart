@@ -182,7 +182,7 @@ class DatabaseService {
   void addEventApplicant(Event event) async {
     List<String> applicantsList = event.getApplicantList;
 
-    if (!applicantsList.contains(uid)) {
+    if (!applicantsList.contains(uid) && uid != event.managerId) {
       applicantsList.add(uid);
       eventCollection.get().then((value) => {
             for (var i = 0; i < value.size; i++)
@@ -221,7 +221,7 @@ class DatabaseService {
                   eventCollection.doc(value.docs[i].id).update({
                     'partecipants': partecipants,
                     'applicants': applicantsList,
-                    'firstFreeQrCode': event.firstFreeQrCode++,
+                    'firstFreeQrCode': event.firstFreeQrCode + 1,
                   })
                 }
             }
