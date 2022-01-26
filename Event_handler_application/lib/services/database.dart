@@ -181,8 +181,11 @@ class DatabaseService {
 
   void addEventApplicant(Event event) async {
     List<String> applicantsList = event.getApplicantList;
+    List<String> partecipantList = event.getPartecipantList;
 
-    if (!applicantsList.contains(uid) && uid != event.managerId) {
+    if (!applicantsList.contains(uid) &&
+        uid != event.managerId &&
+        !partecipantList.contains(uid)) {
       applicantsList.add(uid);
       eventCollection.get().then((value) => {
             for (var i = 0; i < value.size; i++)
@@ -210,26 +213,30 @@ class DatabaseService {
   void acceptApplicance(Event event, String userId) async {
     List<String> applicantsList = event.getApplicantList;
     applicantsList.remove(userId);
-    List<String> partecipants = event.getPartecipantList;
-    partecipants.add(userId);
-    eventCollection.get().then((value) => {
-          for (var i = 0; i < value.size; i++)
-            {
-              if (value.docs[i].get('eventId') == event.eventId &&
-                  value.docs[i].get('manager') != userId)
-                {
-                  eventCollection.doc(value.docs[i].id).update({
-                    'partecipants': partecipants,
-                    'applicants': applicantsList,
-                    'firstFreeQrCode': event.firstFreeQrCode + 1,
-                  })
-                }
-            }
-        });
-    log(event.firstFreeQrCode.toString());
-    String userQrCode = event.getQrCodeList[event.firstFreeQrCode];
-    await userQrCodesCollection
-        .add({'user': userId, 'event': event.getEventId, 'qrCode': userQrCode});
+    List<String> partecipantList = event.getPartecipantList;
+    if (!partecipantList.contains(userId)) {
+      List<String> partecipants = event.getPartecipantList;
+      partecipants.add(userId);
+      eventCollection.get().then((value) => {
+            for (var i = 0; i < value.size; i++)
+              {
+                if (value.docs[i].get('eventId') == event.eventId &&
+                    value.docs[i].get('manager') != userId)
+                  {
+                    eventCollection.doc(value.docs[i].id).update({
+                      'partecipants': partecipants,
+                      'applicants': applicantsList,
+                      'firstFreeQrCode': event.firstFreeQrCode + 1,
+                    })
+                  }
+              }
+          });
+
+      log(event.firstFreeQrCode.toString());
+      String userQrCode = event.getQrCodeList[event.firstFreeQrCode];
+      await userQrCodesCollection.add(
+          {'user': userId, 'event': event.getEventId, 'qrCode': userQrCode});
+    }
   }
 
   void refuseApplicance(Event event, String userId) async {
