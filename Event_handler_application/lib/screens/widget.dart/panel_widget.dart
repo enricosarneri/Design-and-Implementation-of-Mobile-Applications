@@ -383,95 +383,162 @@ class PanelWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  margin: EdgeInsets.only(top: 10, bottom: 10),
                   width: 30,
-                  height: 1,
+                  height: 3,
                   decoration: BoxDecoration(
-                    color: Colors.black45.withOpacity(0.2),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
               //You will not see the partecipate button if you're the owener of the event or the partecipants reach the maxNumber
-              if (event.getManagerId != _authService.getCurrentUser()!.uid ||
+              if (event.getManagerId != _authService.getCurrentUser()!.uid &&
                   event.firstFreeQrCode + 1 != event.getMaxPartecipants)
-                Align(
-                  alignment: Alignment.topCenter,
+                Flexible(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            primary: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: Colors.white,
+                              ),
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            //  shadowColor: Colors.grey.shade400),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.share_outlined),
+                              SizedBox(width: 5),
+                              Flexible(
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 5),
+                                  child: Text(
+                                    'Shake the Link',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            Share.share(event.getEventId);
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            onPrimary: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            // side: BorderSide(color: Colors.black)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 5),
+                                  child: Container(
+                                    child: Text(
+                                      'Ask to Partecipate',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Color(0xFF121B22),
+                                          fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(Icons.notifications,
+                                  color: Color(0xFF121B22)),
+                            ],
+                          ),
+                          onPressed: () async {
+                            final AuthService _authService =
+                                AuthService(FirebaseAuth.instance);
+                            DatabaseService(_authService.getCurrentUser()!.uid,
+                                    FirebaseFirestore.instance)
+                                .addEventApplicant(event);
+                            //oppure mostrare un messagio con scritto Richiesta inviata con successo
+                            panelController.close();
+                            Fluttertoast.showToast(
+                                msg:
+                                    "You've succesfully applied for the event!",
+                                gravity: ToastGravity.CENTER);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              if (!(event.getManagerId != _authService.getCurrentUser()!.uid &&
+                  event.firstFreeQrCode + 1 != event.getMaxPartecipants))
+                Flexible(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 60),
-                    height: MediaQuery.of(context).size.height / 18,
-                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(horizontal: 80),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                        onPrimary: Colors.white,
+                        elevation: 0,
+                        primary: Colors.transparent,
                         shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.white,
+                          ),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        // side: BorderSide(color: Colors.black)),
+                        //  shadowColor: Colors.grey.shade400),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Ask to Partecipate',
-                            style: TextStyle(
-                                color: Color(0xFF121B22), fontSize: 16),
+                          Icon(Icons.share_outlined),
+                          SizedBox(width: 5),
+                          Flexible(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                              child: Text(
+                                'Shake the Link',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                            ),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(Icons.notifications, color: Color(0xFF121B22)),
                         ],
                       ),
-                      onPressed: () async {
-                        final AuthService _authService =
-                            AuthService(FirebaseAuth.instance);
-                        DatabaseService(_authService.getCurrentUser()!.uid,
-                                FirebaseFirestore.instance)
-                            .addEventApplicant(event);
-                        //oppure mostrare un messagio con scritto Richiesta inviata con successo
-                        panelController.close();
-                        Fluttertoast.showToast(
-                            msg: "You've succesfully applied for the event!",
-                            gravity: ToastGravity.CENTER);
+                      onPressed: () {
+                        Share.share(event.getEventId);
                       },
                     ),
                   ),
                 ),
-              Container(
-                height: MediaQuery.of(context).size.height / 18,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        color: Colors.white,
-                      ),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    //  shadowColor: Colors.grey.shade400),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.share_outlined),
-                      SizedBox(width: 5),
-                      Text(
-                        'Shake the Link',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    Share.share(event.getEventId);
-                  },
-                ),
-              ),
             ],
           ),
         ),
