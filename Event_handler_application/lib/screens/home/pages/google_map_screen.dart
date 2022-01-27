@@ -371,460 +371,496 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                       children: [
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 2),
-                          child: ListView(
-                            padding: EdgeInsets.all(20),
-                            itemExtent: size_screen.height * 0.10,
-                            children: [
-                              SizedBox(
-                                height: (size_screen.height * 0.10),
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: size_screen.width / 20),
-                                  //decoration: BoxDecoration(color: Colors.red),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: (size_screen.height * 0.10) / 3,
-                                        child: Container(
-                                          //color: Colors.green,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.euro,
-                                                color: Colors.white,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(30),
+                              child: ListView(
+                                padding: EdgeInsets.all(20),
+                                itemExtent: size_screen.height * 0.10,
+                                children: [
+                                  SizedBox(
+                                    height: (size_screen.height * 0.10),
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: size_screen.width / 20),
+                                      //decoration: BoxDecoration(color: Colors.red),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height:
+                                                (size_screen.height * 0.10) / 3,
+                                            child: Container(
+                                              //color: Colors.green,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.euro,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    "Prices (€)",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
                                               ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "Prices (€)",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 2),
-                                            //   color: Colors.yellow,
-
-                                            child: SliderTheme(
-                                              data: SliderThemeData(
-                                                thumbColor: Colors.black,
-                                                activeTrackColor: Colors.black,
-                                                activeTickMarkColor:
-                                                    Colors.black,
-                                                disabledInactiveTickMarkColor:
-                                                    Colors.black,
-                                                inactiveTickMarkColor:
-                                                    Colors.black,
-                                                trackHeight: 2,
-                                                rangeThumbShape:
-                                                    RoundRangeSliderThumbShape(
-                                                        enabledThumbRadius: 10,
-                                                        disabledThumbRadius: 3,
-                                                        elevation: 8,
-                                                        pressedElevation: 10),
-                                                overlayShape:
-                                                    RoundSliderOverlayShape(
-                                                        overlayRadius: 25),
-                                                minThumbSeparation: 10,
-                                                rangeTrackShape:
-                                                    RoundedRectRangeSliderTrackShape(),
-                                                rangeTickMarkShape:
-                                                    RoundRangeSliderTickMarkShape(
-                                                        tickMarkRadius: 8),
-                                                showValueIndicator:
-                                                    ShowValueIndicator.always,
-                                                rangeValueIndicatorShape:
-                                                    PaddleRangeSliderValueIndicatorShape(),
-                                                valueIndicatorColor:
-                                                    Colors.black38,
-                                                valueIndicatorTextStyle:
-                                                    TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                              ),
-                                              child: RangeSlider(
-                                                activeColor: Colors.white,
-                                                inactiveColor:
-                                                    Color(0xFF8596a0),
-                                                values: _valuesPricesR,
-                                                divisions: 20,
-                                                min: 0,
-                                                max: 100,
-                                                labels: RangeLabels(
-                                                  _valuesPricesR.start
-                                                      .toInt()
-                                                      .toString(),
-                                                  _valuesPricesR.end
-                                                      .toInt()
-                                                      .toString(),
-                                                ),
-                                                onChanged:
-                                                    (RangeValues values) {
-                                                  setState(
-                                                    () {
-                                                      _valuesPricesR = values;
-                                                    },
-                                                  );
-                                                },
-                                                onChangeEnd:
-                                                    (RangeValues values) {
-                                                  setState(() {
-                                                    filterMarkers_people();
-                                                    print(_valuesPricesR.end);
-                                                  });
-                                                },
-                                              ),
-                                            )
-
-                                            // child: SfRangeSlider(
-                                            //   numberFormat: NumberFormat("\$"),
-                                            //   activeColor: Color(0xFF78909C),
-                                            //   stepSize: 1,
-                                            //   min: 0.0,
-                                            //   max: 100.0,
-                                            //   values: _valuesPrices,
-                                            //   interval: 20,
-                                            //   showTicks: true,
-                                            //   showLabels: true,
-                                            //   enableTooltip: true,
-                                            //   minorTicksPerInterval: 1,
-                                            //   showDividers: true,
-                                            //   onChanged: (SfRangeValues values) {
-                                            //     setState(
-                                            //       () {
-                                            //         _valuesPrices = values;
-                                            //       },
-                                            //     );
-                                            //   },
-                                            //   onChangeEnd:
-                                            //       (SfRangeValues values) {
-                                            //     setState(() {
-                                            //       print(_valuesPrices.end);
-                                            //     });
-                                            //   },
-                                            // ),
                                             ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: size_screen.height * 0.10,
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: size_screen.width / 20),
-                                  // decoration:
-                                  //   BoxDecoration(color: Colors.green),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: (size_screen.height * 0.10) / 3,
-                                        child: Container(
-                                          //     color: Colors.green,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.people,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "Number of Partecipants",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ],
                                           ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                            // margin: EdgeInsets.symmetric(
-                                            //     horizontal: 2),
-                                            // //   color: Colors.yellow,
+                                          Expanded(
+                                            child: Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 2),
+                                                //   color: Colors.yellow,
 
-                                            // child: SfRangeSliderTheme(
-                                            //   data: SfRangeSliderThemeData(
-                                            //     activeDividerColor:
-                                            //         Colors.transparent,
-                                            //     activeTrackHeight: 4,
-                                            //     inactiveTrackHeight: 2,
-                                            //     inactiveDividerRadius: 4,
-                                            //     activeDividerRadius: 5,
-                                            //     thumbStrokeWidth: 100,
-                                            //     inactiveDividerStrokeWidth: 15,
-                                            //   ),
-                                            //   child: SfRangeSlider(
-                                            //     activeColor: Color(0xFF78909C),
-                                            //     showDividers: true,
-                                            //     stepSize: 5,
-                                            //     min: 0.0,
-                                            //     max: 100.0,
-                                            //     values: _valuesPeople,
-                                            //     interval: 20,
-                                            //     showTicks: false,
-                                            //     showLabels: true,
-                                            //     enableTooltip: true,
-                                            //     minorTicksPerInterval: 0,
-                                            //     dragMode: SliderDragMode.onThumb,
-                                            //     tooltipShape:
-                                            //         SfPaddleTooltipShape(),
-                                            //     onChanged:
-                                            //         (SfRangeValues values) {
-                                            //       setState(
-                                            //         () {
-                                            //           _valuesPeople = values;
-                                            //         },
-                                            //       );
-                                            //     },
-                                            //     onChangeEnd:
-                                            //         (SfRangeValues values) {
-                                            //       setState(() {
-                                            //         print(_valuesPeople.end);
-                                            //         filterMarkers_people();
-                                            //       });
-                                            //     },
-                                            //   ),
-                                            // ),
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 2),
-                                            //   color: Colors.yellow,
-
-                                            child: SliderTheme(
-                                              data: SliderThemeData(
-                                                  activeTickMarkColor:
-                                                      Colors.black,
-                                                  disabledInactiveTickMarkColor:
-                                                      Colors.black,
-                                                  inactiveTickMarkColor:
-                                                      Colors.black,
-                                                  trackHeight: 2,
-                                                  rangeThumbShape:
-                                                      RoundRangeSliderThumbShape(
-                                                          enabledThumbRadius:
-                                                              10,
-                                                          disabledThumbRadius:
-                                                              3,
-                                                          elevation: 8,
-                                                          pressedElevation: 10),
-                                                  overlayShape:
-                                                      RoundSliderOverlayShape(
-                                                          overlayRadius: 25),
-                                                  minThumbSeparation: 10,
-                                                  rangeTrackShape:
-                                                      RoundedRectRangeSliderTrackShape(),
-                                                  rangeTickMarkShape:
-                                                      RoundRangeSliderTickMarkShape(
-                                                          tickMarkRadius: 8),
-                                                  showValueIndicator:
-                                                      ShowValueIndicator.always,
-                                                  rangeValueIndicatorShape:
-                                                      PaddleRangeSliderValueIndicatorShape(),
-                                                  valueIndicatorColor:
-                                                      Colors.black38,
-                                                  valueIndicatorTextStyle:
-                                                      TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.w600)),
-                                              child: RangeSlider(
-                                                activeColor: Colors.white,
-                                                inactiveColor:
-                                                    Color(0xFF8596a0),
-                                                values: _valuesPeopleR,
-                                                divisions: 100,
-                                                min: 0,
-                                                max: 100,
-                                                labels: RangeLabels(
-                                                  _valuesPeopleR.start
-                                                      .toInt()
-                                                      .toString(),
-                                                  _valuesPeopleR.end
-                                                      .toInt()
-                                                      .toString(),
-                                                ),
-                                                onChanged:
-                                                    (RangeValues values) {
-                                                  setState(
-                                                    () {
-                                                      _valuesPeopleR = values;
+                                                child: SliderTheme(
+                                                  data: SliderThemeData(
+                                                    thumbColor: Colors.black,
+                                                    activeTrackColor:
+                                                        Colors.black,
+                                                    activeTickMarkColor:
+                                                        Colors.black,
+                                                    disabledInactiveTickMarkColor:
+                                                        Colors.black,
+                                                    inactiveTickMarkColor:
+                                                        Colors.black,
+                                                    trackHeight: 2,
+                                                    rangeThumbShape:
+                                                        RoundRangeSliderThumbShape(
+                                                            enabledThumbRadius:
+                                                                10,
+                                                            disabledThumbRadius:
+                                                                3,
+                                                            elevation: 8,
+                                                            pressedElevation:
+                                                                10),
+                                                    overlayShape:
+                                                        RoundSliderOverlayShape(
+                                                            overlayRadius: 25),
+                                                    minThumbSeparation: 10,
+                                                    rangeTrackShape:
+                                                        RoundedRectRangeSliderTrackShape(),
+                                                    rangeTickMarkShape:
+                                                        RoundRangeSliderTickMarkShape(
+                                                            tickMarkRadius: 8),
+                                                    showValueIndicator:
+                                                        ShowValueIndicator
+                                                            .always,
+                                                    rangeValueIndicatorShape:
+                                                        PaddleRangeSliderValueIndicatorShape(),
+                                                    valueIndicatorColor:
+                                                        Colors.black38,
+                                                    valueIndicatorTextStyle:
+                                                        TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                  ),
+                                                  child: RangeSlider(
+                                                    activeColor: Colors.white,
+                                                    inactiveColor:
+                                                        Color(0xFF8596a0),
+                                                    values: _valuesPricesR,
+                                                    divisions: 20,
+                                                    min: 0,
+                                                    max: 100,
+                                                    labels: RangeLabels(
+                                                      _valuesPricesR.start
+                                                          .toInt()
+                                                          .toString(),
+                                                      _valuesPricesR.end
+                                                          .toInt()
+                                                          .toString(),
+                                                    ),
+                                                    onChanged:
+                                                        (RangeValues values) {
+                                                      setState(
+                                                        () {
+                                                          _valuesPricesR =
+                                                              values;
+                                                        },
+                                                      );
                                                     },
-                                                  );
-                                                },
-                                                onChangeEnd:
-                                                    (RangeValues values) {
-                                                  setState(() {
-                                                    filterMarkers_people();
-                                                    print(_valuesPeopleR.end);
-                                                  });
-                                                },
-                                              ),
-                                            )),
-                                      )
-                                    ],
+                                                    onChangeEnd:
+                                                        (RangeValues values) {
+                                                      setState(() {
+                                                        filterMarkers_people();
+                                                        print(
+                                                            _valuesPricesR.end);
+                                                      });
+                                                    },
+                                                  ),
+                                                )
+
+                                                // child: SfRangeSlider(
+                                                //   numberFormat: NumberFormat("\$"),
+                                                //   activeColor: Color(0xFF78909C),
+                                                //   stepSize: 1,
+                                                //   min: 0.0,
+                                                //   max: 100.0,
+                                                //   values: _valuesPrices,
+                                                //   interval: 20,
+                                                //   showTicks: true,
+                                                //   showLabels: true,
+                                                //   enableTooltip: true,
+                                                //   minorTicksPerInterval: 1,
+                                                //   showDividers: true,
+                                                //   onChanged: (SfRangeValues values) {
+                                                //     setState(
+                                                //       () {
+                                                //         _valuesPrices = values;
+                                                //       },
+                                                //     );
+                                                //   },
+                                                //   onChangeEnd:
+                                                //       (SfRangeValues values) {
+                                                //     setState(() {
+                                                //       print(_valuesPrices.end);
+                                                //     });
+                                                //   },
+                                                // ),
+                                                ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: size_screen.height * 0.10,
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: size_screen.width / 20),
-                                  // decoration:
-                                  //     BoxDecoration(color: Colors.green),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: (size_screen.height * 0.10) / 3,
-                                        child: Container(
-                                          //     color: Colors.green,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.transfer_within_a_station,
-                                                color: Colors.white,
+                                  SizedBox(
+                                    height: size_screen.height * 0.10,
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: size_screen.width / 20),
+                                      // decoration:
+                                      //   BoxDecoration(color: Colors.green),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height:
+                                                (size_screen.height * 0.10) / 3,
+                                            child: Container(
+                                              //     color: Colors.green,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.people,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    "Number of Partecipants",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
                                               ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "Distance (Km)",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                            // margin: EdgeInsets.symmetric(
-                                            //     horizontal: 2),
-                                            // //   color: Colors.yellow,
-                                            // child: SfSlider(
-                                            //   activeColor: Color(0xFF78909C),
-                                            //   showDividers: true,
-                                            //   stepSize: 5,
-                                            //   min: 0.0,
-                                            //   max: 500.0,
-                                            //   value: _valuesKm,
-                                            //   interval: 50,
-                                            //   showTicks: true,
-                                            //   showLabels: true,
-                                            //   enableTooltip: true,
-                                            //   minorTicksPerInterval: 1,
-                                            //   onChanged: (dynamic value) {
-                                            //     setState(
-                                            //       () {
-                                            //         _valuesKm = value;
-                                            //       },
-                                            //     );
-                                            //   },
-                                            //   onChangeEnd: (dynamic value) {
-                                            //     setState(() {
-                                            //       filterMarkers_people();
-                                            //     });
-                                            //   },
-                                            // ),
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 2),
-                                            //   color: Colors.yellow,
+                                          Expanded(
+                                            child: Container(
+                                                // margin: EdgeInsets.symmetric(
+                                                //     horizontal: 2),
+                                                // //   color: Colors.yellow,
 
-                                            child: SliderTheme(
-                                              data: SliderThemeData(
-                                                  activeTickMarkColor:
-                                                      Colors.black,
-                                                  disabledInactiveTickMarkColor:
-                                                      Colors.black,
-                                                  inactiveTickMarkColor:
-                                                      Colors.black,
-                                                  trackHeight: 2,
-                                                  rangeThumbShape:
-                                                      RoundRangeSliderThumbShape(
-                                                          enabledThumbRadius:
-                                                              10,
-                                                          disabledThumbRadius:
-                                                              3,
-                                                          elevation: 8,
-                                                          pressedElevation: 10),
-                                                  overlayShape:
-                                                      RoundSliderOverlayShape(
-                                                          overlayRadius: 25),
-                                                  minThumbSeparation: 10,
-                                                  rangeTrackShape:
-                                                      RoundedRectRangeSliderTrackShape(),
-                                                  rangeTickMarkShape:
-                                                      RoundRangeSliderTickMarkShape(
-                                                          tickMarkRadius: 8),
-                                                  showValueIndicator:
-                                                      ShowValueIndicator.always,
-                                                  rangeValueIndicatorShape:
-                                                      PaddleRangeSliderValueIndicatorShape(),
-                                                  valueIndicatorColor:
-                                                      Colors.black38,
-                                                  valueIndicatorTextStyle:
-                                                      TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.w600)),
-                                              child: RangeSlider(
-                                                inactiveColor:
-                                                    Color(0xFF8596a0),
-                                                activeColor: Colors.white,
-                                                values: _valuesKmR,
-                                                divisions: 60,
-                                                min: 0,
-                                                max: 300,
-                                                labels: RangeLabels(
-                                                  _valuesKmR.start
-                                                      .toInt()
-                                                      .toString(),
-                                                  _valuesKmR.end
-                                                      .toInt()
-                                                      .toString(),
-                                                ),
-                                                onChanged:
-                                                    (RangeValues values) {
-                                                  setState(
-                                                    () {
-                                                      _valuesKmR = values;
+                                                // child: SfRangeSliderTheme(
+                                                //   data: SfRangeSliderThemeData(
+                                                //     activeDividerColor:
+                                                //         Colors.transparent,
+                                                //     activeTrackHeight: 4,
+                                                //     inactiveTrackHeight: 2,
+                                                //     inactiveDividerRadius: 4,
+                                                //     activeDividerRadius: 5,
+                                                //     thumbStrokeWidth: 100,
+                                                //     inactiveDividerStrokeWidth: 15,
+                                                //   ),
+                                                //   child: SfRangeSlider(
+                                                //     activeColor: Color(0xFF78909C),
+                                                //     showDividers: true,
+                                                //     stepSize: 5,
+                                                //     min: 0.0,
+                                                //     max: 100.0,
+                                                //     values: _valuesPeople,
+                                                //     interval: 20,
+                                                //     showTicks: false,
+                                                //     showLabels: true,
+                                                //     enableTooltip: true,
+                                                //     minorTicksPerInterval: 0,
+                                                //     dragMode: SliderDragMode.onThumb,
+                                                //     tooltipShape:
+                                                //         SfPaddleTooltipShape(),
+                                                //     onChanged:
+                                                //         (SfRangeValues values) {
+                                                //       setState(
+                                                //         () {
+                                                //           _valuesPeople = values;
+                                                //         },
+                                                //       );
+                                                //     },
+                                                //     onChangeEnd:
+                                                //         (SfRangeValues values) {
+                                                //       setState(() {
+                                                //         print(_valuesPeople.end);
+                                                //         filterMarkers_people();
+                                                //       });
+                                                //     },
+                                                //   ),
+                                                // ),
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 2),
+                                                //   color: Colors.yellow,
+
+                                                child: SliderTheme(
+                                                  data: SliderThemeData(
+                                                      activeTickMarkColor: Colors
+                                                          .black,
+                                                      disabledInactiveTickMarkColor:
+                                                          Colors.black,
+                                                      inactiveTickMarkColor: Colors
+                                                          .black,
+                                                      trackHeight: 2,
+                                                      rangeThumbShape:
+                                                          RoundRangeSliderThumbShape(
+                                                              enabledThumbRadius:
+                                                                  10,
+                                                              disabledThumbRadius:
+                                                                  3,
+                                                              elevation: 8,
+                                                              pressedElevation:
+                                                                  10),
+                                                      overlayShape:
+                                                          RoundSliderOverlayShape(
+                                                              overlayRadius:
+                                                                  25),
+                                                      minThumbSeparation: 10,
+                                                      rangeTrackShape:
+                                                          RoundedRectRangeSliderTrackShape(),
+                                                      rangeTickMarkShape:
+                                                          RoundRangeSliderTickMarkShape(
+                                                              tickMarkRadius:
+                                                                  8),
+                                                      showValueIndicator:
+                                                          ShowValueIndicator
+                                                              .always,
+                                                      rangeValueIndicatorShape:
+                                                          PaddleRangeSliderValueIndicatorShape(),
+                                                      valueIndicatorColor:
+                                                          Colors.black38,
+                                                      valueIndicatorTextStyle:
+                                                          TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                  child: RangeSlider(
+                                                    activeColor: Colors.white,
+                                                    inactiveColor:
+                                                        Color(0xFF8596a0),
+                                                    values: _valuesPeopleR,
+                                                    divisions: 100,
+                                                    min: 0,
+                                                    max: 100,
+                                                    labels: RangeLabels(
+                                                      _valuesPeopleR.start
+                                                          .toInt()
+                                                          .toString(),
+                                                      _valuesPeopleR.end
+                                                          .toInt()
+                                                          .toString(),
+                                                    ),
+                                                    onChanged:
+                                                        (RangeValues values) {
+                                                      setState(
+                                                        () {
+                                                          _valuesPeopleR =
+                                                              values;
+                                                        },
+                                                      );
                                                     },
-                                                  );
-                                                },
-                                                onChangeEnd:
-                                                    (RangeValues values) {
-                                                  setState(() {
-                                                    filterMarkers_people();
-                                                    print(_valuesKmR.end);
-                                                  });
-                                                },
-                                              ),
-                                            )),
+                                                    onChangeEnd:
+                                                        (RangeValues values) {
+                                                      setState(() {
+                                                        filterMarkers_people();
+                                                        print(
+                                                            _valuesPeopleR.end);
+                                                      });
+                                                    },
+                                                  ),
+                                                )),
+                                          )
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                  SizedBox(
+                                    height: size_screen.height * 0.10,
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: size_screen.width / 20),
+                                      // decoration:
+                                      //     BoxDecoration(color: Colors.green),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height:
+                                                (size_screen.height * 0.10) / 3,
+                                            child: Container(
+                                              //     color: Colors.green,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons
+                                                        .transfer_within_a_station,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    "Distance (Km)",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                                // margin: EdgeInsets.symmetric(
+                                                //     horizontal: 2),
+                                                // //   color: Colors.yellow,
+                                                // child: SfSlider(
+                                                //   activeColor: Color(0xFF78909C),
+                                                //   showDividers: true,
+                                                //   stepSize: 5,
+                                                //   min: 0.0,
+                                                //   max: 500.0,
+                                                //   value: _valuesKm,
+                                                //   interval: 50,
+                                                //   showTicks: true,
+                                                //   showLabels: true,
+                                                //   enableTooltip: true,
+                                                //   minorTicksPerInterval: 1,
+                                                //   onChanged: (dynamic value) {
+                                                //     setState(
+                                                //       () {
+                                                //         _valuesKm = value;
+                                                //       },
+                                                //     );
+                                                //   },
+                                                //   onChangeEnd: (dynamic value) {
+                                                //     setState(() {
+                                                //       filterMarkers_people();
+                                                //     });
+                                                //   },
+                                                // ),
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 2),
+                                                //   color: Colors.yellow,
+
+                                                child: SliderTheme(
+                                                  data: SliderThemeData(
+                                                      activeTickMarkColor: Colors
+                                                          .black,
+                                                      disabledInactiveTickMarkColor:
+                                                          Colors.black,
+                                                      inactiveTickMarkColor: Colors
+                                                          .black,
+                                                      trackHeight: 2,
+                                                      rangeThumbShape:
+                                                          RoundRangeSliderThumbShape(
+                                                              enabledThumbRadius:
+                                                                  10,
+                                                              disabledThumbRadius:
+                                                                  3,
+                                                              elevation: 8,
+                                                              pressedElevation:
+                                                                  10),
+                                                      overlayShape:
+                                                          RoundSliderOverlayShape(
+                                                              overlayRadius:
+                                                                  25),
+                                                      minThumbSeparation: 10,
+                                                      rangeTrackShape:
+                                                          RoundedRectRangeSliderTrackShape(),
+                                                      rangeTickMarkShape:
+                                                          RoundRangeSliderTickMarkShape(
+                                                              tickMarkRadius:
+                                                                  8),
+                                                      showValueIndicator:
+                                                          ShowValueIndicator
+                                                              .always,
+                                                      rangeValueIndicatorShape:
+                                                          PaddleRangeSliderValueIndicatorShape(),
+                                                      valueIndicatorColor:
+                                                          Colors.black38,
+                                                      valueIndicatorTextStyle:
+                                                          TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                  child: RangeSlider(
+                                                    inactiveColor:
+                                                        Color(0xFF8596a0),
+                                                    activeColor: Colors.white,
+                                                    values: _valuesKmR,
+                                                    divisions: 60,
+                                                    min: 0,
+                                                    max: 300,
+                                                    labels: RangeLabels(
+                                                      _valuesKmR.start
+                                                          .toInt()
+                                                          .toString(),
+                                                      _valuesKmR.end
+                                                          .toInt()
+                                                          .toString(),
+                                                    ),
+                                                    onChanged:
+                                                        (RangeValues values) {
+                                                      setState(
+                                                        () {
+                                                          _valuesKmR = values;
+                                                        },
+                                                      );
+                                                    },
+                                                    onChangeEnd:
+                                                        (RangeValues values) {
+                                                      setState(() {
+                                                        filterMarkers_people();
+                                                        print(_valuesKmR.end);
+                                                      });
+                                                    },
+                                                  ),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                         Container(
@@ -923,7 +959,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                               activeDotColor: Colors.white),
                           onDotClicked: (index) =>
                               _pageController.animateToPage(index,
-                                  duration: Duration(milliseconds: 3000),
+                                  duration: Duration(milliseconds: 1200),
                                   curve: Curves.bounceOut),
                         ),
                       ),

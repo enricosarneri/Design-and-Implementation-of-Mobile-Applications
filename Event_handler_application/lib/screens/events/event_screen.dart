@@ -246,17 +246,24 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                     child: Scrollbar(
                       isAlwaysShown: true,
                       thickness: 10,
-                      child: ListView(
-                        scrollDirection: Axis.vertical,
-                        //   controller: controller,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        children: [
-                          Text(
-                            widget.event.description,
-                            style: TextStyle(color: Colors.white),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: ListView(
+                            scrollDirection: Axis.vertical,
+                            //   controller: controller,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
+                            children: [
+                              Text(
+                                widget.event.description,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -391,88 +398,95 @@ class _NarrowLayoutState extends State<NarrowLayout> {
 
                         return SizedBox(
                           height: MediaQuery.of(context).size.height / 10,
-                          child: ListView.builder(
-                              key: Key("applicant List scroll"),
-                              primary: false,
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: data.size,
-                              itemBuilder: (context, index) {
-                                for (var i = 0;
-                                    i < widget.event.applicants.length;
-                                    i++) {
-                                  if (widget.event.applicants.isNotEmpty &&
-                                      widget.event.applicants[i] ==
-                                          data.docs[index].id) {
-                                    return Container(
-                                      padding: EdgeInsets.only(
-                                          left: 20,
-                                          right: 10,
-                                          top: 5,
-                                          bottom: 10),
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: ListView.builder(
+                                  key: Key("applicant List scroll"),
+                                  primary: false,
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemCount: data.size,
+                                  itemBuilder: (context, index) {
+                                    for (var i = 0;
+                                        i < widget.event.applicants.length;
+                                        i++) {
+                                      if (widget.event.applicants.isNotEmpty &&
+                                          widget.event.applicants[i] ==
+                                              data.docs[index].id) {
+                                        return Container(
+                                          padding: EdgeInsets.only(
+                                              left: 20,
+                                              right: 10,
+                                              top: 5,
+                                              bottom: 10),
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
-                                                style: TextStyle(
-                                                    color: Colors.white),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  SizedBox(height: 5),
+                                                  Text(
+                                                      '${data.docs[index]['email']}',
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                ],
                                               ),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                  '${data.docs[index]['email']}',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                    icon: const Icon(
+                                                      Icons.check_outlined,
+                                                      color: Colors.white,
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        widget.databaseService
+                                                            .acceptApplicance(
+                                                                widget.event,
+                                                                data.docs[index]
+                                                                    .id);
+                                                      });
+                                                    },
+                                                  ),
+                                                  IconButton(
+                                                    icon: const Icon(
+                                                      Icons.close_outlined,
+                                                      color: Colors.white,
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        widget.databaseService
+                                                            .refuseApplicance(
+                                                                widget.event,
+                                                                data.docs[index]
+                                                                    .id);
+                                                      });
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
                                             ],
                                           ),
-                                          Row(
-                                            children: [
-                                              IconButton(
-                                                icon: const Icon(
-                                                  Icons.check_outlined,
-                                                  color: Colors.white,
-                                                ),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    widget.databaseService
-                                                        .acceptApplicance(
-                                                            widget.event,
-                                                            data.docs[index]
-                                                                .id);
-                                                  });
-                                                },
-                                              ),
-                                              IconButton(
-                                                icon: const Icon(
-                                                  Icons.close_outlined,
-                                                  color: Colors.white,
-                                                ),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    widget.databaseService
-                                                        .refuseApplicance(
-                                                            widget.event,
-                                                            data.docs[index]
-                                                                .id);
-                                                  });
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }
-                                }
-                                {
-                                  return Container();
-                                }
-                              }),
+                                        );
+                                      }
+                                    }
+                                    {
+                                      return Container();
+                                    }
+                                  }),
+                            ),
+                          ),
                         );
                       }),
                 ),
@@ -524,64 +538,73 @@ class _NarrowLayoutState extends State<NarrowLayout> {
 
                         return SizedBox(
                           height: MediaQuery.of(context).size.height / 10,
-                          child: ListView.builder(
-                              primary: false,
-                              key: Key("list view"),
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: data.size,
-                              itemBuilder: (context, index) {
-                                for (var i = 0;
-                                    i < widget.event.partecipants.length;
-                                    i++) {
-                                  if (widget.event.partecipants.isNotEmpty &&
-                                      widget.event.partecipants[i] ==
-                                          data.docs[index].id) {
-                                    return Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            color: Colors.black12),
-                                        margin:
-                                            EdgeInsets.symmetric(vertical: 5),
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                              top: 5,
-                                              left: 10,
-                                              right: 10,
-                                              bottom: 0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                '${data.docs[index]['email']}',
-                                                style: TextStyle(
-                                                    color: Colors.white),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: ListView.builder(
+                                  primary: false,
+                                  key: Key("list view"),
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemCount: data.size,
+                                  itemBuilder: (context, index) {
+                                    for (var i = 0;
+                                        i < widget.event.partecipants.length;
+                                        i++) {
+                                      if (widget
+                                              .event.partecipants.isNotEmpty &&
+                                          widget.event.partecipants[i] ==
+                                              data.docs[index].id) {
+                                        return Container(
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                color: Colors.black12),
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 5),
+                                            child: Container(
+                                              padding: EdgeInsets.only(
+                                                  top: 5,
+                                                  left: 10,
+                                                  right: 10,
+                                                  bottom: 0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                  SizedBox(height: 5),
+                                                  Text(
+                                                    '${data.docs[index]['email']}',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 5,
+                                                            horizontal: 70),
+                                                    child: Divider(
+                                                      thickness: 1.5,
+                                                      color: Colors.white,
+                                                      height: 15,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 5,
-                                                    horizontal: 70),
-                                                child: Divider(
-                                                  thickness: 1.5,
-                                                  color: Colors.white,
-                                                  height: 15,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ));
-                                  }
-                                }
-                                {
-                                  return Container();
-                                }
-                              }),
+                                            ));
+                                      }
+                                    }
+                                    {
+                                      return Container();
+                                    }
+                                  }),
+                            ),
+                          ),
                         );
                       }),
                 ),
@@ -994,17 +1017,24 @@ class _WideLayoutState extends State<WideLayout> {
                     child: Scrollbar(
                       isAlwaysShown: true,
                       thickness: 10,
-                      child: ListView(
-                        scrollDirection: Axis.vertical,
-                        //   controller: controller,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        children: [
-                          Text(
-                            widget.event.description,
-                            style: TextStyle(color: Colors.white),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: ListView(
+                            scrollDirection: Axis.vertical,
+                            //   controller: controller,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
+                            children: [
+                              Text(
+                                widget.event.description,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -1137,88 +1167,95 @@ class _WideLayoutState extends State<WideLayout> {
 
                         return SizedBox(
                           height: MediaQuery.of(context).size.height / 10,
-                          child: ListView.builder(
-                              key: Key("applicant List scroll"),
-                              primary: false,
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: data.size,
-                              itemBuilder: (context, index) {
-                                for (var i = 0;
-                                    i < widget.event.applicants.length;
-                                    i++) {
-                                  if (widget.event.applicants.isNotEmpty &&
-                                      widget.event.applicants[i] ==
-                                          data.docs[index].id) {
-                                    return Container(
-                                      padding: EdgeInsets.only(
-                                          left: 20,
-                                          right: 10,
-                                          top: 5,
-                                          bottom: 10),
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: ListView.builder(
+                                  key: Key("applicant List scroll"),
+                                  primary: false,
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemCount: data.size,
+                                  itemBuilder: (context, index) {
+                                    for (var i = 0;
+                                        i < widget.event.applicants.length;
+                                        i++) {
+                                      if (widget.event.applicants.isNotEmpty &&
+                                          widget.event.applicants[i] ==
+                                              data.docs[index].id) {
+                                        return Container(
+                                          padding: EdgeInsets.only(
+                                              left: 20,
+                                              right: 10,
+                                              top: 5,
+                                              bottom: 10),
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
-                                                style: TextStyle(
-                                                    color: Colors.white),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  SizedBox(height: 5),
+                                                  Text(
+                                                      '${data.docs[index]['email']}',
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                ],
                                               ),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                  '${data.docs[index]['email']}',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                    icon: const Icon(
+                                                      Icons.check_outlined,
+                                                      color: Colors.white,
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        widget.databaseService
+                                                            .acceptApplicance(
+                                                                widget.event,
+                                                                data.docs[index]
+                                                                    .id);
+                                                      });
+                                                    },
+                                                  ),
+                                                  IconButton(
+                                                    icon: const Icon(
+                                                      Icons.close_outlined,
+                                                      color: Colors.white,
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        widget.databaseService
+                                                            .refuseApplicance(
+                                                                widget.event,
+                                                                data.docs[index]
+                                                                    .id);
+                                                      });
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
                                             ],
                                           ),
-                                          Row(
-                                            children: [
-                                              IconButton(
-                                                icon: const Icon(
-                                                  Icons.check_outlined,
-                                                  color: Colors.white,
-                                                ),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    widget.databaseService
-                                                        .acceptApplicance(
-                                                            widget.event,
-                                                            data.docs[index]
-                                                                .id);
-                                                  });
-                                                },
-                                              ),
-                                              IconButton(
-                                                icon: const Icon(
-                                                  Icons.close_outlined,
-                                                  color: Colors.white,
-                                                ),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    widget.databaseService
-                                                        .refuseApplicance(
-                                                            widget.event,
-                                                            data.docs[index]
-                                                                .id);
-                                                  });
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }
-                                }
-                                {
-                                  return Container();
-                                }
-                              }),
+                                        );
+                                      }
+                                    }
+                                    {
+                                      return Container();
+                                    }
+                                  }),
+                            ),
+                          ),
                         );
                       }),
                 ),
@@ -1271,64 +1308,73 @@ class _WideLayoutState extends State<WideLayout> {
 
                         return SizedBox(
                           height: MediaQuery.of(context).size.height / 10,
-                          child: ListView.builder(
-                              primary: false,
-                              key: Key("list view"),
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: data.size,
-                              itemBuilder: (context, index) {
-                                for (var i = 0;
-                                    i < widget.event.partecipants.length;
-                                    i++) {
-                                  if (widget.event.partecipants.isNotEmpty &&
-                                      widget.event.partecipants[i] ==
-                                          data.docs[index].id) {
-                                    return Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            color: Colors.black12),
-                                        margin:
-                                            EdgeInsets.symmetric(vertical: 5),
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                              top: 5,
-                                              left: 10,
-                                              right: 10,
-                                              bottom: 0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                '${data.docs[index]['email']}',
-                                                style: TextStyle(
-                                                    color: Colors.white),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: ListView.builder(
+                                  primary: false,
+                                  key: Key("list view"),
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemCount: data.size,
+                                  itemBuilder: (context, index) {
+                                    for (var i = 0;
+                                        i < widget.event.partecipants.length;
+                                        i++) {
+                                      if (widget
+                                              .event.partecipants.isNotEmpty &&
+                                          widget.event.partecipants[i] ==
+                                              data.docs[index].id) {
+                                        return Container(
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                color: Colors.black12),
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 5),
+                                            child: Container(
+                                              padding: EdgeInsets.only(
+                                                  top: 5,
+                                                  left: 10,
+                                                  right: 10,
+                                                  bottom: 0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                  SizedBox(height: 5),
+                                                  Text(
+                                                    '${data.docs[index]['email']}',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 5,
+                                                            horizontal: 70),
+                                                    child: Divider(
+                                                      thickness: 1.5,
+                                                      color: Colors.white,
+                                                      height: 15,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 5,
-                                                    horizontal: 70),
-                                                child: Divider(
-                                                  thickness: 1.5,
-                                                  color: Colors.white,
-                                                  height: 15,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ));
-                                  }
-                                }
-                                {
-                                  return Container();
-                                }
-                              }),
+                                            ));
+                                      }
+                                    }
+                                    {
+                                      return Container();
+                                    }
+                                  }),
+                            ),
+                          ),
                         );
                       }),
                 ),

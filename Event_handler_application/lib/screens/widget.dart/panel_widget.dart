@@ -127,8 +127,9 @@ class PanelWidget extends StatelessWidget {
         FutureBuilder(
           future: DatabaseService(
                   authService.getCurrentUser()!.uid, FirebaseFirestore.instance)
-              .getMyLocals(),
-          builder: (BuildContext context, AsyncSnapshot<List<Local>> myLocals) {
+              .getTotalLocals(),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<Local>> totalLocals) {
             return Container(
                 alignment: Alignment.topCenter,
                 margin: EdgeInsets.only(
@@ -136,11 +137,12 @@ class PanelWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   children: [
-                    if (myLocals.data != null)
-                      for (int i = 0; i < myLocals.data!.length; i++)
-                        if (myLocals.data![i].localName == event.placeName)
+                    if (totalLocals.data != null)
+                      for (int i = 0; i < totalLocals.data!.length; i++)
+                        if (totalLocals.data![i].latitude == event.latitude &&
+                            totalLocals.data![i].longitude == event.longitude)
                           Text(
-                            myLocals.data![i].localAddress,
+                            totalLocals.data![i].localAddress,
                             style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 16,
@@ -158,26 +160,39 @@ class PanelWidget extends StatelessWidget {
               EdgeInsets.only(top: MediaQuery.of(context).size.height / 3.4),
           child: Column(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.place,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      event.placeName,
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Container(
+              //     margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     width: MediaQuery.of(context).size.width / 2,
+              //     child: Divider(
+              //       color: Colors.white,
+              //       height: 15,
+              //     ),
+              //   ),
+              // ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.date_range,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "Begin: " + event.dateBegin.toString(),
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ],
               ),
               // Align(
               //   alignment: Alignment.topLeft,
@@ -208,6 +223,7 @@ class PanelWidget extends StatelessWidget {
                   ),
                 ),
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -219,7 +235,7 @@ class PanelWidget extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    event.dateBegin.toString(),
+                    "End: " + event.dateEnd.toString(),
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -227,20 +243,6 @@ class PanelWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              // Align(
-              //   alignment: Alignment.topLeft,
-              //   child: Container(
-              //     margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(20),
-              //     ),
-              //     width: MediaQuery.of(context).size.width / 2,
-              //     child: Divider(
-              //       color: Colors.white,
-              //       height: 15,
-              //     ),
-              //   ),
-              // ),
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
@@ -359,7 +361,7 @@ class PanelWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: EdgeInsets.only(top: 10),
                     decoration: BoxDecoration(
                       color: Colors.black12.withOpacity(0.4),
                       border: Border.all(color: Colors.white),
@@ -370,17 +372,24 @@ class PanelWidget extends StatelessWidget {
                     child: Scrollbar(
                       isAlwaysShown: true,
                       thickness: 10,
-                      child: ListView(
-                        scrollDirection: Axis.vertical,
-                        controller: ScrollController(),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        children: [
-                          Text(
-                            event.description,
-                            style: TextStyle(color: Colors.white),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: ListView(
+                            scrollDirection: Axis.vertical,
+                            controller: ScrollController(),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
+                            children: [
+                              Text(
+                                event.description,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -438,7 +447,7 @@ class PanelWidget extends StatelessWidget {
                                     'Share the Link',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 16),
+                                        color: Colors.white, fontSize: 14),
                                   ),
                                 ),
                               ),
@@ -450,7 +459,7 @@ class PanelWidget extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 50,
+                        width: 40,
                       ),
                       Expanded(
                         child: ElevatedButton(
@@ -474,7 +483,7 @@ class PanelWidget extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Color(0xFF121B22),
-                                          fontSize: 16),
+                                          fontSize: 14),
                                     ),
                                   ),
                                 ),
@@ -482,8 +491,11 @@ class PanelWidget extends StatelessWidget {
                               SizedBox(
                                 width: 5,
                               ),
-                              Icon(Icons.notifications,
-                                  color: Color(0xFF121B22)),
+                              Icon(
+                                Icons.notifications,
+                                color: Color(0xFF121B22),
+                                size: 20,
+                              ),
                             ],
                           ),
                           onPressed: () async {

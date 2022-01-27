@@ -358,6 +358,23 @@ class DatabaseService {
     return locals;
   }
 
+  Future<List<Local>> getTotalLocals() async {
+    List<Local> locals = [];
+
+    await ownerLocals.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              locals.add(Local(
+                  value.docs[i].get('owner'),
+                  value.docs[i].get('localName'),
+                  value.docs[i].get('localAddress'),
+                  value.docs[i].get('latitude'),
+                  value.docs[i].get('longitude')))
+            }
+        });
+    return locals;
+  }
+
   Future<bool> isCurrentUserManager() async {
     bool isManager = false;
     await userCollection.get().then((value) => {
