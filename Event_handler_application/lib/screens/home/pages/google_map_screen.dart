@@ -141,7 +141,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
     eventsListener = eventsList.listen((event) {
       for (var i = 0; i < event.length; i++) {
         setState(() {
-          _event_list.add(event[i]);
+          if (event[i].getEventType == 'Public') {
+            _event_list.add(event[i]);
+          }
         });
       }
     });
@@ -1800,7 +1802,9 @@ class _WideLayoutState extends State<WideLayout> {
     eventsListener = eventsList.listen((event) {
       for (var i = 0; i < event.length; i++) {
         setState(() {
-          _event_list.add(event[i]);
+          if (event[i].getEventType == 'Public') {
+            _event_list.add(event[i]);
+          }
         });
       }
     });
