@@ -62,9 +62,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
 
   getImage() async {
     var img = await image.pickImage(source: ImageSource.gallery);
-    if (img!.path != null) {
+    if (img?.path != null) {
       setState(() {
-        file = File(img.path);
+        file = File(img!.path);
       });
     } else {
       return;
@@ -76,14 +76,16 @@ class _NarrowLayoutState extends State<NarrowLayout> {
         .ref()
         .child(_name + "_" + _eventDateBegin.toString())
         .child("/" + _name + "_" + _eventDateBegin.toString() + ".jpg");
-    UploadTask task = imageFile.putFile(file!);
-    TaskSnapshot snapshot = await task;
-    //for downloading
-    String url = await snapshot.ref.getDownloadURL();
-    print(url);
-    setState(() {
-      _urlImage = url;
-    });
+    if (file != null) {
+      UploadTask task = imageFile.putFile(file!);
+      TaskSnapshot snapshot = await task;
+      //for downloading
+      String url = await snapshot.ref.getDownloadURL();
+      print(url);
+      setState(() {
+        _urlImage = url;
+      });
+    }
   }
 
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
