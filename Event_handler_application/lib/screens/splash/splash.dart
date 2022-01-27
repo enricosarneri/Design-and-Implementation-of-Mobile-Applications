@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:event_handler/screens/wrapper.dart';
+import 'package:event_handler/wrapper.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/local.dart';
-import 'package:event_handler/screens/add_local.dart';
-import 'package:event_handler/services/auth.dart';
-import 'package:event_handler/services/database.dart';
+import 'package:event_handler/screens/locals/add_local.dart';
+import 'package:event_handler/services/authentication/auth.dart';
+import 'package:event_handler/services/database%20services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
