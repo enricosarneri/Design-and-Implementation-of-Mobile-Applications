@@ -27,11 +27,12 @@ class PanelWidget extends StatelessWidget {
   final ScrollController controller;
   final PanelController panelController;
   final Event event;
-  final AuthService _authService = AuthService(FirebaseAuth.instance);
+  final AuthService authService = AuthService(FirebaseAuth.instance);
+
   @override
   Widget build(BuildContext context) {
     Stream<QuerySnapshot> events = DatabaseService(
-            _authService.getCurrentUser()!.uid, FirebaseFirestore.instance)
+            authService.getCurrentUser()!.uid, FirebaseFirestore.instance)
         .getEvents();
     log(event.urlImage.toString());
     return Stack(
@@ -122,8 +123,8 @@ class PanelWidget extends StatelessWidget {
           ),
         ),
         FutureBuilder(
-          future: DatabaseService(_authService.getCurrentUser()!.uid,
-                  FirebaseFirestore.instance)
+          future: DatabaseService(
+                  authService.getCurrentUser()!.uid, FirebaseFirestore.instance)
               .getMyLocals(),
           builder: (BuildContext context, AsyncSnapshot<List<Local>> myLocals) {
             return Container(
@@ -401,7 +402,7 @@ class PanelWidget extends StatelessWidget {
                 height: 10,
               ),
               //You will not see the partecipate button if you're the owener of the event or the partecipants reach the maxNumber
-              if (event.getManagerId != _authService.getCurrentUser()!.uid &&
+              if (event.getManagerId != authService.getCurrentUser()!.uid &&
                   event.firstFreeQrCode + 1 != event.getMaxPartecipants)
                 Flexible(
                   child: Row(
@@ -498,7 +499,7 @@ class PanelWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-              if (!(event.getManagerId != _authService.getCurrentUser()!.uid &&
+              if (!(event.getManagerId != authService.getCurrentUser()!.uid &&
                   event.firstFreeQrCode + 1 != event.getMaxPartecipants))
                 Flexible(
                   child: Container(

@@ -55,3 +55,26 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+// class _GoogleMapScreenState extends State<GoogleMapScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: LayoutBuilder(
+//         builder: (context, constraints) {
+//           if (constraints.maxWidth > 900) {
+//             return WideLayout(
+//                 setSlidingUpPanelFuncion: widget.setSlidingUpPanelFuncion);
+//           } else {
+//             return NarrowLayout(
+//                 setSlidingUpPanelFuncion: widget.setSlidingUpPanelFuncion);
+//           }
+//         },
+//       ),
+//     );
+//   }
+//}

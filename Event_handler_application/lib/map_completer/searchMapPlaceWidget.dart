@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SearchMapPlaceWidget extends StatefulWidget {
   SearchMapPlaceWidget({
+    @required this.dimensionText,
     @required this.apiKey,
     this.placeholder = 'Search...',
     this.icon = Icons.search,
@@ -27,6 +28,8 @@ class SearchMapPlaceWidget extends StatefulWidget {
   })  : assert((location == null && radius == null) ||
             (location != null && radius != null)),
         super(key: key);
+
+  final double? dimensionText;
 
   final Key? key;
 
@@ -201,7 +204,8 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget>
               autofocus: false,
               focusNode: _fn,
               style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width * 0.04,
+                fontSize:
+                    MediaQuery.of(context).size.width * widget.dimensionText!,
                 color: widget.darkMode ? Colors.grey[100] : Colors.grey[850],
               ),
             ),
@@ -239,7 +243,7 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget>
               ? "$place"
               : "${place.replaceRange(45, place.length, "")} ...",
           style: TextStyle(
-            fontSize: MediaQuery.of(context).size.width * 0.04,
+            fontSize: MediaQuery.of(context).size.width * widget.dimensionText!,
             color: widget.darkMode ? Colors.grey[100] : Colors.grey[850],
           ),
           maxLines: 1,
@@ -262,6 +266,7 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget>
       contentPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
       hintStyle: TextStyle(
         color: widget.darkMode ? Colors.grey[100] : Colors.grey[850],
+        fontSize: MediaQuery.of(context).size.width * widget.dimensionText!,
       ),
     );
   }

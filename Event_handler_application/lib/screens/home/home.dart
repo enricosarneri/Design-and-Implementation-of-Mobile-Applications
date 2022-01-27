@@ -24,6 +24,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth > 900) {
+            return WideLayout();
+          } else {
+            return NarrowLayout();
+          }
+        },
+      ),
+    );
+  }
+}
+
+class NarrowLayout extends StatefulWidget {
+  @override
+  _NarrowLayoutState createState() => _NarrowLayoutState();
+  const NarrowLayout({Key? key}) : super(key: key);
+}
+
+class _NarrowLayoutState extends State<NarrowLayout> {
   final panelController = PanelController();
   int index = 0;
   double panelPosition = 200;
@@ -122,6 +145,210 @@ class _HomeState extends State<Home> {
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(30),
                     topLeft: Radius.circular(30),
+                  ),
+                  child: NavigationBarTheme(
+                    data: NavigationBarThemeData(
+                      indicatorColor: Color(0xFF8596a0),
+                      labelTextStyle: MaterialStateProperty.all(
+                        TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                    ),
+                    child: NavigationBar(
+                      height: MediaQuery.of(context).size.height / 13,
+                      backgroundColor: Color(0xFF121B22),
+                      labelBehavior:
+                          NavigationDestinationLabelBehavior.onlyShowSelected,
+                      selectedIndex: index,
+                      animationDuration: Duration(seconds: 2),
+                      onDestinationSelected: (index) =>
+                          setState(() => this.index = index),
+                      destinations: [
+                        NavigationDestination(
+                          icon: Icon(
+                            Icons.location_on_outlined,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                          selectedIcon: Icon(
+                            Icons.location_on,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                          label: 'Home',
+                        ),
+                        const NavigationDestination(
+                          icon: Icon(
+                            Icons.add_link_outlined,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                          selectedIcon: Icon(
+                            Icons.add_link,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                          label: 'Add Link',
+                        ),
+                        if (!isManager)
+                          const NavigationDestination(
+                            icon: Icon(
+                              Icons.audiotrack_rounded,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                            selectedIcon: Icon(
+                              Icons.audiotrack_rounded,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                            label: 'My Events',
+                          ),
+                        if (isManager)
+                          const NavigationDestination(
+                            icon: Icon(
+                              Icons.add_box_outlined,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                            selectedIcon: Icon(
+                              Icons.add_box,
+                              size: 25,
+                              color: Colors.white,
+                            ),
+                            label: 'Create Event',
+                          ),
+                        const NavigationDestination(
+                          icon: Icon(
+                            Icons.person_outlined,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                          selectedIcon: Icon(
+                            Icons.person,
+                            size: 25,
+                            color: Colors.white,
+                          ),
+                          label: 'Profile',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              body: screens[index],
+            )));
+  }
+}
+
+class WideLayout extends StatefulWidget {
+  @override
+  _WideLayoutState createState() => _WideLayoutState();
+  const WideLayout({Key? key}) : super(key: key);
+}
+
+class _WideLayoutState extends State<WideLayout> {
+  final panelController = PanelController();
+  int index = 0;
+  double panelPosition = 200;
+  bool isManager = false;
+  Event event =
+      Event('', '', '', '', 0, 0, '', '', '', '', '', 0, 0, '', [], [], [], 0);
+  final screens = [
+    GoogleMapScreen(),
+    Share_Link(
+        databaseService: DatabaseService(
+            AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+            FirebaseFirestore.instance)),
+    Create_Event(
+      databaseService: DatabaseService(
+          AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+          FirebaseFirestore.instance),
+    ),
+    Profile(
+      databaseService: DatabaseService(
+          AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+          FirebaseFirestore.instance),
+      authService: AuthService(FirebaseAuth.instance),
+    ),
+  ];
+
+  void setSlidingUpPanel(newEvent) {
+    setState(() {
+      event = newEvent;
+      panelController.panelPosition = 0.33;
+    });
+  }
+
+  void getIsManger() async {
+    isManager = await DatabaseService(
+            AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+            FirebaseFirestore.instance)
+        .isCurrentUserManager();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    getIsManger();
+    final screens = [
+      GoogleMapScreen(),
+      Share_Link(
+          databaseService: DatabaseService(
+              AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+              FirebaseFirestore.instance)),
+      isManager
+          ? Create_Event(
+              databaseService: DatabaseService(
+                  AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+                  FirebaseFirestore.instance),
+            )
+          : MyEvents(
+              databaseService: DatabaseService(
+                  AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+                  FirebaseFirestore.instance),
+              authService: AuthService(FirebaseAuth.instance)),
+      Profile(
+        databaseService: DatabaseService(
+            AuthService(FirebaseAuth.instance).getCurrentUser()!.uid,
+            FirebaseFirestore.instance),
+        authService: AuthService(FirebaseAuth.instance),
+      ),
+    ];
+    screens[0] = GoogleMapScreen(setSlidingUpPanelFuncion: setSlidingUpPanel);
+    return Scaffold(
+        extendBody: true,
+        body: SlidingUpPanel(
+            color: Color(0xFF121B22),
+            padding: EdgeInsets.all(0),
+            controller: panelController,
+            parallaxEnabled: true,
+            parallaxOffset: .5,
+            minHeight: 0,
+            boxShadow: const <BoxShadow>[
+              BoxShadow(blurRadius: 50.0, color: Color.fromRGBO(0, 0, 0, 0.30))
+            ],
+            maxHeight: MediaQuery.of(context).size.height * 0.76,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+            panelBuilder: (controller) => PanelWidget(
+                  controller: controller,
+                  panelController: panelController,
+                  event: event,
+                ),
+            body: Scaffold(
+              extendBody: true,
+              bottomNavigationBar: Container(
+                margin: EdgeInsets.symmetric(horizontal: 300),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(50),
+                      topLeft: Radius.circular(50)),
+                ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(50),
+                    topLeft: Radius.circular(50),
                   ),
                   child: NavigationBarTheme(
                     data: NavigationBarThemeData(
