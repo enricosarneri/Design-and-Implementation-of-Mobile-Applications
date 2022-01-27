@@ -185,6 +185,68 @@ void main() {
   });
 
   testWidgets(
+      'Checks if addEventApplicant does not add a user already in the partecipantList',
+      (tester) async {
+    partecipants.add('my userID');
+    Event event2 = Event(
+        "managerID",
+        "name",
+        "urlImage",
+        "description",
+        2.3,
+        2.3,
+        "placeName",
+        "typeOfPlace",
+        "eventType",
+        "12/12/2021",
+        "12/12/2023",
+        55,
+        5,
+        "eventId",
+        partecipants,
+        applicants,
+        qrCodes,
+        0);
+    databaseService.addEventApplicant(event2);
+    fakeFirebaseFirestore.collection("events").add({
+      "eventId": "eventId",
+      "applicants": applicants,
+      "partecipants": partecipants,
+      "qrCodeList": qrCodes,
+    });
+
+    //get the list of the applicantList from the fakeFirestore
+    List<String> firebaseApplicantsList = [];
+    final eventCollection = fakeFirebaseFirestore.collection("events");
+    await eventCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].get('eventId') == event.eventId)
+                {
+                  firebaseApplicantsList =
+                      List<String>.from(value.docs[i].get('applicants'))
+                }
+            }
+        });
+    //get the list of the partecipants from the fakeFirestore
+    List<String> firebasePartecipantList = [];
+    await eventCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].get('eventId') == event.eventId)
+                {
+                  firebasePartecipantList =
+                      List<String>.from(value.docs[i].get('partecipants'))
+                }
+            }
+        });
+
+    expect(applicants.length, 0);
+    expect(firebaseApplicantsList.length, 0);
+    expect(firebasePartecipantList.length, 1);
+    expect(firebasePartecipantList[0], "my userID");
+  });
+  testWidgets(
       'Checks if the Accept Applicance is accepting an user in the applicanceList when he s the only one applying',
       (tester) async {
     applicants.add('my userID');
@@ -294,6 +356,45 @@ void main() {
 
     expect(applicants.length, 0);
     expect(firebasePartecipantList.length, 0);
+  });
+
+  testWidgets(
+      'Checks if the Accept Applicance is refusing a person already partecipating the event',
+      (tester) async {
+    applicants.add('my userID');
+    partecipants.add('my userID');
+    qrCodes.add("asddsa");
+    qrCodes.add("4112");
+    qrCodes.add("4132");
+    qrCodes.add("416423");
+    await fakeFirebaseFirestore.collection("events").add({
+      "eventId": "eventId",
+      "applicants": applicants,
+      "partecipants": partecipants,
+      "qrCodeList": qrCodes,
+      "manager": "my userID",
+      'firstFreeQrCode': 0,
+    });
+    databaseService.acceptApplicance(event, 'my userID');
+    await tester.pump(Duration(seconds: 2));
+
+    //get the list of the partecipants from the fakeFirestore
+    List<String> firebasePartecipantList = [];
+    final eventCollection = fakeFirebaseFirestore.collection("events");
+    await eventCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].get('eventId') == event.eventId)
+                {
+                  firebasePartecipantList =
+                      List<String>.from(value.docs[i].get('partecipants'))
+                }
+            }
+        });
+
+    expect(applicants.length, 0);
+    expect(firebasePartecipantList.length, 1);
+    expect(firebasePartecipantList[0], "my userID");
   });
 
   testWidgets(

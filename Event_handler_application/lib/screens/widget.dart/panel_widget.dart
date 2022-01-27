@@ -34,6 +34,8 @@ class PanelWidget extends StatelessWidget {
     Stream<QuerySnapshot> events = DatabaseService(
             authService.getCurrentUser()!.uid, FirebaseFirestore.instance)
         .getEvents();
+    List<String> partecipantList = event.getPartecipantList;
+    List<String> applicantList = event.getApplicantList;
     log(event.urlImage.toString());
     return Stack(
       children: <Widget>[
@@ -403,7 +405,10 @@ class PanelWidget extends StatelessWidget {
               ),
               //You will not see the partecipate button if you're the owener of the event or the partecipants reach the maxNumber
               if (event.getManagerId != authService.getCurrentUser()!.uid &&
-                  event.firstFreeQrCode + 1 != event.getMaxPartecipants)
+                  event.firstFreeQrCode + 1 != event.getMaxPartecipants &&
+                  !partecipantList
+                      .contains(authService.getCurrentUser()!.uid) &&
+                  !applicantList.contains(authService.getCurrentUser()!.uid))
                 Flexible(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -430,7 +435,7 @@ class PanelWidget extends StatelessWidget {
                                 child: Container(
                                   padding: EdgeInsets.symmetric(vertical: 5),
                                   child: Text(
-                                    'Shake the Link',
+                                    'Share the Link',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 16),
@@ -500,7 +505,10 @@ class PanelWidget extends StatelessWidget {
                   ),
                 ),
               if (!(event.getManagerId != authService.getCurrentUser()!.uid &&
-                  event.firstFreeQrCode + 1 != event.getMaxPartecipants))
+                  event.firstFreeQrCode + 1 != event.getMaxPartecipants &&
+                  !partecipantList
+                      .contains(authService.getCurrentUser()!.uid) &&
+                  !applicantList.contains(authService.getCurrentUser()!.uid)))
                 Flexible(
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 80),
@@ -525,7 +533,7 @@ class PanelWidget extends StatelessWidget {
                             child: Container(
                               padding: EdgeInsets.symmetric(vertical: 12),
                               child: Text(
-                                'Shake the Link',
+                                'Share the Link',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16),
@@ -539,6 +547,16 @@ class PanelWidget extends StatelessWidget {
                       },
                     ),
                   ),
+                ),
+              if (partecipantList.contains(authService.getCurrentUser()!.uid))
+                Container(
+                  child: Text("You're already partecipating to this event",
+                      style: TextStyle(color: Colors.white)),
+                ),
+              if (applicantList.contains(authService.getCurrentUser()!.uid))
+                Container(
+                  child: Text("Waiting for the response of the owner",
+                      style: TextStyle(color: Colors.white)),
                 ),
             ],
           ),
