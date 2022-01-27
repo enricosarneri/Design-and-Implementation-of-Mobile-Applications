@@ -311,18 +311,10 @@ class _SignInState extends State<SignIn> {
                               setState(() => isSignInLoading = true);
                               if (_key.currentState!.validate()) {
                                 if (await Permission.location
-                                        .request()
-                                        .isDenied ||
-                                    await Permission.storage
-                                        .request()
-                                        .isDenied ||
-                                    await Permission.camera
-                                        .request()
-                                        .isDenied) {
+                                    .request()
+                                    .isDenied) {
                                   await [
                                     Permission.location,
-                                    Permission.storage,
-                                    Permission.camera
                                   ].request();
                                   Fluttertoast.showToast(
                                       msg:
