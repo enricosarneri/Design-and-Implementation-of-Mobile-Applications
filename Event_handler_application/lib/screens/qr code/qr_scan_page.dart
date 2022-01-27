@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -68,14 +69,12 @@ class _QrScanPageState extends State<QrScanPage> {
                     }),
                   }
                 }
-              else if (widget.event.getQrCodeList[i] != barcode.code)
-                () {
-                  log("qualsiasi coa");
-                  setState(() {
-                    isQrCodeValid = false;
-                  });
-                }
-            }
+            },
+          Timer(Duration(seconds: 2), () {
+            setState(() {
+              isQrCodeValid = false;
+            });
+          })
         });
   }
 
