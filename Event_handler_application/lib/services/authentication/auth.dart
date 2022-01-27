@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/user.dart';
-import 'package:event_handler/services/database.dart';
+import 'package:event_handler/services/database%20services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';

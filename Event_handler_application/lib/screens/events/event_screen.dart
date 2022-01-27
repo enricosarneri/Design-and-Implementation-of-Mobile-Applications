@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/event.dart';
 import 'package:event_handler/models/local.dart';
-import 'package:event_handler/screens/events/show_qr.dart';
-import 'package:event_handler/screens/qr_scan_page.dart';
-import 'package:event_handler/services/auth.dart';
-import 'package:event_handler/services/database.dart';
+import 'package:event_handler/screens/qr%20code/show_qr.dart';
+import 'package:event_handler/screens/qr%20code/qr_scan_page.dart';
+import 'package:event_handler/services/authentication/auth.dart';
+import 'package:event_handler/services/database%20services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';

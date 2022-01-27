@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:event_handler/models/local.dart';
-import 'package:event_handler/screens/my_locals.dart';
-import 'package:event_handler/services/database.dart';
+import 'package:event_handler/screens/locals/my_locals.dart';
+import 'package:event_handler/services/database%20services/database.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

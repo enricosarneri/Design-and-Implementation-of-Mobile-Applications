@@ -1,6 +1,6 @@
 import 'package:event_handler/models/event.dart';
-import 'package:event_handler/services/auth.dart';
-import 'package:event_handler/services/database.dart';
+import 'package:event_handler/services/authentication/auth.dart';
+import 'package:event_handler/services/database%20services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/event.dart';
 import 'package:event_handler/models/local.dart';
 import 'package:event_handler/models/user.dart';
-import 'package:event_handler/services/database.dart';
+import 'package:event_handler/services/database%20services/database.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

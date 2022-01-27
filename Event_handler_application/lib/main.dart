@@ -1,8 +1,8 @@
 import 'package:event_handler/models/user.dart';
 import 'package:event_handler/services/localization%20services/application_block.dart';
-import 'package:event_handler/screens/wrapper.dart';
+import 'package:event_handler/wrapper.dart';
 import 'package:event_handler/services/authentication/auth.dart';
-import 'package:event_handler/splash.dart';
+import 'package:event_handler/screens/splash/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:event_handler/models/local.dart';
 import 'package:event_handler/screens/home/pages/create_event.dart';
-import 'package:event_handler/services/database.dart';
+import 'package:event_handler/services/database%20services/database.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
