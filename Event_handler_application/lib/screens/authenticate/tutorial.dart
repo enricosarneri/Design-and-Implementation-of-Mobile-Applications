@@ -1,5 +1,6 @@
 import 'package:event_handler/screens/authenticate/sign_in.dart';
 import 'package:event_handler/services/authentication/auth.dart';
+import 'package:event_handler/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -89,10 +90,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                       onPressed: () async {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => SignIn(
-                                    authServices: widget.authServices!,
-                                  )),
+                          MaterialPageRoute(builder: (context) => Wrapper()),
                         );
                       },
                       child: const Text("Let's Go!",
@@ -130,10 +128,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         onPressed: () async {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => SignIn(
-                                      authServices: widget.authServices!,
-                                    )),
+                            MaterialPageRoute(builder: (context) => Wrapper()),
                           );
                         },
                         child: const Text(
@@ -172,10 +167,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         onPressed: () async {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => SignIn(
-                                      authServices: widget.authServices!,
-                                    )),
+                            MaterialPageRoute(builder: (context) => Wrapper()),
                           );
                         },
                         child: const Text("Let's Start!",
@@ -208,10 +200,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         onPressed: () async {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => SignIn(
-                                      authServices: widget.authServices!,
-                                    )),
+                            MaterialPageRoute(builder: (context) => Wrapper()),
                           );
                         },
                         child: const Text("Can't Wait!",
@@ -256,10 +245,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
               onDone: () async {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => SignIn(
-                            authServices: widget.authServices!,
-                          )),
+                  MaterialPageRoute(builder: (context) => Wrapper()),
                 );
               },
               curve: Curves.easeInOutBack),
@@ -324,10 +310,7 @@ class _WideLayoutState extends State<WideLayout> {
                       onPressed: () async {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => SignIn(
-                                    authServices: widget.authServices!,
-                                  )),
+                          MaterialPageRoute(builder: (context) => Wrapper()),
                         );
                       },
                       child: const Text("Let's Go!",
@@ -365,10 +348,7 @@ class _WideLayoutState extends State<WideLayout> {
                         onPressed: () async {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => SignIn(
-                                      authServices: widget.authServices!,
-                                    )),
+                            MaterialPageRoute(builder: (context) => Wrapper()),
                           );
                         },
                         child: const Text(
@@ -407,10 +387,7 @@ class _WideLayoutState extends State<WideLayout> {
                         onPressed: () async {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => SignIn(
-                                      authServices: widget.authServices!,
-                                    )),
+                            MaterialPageRoute(builder: (context) => Wrapper()),
                           );
                         },
                         child: const Text("Let's Start!",
@@ -443,10 +420,7 @@ class _WideLayoutState extends State<WideLayout> {
                         onPressed: () async {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => SignIn(
-                                      authServices: widget.authServices!,
-                                    )),
+                            MaterialPageRoute(builder: (context) => Wrapper()),
                           );
                         },
                         child: const Text("Can't Wait!",
@@ -492,10 +466,7 @@ class _WideLayoutState extends State<WideLayout> {
               onDone: () async {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => SignIn(
-                            authServices: widget.authServices!,
-                          )),
+                  MaterialPageRoute(builder: (context) => Wrapper()),
                 );
               },
               curve: Curves.easeInOutBack),

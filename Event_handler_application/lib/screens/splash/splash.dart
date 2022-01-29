@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:event_handler/screens/authenticate/tutorial.dart';
+import 'package:event_handler/services/authentication/auth.dart';
 import 'package:event_handler/wrapper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
@@ -18,7 +21,9 @@ class _SplashState extends State<Splash> {
       Duration(seconds: 7),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Wrapper()),
+        MaterialPageRoute(
+            builder: (context) =>
+                Tutorial(authServices: AuthService(FirebaseAuth.instance))),
       ),
     );
   }
