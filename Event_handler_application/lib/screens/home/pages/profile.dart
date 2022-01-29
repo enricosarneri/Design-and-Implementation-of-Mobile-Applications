@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/user.dart';
+import 'package:event_handler/screens/authenticate/tutorial.dart';
 import 'package:event_handler/screens/events/manager_events.dart';
 import 'package:event_handler/screens/events/my_events.dart';
 import 'package:event_handler/screens/locals/add_local.dart';
@@ -437,7 +438,15 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              onPressed: () => {},
+                              onPressed: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Tutorial(
+                                            authServices: widget.authService!,
+                                          )),
+                                );
+                              },
                             ),
                           ),
                           Container(
@@ -1107,7 +1116,15 @@ class _WideLayoutState extends State<WideLayout> {
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
-                                onPressed: () => {},
+                                onPressed: () async {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Tutorial(
+                                              authServices: widget.authService!,
+                                            )),
+                                  );
+                                },
                               ),
                             ),
                             Container(

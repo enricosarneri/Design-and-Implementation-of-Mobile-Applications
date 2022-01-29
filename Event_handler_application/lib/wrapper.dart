@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:event_handler/models/user.dart';
 import 'package:event_handler/screens/authenticate/sign_in.dart';
+import 'package:event_handler/screens/authenticate/tutorial.dart';
 import 'package:event_handler/screens/home/home.dart';
 import 'package:event_handler/services/authentication/auth.dart';
 import 'package:event_handler/services/database%20services/database.dart';
@@ -32,7 +33,8 @@ class Wrapper extends StatelessWidget {
     final AppUser? user = Provider.of<AppUser?>(context);
     if (user == null) {
       log("user is null");
-      return SignIn(authServices: AuthService(FirebaseAuth.instance));
+      //  return SignIn(authServices: AuthService(FirebaseAuth.instance));
+      return Tutorial(authServices: AuthService(FirebaseAuth.instance));
     } else {
       log("user not null");
       return Home();

@@ -41,7 +41,7 @@ String? validatePassword(String? formPassword) {
   // return null;
 }
 
-class _RegistrationState extends State<SignIn> {
+class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -289,6 +289,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                 keyboardType: TextInputType.emailAddress,
                                 style: TextStyle(
                                   color: Colors.black,
+                                  fontSize: 16,
                                 ),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
@@ -323,7 +324,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                   ),
                                   hintText: 'Enter your Email',
                                   hintStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                      fontSize: 16, color: Colors.black),
                                   labelText: "Email",
                                   labelStyle: TextStyle(color: Colors.black),
                                   floatingLabelBehavior:
@@ -357,7 +358,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                 validator: validatePassword,
                                 obscureText: _obscureText,
                                 cursorColor: Colors.black,
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 16),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
                                   contentPadding:
@@ -393,7 +395,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                   hintText: 'Enter your Password',
                                   labelStyle: TextStyle(color: Colors.black),
                                   hintStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                      fontSize: 16, color: Colors.black),
                                   labelText: "Password",
                                   suffixIcon: IconButton(
                                     onPressed: () async {
@@ -439,7 +441,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                   }
                                 },
                                 cursorColor: Colors.black,
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 16),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
                                   helperText: ' ',
@@ -475,7 +478,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                   hintText: 'Enter your Name',
                                   labelStyle: TextStyle(color: Colors.black),
                                   hintStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                      fontSize: 16, color: Colors.black),
                                   labelText: "Name",
                                 ),
                                 onChanged: (value) {
@@ -508,7 +511,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                   }
                                 },
                                 cursorColor: Colors.black,
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 16),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
                                   helperText: ' ',
@@ -544,7 +548,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                   hintText: 'Enter your Surname',
                                   labelStyle: TextStyle(color: Colors.black),
                                   hintStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                      fontSize: 16, color: Colors.black),
                                   labelText: "Surname",
                                 ),
                                 onChanged: (value) {
@@ -564,6 +568,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                             children: [
                               Text(
                                 "Are you an owner of a local?",
+                                style: TextStyle(fontSize: 16),
                                 textAlign: TextAlign.center,
                               ),
                               Switch(
@@ -598,7 +603,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                   )
                                 : const Text(
                                     'Sign Up',
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 16),
                                   ),
                             onPressed: () async {
                               setState(() => isSignUpLoading = true);
@@ -637,14 +643,16 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                               children: [
                                 TextSpan(
                                   text: 'Already have an Account?',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.normal),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 16),
                                 ),
                                 TextSpan(
                                   text: '  Sign In',
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       Navigator.pop(context);
@@ -671,7 +679,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
                                   "OR",
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16),
                                 ),
                               ),
                               buildDivider(),
@@ -692,7 +702,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                             'Sign Up with',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.normal),
+                                fontWeight: FontWeight.normal,
+                                fontSize: 16),
                           ),
                         ),
                         SizedBox(
@@ -991,8 +1002,7 @@ class _WideLayoutState extends State<WideLayout> {
                                 validator: validateEmail,
                                 keyboardType: TextInputType.emailAddress,
                                 style: TextStyle(
-                                  color: Colors.black,
-                                ),
+                                    color: Colors.black, fontSize: 16),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
                                   contentPadding:
@@ -1026,7 +1036,7 @@ class _WideLayoutState extends State<WideLayout> {
                                   ),
                                   hintText: 'Enter your Email',
                                   hintStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                      fontSize: 16, color: Colors.black),
                                   labelText: "Email",
                                   labelStyle: TextStyle(color: Colors.black),
                                   floatingLabelBehavior:
@@ -1060,7 +1070,8 @@ class _WideLayoutState extends State<WideLayout> {
                                 validator: validatePassword,
                                 obscureText: _obscureText,
                                 cursorColor: Colors.black,
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 16),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
                                   contentPadding:
@@ -1096,7 +1107,7 @@ class _WideLayoutState extends State<WideLayout> {
                                   hintText: 'Enter your Password',
                                   labelStyle: TextStyle(color: Colors.black),
                                   hintStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                      fontSize: 16, color: Colors.black),
                                   labelText: "Password",
                                   suffixIcon: IconButton(
                                     onPressed: () async {
@@ -1142,7 +1153,8 @@ class _WideLayoutState extends State<WideLayout> {
                                   }
                                 },
                                 cursorColor: Colors.black,
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 16),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
                                   helperText: ' ',
@@ -1178,7 +1190,7 @@ class _WideLayoutState extends State<WideLayout> {
                                   hintText: 'Enter your Name',
                                   labelStyle: TextStyle(color: Colors.black),
                                   hintStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                      fontSize: 16, color: Colors.black),
                                   labelText: "Name",
                                 ),
                                 onChanged: (value) {
@@ -1211,7 +1223,8 @@ class _WideLayoutState extends State<WideLayout> {
                                   }
                                 },
                                 cursorColor: Colors.black,
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 16),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
                                   helperText: ' ',
@@ -1247,7 +1260,7 @@ class _WideLayoutState extends State<WideLayout> {
                                   hintText: 'Enter your Surname',
                                   labelStyle: TextStyle(color: Colors.black),
                                   hintStyle: TextStyle(
-                                      fontSize: 14, color: Colors.black),
+                                      fontSize: 16, color: Colors.black),
                                   labelText: "Surname",
                                 ),
                                 onChanged: (value) {
@@ -1268,6 +1281,7 @@ class _WideLayoutState extends State<WideLayout> {
                               Text(
                                 "Are you an owner of a local?",
                                 textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 16),
                               ),
                               Switch(
                                   value: _isOwner,
@@ -1301,7 +1315,8 @@ class _WideLayoutState extends State<WideLayout> {
                                   )
                                 : const Text(
                                     'Sign Up',
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 16),
                                   ),
                             onPressed: () async {
                               setState(() => isSignUpLoading = true);
@@ -1340,14 +1355,16 @@ class _WideLayoutState extends State<WideLayout> {
                               children: [
                                 TextSpan(
                                   text: 'Already have an Account?',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.normal),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 16),
                                 ),
                                 TextSpan(
                                   text: '  Sign In',
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       Navigator.pop(context);
@@ -1374,7 +1391,9 @@ class _WideLayoutState extends State<WideLayout> {
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
                                   "OR",
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16),
                                 ),
                               ),
                               buildDivider(),
@@ -1395,7 +1414,8 @@ class _WideLayoutState extends State<WideLayout> {
                             'Sign Up with',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.normal),
+                                fontWeight: FontWeight.normal,
+                                fontSize: 16),
                           ),
                         ),
                         SizedBox(
