@@ -229,7 +229,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                   ),
                 ),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 15),
               Align(
                 alignment: Alignment.topCenter,
                 child: ClipRRect(
@@ -353,6 +353,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                   height: 10,
                 ),
               if (isManager)
+                SizedBox(
+                  height: 10,
+                ),
+              if (isManager)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -363,14 +367,24 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      'People asking to join: ' +
-                          widget.event.applicants.length.toString(),
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: Colors.white),
-                    ),
+                    RichText(
+                        text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'People asking to join: ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 16,
+                              color: Colors.white),
+                        ),
+                        TextSpan(
+                            text: widget.event.applicants.length.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                color: Colors.white))
+                      ],
+                    )),
                   ],
                 ),
               if (isManager)
@@ -491,6 +505,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                       }),
                 ),
               if (isManager)
+                SizedBox(
+                  height: 10,
+                ),
+              if (isManager)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -501,16 +519,29 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      'Partecipants: ' +
-                          widget.event.partecipants.length.toString() +
-                          '/' +
-                          widget.event.maxPartecipants.toString(),
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.white),
-                    ),
+                    RichText(
+                        text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Partecipants: ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 16,
+                              color: Colors.white),
+                        ),
+                        TextSpan(
+                            text: widget.event.partecipants.length.toString() +
+                                '/' +
+                                widget.event.maxPartecipants.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                color: Colors.white))
+                      ],
+                    )
+
+                        //
+                        ),
                   ],
                 ),
               if (isManager)
@@ -611,8 +642,21 @@ class _NarrowLayoutState extends State<NarrowLayout> {
               if (partecipantList
                   .contains(widget.authService.getCurrentUser()!.uid))
                 Container(
-                  child: Text("You're already partecipating to this event",
-                      style: TextStyle(color: Colors.white)),
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("You're already partecipating to this event!",
+                          style: TextStyle(color: Colors.white)),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(
+                        Icons.sentiment_satisfied_alt_outlined,
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
                 ),
               if (applicantList
                   .contains(widget.authService.getCurrentUser()!.uid))
@@ -620,7 +664,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                   child: Text("Waiting for the response of the owner",
                       style: TextStyle(color: Colors.white)),
                 ),
-              SizedBox(height: 5),
+              SizedBox(height: 15),
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
@@ -632,6 +676,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                   ),
                 ),
               ),
+              if (isManager)
+                SizedBox(
+                  height: 10,
+                ),
               Container(
                 padding: EdgeInsets.only(left: 10, right: 10, top: 10),
                 child: Align(
@@ -727,7 +775,6 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                       //       );
                       //     },
                       //   ),
-
                       if (!isManager)
                         Container(
                           height: MediaQuery.of(context).size.height / 18,
@@ -1392,7 +1439,7 @@ class _WideLayoutState extends State<WideLayout> {
               ),
               SizedBox(height: 20),
               Container(
-                padding: EdgeInsets.only(left: 100, right: 100, top: 10),
+                padding: EdgeInsets.only(left: 240, right: 240, top: 10),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(

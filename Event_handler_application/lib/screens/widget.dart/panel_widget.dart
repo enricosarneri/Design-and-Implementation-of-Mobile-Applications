@@ -179,18 +179,18 @@ class PanelWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    Icons.date_range,
+                    Icons.place,
                     color: Colors.white,
                   ),
                   SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "Begin: " + event.dateBegin.toString(),
+                    event.placeName,
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
-                        fontWeight: FontWeight.w600),
+                        fontWeight: FontWeight.w300),
                   ),
                 ],
               ),
@@ -218,7 +218,7 @@ class PanelWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 60),
                   child: Divider(
                     thickness: 1,
-                    color: Colors.white,
+                    color: Colors.white.withOpacity(0.6),
                     height: 15,
                   ),
                 ),
@@ -227,20 +227,84 @@ class PanelWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.date_range,
-                    color: Colors.white,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "End: " + event.dateEnd.toString(),
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
-                  ),
+                  RichText(
+                      text: TextSpan(children: [
+                    TextSpan(
+                      text: "From: ",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300),
+                    ),
+                    TextSpan(
+                      // text: DateTime.tryParse(event.dateBegin)
+                      //     .toString()
+                      //     .substring(0, 10),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    TextSpan(
+                      text: " at ",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300),
+                    ),
+                    TextSpan(
+                      // text: DateTime.tryParse(event.dateBegin)
+                      //     .toString()
+                      //     .substring(11, 16),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ]))
+                ],
+              ),
+              SizedBox(
+                height: 2,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RichText(
+                      text: TextSpan(children: [
+                    TextSpan(
+                      text: "To: ",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300),
+                    ),
+                    TextSpan(
+                      // text: DateTime.tryParse(event.dateEnd)
+                      //     .toString()
+                      //     .substring(0, 10),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    TextSpan(
+                      text: " at: ",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300),
+                    ),
+                    TextSpan(
+                      // text: DateTime.tryParse(event.dateEnd)
+                      //     .toString()
+                      //     .substring(11, 16),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ]))
                 ],
               ),
               Align(
@@ -253,7 +317,7 @@ class PanelWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 60),
                   child: Divider(
                     thickness: 1,
-                    color: Colors.white,
+                    color: Colors.white.withOpacity(0.6),
                     height: 15,
                   ),
                 ),
@@ -275,7 +339,7 @@ class PanelWidget extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
-                        fontWeight: FontWeight.w600),
+                        fontWeight: FontWeight.w300),
                   ),
                 ],
               ),
@@ -303,7 +367,7 @@ class PanelWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 60),
                   child: Divider(
                     thickness: 1,
-                    color: Colors.white,
+                    color: Colors.white.withOpacity(0.6),
                     height: 15,
                   ),
                 ),
@@ -323,7 +387,7 @@ class PanelWidget extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
-                        fontWeight: FontWeight.w600),
+                        fontWeight: FontWeight.w300),
                   ),
                 ],
               ),

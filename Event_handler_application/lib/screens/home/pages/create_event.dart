@@ -628,65 +628,44 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             16),
                                                     child:
                                                         SingleChildScrollView(
-                                                      scrollDirection:
-                                                          Axis.vertical,
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.min,
                                                         children: [
-                                                          Container(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    5),
-                                                            child:
-                                                                SingleChildScrollView(
-                                                              scrollDirection:
-                                                                  Axis.horizontal,
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons.event,
-                                                                    color: Colors
-                                                                        .black54,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 5,
-                                                                  ),
-                                                                  Text(
-                                                                    "Name of the Event",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black54,
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.event,
+                                                                color: Colors
+                                                                    .black,
                                                               ),
-                                                            ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                "Name of the Event",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
-                                                          // const SizedBox(
-                                                          //   height: 5,
-                                                          // ),
+                                                          const SizedBox(
+                                                            height: 4,
+                                                          ),
                                                           Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height:
-                                                                size.height /
-                                                                    20,
                                                             margin:
                                                                 const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        30),
+                                                                    .all(8),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Colors
@@ -694,16 +673,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          20),
+                                                                          30),
                                                             ),
                                                             child:
                                                                 TextFormField(
-                                                              textAlignVertical:
-                                                                  TextAlignVertical
-                                                                      .center,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
                                                               initialValue:
                                                                   _name,
                                                               keyboardType:
@@ -721,8 +694,12 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 }
                                                               },
                                                               decoration: InputDecoration(
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
                                                                   hintText:
-                                                                      'Write the name...',
+                                                                      'Write the Name...',
                                                                   border:
                                                                       InputBorder
                                                                           .none),
@@ -732,8 +709,6 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                   _name = value
                                                                       .trim();
                                                                   print(_name);
-                                                                  print(
-                                                                      localName);
                                                                 });
                                                               },
                                                             ),
@@ -856,38 +831,46 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                       ],
                                                     ),
                                                   ),
-                                                  Container(
-                                                    alignment: Alignment.center,
-                                                    height: size.height / 20,
-                                                    margin: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 8,
-                                                        horizontal: 30),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.black12
-                                                          .withOpacity(0.1),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                    ),
-                                                    child: TextFormField(
-                                                      readOnly: true,
-                                                      initialValue: _name,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      decoration:
-                                                          new InputDecoration(
-                                                        border:
-                                                            InputBorder.none,
-                                                        hintText: '',
+                                                  Stack(
+                                                    children: [
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height:
+                                                            size.height / 20,
+                                                        margin: const EdgeInsets
+                                                                .symmetric(
+                                                            vertical: 8,
+                                                            horizontal: 30),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.black12
+                                                              .withOpacity(0.1),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                        ),
+                                                        child: TextFormField(
+                                                          readOnly: true,
+                                                          initialValue: _name,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          decoration:
+                                                              new InputDecoration(
+                                                            border: InputBorder
+                                                                .none,
+                                                            hintText: '',
+                                                          ),
+                                                          validator:
+                                                              (String? value) {
+                                                            if (value!
+                                                                .isEmpty) {
+                                                              return 'Name is Required';
+                                                            }
+                                                          },
+                                                        ),
                                                       ),
-                                                      validator:
-                                                          (String? value) {
-                                                        if (value!.isEmpty) {
-                                                          return 'Name is Required';
-                                                        }
-                                                      },
-                                                    ),
+                                                    ],
                                                   ),
                                                   const SizedBox(
                                                     height: 4,
@@ -969,7 +952,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 Icons
                                                                     .description,
                                                                 color: Colors
-                                                                    .black54,
+                                                                    .black,
                                                               ),
                                                               SizedBox(
                                                                 width: 5,
@@ -992,17 +975,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             height: 4,
                                                           ),
                                                           Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height:
-                                                                size.height /
-                                                                    20,
                                                             margin:
                                                                 const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        30),
+                                                                    .all(8),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Colors
@@ -1010,16 +985,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          20),
+                                                                          30),
                                                             ),
                                                             child:
                                                                 TextFormField(
-                                                              textAlignVertical:
-                                                                  TextAlignVertical
-                                                                      .center,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
                                                               initialValue:
                                                                   _description,
                                                               keyboardType:
@@ -1037,6 +1006,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 }
                                                               },
                                                               decoration: InputDecoration(
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
                                                                   hintText:
                                                                       'Write the description...',
                                                                   border:
@@ -1101,6 +1074,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                   ],
                                                 ),
                                                 Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 8),
                                                   alignment: Alignment.center,
                                                   height: size.height / 20,
                                                   margin: const EdgeInsets
@@ -1196,7 +1171,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                               Icon(
                                                                 Icons.place,
                                                                 color: Colors
-                                                                    .black54,
+                                                                    .black,
                                                               ),
                                                               SizedBox(
                                                                 width: 5,
@@ -1219,17 +1194,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             height: 8,
                                                           ),
                                                           Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height:
-                                                                size.height /
-                                                                    20,
                                                             margin:
                                                                 const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        10),
+                                                                    .all(8),
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -2054,7 +2021,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             margin: EdgeInsets
                                                                 .symmetric(
                                                                     horizontal:
-                                                                        85),
+                                                                        60),
                                                             child: SizedBox(
                                                               height: double
                                                                   .infinity,
@@ -2062,13 +2029,18 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                   ElevatedButton(
                                                                 style: ElevatedButton
                                                                     .styleFrom(
-                                                                  primary: Colors
-                                                                      .white,
+                                                                  primary: Color(
+                                                                      0xFF8596a0),
                                                                   onPrimary:
                                                                       Colors
                                                                           .white,
                                                                   shape:
                                                                       RoundedRectangleBorder(
+                                                                    side:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0xFF121B22),
+                                                                    ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             30.0),
@@ -2091,12 +2063,33 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                       Text(
                                                                         _eventDateBegin ==
                                                                                 null
-                                                                            ? 'Select End Date'
-                                                                            : 'Start date: ${_eventDateBegin.day}/${_eventDateBegin.month}/${_eventDateBegin.year}',
+                                                                            ? 'Select Start Date'
+                                                                            : 'Select Date: ',
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Colors.black,
+                                                                              Color(0xFF121B22),
+                                                                          fontSize:
+                                                                              13,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                      Icon(
+                                                                        Icons
+                                                                            .calendar_today,
+                                                                        color: Color(
+                                                                            0xFF121B22),
+                                                                      ),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              4),
+                                                                      Text(
+                                                                        '${_eventDateBegin.day}/${_eventDateBegin.month}/${_eventDateBegin.year}',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Color(0xFF121B22),
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2121,7 +2114,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             margin: EdgeInsets
                                                                 .symmetric(
                                                                     horizontal:
-                                                                        85),
+                                                                        70),
                                                             child: SizedBox(
                                                               height: double
                                                                   .infinity,
@@ -2129,13 +2122,18 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                   ElevatedButton(
                                                                 style: ElevatedButton
                                                                     .styleFrom(
-                                                                  primary: Colors
-                                                                      .white,
+                                                                  primary: Color(
+                                                                      0xFF8596a0),
                                                                   onPrimary:
                                                                       Colors
                                                                           .white,
                                                                   shape:
                                                                       RoundedRectangleBorder(
+                                                                    side:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0xFF121B22),
+                                                                    ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             30.0),
@@ -2158,12 +2156,33 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                       Text(
                                                                         _startEventTime ==
                                                                                 null
-                                                                            ? 'Select End Time'
-                                                                            : 'Start Time: ${_startEventTime.hour}:${_startEventTime.minute}',
+                                                                            ? 'Select Start Time'
+                                                                            : 'Select Time: ',
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Colors.black,
+                                                                              Color(0xFF121B22),
+                                                                          fontSize:
+                                                                              13,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                      Icon(
+                                                                        Icons
+                                                                            .access_time_sharp,
+                                                                        color: Color(
+                                                                            0xFF121B22),
+                                                                      ),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              4),
+                                                                      Text(
+                                                                        '${_startEventTime.hour}:${_startEventTime.minute}',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Color(0xFF121B22),
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2350,7 +2369,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                               children: [
                                                                 Icon(
                                                                   Icons
-                                                                      .timer_outlined,
+                                                                      .timer_off_outlined,
                                                                   color: Colors
                                                                       .black54,
                                                                 ),
@@ -2385,7 +2404,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             margin: EdgeInsets
                                                                 .symmetric(
                                                                     horizontal:
-                                                                        85),
+                                                                        60),
                                                             child: SizedBox(
                                                               height: double
                                                                   .infinity,
@@ -2393,13 +2412,18 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                   ElevatedButton(
                                                                 style: ElevatedButton
                                                                     .styleFrom(
-                                                                  primary: Colors
-                                                                      .white,
+                                                                  primary: Color(
+                                                                      0xFF8596a0),
                                                                   onPrimary:
                                                                       Colors
                                                                           .white,
                                                                   shape:
                                                                       RoundedRectangleBorder(
+                                                                    side:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0xFF121B22),
+                                                                    ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             30.0),
@@ -2423,11 +2447,32 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                         _eventDateEnd ==
                                                                                 null
                                                                             ? 'Select End Date'
-                                                                            : 'End Date: ${_eventDateEnd.day}/${_eventDateEnd.month}/${_eventDateEnd.year}',
+                                                                            : 'Select Date: ',
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Colors.black,
+                                                                              Color(0xFF121B22),
+                                                                          fontSize:
+                                                                              13,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                      Icon(
+                                                                        Icons
+                                                                            .calendar_today,
+                                                                        color: Color(
+                                                                            0xFF121B22),
+                                                                      ),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              4),
+                                                                      Text(
+                                                                        '${_eventDateEnd.day}/${_eventDateEnd.month}/${_eventDateEnd.year}',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Color(0xFF121B22),
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2452,7 +2497,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             margin: EdgeInsets
                                                                 .symmetric(
                                                                     horizontal:
-                                                                        85),
+                                                                        70),
                                                             child: SizedBox(
                                                               height: double
                                                                   .infinity,
@@ -2460,13 +2505,18 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                   ElevatedButton(
                                                                 style: ElevatedButton
                                                                     .styleFrom(
-                                                                  primary: Colors
-                                                                      .white,
+                                                                  primary: Color(
+                                                                      0xFF8596a0),
                                                                   onPrimary:
                                                                       Colors
                                                                           .white,
                                                                   shape:
                                                                       RoundedRectangleBorder(
+                                                                    side:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0xFF121B22),
+                                                                    ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             30.0),
@@ -2490,11 +2540,32 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                         _endEventTime ==
                                                                                 null
                                                                             ? 'Select End Time'
-                                                                            : 'End Time: ${_endEventTime.hour}:${_endEventTime.minute}',
+                                                                            : 'Select Time: ',
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Colors.black,
+                                                                              Color(0xFF121B22),
+                                                                          fontSize:
+                                                                              13,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                      Icon(
+                                                                        Icons
+                                                                            .access_time_sharp,
+                                                                        color: Color(
+                                                                            0xFF121B22),
+                                                                      ),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              4),
+                                                                      Text(
+                                                                        '${_endEventTime.hour}:${_endEventTime.minute}',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Color(0xFF121B22),
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2660,11 +2731,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: [
-                                                              Icon(
-                                                                Icons.euro,
-                                                                color: Colors
-                                                                    .black54,
-                                                              ),
+                                                              Icon(Icons.euro,
+                                                                  color: Colors
+                                                                      .black),
                                                               SizedBox(
                                                                 width: 5,
                                                               ),
@@ -2686,17 +2755,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             height: 8,
                                                           ),
                                                           Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height:
-                                                                size.height /
-                                                                    20,
                                                             margin:
                                                                 const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        30),
+                                                                    .all(8),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Colors
@@ -2704,16 +2765,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          20),
+                                                                          30),
                                                             ),
                                                             child:
                                                                 TextFormField(
-                                                              textAlignVertical:
-                                                                  TextAlignVertical
-                                                                      .center,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
                                                               initialValue:
                                                                   _price,
                                                               keyboardType:
@@ -2732,13 +2787,15 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                   (String?
                                                                       value) {
                                                                 if (value!
-                                                                        .isEmpty ||
-                                                                    value ==
-                                                                        '') {
+                                                                    .isEmpty) {
                                                                   return 'Price is Required';
                                                                 }
                                                               },
                                                               decoration: InputDecoration(
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
                                                                   hintText:
                                                                       'Write the Price (€)...',
                                                                   border:
@@ -2885,11 +2942,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: [
-                                                              Icon(
-                                                                Icons.people,
-                                                                color: Colors
-                                                                    .black54,
-                                                              ),
+                                                              Icon(Icons.people,
+                                                                  color: Colors
+                                                                      .black),
                                                               SizedBox(
                                                                 width: 5,
                                                               ),
@@ -2911,17 +2966,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             height: 8,
                                                           ),
                                                           Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height:
-                                                                size.height /
-                                                                    20,
                                                             margin:
                                                                 const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        30),
+                                                                    .all(8),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Colors
@@ -2929,16 +2976,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          20),
+                                                                          30),
                                                             ),
                                                             child:
                                                                 TextFormField(
-                                                              textAlignVertical:
-                                                                  TextAlignVertical
-                                                                      .center,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
                                                               initialValue:
                                                                   _maxPartecipants,
                                                               keyboardType:
@@ -2958,13 +2999,15 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                   (String?
                                                                       value) {
                                                                 if (value!
-                                                                        .isEmpty ||
-                                                                    value ==
-                                                                        '') {
+                                                                    .isEmpty) {
                                                                   return 'Max Partecipants is Required';
                                                                 }
                                                               },
                                                               decoration: InputDecoration(
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
                                                                   hintText:
                                                                       'Write the Number of Partecipants...',
                                                                   border:
@@ -3238,9 +3281,9 @@ class _WideLayoutState extends State<WideLayout> {
 
   getImage() async {
     var img = await image.pickImage(source: ImageSource.gallery);
-    if (img!.path != null) {
+    if (img?.path != null) {
       setState(() {
-        file = File(img.path);
+        file = File(img!.path);
       });
     } else {
       return;
@@ -3252,14 +3295,16 @@ class _WideLayoutState extends State<WideLayout> {
         .ref()
         .child(_name + "_" + _eventDateBegin.toString())
         .child("/" + _name + "_" + _eventDateBegin.toString() + ".jpg");
-    UploadTask task = imageFile.putFile(file!);
-    TaskSnapshot snapshot = await task;
-    //for downloading
-    String url = await snapshot.ref.getDownloadURL();
-    print(url);
-    setState(() {
-      _urlImage = url;
-    });
+    if (file != null) {
+      UploadTask task = imageFile.putFile(file!);
+      TaskSnapshot snapshot = await task;
+      //for downloading
+      String url = await snapshot.ref.getDownloadURL();
+      print(url);
+      setState(() {
+        _urlImage = url;
+      });
+    }
   }
 
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
@@ -5445,8 +5490,22 @@ class _WideLayoutState extends State<WideLayout> {
                                                                         children: [
                                                                           Text(
                                                                             _eventDateBegin == null
-                                                                                ? 'Select End Date'
-                                                                                : 'Start date: ${_eventDateBegin.day}/${_eventDateBegin.month}/${_eventDateBegin.year}',
+                                                                                ? 'Select Start Date'
+                                                                                : 'Select Date: ',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 13,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                          ),
+                                                                          Icon(
+                                                                              Icons.calendar_today,
+                                                                              color: Colors.black),
+                                                                          SizedBox(
+                                                                              width: 2),
+                                                                          Text(
+                                                                            '${_eventDateBegin.day}/${_eventDateBegin.month}/${_eventDateBegin.year}',
                                                                             style:
                                                                                 TextStyle(
                                                                               color: Colors.black,
@@ -5509,8 +5568,22 @@ class _WideLayoutState extends State<WideLayout> {
                                                                         children: [
                                                                           Text(
                                                                             _startEventTime == null
-                                                                                ? 'Select End Time'
-                                                                                : 'Start Time: ${_startEventTime.hour}:${_startEventTime.minute}',
+                                                                                ? 'Select Start Time'
+                                                                                : 'Select Time: ',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 13,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                          ),
+                                                                          Icon(
+                                                                              Icons.access_time_sharp,
+                                                                              color: Colors.black),
+                                                                          SizedBox(
+                                                                              width: 2),
+                                                                          Text(
+                                                                            '${_startEventTime.hour}:${_startEventTime.minute}',
                                                                             style:
                                                                                 TextStyle(
                                                                               color: Colors.black,
@@ -5804,7 +5877,21 @@ class _WideLayoutState extends State<WideLayout> {
                                                                           Text(
                                                                             _eventDateEnd == null
                                                                                 ? 'Select End Date'
-                                                                                : 'End Date: ${_eventDateEnd.day}/${_eventDateEnd.month}/${_eventDateEnd.year}',
+                                                                                : 'Select Date: ',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 13,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                          ),
+                                                                          Icon(
+                                                                              Icons.calendar_today,
+                                                                              color: Colors.black),
+                                                                          SizedBox(
+                                                                              width: 2),
+                                                                          Text(
+                                                                            '${_eventDateEnd.day}/${_eventDateEnd.month}/${_eventDateEnd.year}',
                                                                             style:
                                                                                 TextStyle(
                                                                               color: Colors.black,
@@ -5868,7 +5955,21 @@ class _WideLayoutState extends State<WideLayout> {
                                                                           Text(
                                                                             _endEventTime == null
                                                                                 ? 'Select End Time'
-                                                                                : 'End Time: ${_endEventTime.hour}:${_endEventTime.minute}',
+                                                                                : 'Select Time: ',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: 13,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                          ),
+                                                                          Icon(
+                                                                              Icons.access_time_sharp,
+                                                                              color: Colors.black),
+                                                                          SizedBox(
+                                                                              width: 2),
+                                                                          Text(
+                                                                            '${_endEventTime.hour}:${_endEventTime.minute}',
                                                                             style:
                                                                                 TextStyle(
                                                                               color: Colors.black,
