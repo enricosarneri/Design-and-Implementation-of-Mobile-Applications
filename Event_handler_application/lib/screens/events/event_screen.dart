@@ -49,11 +49,15 @@ class _EventScreenState extends State<EventScreen> {
 }
 
 class NarrowLayout extends StatefulWidget {
-  final authService;
-  final databaseService;
-  final event;
+  final AuthService authService;
+  final DatabaseService databaseService;
+  final Event event;
   @override
-  NarrowLayout({Key? key, this.event, this.authService, this.databaseService})
+  NarrowLayout(
+      {Key? key,
+      required this.event,
+      required this.authService,
+      required this.databaseService})
       : super(key: key);
   _NarrowLayoutState createState() => _NarrowLayoutState();
 }
@@ -184,10 +188,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         ),
                         Container(
                           child: FutureBuilder(
-                            future: DatabaseService(
-                                    widget.authService.getCurrentUser()!.uid,
-                                    FirebaseFirestore.instance)
-                                .getTotalLocals(),
+                            future: widget.databaseService.getTotalLocals(),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<Local>> totalLocals) {
                               return Container(
