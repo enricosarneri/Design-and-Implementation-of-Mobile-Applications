@@ -301,7 +301,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
               ((distance_rounded / 1000) >= _valuesKmR.start) &&
               filtro_presente != 0 &&
               _event_list[i].eventType == 'Public' &&
-              DateTime.parse(_event_list[i].dateEnd).isAfter(
+              DateTime.parse(_event_list[i].dateBegin).isAfter(
                 DateTime.now(),
               )) {
             result.add(_event_list[i]);
@@ -1960,7 +1960,8 @@ class _WideLayoutState extends State<WideLayout> {
               ((distance_rounded / 1000) <= _valuesKmR.end) &&
               ((distance_rounded / 1000) >= _valuesKmR.start) &&
               filtro_presente != 0 &&
-              DateTime.parse(_event_list[i].dateEnd).isAfter(
+              _event_list[i].eventType == 'Public' &&
+              DateTime.parse(_event_list[i].dateBegin).isAfter(
                 DateTime.now(),
               )) {
             result.add(_event_list[i]);
@@ -1984,7 +1985,11 @@ class _WideLayoutState extends State<WideLayout> {
                 (_valuesPricesR.end >= _event_list[i].price) &&
                 ((distance_rounded / 1000) <= _valuesKmR.end) &&
                 ((distance_rounded / 1000) >= _valuesKmR.start) &&
-                filtro_presente != 0) {
+                filtro_presente != 0 &&
+                _event_list[i].eventType == 'Public' &&
+                DateTime.parse(_event_list[i].dateBegin).isAfter(
+                  DateTime.now(),
+                )) {
               result.add(_event_list[i]);
             }
           }

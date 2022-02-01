@@ -184,22 +184,27 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         ),
                         Container(
                           child: FutureBuilder(
-                            future: widget.databaseService.getMyLocals(),
+                            future: DatabaseService(
+                                    widget.authService.getCurrentUser()!.uid,
+                                    FirebaseFirestore.instance)
+                                .getTotalLocals(),
                             builder: (BuildContext context,
-                                AsyncSnapshot<List<Local>> myLocals) {
+                                AsyncSnapshot<List<Local>> totalLocals) {
                               return Container(
                                   margin: EdgeInsets.only(
                                       top: 5, right: 5, left: 5),
                                   child: Column(
                                     children: [
-                                      if (myLocals.data != null)
+                                      if (totalLocals.data != null)
                                         for (int i = 0;
-                                            i < myLocals.data!.length;
+                                            i < totalLocals.data!.length;
                                             i++)
-                                          if (myLocals.data![i].localName ==
-                                              widget.event.placeName)
+                                          if (totalLocals.data![i].latitude ==
+                                                  widget.event.latitude &&
+                                              totalLocals.data![i].longitude ==
+                                                  widget.event.longitude)
                                             Text(
-                                              myLocals.data![i].localAddress,
+                                              totalLocals.data![i].localAddress,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w300,
                                                 fontSize: 16,
@@ -680,6 +685,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                 SizedBox(
                   height: 10,
                 ),
+              if (!isManager)
+                SizedBox(
+                  height: 10,
+                ),
               Container(
                 padding: EdgeInsets.only(left: 10, right: 10, top: 10),
                 child: Align(
@@ -887,6 +896,10 @@ class _WideLayoutState extends State<WideLayout> {
     bool isManager = userId == widget.event.getManagerId;
 
     int isPartecipantInTheEvent = 0;
+
+    List<String> partecipantList = widget.event.getPartecipantList;
+    List<String> applicantList = widget.event.getApplicantList;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -998,29 +1011,34 @@ class _WideLayoutState extends State<WideLayout> {
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
-                              fontSize: 32),
+                              fontSize: 36),
                         ),
                         Container(
                           child: FutureBuilder(
-                            future: widget.databaseService.getMyLocals(),
+                            future: DatabaseService(
+                                    widget.authService.getCurrentUser()!.uid,
+                                    FirebaseFirestore.instance)
+                                .getTotalLocals(),
                             builder: (BuildContext context,
-                                AsyncSnapshot<List<Local>> myLocals) {
+                                AsyncSnapshot<List<Local>> totalLocals) {
                               return Container(
                                   margin: EdgeInsets.only(
                                       top: 5, right: 5, left: 5),
                                   child: Column(
                                     children: [
-                                      if (myLocals.data != null)
+                                      if (totalLocals.data != null)
                                         for (int i = 0;
-                                            i < myLocals.data!.length;
+                                            i < totalLocals.data!.length;
                                             i++)
-                                          if (myLocals.data![i].localName ==
-                                              widget.event.placeName)
+                                          if (totalLocals.data![i].latitude ==
+                                                  widget.event.latitude &&
+                                              totalLocals.data![i].longitude ==
+                                                  widget.event.longitude)
                                             Text(
-                                              myLocals.data![i].localAddress,
+                                              totalLocals.data![i].localAddress,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w300,
-                                                fontSize: 16,
+                                                fontSize: 18,
                                                 color: Colors.white,
                                               ),
                                               textAlign: TextAlign.center,
@@ -1077,7 +1095,8 @@ class _WideLayoutState extends State<WideLayout> {
                             children: [
                               Text(
                                 widget.event.description,
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
                               ),
                             ],
                           ),
@@ -1104,12 +1123,12 @@ class _WideLayoutState extends State<WideLayout> {
                           widget.event.maxPartecipants.toString(),
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
-                          fontSize: 16,
+                          fontSize: 18,
                           color: Colors.white),
                     ),
                   ],
                 ),
-              if (!isManager) SizedBox(height: 10),
+              if (!isManager) SizedBox(height: 20),
               if (!isManager)
                 Align(
                   alignment: Alignment.topCenter,
@@ -1127,7 +1146,9 @@ class _WideLayoutState extends State<WideLayout> {
                   height: 15,
                 ),
               if (!isManager &&
-                  !widget.event.partecipants
+                  !partecipantList
+                      .contains(widget.authService.getCurrentUser()!.uid) &&
+                  !applicantList
                       .contains(widget.authService.getCurrentUser()!.uid) &&
                   widget.event.firstFreeQrCode + 1 !=
                       widget.event.getMaxPartecipants)
@@ -1154,7 +1175,7 @@ class _WideLayoutState extends State<WideLayout> {
                         children: [
                           Text(
                             'Ask to Partecipate',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                            style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                           SizedBox(width: 5),
                           Icon(Icons.notifications),
@@ -1166,7 +1187,7 @@ class _WideLayoutState extends State<WideLayout> {
                 ),
               if (!isManager)
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
               if (isManager)
                 Row(
@@ -1179,14 +1200,24 @@ class _WideLayoutState extends State<WideLayout> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      'People asking to join: ' +
-                          widget.event.applicants.length.toString(),
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: Colors.white),
-                    ),
+                    RichText(
+                        text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'People asking to join: ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 18,
+                              color: Colors.white),
+                        ),
+                        TextSpan(
+                            text: widget.event.applicants.length.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Colors.white))
+                      ],
+                    )),
                   ],
                 ),
               if (isManager)
@@ -1249,13 +1280,15 @@ class _WideLayoutState extends State<WideLayout> {
                                                   Text(
                                                     '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
                                                     style: TextStyle(
-                                                        color: Colors.white),
+                                                        color: Colors.white,
+                                                        fontSize: 16),
                                                   ),
                                                   SizedBox(height: 5),
                                                   Text(
                                                       '${data.docs[index]['email']}',
                                                       style: TextStyle(
-                                                          color: Colors.white)),
+                                                          color: Colors.white,
+                                                          fontSize: 16)),
                                                 ],
                                               ),
                                               Row(
@@ -1307,6 +1340,10 @@ class _WideLayoutState extends State<WideLayout> {
                       }),
                 ),
               if (isManager)
+                SizedBox(
+                  height: 10,
+                ),
+              if (isManager)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -1317,16 +1354,29 @@ class _WideLayoutState extends State<WideLayout> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      'Partecipants: ' +
-                          widget.event.partecipants.length.toString() +
-                          '/' +
-                          widget.event.maxPartecipants.toString(),
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.white),
-                    ),
+                    RichText(
+                        text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Partecipants: ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 18,
+                              color: Colors.white),
+                        ),
+                        TextSpan(
+                            text: widget.event.partecipants.length.toString() +
+                                '/' +
+                                widget.event.maxPartecipants.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Colors.white))
+                      ],
+                    )
+
+                        //
+                        ),
                   ],
                 ),
               if (isManager)
@@ -1393,12 +1443,14 @@ class _WideLayoutState extends State<WideLayout> {
                                                   Text(
                                                       '${data.docs[index]['name']} ${data.docs[index]['surname']} ',
                                                       style: TextStyle(
-                                                          color: Colors.white)),
+                                                          color: Colors.white,
+                                                          fontSize: 16)),
                                                   SizedBox(height: 5),
                                                   Text(
                                                     '${data.docs[index]['email']}',
                                                     style: TextStyle(
-                                                        color: Colors.white),
+                                                        color: Colors.white,
+                                                        fontSize: 16),
                                                   ),
                                                   Container(
                                                     padding:
@@ -1425,6 +1477,31 @@ class _WideLayoutState extends State<WideLayout> {
                         );
                       }),
                 ),
+              if (partecipantList
+                  .contains(widget.authService.getCurrentUser()!.uid))
+                Container(
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("You're already partecipating to this event!",
+                          style: TextStyle(color: Colors.white, fontSize: 18)),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(
+                        Icons.sentiment_satisfied_alt_outlined,
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
+                ),
+              if (applicantList
+                  .contains(widget.authService.getCurrentUser()!.uid))
+                Container(
+                  child: Text("Waiting for the response of the owner",
+                      style: TextStyle(color: Colors.white)),
+                ),
               SizedBox(height: 20),
               Align(
                 alignment: Alignment.topCenter,
@@ -1437,7 +1514,11 @@ class _WideLayoutState extends State<WideLayout> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              if (isManager)
+                SizedBox(
+                  height: 10,
+                ),
+              SizedBox(height: 30),
               Container(
                 padding: EdgeInsets.only(left: 240, right: 240, top: 10),
                 child: Align(
@@ -1467,7 +1548,7 @@ class _WideLayoutState extends State<WideLayout> {
                               Text(
                                 'Shake the Link',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
+                                    color: Colors.white, fontSize: 18),
                               ),
                             ],
                           ),
@@ -1497,7 +1578,7 @@ class _WideLayoutState extends State<WideLayout> {
                                   Text(
                                     'Scan Qr Code',
                                     style: TextStyle(
-                                        color: Color(0xFF121B22), fontSize: 16),
+                                        color: Color(0xFF121B22), fontSize: 18),
                                   ),
                                   SizedBox(
                                     width: 5,
@@ -1554,7 +1635,7 @@ class _WideLayoutState extends State<WideLayout> {
                                   Text(
                                     'Show Qr Code',
                                     style: TextStyle(
-                                        color: Color(0xFF121B22), fontSize: 16),
+                                        color: Color(0xFF121B22), fontSize: 18),
                                   ),
                                   SizedBox(
                                     width: 5,

@@ -257,7 +257,7 @@ class _WideLayoutState extends State<WideLayout> {
                         children: [
                           Text(
                             'Add Local',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                            style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                           SizedBox(width: 5),
                           Icon(
@@ -319,7 +319,7 @@ class _WideLayoutState extends State<WideLayout> {
                                             : 'You own no local',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 18,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600),
                                       ),
@@ -334,7 +334,7 @@ class _WideLayoutState extends State<WideLayout> {
                                         : 'You own no local',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w300),
                                   ),

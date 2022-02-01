@@ -229,7 +229,7 @@ class _WideLayoutState extends State<WideLayout> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TextFormField(
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                   cursorColor: Colors.white,
                   decoration: InputDecoration(
                     filled: true,
@@ -272,7 +272,7 @@ class _WideLayoutState extends State<WideLayout> {
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     hintText: 'Enter the Link of the Event...',
                     labelStyle: TextStyle(color: Colors.white),
-                    hintStyle: TextStyle(fontSize: 16, color: Colors.white),
+                    hintStyle: TextStyle(fontSize: 18, color: Colors.white),
                     labelText: "Event Link",
                   ),
                   validator: (String? value) {
@@ -327,7 +327,7 @@ class _WideLayoutState extends State<WideLayout> {
                             Text(
                               'Go to the Event',
                               style: TextStyle(
-                                  color: Color(0xFF121B22), fontSize: 16),
+                                  color: Color(0xFF121B22), fontSize: 18),
                             ),
                             SizedBox(
                               width: 5,

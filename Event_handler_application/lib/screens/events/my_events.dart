@@ -292,7 +292,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                   ])),
                                                 ],
                                               ),
-                                              SizedBox(height: 5),
+                                              SizedBox(height: 15),
                                               Align(
                                                 alignment: Alignment.topCenter,
                                                 child: Container(
@@ -306,6 +306,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                   ),
                                                 ),
                                               ),
+                                              SizedBox(height: 10),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -650,15 +651,46 @@ class _WideLayoutState extends State<WideLayout> {
                                                   SizedBox(
                                                     width: 5,
                                                   ),
-                                                  Text(
-                                                    '${data.docs[index]['dateBegin']}'
-                                                        .substring(0, 16),
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                        fontSize: 16,
-                                                        color: Colors.white),
-                                                  ),
+                                                  RichText(
+                                                      text: TextSpan(children: [
+                                                    TextSpan(
+                                                      text: "From: ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          '${data.docs[index]['dateBegin']}'
+                                                              .substring(0, 10),
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                    TextSpan(
+                                                      text: " at: ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          '${data.docs[index]['dateBegin']}'
+                                                              .substring(
+                                                                  11, 16),
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ])),
                                                 ],
                                               ),
                                               SizedBox(height: 5),
@@ -673,16 +705,46 @@ class _WideLayoutState extends State<WideLayout> {
                                                   SizedBox(
                                                     width: 5,
                                                   ),
-                                                  Text(
-                                                    'Ending: ' +
-                                                        '${data.docs[index]['dateEnd']}'
-                                                            .substring(0, 16),
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                        fontSize: 16,
-                                                        color: Colors.white),
-                                                  ),
+                                                  RichText(
+                                                      text: TextSpan(children: [
+                                                    TextSpan(
+                                                      text: "To: ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          '${data.docs[index]['dateEnd']}'
+                                                              .substring(0, 10),
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                    TextSpan(
+                                                      text: " at: ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          '${data.docs[index]['dateEnd']}'
+                                                              .substring(
+                                                                  11, 16),
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ])),
                                                 ],
                                               ),
                                               SizedBox(height: 50),
@@ -713,7 +775,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          fontSize: 16,
+                                                          fontSize: 18,
                                                           color: Colors.white)),
                                                 ],
                                               ),
@@ -734,7 +796,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.w300,
-                                                          fontSize: 16,
+                                                          fontSize: 18,
                                                           color: Colors.white)),
                                                 ],
                                               ),
@@ -770,7 +832,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                             style: TextStyle(
                                                                 color: Color(
                                                                     0xFF121B22),
-                                                                fontSize: 16),
+                                                                fontSize: 18),
                                                           ),
                                                           SizedBox(
                                                             width: 5,

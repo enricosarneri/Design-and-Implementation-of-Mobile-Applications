@@ -5,6 +5,7 @@ import 'package:event_handler/services/authentication/auth.dart';
 import 'package:event_handler/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -14,18 +15,50 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  String _StartedTimes = '';
+
+  // Future<int> _getIntFromSharedPref() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final startUpNumber = prefs.getInt('startUpNumber');
+  // }
+
   @override
   void initState() {
     super.initState();
+    _incrementStartup();
     Timer(
       Duration(seconds: 7),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) =>
-                Tutorial(authServices: AuthService(FirebaseAuth.instance))),
+                (int.parse(_StartedTimes) == 0 || int.parse(_StartedTimes) == 1)
+                    ? Tutorial(authServices: AuthService(FirebaseAuth.instance))
+                    : Wrapper()),
       ),
     );
+  }
+
+  Future<int> _getIntFromSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    final startupNumber = prefs.getInt('startupNumber');
+    if (startupNumber == null) {
+      return 0;
+    }
+    return startupNumber;
+  }
+
+  Future<void> _incrementStartup() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    int lastStartupNumber = await _getIntFromSharedPref();
+    int currentStartupNumber = ++lastStartupNumber;
+
+    await prefs.setInt('startupNumber', currentStartupNumber);
+
+    setState(() => _StartedTimes = '$currentStartupNumber');
+
+    // Reset only if you want to
   }
 
   @override

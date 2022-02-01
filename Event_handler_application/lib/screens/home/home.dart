@@ -330,7 +330,7 @@ class _WideLayoutState extends State<WideLayout> {
               BoxShadow(blurRadius: 50.0, color: Color.fromRGBO(0, 0, 0, 0.30))
             ],
             maxHeight: MediaQuery.of(context).size.height * 0.76,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(50)),
             panelBuilder: (controller) => PanelWidget(
                   controller: controller,
                   panelController: panelController,

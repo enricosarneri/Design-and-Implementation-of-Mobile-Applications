@@ -85,6 +85,38 @@ class _NarrowLayoutState extends State<NarrowLayout> {
       setState(() {
         _urlImage = url;
       });
+
+      showDialog(
+          context: context,
+          builder: (BuildContext builderContext) {
+            _timer = Timer(Duration(milliseconds: 1200), () {
+              Navigator.of(context).pop();
+            });
+
+            return Container(
+              margin: EdgeInsets.only(bottom: 50, left: 12, right: 12),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                elevation: 20,
+                backgroundColor: Colors.white.withOpacity(0.8),
+                content: SingleChildScrollView(
+                  child: Text(
+                    'Your file has been uploaded successfully!',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            );
+          }).then((val) {
+        if (_timer.isActive) {
+          _timer.cancel();
+        }
+      });
     }
   }
 
@@ -639,8 +671,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             children: [
                                                               Icon(
                                                                 Icons.event,
-                                                                color: Colors
-                                                                    .black,
+                                                                color: Color(
+                                                                    0xFF121B22),
                                                               ),
                                                               SizedBox(
                                                                 width: 5,
@@ -813,9 +845,11 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Icon(Icons.event,
-                                                            color:
-                                                                Colors.black),
+                                                        Icon(
+                                                          Icons.event,
+                                                          color:
+                                                              Color(0xFF121B22),
+                                                        ),
                                                         SizedBox(width: 5),
                                                         Text(
                                                           "Name of the Event",
@@ -951,8 +985,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                               Icon(
                                                                 Icons
                                                                     .description,
-                                                                color: Colors
-                                                                    .black,
+                                                                color: Color(
+                                                                    0xFF121B22),
                                                               ),
                                                               SizedBox(
                                                                 width: 5,
@@ -1060,7 +1094,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                   children: [
                                                     Icon(
                                                       Icons.description,
-                                                      color: Colors.black,
+                                                      color: Color(0xFF121B22),
                                                     ),
                                                     SizedBox(width: 5),
                                                     Text(
@@ -1170,8 +1204,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             children: [
                                                               Icon(
                                                                 Icons.place,
-                                                                color: Colors
-                                                                    .black,
+                                                                color: Color(
+                                                                    0xFF121B22),
                                                               ),
                                                               SizedBox(
                                                                 width: 5,
@@ -1345,8 +1379,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Icon(Icons.place,
-                                                        color: Colors.black),
+                                                    Icon(
+                                                      Icons.place,
+                                                      color: Color(0xFF121B22),
+                                                    ),
                                                     SizedBox(
                                                       width: 5,
                                                     ),
@@ -1454,8 +1490,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             children: [
                                                               Icon(
                                                                 Icons.flag,
-                                                                color: Colors
-                                                                    .black54,
+                                                                color: Color(
+                                                                    0xFF121B22),
                                                               ),
                                                               Text(
                                                                 "Type of Place",
@@ -1607,8 +1643,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Icon(Icons.flag,
-                                                        color: Colors.black),
+                                                    Icon(
+                                                      Icons.flag,
+                                                      color: Color(0xFF121B22),
+                                                    ),
                                                     SizedBox(
                                                       width: 5,
                                                     ),
@@ -1716,8 +1754,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                             children: [
                                                               Icon(
                                                                 Icons.security,
-                                                                color: Colors
-                                                                    .black54,
+                                                                color: Color(
+                                                                    0xFF121B22),
                                                               ),
                                                               SizedBox(
                                                                 width: 5,
@@ -1873,8 +1911,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Icon(Icons.security,
-                                                        color: Colors.black),
+                                                    Icon(
+                                                      Icons.security,
+                                                      color: Color(0xFF121B22),
+                                                    ),
                                                     SizedBox(
                                                       width: 5,
                                                     ),
@@ -1987,8 +2027,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 Icon(
                                                                   Icons
                                                                       .timer_outlined,
-                                                                  color: Colors
-                                                                      .black54,
+                                                                  color: Color(
+                                                                      0xFF121B22),
                                                                 ),
                                                                 SizedBox(
                                                                   width: 5,
@@ -2030,17 +2070,17 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 style: ElevatedButton
                                                                     .styleFrom(
                                                                   primary: Color(
-                                                                      0xFF8596a0),
+                                                                      0xFF121B22),
                                                                   onPrimary:
                                                                       Colors
                                                                           .white,
                                                                   shape:
                                                                       RoundedRectangleBorder(
-                                                                    side:
-                                                                        BorderSide(
-                                                                      color: Color(
-                                                                          0xFF121B22),
-                                                                    ),
+                                                                    // side:
+                                                                    //     BorderSide(
+                                                                    //   color: Color(
+                                                                    //       0xFF121B22),
+                                                                    // ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             30.0),
@@ -2068,7 +2108,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Color(0xFF121B22),
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2078,8 +2118,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                       Icon(
                                                                         Icons
                                                                             .calendar_today,
-                                                                        color: Color(
-                                                                            0xFF121B22),
+                                                                        color: Colors
+                                                                            .white,
                                                                       ),
                                                                       SizedBox(
                                                                           width:
@@ -2089,7 +2129,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Color(0xFF121B22),
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2123,17 +2163,17 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 style: ElevatedButton
                                                                     .styleFrom(
                                                                   primary: Color(
-                                                                      0xFF8596a0),
+                                                                      0xFF121B22),
                                                                   onPrimary:
                                                                       Colors
                                                                           .white,
                                                                   shape:
                                                                       RoundedRectangleBorder(
-                                                                    side:
-                                                                        BorderSide(
-                                                                      color: Color(
-                                                                          0xFF121B22),
-                                                                    ),
+                                                                    // side:
+                                                                    //     BorderSide(
+                                                                    //   color: Color(
+                                                                    //       0xFF121B22),
+                                                                    //     ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             30.0),
@@ -2161,7 +2201,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Color(0xFF121B22),
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2171,8 +2211,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                       Icon(
                                                                         Icons
                                                                             .access_time_sharp,
-                                                                        color: Color(
-                                                                            0xFF121B22),
+                                                                        color: Colors
+                                                                            .white,
                                                                       ),
                                                                       SizedBox(
                                                                           width:
@@ -2182,7 +2222,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Color(0xFF121B22),
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2236,10 +2276,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                               .center,
                                                       children: [
                                                         Icon(
-                                                            Icons
-                                                                .timer_outlined,
-                                                            color:
-                                                                Colors.black),
+                                                          Icons.timer_outlined,
+                                                          color:
+                                                              Color(0xFF121B22),
+                                                        ),
                                                         SizedBox(
                                                           width: 5,
                                                         ),
@@ -2370,8 +2410,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 Icon(
                                                                   Icons
                                                                       .timer_off_outlined,
-                                                                  color: Colors
-                                                                      .black54,
+                                                                  color: Color(
+                                                                      0xFF121B22),
                                                                 ),
                                                                 SizedBox(
                                                                   width: 5,
@@ -2413,17 +2453,17 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 style: ElevatedButton
                                                                     .styleFrom(
                                                                   primary: Color(
-                                                                      0xFF8596a0),
+                                                                      0xFF121B22),
                                                                   onPrimary:
                                                                       Colors
                                                                           .white,
                                                                   shape:
                                                                       RoundedRectangleBorder(
-                                                                    side:
-                                                                        BorderSide(
-                                                                      color: Color(
-                                                                          0xFF121B22),
-                                                                    ),
+                                                                    // side:
+                                                                    //     BorderSide(
+                                                                    //   color: Color(
+                                                                    //       0xFF121B22),
+                                                                    // ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             30.0),
@@ -2451,7 +2491,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Color(0xFF121B22),
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2461,8 +2501,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                       Icon(
                                                                         Icons
                                                                             .calendar_today,
-                                                                        color: Color(
-                                                                            0xFF121B22),
+                                                                        color: Colors
+                                                                            .white,
                                                                       ),
                                                                       SizedBox(
                                                                           width:
@@ -2472,7 +2512,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Color(0xFF121B22),
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2506,17 +2546,17 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 style: ElevatedButton
                                                                     .styleFrom(
                                                                   primary: Color(
-                                                                      0xFF8596a0),
+                                                                      0xFF121B22),
                                                                   onPrimary:
                                                                       Colors
                                                                           .white,
                                                                   shape:
                                                                       RoundedRectangleBorder(
-                                                                    side:
-                                                                        BorderSide(
-                                                                      color: Color(
-                                                                          0xFF121B22),
-                                                                    ),
+                                                                    // side:
+                                                                    //     BorderSide(
+                                                                    //   color: Color(
+                                                                    //       0xFF121B22),
+                                                                    // ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             30.0),
@@ -2544,7 +2584,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Color(0xFF121B22),
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2554,8 +2594,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                       Icon(
                                                                         Icons
                                                                             .access_time_sharp,
-                                                                        color: Color(
-                                                                            0xFF121B22),
+                                                                        color: Colors
+                                                                            .white,
                                                                       ),
                                                                       SizedBox(
                                                                           width:
@@ -2565,7 +2605,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Color(0xFF121B22),
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               13,
                                                                           fontWeight:
@@ -2613,9 +2653,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Icon(
-                                                        Icons
-                                                            .timer_off_outlined,
-                                                        color: Colors.black),
+                                                      Icons.timer_off_outlined,
+                                                      color: Color(0xFF121B22),
+                                                    ),
                                                     SizedBox(
                                                       width: 5,
                                                     ),
@@ -2731,9 +2771,11 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: [
-                                                              Icon(Icons.euro,
-                                                                  color: Colors
-                                                                      .black),
+                                                              Icon(
+                                                                Icons.euro,
+                                                                color: Color(
+                                                                    0xFF121B22),
+                                                              ),
                                                               SizedBox(
                                                                 width: 5,
                                                               ),
@@ -2836,8 +2878,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Icon(Icons.euro,
-                                                        color: Colors.black),
+                                                    Icon(
+                                                      Icons.euro,
+                                                      color: Color(0xFF121B22),
+                                                    ),
                                                     SizedBox(
                                                       width: 5,
                                                     ),
@@ -2942,9 +2986,11 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: [
-                                                              Icon(Icons.people,
-                                                                  color: Colors
-                                                                      .black),
+                                                              Icon(
+                                                                Icons.people,
+                                                                color: Color(
+                                                                    0xFF121B22),
+                                                              ),
                                                               SizedBox(
                                                                 width: 5,
                                                               ),
@@ -3048,8 +3094,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Icon(Icons.people,
-                                                        color: Colors.black),
+                                                    Icon(
+                                                      Icons.people,
+                                                      color: Color(0xFF121B22),
+                                                    ),
                                                     SizedBox(
                                                       width: 5,
                                                     ),
@@ -3303,6 +3351,38 @@ class _WideLayoutState extends State<WideLayout> {
       print(url);
       setState(() {
         _urlImage = url;
+      });
+
+      showDialog(
+          context: context,
+          builder: (BuildContext builderContext) {
+            _timer = Timer(Duration(milliseconds: 1200), () {
+              Navigator.of(context).pop();
+            });
+
+            return Container(
+              margin: EdgeInsets.only(bottom: 50, left: 12, right: 12),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                elevation: 20,
+                backgroundColor: Colors.white.withOpacity(0.8),
+                content: SingleChildScrollView(
+                  child: Text(
+                    'Your message has been sent successfully!',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            );
+          }).then((val) {
+        if (_timer.isActive) {
+          _timer.cancel();
+        }
       });
     }
   }
@@ -3808,6 +3888,7 @@ class _WideLayoutState extends State<WideLayout> {
                             size.height / 4.2,
                         child: Container(
                           width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(horizontal: 250),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -3818,58 +3899,1554 @@ class _WideLayoutState extends State<WideLayout> {
                                 topLeft: Radius.circular(30),
                                 topRight: Radius.circular(30)),
                             child: ListView(
-                              scrollDirection: Axis.horizontal,
+                              scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               key: Key("list view"),
                               padding: const EdgeInsets.all(16),
                               children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 130),
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        3.5,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          HeroDialogRoute(
-                                            builder: (context) => Center(
-                                              child: Hero(
-                                                tag: "1",
-                                                createRectTween: (begin, end) {
-                                                  return CustomRectTween(
-                                                      begin: begin, end: end);
-                                                },
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "1",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 16,
+                                                horizontal: 300,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Container(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    5),
+                                                            child:
+                                                                SingleChildScrollView(
+                                                              scrollDirection:
+                                                                  Axis.horizontal,
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons.event,
+                                                                    color: Color(
+                                                                        0xFF121B22),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 5,
+                                                                  ),
+                                                                  Text(
+                                                                    "Name of the Event",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black54,
+                                                                      fontSize:
+                                                                          18,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          // const SizedBox(
+                                                          //   height: 5,
+                                                          // ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height:
+                                                                size.height /
+                                                                    20,
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical: 8,
+                                                                    horizontal:
+                                                                        30),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors
+                                                                  .black12,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
+                                                            ),
+                                                            child:
+                                                                TextFormField(
+                                                              initialValue:
+                                                                  _name,
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .multiline,
+                                                              maxLines: null,
+                                                              cursorColor:
+                                                                  Colors.black,
+                                                              validator:
+                                                                  (String?
+                                                                      value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return 'Name is Required';
+                                                                }
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  hintStyle:
+                                                                      TextStyle(
+                                                                          fontSize:
+                                                                              18),
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
+                                                                  hintText:
+                                                                      'Write the Name...',
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  _name = value
+                                                                      .trim();
+                                                                  print(_name);
+                                                                });
+                                                              },
+                                                            ),
+                                                          ),
+                                                          _buildImage(),
+                                                          Container(
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        85,
+                                                                    vertical:
+                                                                        5),
+                                                            child:
+                                                                ElevatedButton(
+                                                              key: Key(
+                                                                  'upload image'),
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                primary: Colors
+                                                                    .white,
+                                                                onPrimary:
+                                                                    Colors
+                                                                        .white,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30.0),
+                                                                ),
+                                                              ),
+                                                              onPressed: () {
+                                                                uploadFile();
+                                                              },
+                                                              child:
+                                                                  SingleChildScrollView(
+                                                                scrollDirection:
+                                                                    Axis.horizontal,
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Icon(
+                                                                        Icons
+                                                                            .upload,
+                                                                        color: Colors
+                                                                            .black),
+                                                                    Text(
+                                                                      "Upload Image",
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            14,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "1",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                children: <Widget>[
+                                                  SingleChildScrollView(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.event,
+                                                          color:
+                                                              Color(0xFF121B22),
+                                                        ),
+                                                        SizedBox(width: 5),
+                                                        Text(
+                                                          "Name of the Event",
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 18,
+                                                                  color: Colors
+                                                                      .white),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 8),
+                                                    alignment: Alignment.center,
+                                                    height: size.height / 20,
+                                                    margin: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 8,
+                                                        horizontal: 30),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black12
+                                                          .withOpacity(0.1),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                    child: TextFormField(
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                      readOnly: true,
+                                                      initialValue: _name,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      decoration:
+                                                          new InputDecoration(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: '',
+                                                      ),
+                                                      validator:
+                                                          (String? value) {
+                                                        if (value!.isEmpty) {
+                                                          return 'Name is Required';
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 4,
+                                                  ),
+                                                  // const Divider(
+                                                  //   height: 5,
+                                                  //   thickness: 1.5,
+                                                  //   indent: 160,
+                                                  //   endIndent: 160,
+                                                  //   color: Colors.black,
+                                                  // ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.topCenter,
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 3, bottom: 3),
+                                                      width: 30,
+                                                      height: 3,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black45
+                                                            .withOpacity(0.5),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  _buildImage1(),
+                                                  const SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                                // //name + image
+
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "2",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 16,
+                                                horizontal: 300,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
                                                 child: Padding(
                                                   padding: const EdgeInsets
                                                       .symmetric(
                                                     vertical: 16,
-                                                    horizontal: 300,
                                                   ),
-                                                  child: Material(
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        SingleChildScrollView(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .description,
+                                                                color: Color(
+                                                                    0xFF121B22),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Flexible(
+                                                                child: Text(
+                                                                  "Description of the Event",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black54,
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      8),
+                                                          margin:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical: 8,
+                                                                  horizontal:
+                                                                      30),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color:
+                                                                Colors.black12,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30),
+                                                          ),
+                                                          child: TextFormField(
+                                                            initialValue:
+                                                                _description,
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .multiline,
+                                                            maxLines: null,
+                                                            cursorColor:
+                                                                Colors.black,
+                                                            validator: (String?
+                                                                value) {
+                                                              if (value!
+                                                                  .isEmpty) {
+                                                                return 'Descripion is Required';
+                                                              }
+                                                            },
+                                                            decoration: InputDecoration(
+                                                                hintStyle:
+                                                                    TextStyle(
+                                                                        fontSize:
+                                                                            18),
+                                                                contentPadding:
+                                                                    EdgeInsets
+                                                                        .all(8),
+                                                                hintText:
+                                                                    'Write the description...',
+                                                                border:
+                                                                    InputBorder
+                                                                        .none),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                _description =
+                                                                    value
+                                                                        .trim();
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "2",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Column(
+                                              children: <Widget>[
+                                                SingleChildScrollView(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.description,
+                                                        color:
+                                                            Color(0xFF121B22),
+                                                      ),
+                                                      SizedBox(width: 5),
+                                                      Text(
+                                                        "Description of the Event",
+                                                        style: const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 18,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                                  alignment: Alignment.center,
+                                                  height: size.height / 20,
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 30),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black12
+                                                        .withOpacity(0.1),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            50),
-                                                    color: Color(0xFF8596a0),
-                                                    child: SizedBox(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(16),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
+                                                            30),
+                                                  ),
+                                                  child: TextFormField(
+                                                    style:
+                                                        TextStyle(fontSize: 18),
+                                                    readOnly: true,
+                                                    initialValue: _description,
+                                                    textAlign: TextAlign.center,
+                                                    decoration:
+                                                        new InputDecoration(
+                                                      border: InputBorder.none,
+                                                      hintText: '',
+                                                    ),
+                                                    validator: (String? value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'Description is Required';
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black54,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+
+                                // //place of the event
+                                GestureDetector(
+                                  key: Key("Place of the Event"),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "3",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.5,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      7,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
                                                             children: [
-                                                              Container(
-                                                                padding:
+                                                              Icon(
+                                                                Icons.place,
+                                                                color: Color(
+                                                                    0xFF121B22),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                "Place of the Event",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height:
+                                                                size.height /
+                                                                    20,
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical: 8,
+                                                                    horizontal:
+                                                                        10),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
+                                                            ),
+                                                            child: FutureBuilder<
+                                                                    List<
+                                                                        Local>>(
+                                                                future: widget
+                                                                    .databaseService!
+                                                                    .getMyLocals(),
+                                                                builder: (BuildContext
+                                                                        context,
+                                                                    AsyncSnapshot<
+                                                                            List<Local>>
+                                                                        myLocals) {
+                                                                  if (myLocals
+                                                                      .hasError)
+                                                                    return Container(
+                                                                      child: Text(
+                                                                          'Some error may have occured'),
+                                                                    );
+
+                                                                  return DropdownButtonFormField2(
+                                                                    // value:
+                                                                    //     localName,
+                                                                    decoration:
+                                                                        InputDecoration(
+                                                                      labelStyle:
+                                                                          TextStyle(
+                                                                              fontWeight: FontWeight.w200),
+                                                                      //Add isDense true and zero Padding.
+                                                                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                                                                      isDense:
+                                                                          true,
+                                                                      contentPadding:
+                                                                          EdgeInsets.symmetric(
+                                                                              horizontal: 8),
+                                                                      border:
+                                                                          OutlineInputBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(30),
+                                                                      ),
+                                                                      //Add more decoration as you want here
+                                                                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                                                                    ),
+                                                                    isExpanded:
+                                                                        true,
+                                                                    hint:
+                                                                        const Text(
+                                                                      'Select the Place of the Event...',
+                                                                      style:
+                                                                          const TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.w400,
+                                                                        fontSize:
+                                                                            18,
+                                                                      ),
+                                                                    ),
+                                                                    icon:
+                                                                        const Icon(
+                                                                      Icons
+                                                                          .arrow_drop_down,
+                                                                      color: Colors
+                                                                          .black45,
+                                                                    ),
+                                                                    iconSize:
+                                                                        30,
+                                                                    buttonHeight:
+                                                                        size.height /
+                                                                            20,
+                                                                    buttonPadding: const EdgeInsets
+                                                                            .only(
+                                                                        left: 8,
+                                                                        right:
+                                                                            8),
+                                                                    dropdownDecoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              20),
+                                                                    ),
+                                                                    items: myLocals.data !=
+                                                                            null
+                                                                        ? myLocals
+                                                                            .data!
+                                                                            .map((local) =>
+                                                                                DropdownMenuItem<
+                                                                                    String>(
+                                                                                  child: Text(
+                                                                                    local.localName,
+                                                                                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                                                                                  ),
+                                                                                  value: local.localName,
+                                                                                ))
+                                                                            .toList()
+                                                                        : locals
+                                                                            .map(buildMenuItems)
+                                                                            .toList(),
+                                                                    validator:
+                                                                        (value) {
+                                                                      if (value ==
+                                                                          null) {
+                                                                        return 'Please select the Place of the Event.';
+                                                                      }
+                                                                    },
+                                                                    onChanged: (value) =>
+                                                                        setState(() =>
+                                                                            localName =
+                                                                                value.toString()),
+                                                                  );
+                                                                }),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "3",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.place,
+                                                      color: Color(0xFF121B22),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "Place of the Event",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: size.height / 20,
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 30),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black12
+                                                        .withOpacity(0.1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                  ),
+                                                  child: TextFormField(
+                                                    style:
+                                                        TextStyle(fontSize: 18),
+                                                    readOnly: true,
+                                                    initialValue: localName,
+                                                    textAlign: TextAlign.center,
+                                                    decoration:
+                                                        new InputDecoration(
+                                                      border: InputBorder.none,
+                                                      hintText: '',
+                                                    ),
+                                                    validator: (String? value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'Place of the Event is Required';
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  key: Key("Type of Place"),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "4",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.5,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      7,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.flag,
+                                                                color: Color(
+                                                                    0xFF121B22),
+                                                              ),
+                                                              Text(
+                                                                "Type of Place",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height:
+                                                                size.height /
+                                                                    20,
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical: 8,
+                                                                    horizontal:
+                                                                        10),
+                                                            child:
+                                                                DropdownButtonFormField2(
+                                                              value:
+                                                                  _typeOfPlace,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                labelStyle: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w200),
+                                                                //Add isDense true and zero Padding.
+                                                                //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                                                                isDense: true,
+                                                                contentPadding:
                                                                     EdgeInsets
-                                                                        .all(5),
+                                                                        .zero,
+                                                                border:
+                                                                    OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30),
+                                                                ),
+                                                                //Add more decoration as you want here
+                                                                //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                                                              ),
+                                                              isExpanded: true,
+                                                              hint: const Text(
+                                                                'Select the Type of Place...',
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontSize: 18,
+                                                                ),
+                                                              ),
+                                                              icon: const Icon(
+                                                                Icons
+                                                                    .arrow_drop_down,
+                                                                color: Colors
+                                                                    .black45,
+                                                              ),
+                                                              iconSize: 30,
+                                                              buttonHeight:
+                                                                  size.height /
+                                                                      20,
+                                                              buttonPadding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      left: 20,
+                                                                      right:
+                                                                          20),
+                                                              dropdownDecoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20),
+                                                              ),
+                                                              items: TypeOfPlace
+                                                                  .map((item) =>
+                                                                      DropdownMenuItem<
+                                                                          String>(
+                                                                        value:
+                                                                            item,
+                                                                        child:
+                                                                            Text(
+                                                                          item,
+                                                                          style: const TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontWeight: FontWeight.w400),
+                                                                        ),
+                                                                      )).toList(),
+                                                              validator:
+                                                                  (value) {
+                                                                if (value ==
+                                                                    null) {
+                                                                  return 'Please select type of place.';
+                                                                }
+                                                              },
+                                                              onChanged: (value) =>
+                                                                  setState(() =>
+                                                                      _typeOfPlace =
+                                                                          value
+                                                                              .toString()),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "4",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.flag,
+                                                      color: Color(0xFF121B22),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "Type of Place",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: size.height / 20,
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 30),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black12
+                                                        .withOpacity(0.1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                  ),
+                                                  child: TextFormField(
+                                                    style:
+                                                        TextStyle(fontSize: 18),
+                                                    readOnly: true,
+                                                    initialValue: _typeOfPlace,
+                                                    textAlign: TextAlign.center,
+                                                    decoration:
+                                                        new InputDecoration(
+                                                      border: InputBorder.none,
+                                                      hintText: '',
+                                                    ),
+                                                    validator: (String? value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'Type of place is Required';
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  key: Key("Privacy of the Event"),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "5",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.5,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      7,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.security,
+                                                                color: Color(
+                                                                    0xFF121B22),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                "Privacy of the Event",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height:
+                                                                size.height /
+                                                                    20,
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical: 8,
+                                                                    horizontal:
+                                                                        10),
+                                                            child:
+                                                                DropdownButtonFormField2(
+                                                              value: _eventType,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                labelStyle: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w200),
+                                                                //Add isDense true and zero Padding.
+                                                                //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                                                                isDense: true,
+                                                                contentPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                border:
+                                                                    OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30),
+                                                                ),
+                                                                //Add more decoration as you want here
+                                                                //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                                                              ),
+                                                              isExpanded: true,
+                                                              hint: const Text(
+                                                                'Select the Privacy of the Event...',
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontSize: 18,
+                                                                ),
+                                                              ),
+                                                              icon: const Icon(
+                                                                Icons
+                                                                    .arrow_drop_down,
+                                                                color: Colors
+                                                                    .black45,
+                                                              ),
+                                                              iconSize: 30,
+                                                              buttonHeight:
+                                                                  size.height /
+                                                                      20,
+                                                              buttonPadding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      left: 20,
+                                                                      right:
+                                                                          20),
+                                                              dropdownDecoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20),
+                                                              ),
+                                                              items: EventTypes
+                                                                  .map((item) =>
+                                                                      DropdownMenuItem<
+                                                                          String>(
+                                                                        value:
+                                                                            item,
+                                                                        child:
+                                                                            Text(
+                                                                          item,
+                                                                          style: const TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontWeight: FontWeight.w400),
+                                                                        ),
+                                                                      )).toList(),
+                                                              validator:
+                                                                  (value) {
+                                                                if (value ==
+                                                                    null) {
+                                                                  return 'Please select the privacy of the event.';
+                                                                }
+                                                              },
+                                                              onChanged:
+                                                                  (value) =>
+                                                                      setState(
+                                                                () => _eventType =
+                                                                    value
+                                                                        .toString(),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "5",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.security,
+                                                      color: Color(0xFF121B22),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "Privacy of the Event",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: size.height / 20,
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 30),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black12
+                                                        .withOpacity(0.1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                  ),
+                                                  child: TextFormField(
+                                                    style:
+                                                        TextStyle(fontSize: 18),
+                                                    readOnly: true,
+                                                    initialValue: _eventType,
+                                                    textAlign: TextAlign.center,
+                                                    decoration:
+                                                        new InputDecoration(
+                                                      border: InputBorder.none,
+                                                      hintText: '',
+                                                    ),
+                                                    validator: (String? value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'Privacy of the Event is Required';
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "6",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.5,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      5,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          SingleChildScrollView(
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .timer_outlined,
+                                                                  color: Color(
+                                                                      0xFF121B22),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Text(
+                                                                  "Start Date-Time",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black54,
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height:
+                                                                size.height /
+                                                                    25,
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        85),
+                                                            child: SizedBox(
+                                                              height: double
+                                                                  .infinity,
+                                                              child:
+                                                                  ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  primary: Color(
+                                                                      0xFF121B22),
+                                                                  onPrimary:
+                                                                      Colors
+                                                                          .white,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            30.0),
+                                                                  ),
+                                                                ),
+                                                                onPressed:
+                                                                    () async {
+                                                                  pickStartDate(
+                                                                      context);
+                                                                },
                                                                 child:
                                                                     SingleChildScrollView(
                                                                   scrollDirection:
@@ -3879,24 +5456,37 @@ class _WideLayoutState extends State<WideLayout> {
                                                                         MainAxisAlignment
                                                                             .center,
                                                                     children: [
-                                                                      Icon(
-                                                                        Icons
-                                                                            .event,
-                                                                        color: Colors
-                                                                            .black54,
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width:
-                                                                            5,
-                                                                      ),
                                                                       Text(
-                                                                        "Name of the Event",
+                                                                        _eventDateBegin ==
+                                                                                null
+                                                                            ? 'Select Start Date'
+                                                                            : 'Select Date: ',
                                                                         style:
                                                                             TextStyle(
                                                                           color:
-                                                                              Colors.black54,
+                                                                              Colors.white,
                                                                           fontSize:
-                                                                              16,
+                                                                              15,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                      Icon(
+                                                                          Icons
+                                                                              .calendar_today,
+                                                                          color:
+                                                                              Colors.white),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              2),
+                                                                      Text(
+                                                                        '${_eventDateBegin.day}/${_eventDateBegin.month}/${_eventDateBegin.year}',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          fontSize:
+                                                                              15,
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                         ),
@@ -3905,2088 +5495,98 @@ class _WideLayoutState extends State<WideLayout> {
                                                                   ),
                                                                 ),
                                                               ),
-                                                              // const SizedBox(
-                                                              //   height: 5,
-                                                              // ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        20,
-                                                                margin: const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        30),
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Colors
-                                                                      .black12,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20),
-                                                                ),
-                                                                child:
-                                                                    TextFormField(
-                                                                  textAlignVertical:
-                                                                      TextAlignVertical
-                                                                          .center,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  initialValue:
-                                                                      _name,
-                                                                  keyboardType:
-                                                                      TextInputType
-                                                                          .multiline,
-                                                                  maxLines:
-                                                                      null,
-                                                                  cursorColor:
-                                                                      Colors
-                                                                          .black,
-                                                                  validator:
-                                                                      (String?
-                                                                          value) {
-                                                                    if (value!
-                                                                        .isEmpty) {
-                                                                      return 'Name is Required';
-                                                                    }
-                                                                  },
-                                                                  decoration: InputDecoration(
-                                                                      hintText:
-                                                                          'Write the name...',
-                                                                      border: InputBorder
-                                                                          .none),
-                                                                  onChanged:
-                                                                      (value) {
-                                                                    setState(
-                                                                        () {
-                                                                      _name = value
-                                                                          .trim();
-                                                                      print(
-                                                                          _name);
-                                                                      print(
-                                                                          localName);
-                                                                    });
-                                                                  },
-                                                                ),
-                                                              ),
-                                                              _buildImage(),
-                                                              Container(
-                                                                margin: EdgeInsets
-                                                                    .symmetric(
-                                                                        horizontal:
-                                                                            85,
-                                                                        vertical:
-                                                                            5),
-                                                                child:
-                                                                    ElevatedButton(
-                                                                  key: Key(
-                                                                      'upload image'),
-                                                                  style: ElevatedButton
-                                                                      .styleFrom(
-                                                                    primary: Colors
-                                                                        .white,
-                                                                    onPrimary:
-                                                                        Colors
-                                                                            .white,
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              30.0),
-                                                                    ),
-                                                                  ),
-                                                                  onPressed:
-                                                                      () {
-                                                                    uploadFile();
-                                                                  },
-                                                                  child:
-                                                                      SingleChildScrollView(
-                                                                    scrollDirection:
-                                                                        Axis.horizontal,
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Icon(
-                                                                            Icons
-                                                                                .upload,
-                                                                            color:
-                                                                                Colors.black),
-                                                                        Text(
-                                                                          "Upload Image",
-                                                                          style:
-                                                                              TextStyle(
-                                                                            color:
-                                                                                Colors.black,
-                                                                            fontSize:
-                                                                                12,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: "1",
-                                        createRectTween: (begin, end) {
-                                          return CustomRectTween(
-                                              begin: begin, end: end);
-                                        },
-                                        child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            child: Material(
-                                              color: Color(0xFF8596a0),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: SingleChildScrollView(
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      SingleChildScrollView(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Icon(Icons.event,
-                                                                color: Colors
-                                                                    .black),
-                                                            SizedBox(width: 5),
-                                                            Text(
-                                                              "Name of the Event",
-                                                              style: const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Colors
-                                                                      .white),
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        height:
-                                                            size.height / 20,
-                                                        margin: const EdgeInsets
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height:
+                                                                size.height /
+                                                                    25,
+                                                            margin: EdgeInsets
                                                                 .symmetric(
-                                                            vertical: 8,
-                                                            horizontal: 30),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.black12
-                                                              .withOpacity(0.1),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(20),
-                                                        ),
-                                                        child: TextFormField(
-                                                          readOnly: true,
-                                                          initialValue: _name,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                            border: InputBorder
-                                                                .none,
-                                                            hintText: '',
-                                                          ),
-                                                          validator:
-                                                              (String? value) {
-                                                            if (value!
-                                                                .isEmpty) {
-                                                              return 'Name is Required';
-                                                            }
-                                                          },
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 4,
-                                                      ),
-                                                      // const Divider(
-                                                      //   height: 5,
-                                                      //   thickness: 1.5,
-                                                      //   indent: 160,
-                                                      //   endIndent: 160,
-                                                      //   color: Colors.black,
-                                                      // ),
-                                                      Align(
-                                                        alignment:
-                                                            Alignment.topCenter,
-                                                        child: Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  top: 3,
-                                                                  bottom: 3),
-                                                          width: 30,
-                                                          height: 3,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors
-                                                                .black45
-                                                                .withOpacity(
-                                                                    0.5),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                      _buildImage1(),
-                                                      const SizedBox(
-                                                        height: 8,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                // //name + image
-
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 130),
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        3.5,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          HeroDialogRoute(
-                                            builder: (context) => Center(
-                                              child: Hero(
-                                                tag: "2",
-                                                createRectTween: (begin, end) {
-                                                  return CustomRectTween(
-                                                      begin: begin, end: end);
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16,
-                                                  ),
-                                                  child: Material(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    color: Color(0xFF8596a0),
-                                                    child: SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2.5,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              7,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                vertical: 16),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons
-                                                                        .description,
-                                                                    color: Colors
-                                                                        .black54,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 5,
-                                                                  ),
-                                                                  Text(
-                                                                    "Description of the Event",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black54,
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 4,
-                                                              ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        20,
-                                                                margin: const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
                                                                     horizontal:
-                                                                        30),
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Colors
-                                                                      .black12,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20),
-                                                                ),
-                                                                child:
-                                                                    TextFormField(
-                                                                  textAlignVertical:
-                                                                      TextAlignVertical
-                                                                          .center,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  initialValue:
-                                                                      _description,
-                                                                  keyboardType:
-                                                                      TextInputType
-                                                                          .multiline,
-                                                                  maxLines:
-                                                                      null,
-                                                                  cursorColor:
+                                                                        85),
+                                                            child: SizedBox(
+                                                              height: double
+                                                                  .infinity,
+                                                              child:
+                                                                  ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  primary: Color(
+                                                                      0xFF121B22),
+                                                                  onPrimary:
                                                                       Colors
-                                                                          .black,
-                                                                  validator:
-                                                                      (String?
-                                                                          value) {
-                                                                    if (value!
-                                                                        .isEmpty) {
-                                                                      return 'Descripion is Required';
-                                                                    }
-                                                                  },
-                                                                  decoration: InputDecoration(
-                                                                      hintText:
-                                                                          'Write the description...',
-                                                                      border: InputBorder
-                                                                          .none),
-                                                                  onChanged:
-                                                                      (value) {
-                                                                    setState(
-                                                                        () {
-                                                                      _description =
-                                                                          value
-                                                                              .trim();
-                                                                    });
-                                                                  },
+                                                                          .white,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            30.0),
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: "2",
-                                        createRectTween: (begin, end) {
-                                          return CustomRectTween(
-                                              begin: begin, end: end);
-                                        },
-                                        child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            child: Material(
-                                              color: Color(0xFF8596a0),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.description,
-                                                          color: Colors.black,
-                                                        ),
-                                                        SizedBox(width: 5),
-                                                        Text(
-                                                          "Description of the Event",
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: size.height / 20,
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 30),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black12
-                                                            .withOpacity(0.1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                      ),
-                                                      child: TextFormField(
-                                                        readOnly: true,
-                                                        initialValue:
-                                                            _description,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        decoration:
-                                                            new InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: '',
-                                                        ),
-                                                        validator:
-                                                            (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Description is Required';
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 4,
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.topCenter,
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 3, bottom: 3),
-                                                        width: 30,
-                                                        height: 3,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.black54,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                // //place of the event
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 130),
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        3.5,
-                                    child: GestureDetector(
-                                      key: Key("Place of the Event"),
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          HeroDialogRoute(
-                                            builder: (context) => Center(
-                                              child: Hero(
-                                                tag: "3",
-                                                createRectTween: (begin, end) {
-                                                  return CustomRectTween(
-                                                      begin: begin, end: end);
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16,
-                                                  ),
-                                                  child: Material(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    color: Color(0xFF8596a0),
-                                                    child: SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2.5,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              7,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(16),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons.place,
-                                                                    color: Colors
-                                                                        .black54,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 5,
-                                                                  ),
-                                                                  Text(
-                                                                    "Place of the Event",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black54,
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 8,
-                                                              ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        20,
-                                                                margin: const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        10),
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              30),
-                                                                ),
-                                                                child: FutureBuilder<
-                                                                        List<
-                                                                            Local>>(
-                                                                    future: widget
-                                                                        .databaseService!
-                                                                        .getMyLocals(),
-                                                                    builder: (BuildContext
-                                                                            context,
-                                                                        AsyncSnapshot<List<Local>>
-                                                                            myLocals) {
-                                                                      if (myLocals
-                                                                          .hasError)
-                                                                        return Container(
-                                                                          child:
-                                                                              Text('Some error may have occured'),
-                                                                        );
-
-                                                                      return DropdownButtonFormField2(
-                                                                        // value:
-                                                                        //     localName,
-                                                                        decoration:
-                                                                            InputDecoration(
-                                                                          labelStyle:
-                                                                              TextStyle(fontWeight: FontWeight.w200),
-                                                                          //Add isDense true and zero Padding.
-                                                                          //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                                                                          isDense:
-                                                                              true,
-                                                                          contentPadding:
-                                                                              EdgeInsets.symmetric(horizontal: 8),
-                                                                          border:
-                                                                              OutlineInputBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(30),
-                                                                          ),
-                                                                          //Add more decoration as you want here
-                                                                          //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                                                                        ),
-                                                                        isExpanded:
-                                                                            true,
-                                                                        hint:
-                                                                            const Text(
-                                                                          'Select the Place of the Event...',
-                                                                          style:
-                                                                              const TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.w400,
-                                                                            fontSize:
-                                                                                16,
-                                                                          ),
-                                                                        ),
-                                                                        icon:
-                                                                            const Icon(
-                                                                          Icons
-                                                                              .arrow_drop_down,
-                                                                          color:
-                                                                              Colors.black45,
-                                                                        ),
-                                                                        iconSize:
-                                                                            30,
-                                                                        buttonHeight:
-                                                                            size.height /
-                                                                                20,
-                                                                        buttonPadding: const EdgeInsets.only(
-                                                                            left:
-                                                                                8,
-                                                                            right:
-                                                                                8),
-                                                                        dropdownDecoration:
-                                                                            BoxDecoration(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(20),
-                                                                        ),
-                                                                        items: myLocals.data !=
+                                                                onPressed:
+                                                                    () async {
+                                                                  pickStartTime(
+                                                                      context);
+                                                                },
+                                                                child:
+                                                                    SingleChildScrollView(
+                                                                  scrollDirection:
+                                                                      Axis.horizontal,
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text(
+                                                                        _startEventTime ==
                                                                                 null
-                                                                            ? myLocals.data!
-                                                                                .map((local) => DropdownMenuItem<String>(
-                                                                                      child: Text(
-                                                                                        local.localName,
-                                                                                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                                                                                      ),
-                                                                                      value: local.localName,
-                                                                                    ))
-                                                                                .toList()
-                                                                            : locals.map(buildMenuItems).toList(),
-                                                                        validator:
-                                                                            (value) {
-                                                                          if (value ==
-                                                                              null) {
-                                                                            return 'Please select the Place of the Event.';
-                                                                          }
-                                                                        },
-                                                                        onChanged:
-                                                                            (value) =>
-                                                                                setState(() => localName = value.toString()),
-                                                                      );
-                                                                    }),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: "3",
-                                        createRectTween: (begin, end) {
-                                          return CustomRectTween(
-                                              begin: begin, end: end);
-                                        },
-                                        child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            child: Material(
-                                              color: Color(0xFF8596a0),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Icon(Icons.place,
-                                                            color:
-                                                                Colors.black),
-                                                        SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Text(
-                                                          "Place of the Event",
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: size.height / 20,
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 30),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black12
-                                                            .withOpacity(0.1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                      ),
-                                                      child: TextFormField(
-                                                        readOnly: true,
-                                                        initialValue: localName,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        decoration:
-                                                            new InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: '',
-                                                        ),
-                                                        validator:
-                                                            (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Place of the Event is Required';
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 4,
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.topCenter,
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 3, bottom: 3),
-                                                        width: 30,
-                                                        height: 3,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.black45
-                                                              .withOpacity(0.5),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 130),
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        3.5,
-                                    child: GestureDetector(
-                                      key: Key("Type of Place"),
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          HeroDialogRoute(
-                                            builder: (context) => Center(
-                                              child: Hero(
-                                                tag: "4",
-                                                createRectTween: (begin, end) {
-                                                  return CustomRectTween(
-                                                      begin: begin, end: end);
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16,
-                                                  ),
-                                                  child: Material(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    color: Color(0xFF8596a0),
-                                                    child: SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2.5,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              7,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(16),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons.flag,
-                                                                    color: Colors
-                                                                        .black54,
-                                                                  ),
-                                                                  Text(
-                                                                    "Type of Place",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black54,
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 8,
-                                                              ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        20,
-                                                                margin: const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        10),
-                                                                child:
-                                                                    DropdownButtonFormField2(
-                                                                  value:
-                                                                      _typeOfPlace,
-                                                                  decoration:
-                                                                      InputDecoration(
-                                                                    labelStyle: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight.w200),
-                                                                    //Add isDense true and zero Padding.
-                                                                    //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                                                                    isDense:
-                                                                        true,
-                                                                    contentPadding:
-                                                                        EdgeInsets
-                                                                            .zero,
-                                                                    border:
-                                                                        OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              30),
-                                                                    ),
-                                                                    //Add more decoration as you want here
-                                                                    //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                                                                  ),
-                                                                  isExpanded:
-                                                                      true,
-                                                                  hint:
-                                                                      const Text(
-                                                                    'Select the Type of Place...',
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      fontSize:
-                                                                          16,
-                                                                    ),
-                                                                  ),
-                                                                  icon:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .arrow_drop_down,
-                                                                    color: Colors
-                                                                        .black45,
-                                                                  ),
-                                                                  iconSize: 30,
-                                                                  buttonHeight:
-                                                                      size.height /
-                                                                          20,
-                                                                  buttonPadding:
-                                                                      const EdgeInsets
-                                                                              .only(
-                                                                          left:
-                                                                              20,
-                                                                          right:
-                                                                              20),
-                                                                  dropdownDecoration:
-                                                                      BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            20),
-                                                                  ),
-                                                                  items: TypeOfPlace.map((item) =>
-                                                                      DropdownMenuItem<
-                                                                          String>(
-                                                                        value:
-                                                                            item,
-                                                                        child:
-                                                                            Text(
-                                                                          item,
-                                                                          style: const TextStyle(
-                                                                              fontSize: 16,
-                                                                              fontWeight: FontWeight.w400),
+                                                                            ? 'Select Start Time'
+                                                                            : 'Select Time: ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          fontSize:
+                                                                              15,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
                                                                         ),
-                                                                      )).toList(),
-                                                                  validator:
-                                                                      (value) {
-                                                                    if (value ==
-                                                                        null) {
-                                                                      return 'Please select type of place.';
-                                                                    }
-                                                                  },
-                                                                  onChanged: (value) =>
-                                                                      setState(() =>
-                                                                          _typeOfPlace =
-                                                                              value.toString()),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: "4",
-                                        createRectTween: (begin, end) {
-                                          return CustomRectTween(
-                                              begin: begin, end: end);
-                                        },
-                                        child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            child: Material(
-                                              color: Color(0xFF8596a0),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Icon(Icons.flag,
-                                                            color:
-                                                                Colors.black),
-                                                        SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Text(
-                                                          "Type of Place",
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: size.height / 20,
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 30),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black12
-                                                            .withOpacity(0.1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                      ),
-                                                      child: TextFormField(
-                                                        readOnly: true,
-                                                        initialValue:
-                                                            _typeOfPlace,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        decoration:
-                                                            new InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: '',
-                                                        ),
-                                                        validator:
-                                                            (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Type of place is Required';
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 4,
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.topCenter,
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 3, bottom: 3),
-                                                        width: 30,
-                                                        height: 3,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.black45
-                                                              .withOpacity(0.5),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 130),
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        3.5,
-                                    child: GestureDetector(
-                                      key: Key("Privacy of the Event"),
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          HeroDialogRoute(
-                                            builder: (context) => Center(
-                                              child: Hero(
-                                                tag: "5",
-                                                createRectTween: (begin, end) {
-                                                  return CustomRectTween(
-                                                      begin: begin, end: end);
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16,
-                                                  ),
-                                                  child: Material(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    color: Color(0xFF8596a0),
-                                                    child: SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2.5,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              7,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(16),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons
-                                                                        .security,
-                                                                    color: Colors
-                                                                        .black54,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 5,
-                                                                  ),
-                                                                  Text(
-                                                                    "Privacy of the Event",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black54,
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 8,
-                                                              ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        20,
-                                                                margin: const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        10),
-                                                                child:
-                                                                    DropdownButtonFormField2(
-                                                                  value:
-                                                                      _eventType,
-                                                                  decoration:
-                                                                      InputDecoration(
-                                                                    labelStyle: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight.w200),
-                                                                    //Add isDense true and zero Padding.
-                                                                    //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                                                                    isDense:
-                                                                        true,
-                                                                    contentPadding:
-                                                                        EdgeInsets
-                                                                            .zero,
-                                                                    border:
-                                                                        OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              30),
-                                                                    ),
-                                                                    //Add more decoration as you want here
-                                                                    //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                                                                  ),
-                                                                  isExpanded:
-                                                                      true,
-                                                                  hint:
-                                                                      const Text(
-                                                                    'Select the Privacy of the Event...',
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      fontSize:
-                                                                          16,
-                                                                    ),
-                                                                  ),
-                                                                  icon:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .arrow_drop_down,
-                                                                    color: Colors
-                                                                        .black45,
-                                                                  ),
-                                                                  iconSize: 30,
-                                                                  buttonHeight:
-                                                                      size.height /
-                                                                          20,
-                                                                  buttonPadding:
-                                                                      const EdgeInsets
-                                                                              .only(
-                                                                          left:
-                                                                              20,
-                                                                          right:
-                                                                              20),
-                                                                  dropdownDecoration:
-                                                                      BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            20),
-                                                                  ),
-                                                                  items: EventTypes.map((item) =>
-                                                                      DropdownMenuItem<
-                                                                          String>(
-                                                                        value:
-                                                                            item,
-                                                                        child:
-                                                                            Text(
-                                                                          item,
-                                                                          style: const TextStyle(
-                                                                              fontSize: 16,
-                                                                              fontWeight: FontWeight.w400),
+                                                                      ),
+                                                                      Icon(
+                                                                        Icons
+                                                                            .access_time_sharp,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              2),
+                                                                      Text(
+                                                                        '${_startEventTime.hour}:${_startEventTime.minute}',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          fontSize:
+                                                                              15,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
                                                                         ),
-                                                                      )).toList(),
-                                                                  validator:
-                                                                      (value) {
-                                                                    if (value ==
-                                                                        null) {
-                                                                      return 'Please select the privacy of the event.';
-                                                                    }
-                                                                  },
-                                                                  onChanged:
-                                                                      (value) =>
-                                                                          setState(
-                                                                    () => _eventType =
-                                                                        value
-                                                                            .toString(),
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: "5",
-                                        createRectTween: (begin, end) {
-                                          return CustomRectTween(
-                                              begin: begin, end: end);
-                                        },
-                                        child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            child: Material(
-                                              color: Color(0xFF8596a0),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Icon(Icons.security,
-                                                            color:
-                                                                Colors.black),
-                                                        SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Text(
-                                                          "Privacy of the Event",
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: size.height / 20,
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 30),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black12
-                                                            .withOpacity(0.1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                      ),
-                                                      child: TextFormField(
-                                                        readOnly: true,
-                                                        initialValue:
-                                                            _eventType,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        decoration:
-                                                            new InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: '',
-                                                        ),
-                                                        validator:
-                                                            (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Privacy of the Event is Required';
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 4,
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.topCenter,
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 3, bottom: 3),
-                                                        width: 30,
-                                                        height: 3,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.black45
-                                                              .withOpacity(0.5),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 130),
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        3.5,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          HeroDialogRoute(
-                                            builder: (context) => Center(
-                                              child: Hero(
-                                                tag: "6",
-                                                createRectTween: (begin, end) {
-                                                  return CustomRectTween(
-                                                      begin: begin, end: end);
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16,
-                                                  ),
-                                                  child: Material(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    color: Color(0xFF8596a0),
-                                                    child: SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2.5,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              5,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(16),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              SingleChildScrollView(
-                                                                scrollDirection:
-                                                                    Axis.horizontal,
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .timer_outlined,
-                                                                      color: Colors
-                                                                          .black54,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 5,
-                                                                    ),
-                                                                    Text(
-                                                                      "Start Date-Time",
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black54,
-                                                                        fontSize:
-                                                                            16,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 20,
-                                                              ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        25,
-                                                                margin: EdgeInsets
-                                                                    .symmetric(
-                                                                        horizontal:
-                                                                            85),
-                                                                child: SizedBox(
-                                                                  height: double
-                                                                      .infinity,
-                                                                  child:
-                                                                      ElevatedButton(
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      primary:
-                                                                          Colors
-                                                                              .white,
-                                                                      onPrimary:
-                                                                          Colors
-                                                                              .white,
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(30.0),
-                                                                      ),
-                                                                    ),
-                                                                    onPressed:
-                                                                        () async {
-                                                                      pickStartDate(
-                                                                          context);
-                                                                    },
-                                                                    child:
-                                                                        SingleChildScrollView(
-                                                                      scrollDirection:
-                                                                          Axis.horizontal,
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            _eventDateBegin == null
-                                                                                ? 'Select Start Date'
-                                                                                : 'Select Date: ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                          ),
-                                                                          Icon(
-                                                                              Icons.calendar_today,
-                                                                              color: Colors.black),
-                                                                          SizedBox(
-                                                                              width: 2),
-                                                                          Text(
-                                                                            '${_eventDateBegin.day}/${_eventDateBegin.month}/${_eventDateBegin.year}',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 10,
-                                                              ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        25,
-                                                                margin: EdgeInsets
-                                                                    .symmetric(
-                                                                        horizontal:
-                                                                            85),
-                                                                child: SizedBox(
-                                                                  height: double
-                                                                      .infinity,
-                                                                  child:
-                                                                      ElevatedButton(
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      primary:
-                                                                          Colors
-                                                                              .white,
-                                                                      onPrimary:
-                                                                          Colors
-                                                                              .white,
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(30.0),
-                                                                      ),
-                                                                    ),
-                                                                    onPressed:
-                                                                        () async {
-                                                                      pickStartTime(
-                                                                          context);
-                                                                    },
-                                                                    child:
-                                                                        SingleChildScrollView(
-                                                                      scrollDirection:
-                                                                          Axis.horizontal,
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            _startEventTime == null
-                                                                                ? 'Select Start Time'
-                                                                                : 'Select Time: ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                          ),
-                                                                          Icon(
-                                                                              Icons.access_time_sharp,
-                                                                              color: Colors.black),
-                                                                          SizedBox(
-                                                                              width: 2),
-                                                                          Text(
-                                                                            '${_startEventTime.hour}:${_startEventTime.minute}',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              // _buildDataPicker(context),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: "6",
-                                        createRectTween: (begin, end) {
-                                          return CustomRectTween(
-                                              begin: begin, end: end);
-                                        },
-                                        child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            child: Material(
-                                              color: Color(0xFF8596a0),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: SingleChildScrollView(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      SingleChildScrollView(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Icon(
-                                                                Icons
-                                                                    .timer_outlined,
-                                                                color: Colors
-                                                                    .black),
-                                                            SizedBox(
-                                                              width: 5,
                                                             ),
-                                                            Text(
-                                                              "Start Date-Time",
-                                                              style: const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        height:
-                                                            size.height / 20,
-                                                        margin: const EdgeInsets
-                                                                .symmetric(
-                                                            vertical: 8,
-                                                            horizontal: 30),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.black12
-                                                              .withOpacity(0.1),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(30),
-                                                        ),
-                                                        child: TextFormField(
-                                                          readOnly: true,
-                                                          initialValue: DateFormat(
-                                                                      'yyyy-MM-dd')
-                                                                  .format(
-                                                                      _eventDateBegin) +
-                                                              " " +
-                                                              _startEventTime
-                                                                  .hour
-                                                                  .toString() +
-                                                              ":" +
-                                                              _startEventTime
-                                                                  .minute
-                                                                  .toString(),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                            border: InputBorder
-                                                                .none,
-                                                            hintText: '',
                                                           ),
-                                                          validator:
-                                                              (String? value) {
-                                                            if (value!
-                                                                .isEmpty) {
-                                                              return ' Start Date-Time is Required';
-                                                            }
-                                                          },
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 4,
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                            Alignment.topCenter,
-                                                        child: Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  top: 3,
-                                                                  bottom: 3),
-                                                          width: 30,
-                                                          height: 3,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors
-                                                                .black45
-                                                                .withOpacity(
-                                                                    0.5),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 130),
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        3.5,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          HeroDialogRoute(
-                                            builder: (context) => Center(
-                                              child: Hero(
-                                                tag: "15",
-                                                createRectTween: (begin, end) {
-                                                  return CustomRectTween(
-                                                      begin: begin, end: end);
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16,
-                                                  ),
-                                                  child: Material(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    color: Color(0xFF8596a0),
-                                                    child: SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2.5,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              5,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(16),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              SingleChildScrollView(
-                                                                scrollDirection:
-                                                                    Axis.horizontal,
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .timer_outlined,
-                                                                      color: Colors
-                                                                          .black54,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 5,
-                                                                    ),
-                                                                    Text(
-                                                                      "End Date-Time",
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .black54,
-                                                                        fontSize:
-                                                                            16,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 20,
-                                                              ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        25,
-                                                                margin: EdgeInsets
-                                                                    .symmetric(
-                                                                        horizontal:
-                                                                            85),
-                                                                child: SizedBox(
-                                                                  height: double
-                                                                      .infinity,
-                                                                  child:
-                                                                      ElevatedButton(
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      primary:
-                                                                          Colors
-                                                                              .white,
-                                                                      onPrimary:
-                                                                          Colors
-                                                                              .white,
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(30.0),
-                                                                      ),
-                                                                    ),
-                                                                    onPressed:
-                                                                        () async {
-                                                                      pickEndDate(
-                                                                          context);
-                                                                    },
-                                                                    child:
-                                                                        SingleChildScrollView(
-                                                                      scrollDirection:
-                                                                          Axis.horizontal,
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            _eventDateEnd == null
-                                                                                ? 'Select End Date'
-                                                                                : 'Select Date: ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                          ),
-                                                                          Icon(
-                                                                              Icons.calendar_today,
-                                                                              color: Colors.black),
-                                                                          SizedBox(
-                                                                              width: 2),
-                                                                          Text(
-                                                                            '${_eventDateEnd.day}/${_eventDateEnd.month}/${_eventDateEnd.year}',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 10,
-                                                              ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        25,
-                                                                margin: EdgeInsets
-                                                                    .symmetric(
-                                                                        horizontal:
-                                                                            85),
-                                                                child: SizedBox(
-                                                                  height: double
-                                                                      .infinity,
-                                                                  child:
-                                                                      ElevatedButton(
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      primary:
-                                                                          Colors
-                                                                              .white,
-                                                                      onPrimary:
-                                                                          Colors
-                                                                              .white,
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(30.0),
-                                                                      ),
-                                                                    ),
-                                                                    onPressed:
-                                                                        () async {
-                                                                      pickEndTime(
-                                                                          context);
-                                                                    },
-                                                                    child:
-                                                                        SingleChildScrollView(
-                                                                      scrollDirection:
-                                                                          Axis.horizontal,
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            _endEventTime == null
-                                                                                ? 'Select End Time'
-                                                                                : 'Select Time: ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                          ),
-                                                                          Icon(
-                                                                              Icons.access_time_sharp,
-                                                                              color: Colors.black),
-                                                                          SizedBox(
-                                                                              width: 2),
-                                                                          Text(
-                                                                            '${_endEventTime.hour}:${_endEventTime.minute}',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              // _buildDataPicker(context),
-                                                            ],
-                                                          ),
-                                                        ),
+                                                          // _buildDataPicker(context),
+                                                        ],
                                                       ),
                                                     ),
                                                   ),
@@ -5994,271 +5594,380 @@ class _WideLayoutState extends State<WideLayout> {
                                               ),
                                             ),
                                           ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: "15",
-                                        createRectTween: (begin, end) {
-                                          return CustomRectTween(
-                                              begin: begin, end: end);
-                                        },
-                                        child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            child: Material(
-                                              color: Color(0xFF8596a0),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Row(
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "6",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  SingleChildScrollView(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .center,
                                                       children: [
                                                         Icon(
-                                                            Icons
-                                                                .timer_off_outlined,
-                                                            color:
-                                                                Colors.black),
+                                                          Icons.timer_outlined,
+                                                          color:
+                                                              Color(0xFF121B22),
+                                                        ),
                                                         SizedBox(
                                                           width: 5,
                                                         ),
                                                         Text(
-                                                          "End Date-Time",
+                                                          "Start Date-Time",
                                                           style:
                                                               const TextStyle(
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
-                                                                  fontSize: 16,
+                                                                  fontSize: 18,
                                                                   color: Colors
                                                                       .white),
                                                         ),
                                                       ],
                                                     ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: size.height / 20,
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 30),
+                                                  ),
+                                                  Container(
+                                                    alignment: Alignment.center,
+                                                    height: size.height / 20,
+                                                    margin: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 8,
+                                                        horizontal: 30),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black12
+                                                          .withOpacity(0.1),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30),
+                                                    ),
+                                                    child: TextFormField(
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                      readOnly: true,
+                                                      initialValue: DateFormat(
+                                                                  'yyyy-MM-dd')
+                                                              .format(
+                                                                  _eventDateBegin) +
+                                                          " " +
+                                                          _startEventTime.hour
+                                                              .toString() +
+                                                          ":" +
+                                                          _startEventTime.minute
+                                                              .toString(),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      decoration:
+                                                          new InputDecoration(
+                                                        border:
+                                                            InputBorder.none,
+                                                        hintText: '',
+                                                      ),
+                                                      validator:
+                                                          (String? value) {
+                                                        if (value!.isEmpty) {
+                                                          return ' Start Date-Time is Required';
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 4,
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.topCenter,
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 3, bottom: 3),
+                                                      width: 30,
+                                                      height: 3,
                                                       decoration: BoxDecoration(
-                                                        color: Colors.black12
-                                                            .withOpacity(0.1),
+                                                        color: Colors.black45
+                                                            .withOpacity(0.5),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(30),
-                                                      ),
-                                                      child: TextFormField(
-                                                        readOnly: true,
-                                                        initialValue: DateFormat(
-                                                                    'yyyy-MM-dd')
-                                                                .format(
-                                                                    _eventDateEnd) +
-                                                            " " +
-                                                            _endEventTime.hour
-                                                                .toString() +
-                                                            ":" +
-                                                            _endEventTime.minute
-                                                                .toString(),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        decoration:
-                                                            new InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: '',
-                                                        ),
-                                                        validator:
-                                                            (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return ' End Date-Time is Required';
-                                                          }
-                                                        },
+                                                                .circular(12),
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      height: 4,
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.topCenter,
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 3, bottom: 3),
-                                                        width: 30,
-                                                        height: 3,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.black45
-                                                              .withOpacity(0.5),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
-                                            )),
-                                      ),
-                                    ),
+                                            ),
+                                          ),
+                                        )),
                                   ),
                                 ),
 
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 130),
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        3.5,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          HeroDialogRoute(
-                                            builder: (context) => Center(
-                                              child: Hero(
-                                                tag: "7",
-                                                createRectTween: (begin, end) {
-                                                  return CustomRectTween(
-                                                      begin: begin, end: end);
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16,
-                                                  ),
-                                                  child: Material(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    color: Color(0xFF8596a0),
-                                                    child: SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2.5,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              7,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(16),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons.euro,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "15",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.5,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      5,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          SingleChildScrollView(
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .timer_outlined,
+                                                                  color: Color(
+                                                                      0xFF121B22),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Text(
+                                                                  "End Date-Time",
+                                                                  style:
+                                                                      TextStyle(
                                                                     color: Colors
                                                                         .black54,
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
                                                                   ),
-                                                                  SizedBox(
-                                                                    width: 5,
-                                                                  ),
-                                                                  Text(
-                                                                    "Price",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black54,
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 8,
-                                                              ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        20,
-                                                                margin: const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        30),
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Colors
-                                                                      .black12,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20),
                                                                 ),
-                                                                child:
-                                                                    TextFormField(
-                                                                  textAlignVertical:
-                                                                      TextAlignVertical
-                                                                          .center,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  initialValue:
-                                                                      _price,
-                                                                  keyboardType:
-                                                                      TextInputType
-                                                                          .number,
-                                                                  onChanged:
-                                                                      (value) {
-                                                                    setState(
-                                                                        () {
-                                                                      _price = value
-                                                                          .trim();
-                                                                    });
-                                                                  },
-                                                                  cursorColor:
-                                                                      Colors
-                                                                          .black,
-                                                                  validator:
-                                                                      (String?
-                                                                          value) {
-                                                                    if (value!
-                                                                            .isEmpty ||
-                                                                        value ==
-                                                                            '') {
-                                                                      return 'Price is Required';
-                                                                    }
-                                                                  },
-                                                                  decoration: InputDecoration(
-                                                                      hintText:
-                                                                          'Write the Price (€)...',
-                                                                      border: InputBorder
-                                                                          .none),
-                                                                ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
+                                                          const SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height:
+                                                                size.height /
+                                                                    25,
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        85),
+                                                            child: SizedBox(
+                                                              height: double
+                                                                  .infinity,
+                                                              child:
+                                                                  ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  primary: Color(
+                                                                      0xFF121B22),
+                                                                  onPrimary:
+                                                                      Colors
+                                                                          .white,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            30.0),
+                                                                  ),
+                                                                ),
+                                                                onPressed:
+                                                                    () async {
+                                                                  pickEndDate(
+                                                                      context);
+                                                                },
+                                                                child:
+                                                                    SingleChildScrollView(
+                                                                  scrollDirection:
+                                                                      Axis.horizontal,
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text(
+                                                                        _eventDateEnd ==
+                                                                                null
+                                                                            ? 'Select End Date'
+                                                                            : 'Select Date: ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          fontSize:
+                                                                              15,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                      Icon(
+                                                                          Icons
+                                                                              .calendar_today,
+                                                                          color:
+                                                                              Colors.white),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              2),
+                                                                      Text(
+                                                                        '${_eventDateEnd.day}/${_eventDateEnd.month}/${_eventDateEnd.year}',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          fontSize:
+                                                                              15,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height:
+                                                                size.height /
+                                                                    25,
+                                                            margin: EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        85),
+                                                            child: SizedBox(
+                                                              height: double
+                                                                  .infinity,
+                                                              child:
+                                                                  ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  primary: Color(
+                                                                      0xFF121B22),
+                                                                  onPrimary:
+                                                                      Colors
+                                                                          .white,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            30.0),
+                                                                  ),
+                                                                ),
+                                                                onPressed:
+                                                                    () async {
+                                                                  pickEndTime(
+                                                                      context);
+                                                                },
+                                                                child:
+                                                                    SingleChildScrollView(
+                                                                  scrollDirection:
+                                                                      Axis.horizontal,
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text(
+                                                                        _endEventTime ==
+                                                                                null
+                                                                            ? 'Select End Time'
+                                                                            : 'Select Time: ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          fontSize:
+                                                                              15,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                      Icon(
+                                                                          Icons
+                                                                              .access_time_sharp,
+                                                                          color:
+                                                                              Colors.white),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              2),
+                                                                      Text(
+                                                                        '${_endEventTime.hour}:${_endEventTime.minute}',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          fontSize:
+                                                                              15,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          // _buildDataPicker(context),
+                                                        ],
                                                       ),
                                                     ),
                                                   ),
@@ -6266,260 +5975,247 @@ class _WideLayoutState extends State<WideLayout> {
                                               ),
                                             ),
                                           ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: "7",
-                                        createRectTween: (begin, end) {
-                                          return CustomRectTween(
-                                              begin: begin, end: end);
-                                        },
-                                        child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            child: Material(
-                                              color: Color(0xFF8596a0),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Icon(Icons.euro,
-                                                            color:
-                                                                Colors.black),
-                                                        SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Text(
-                                                          "Price",
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                      ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "15",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.timer_off_outlined,
+                                                      color: Color(0xFF121B22),
                                                     ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: size.height / 20,
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 30),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black12
-                                                            .withOpacity(0.1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                      ),
-                                                      child: TextFormField(
-                                                        readOnly: true,
-                                                        initialValue: _price,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        decoration:
-                                                            new InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: '',
-                                                        ),
-                                                        validator:
-                                                            (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Price is Required';
-                                                          }
-                                                        },
-                                                      ),
+                                                    SizedBox(
+                                                      width: 5,
                                                     ),
-                                                    const SizedBox(
-                                                      height: 4,
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.topCenter,
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 3, bottom: 3),
-                                                        width: 30,
-                                                        height: 3,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.black45
-                                                              .withOpacity(0.5),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                      ),
+                                                    Text(
+                                                      "End Date-Time",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                            )),
-                                      ),
-                                    ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: size.height / 20,
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 30),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black12
+                                                        .withOpacity(0.1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                  ),
+                                                  child: TextFormField(
+                                                    style:
+                                                        TextStyle(fontSize: 18),
+                                                    readOnly: true,
+                                                    initialValue: DateFormat(
+                                                                'yyyy-MM-dd')
+                                                            .format(
+                                                                _eventDateEnd) +
+                                                        " " +
+                                                        _endEventTime.hour
+                                                            .toString() +
+                                                        ":" +
+                                                        _endEventTime.minute
+                                                            .toString(),
+                                                    textAlign: TextAlign.center,
+                                                    decoration:
+                                                        new InputDecoration(
+                                                      border: InputBorder.none,
+                                                      hintText: '',
+                                                    ),
+                                                    validator: (String? value) {
+                                                      if (value!.isEmpty) {
+                                                        return ' End Date-Time is Required';
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
                                   ),
                                 ),
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 130),
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height /
-                                        3.5,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          HeroDialogRoute(
-                                            builder: (context) => Center(
-                                              child: Hero(
-                                                tag: "8",
-                                                createRectTween: (begin, end) {
-                                                  return CustomRectTween(
-                                                      begin: begin, end: end);
-                                                },
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                    16,
-                                                  ),
-                                                  child: Material(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    color: Color(0xFF8596a0),
-                                                    child: SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2.5,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              7,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(16),
-                                                        child:
-                                                            SingleChildScrollView(
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
+
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "7",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.5,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      7,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
                                                             children: [
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons
-                                                                        .people,
-                                                                    color: Colors
-                                                                        .black54,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 5,
-                                                                  ),
-                                                                  Text(
-                                                                    "Maximum of Partecipants",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black54,
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                              Icon(
+                                                                Icons.euro,
+                                                                color: Color(
+                                                                    0xFF121B22),
                                                               ),
-                                                              const SizedBox(
-                                                                height: 8,
+                                                              SizedBox(
+                                                                width: 5,
                                                               ),
-                                                              Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height:
-                                                                    size.height /
-                                                                        20,
-                                                                margin: const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical: 8,
-                                                                    horizontal:
-                                                                        30),
-                                                                decoration:
-                                                                    BoxDecoration(
+                                                              Text(
+                                                                "Price",
+                                                                style:
+                                                                    TextStyle(
                                                                   color: Colors
-                                                                      .black12,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              20),
-                                                                ),
-                                                                child:
-                                                                    TextFormField(
-                                                                  textAlignVertical:
-                                                                      TextAlignVertical
-                                                                          .center,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  initialValue:
-                                                                      _maxPartecipants,
-                                                                  keyboardType:
-                                                                      TextInputType
-                                                                          .number,
-                                                                  onChanged:
-                                                                      (value) {
-                                                                    setState(
-                                                                        () {
-                                                                      _maxPartecipants =
-                                                                          value
-                                                                              .trim();
-                                                                    });
-                                                                  },
-                                                                  cursorColor:
-                                                                      Colors
-                                                                          .black,
-                                                                  validator:
-                                                                      (String?
-                                                                          value) {
-                                                                    if (value!
-                                                                            .isEmpty ||
-                                                                        value ==
-                                                                            '') {
-                                                                      return 'Max Partecipants is Required';
-                                                                    }
-                                                                  },
-                                                                  decoration: InputDecoration(
-                                                                      hintText:
-                                                                          'Write the Number of Partecipants...',
-                                                                      border: InputBorder
-                                                                          .none),
+                                                                      .black54,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
-                                                        ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height:
+                                                                size.height /
+                                                                    20,
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical: 8,
+                                                                    horizontal:
+                                                                        30),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors
+                                                                  .black12,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                            ),
+                                                            child:
+                                                                TextFormField(
+                                                              initialValue:
+                                                                  _price,
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .number,
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  _price = value
+                                                                      .trim();
+                                                                });
+                                                              },
+                                                              cursorColor:
+                                                                  Colors.black,
+                                                              validator:
+                                                                  (String?
+                                                                      value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return 'Price is Required';
+                                                                }
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  hintStyle:
+                                                                      TextStyle(
+                                                                          fontSize:
+                                                                              18),
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
+                                                                  hintText:
+                                                                      'Write the Price (€)...',
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                   ),
@@ -6527,112 +6223,343 @@ class _WideLayoutState extends State<WideLayout> {
                                               ),
                                             ),
                                           ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: "8",
-                                        createRectTween: (begin, end) {
-                                          return CustomRectTween(
-                                              begin: begin, end: end);
-                                        },
-                                        child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            child: Material(
-                                              color: Color(0xFF8596a0),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Icon(Icons.people,
-                                                            color:
-                                                                Colors.black),
-                                                        SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Text(
-                                                          "Maximum of Partecipants",
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize: 16,
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                      ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "7",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.euro,
+                                                      color: Color(0xFF121B22),
                                                     ),
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: size.height / 20,
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 8,
-                                                          horizontal: 30),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black12
-                                                            .withOpacity(0.1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30),
-                                                      ),
-                                                      child: TextFormField(
-                                                        readOnly: true,
-                                                        initialValue:
-                                                            _maxPartecipants,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        decoration:
-                                                            new InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText: '',
-                                                        ),
-                                                        validator:
-                                                            (String? value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Maximum number of Partecipants is Required';
-                                                          }
-                                                        },
-                                                      ),
+                                                    SizedBox(
+                                                      width: 5,
                                                     ),
-                                                    const SizedBox(
-                                                      height: 4,
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment.topCenter,
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 3, bottom: 3),
-                                                        width: 30,
-                                                        height: 3,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.black45
-                                                              .withOpacity(0.5),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                      ),
+                                                    Text(
+                                                      "Price",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
                                                     ),
                                                   ],
                                                 ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: size.height / 20,
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 30),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black12
+                                                        .withOpacity(0.1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                  ),
+                                                  child: TextFormField(
+                                                    style:
+                                                        TextStyle(fontSize: 18),
+                                                    readOnly: true,
+                                                    initialValue: _price,
+                                                    textAlign: TextAlign.center,
+                                                    decoration:
+                                                        new InputDecoration(
+                                                      border: InputBorder.none,
+                                                      hintText: '',
+                                                    ),
+                                                    validator: (String? value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'Price is Required';
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      HeroDialogRoute(
+                                        builder: (context) => Center(
+                                          child: Hero(
+                                            tag: "8",
+                                            createRectTween: (begin, end) {
+                                              return CustomRectTween(
+                                                  begin: begin, end: end);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                16,
                                               ),
-                                            )),
+                                              child: Material(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Color(0xFF8596a0),
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.5,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      7,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons.people,
+                                                                color: Color(
+                                                                    0xFF121B22),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                "Maximum of Partecipants",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 18,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height:
+                                                                size.height /
+                                                                    20,
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical: 8,
+                                                                    horizontal:
+                                                                        30),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors
+                                                                  .black12,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                            ),
+                                                            child:
+                                                                TextFormField(
+                                                              initialValue:
+                                                                  _maxPartecipants,
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .number,
+                                                              onChanged:
+                                                                  (value) {
+                                                                setState(() {
+                                                                  _maxPartecipants =
+                                                                      value
+                                                                          .trim();
+                                                                });
+                                                              },
+                                                              cursorColor:
+                                                                  Colors.black,
+                                                              validator:
+                                                                  (String?
+                                                                      value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return 'Max Partecipants is Required';
+                                                                }
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  hintStyle:
+                                                                      TextStyle(
+                                                                          fontSize:
+                                                                              18),
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8),
+                                                                  hintText:
+                                                                      'Write the Number of Partecipants...',
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                    );
+                                  },
+                                  child: Hero(
+                                    tag: "8",
+                                    createRectTween: (begin, end) {
+                                      return CustomRectTween(
+                                          begin: begin, end: end);
+                                    },
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        child: Material(
+                                          color: Color(0xFF8596a0),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.people,
+                                                      color: Color(0xFF121B22),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "Maximum of Partecipants",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: size.height / 20,
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 30),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black12
+                                                        .withOpacity(0.1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                  ),
+                                                  child: TextFormField(
+                                                    style:
+                                                        TextStyle(fontSize: 18),
+                                                    readOnly: true,
+                                                    initialValue:
+                                                        _maxPartecipants,
+                                                    textAlign: TextAlign.center,
+                                                    decoration:
+                                                        new InputDecoration(
+                                                      border: InputBorder.none,
+                                                      hintText: '',
+                                                    ),
+                                                    validator: (String? value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'Maximum number of Partecipants is Required';
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 3, bottom: 3),
+                                                    width: 30,
+                                                    height: 3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black45
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
                                   ),
                                 ),
                               ],
@@ -6661,7 +6588,7 @@ class _WideLayoutState extends State<WideLayout> {
                           ),
                           child: Text(
                             'Create Event',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                            style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                           onPressed: () async {
                             if (!_key.currentState!.validate()) {

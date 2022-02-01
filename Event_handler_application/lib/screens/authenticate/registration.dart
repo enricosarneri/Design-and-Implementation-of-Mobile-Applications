@@ -1363,7 +1363,7 @@ class _WideLayoutState extends State<WideLayout> {
                                   text: '  Sign In',
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: 16),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {

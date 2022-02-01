@@ -469,7 +469,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                           margin: EdgeInsets.only(
                               left: size.width / 10, right: size.width / 10),
                           child: Divider(
-                            color: Colors.black45,
+                            thickness: 1.2,
+                            color: Colors.black45.withOpacity(0.3),
                             height: 15,
                           ),
                         ),
@@ -493,7 +494,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                   text: '  Sign Up',
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: 16),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
@@ -526,7 +527,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
   Expanded buildDivider() {
     return Expanded(
       child: Divider(
-        color: Colors.black45,
+        thickness: 1.5,
+        color: Colors.black45.withOpacity(0.3),
         height: 15,
       ),
     );
@@ -1027,6 +1029,7 @@ class _WideLayoutState extends State<WideLayout> {
   Expanded buildDivider() {
     return Expanded(
       child: Divider(
+        thickness: 1.5,
         color: Colors.black45,
         height: 15,
       ),

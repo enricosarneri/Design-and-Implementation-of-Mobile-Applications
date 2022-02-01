@@ -291,7 +291,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                               ])),
                                             ],
                                           ),
-                                          SizedBox(height: 5),
+                                          SizedBox(height: 10),
                                           Align(
                                             alignment: Alignment.topCenter,
                                             child: Container(
@@ -651,7 +651,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 16,
+                                                      fontSize: 18,
                                                       color: Colors.white),
                                                 ),
                                                 TextSpan(
@@ -661,7 +661,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 16,
+                                                      fontSize: 18,
                                                       color: Colors.white),
                                                 ),
                                                 TextSpan(
@@ -669,7 +669,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 16,
+                                                      fontSize: 18,
                                                       color: Colors.white),
                                                 ),
                                                 TextSpan(
@@ -679,7 +679,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 16,
+                                                      fontSize: 18,
                                                       color: Colors.white),
                                                 ),
                                               ])),
@@ -706,7 +706,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 16,
+                                                      fontSize: 18,
                                                       color: Colors.white),
                                                 ),
                                                 TextSpan(
@@ -716,7 +716,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 16,
+                                                      fontSize: 18,
                                                       color: Colors.white),
                                                 ),
                                                 TextSpan(
@@ -724,7 +724,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 16,
+                                                      fontSize: 18,
                                                       color: Colors.white),
                                                 ),
                                                 TextSpan(
@@ -734,7 +734,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 16,
+                                                      fontSize: 18,
                                                       color: Colors.white),
                                                 ),
                                               ])),
@@ -767,7 +767,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 16,
+                                                      fontSize: 18,
                                                       color: Colors.white)),
                                             ],
                                           ),
@@ -788,7 +788,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 16,
+                                                      fontSize: 18,
                                                       color: Colors.white)),
                                             ],
                                           ),
@@ -823,7 +823,7 @@ class _WideLayoutState extends State<WideLayout> {
                                                         style: TextStyle(
                                                             color: Color(
                                                                 0xFF121B22),
-                                                            fontSize: 16),
+                                                            fontSize: 18),
                                                       ),
                                                       SizedBox(
                                                         width: 5,

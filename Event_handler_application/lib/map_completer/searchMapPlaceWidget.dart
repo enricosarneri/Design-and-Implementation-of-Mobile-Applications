@@ -197,6 +197,7 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget>
           Container(width: 15),
           Expanded(
             child: TextField(
+              cursorColor: Colors.black,
               decoration: _inputStyle(),
               controller: _textEditingController,
               onSubmitted: (_) => _selectPlace(),
