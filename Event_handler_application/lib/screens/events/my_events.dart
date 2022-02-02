@@ -94,7 +94,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                     child: TransformerPageView(
                         pageController: TransformerPageController(
                             initialPage: 0,
-                            viewportFraction: 0.5,
+                            viewportFraction: 0.6,
                             itemCount: data.size),
                         curve: Curves.easeInBack,
                         transformer: transformers[3],
