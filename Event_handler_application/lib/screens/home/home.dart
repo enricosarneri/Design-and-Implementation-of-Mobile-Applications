@@ -195,7 +195,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         if (!isManager)
                           const NavigationDestination(
                             icon: Icon(
-                              Icons.audiotrack_rounded,
+                              Icons.audiotrack_outlined,
                               size: 25,
                               color: Colors.white,
                             ),
@@ -209,12 +209,12 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         if (isManager)
                           const NavigationDestination(
                             icon: Icon(
-                              Icons.add_box_outlined,
+                              Icons.audiotrack_outlined,
                               size: 25,
                               color: Colors.white,
                             ),
                             selectedIcon: Icon(
-                              Icons.add_box,
+                              Icons.audiotrack_rounded,
                               size: 25,
                               color: Colors.white,
                             ),

@@ -328,6 +328,25 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                   ),
                                 ],
                               ),
+                            SizedBox(height: 10),
+                            if (!isManager)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.euro,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'Price: ' + widget.event.price.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                        color: Colors.white),
+                                  ),
+                                ],
+                              ),
                             if (!isManager) SizedBox(height: 10),
                             if (!isManager)
                               Align(
@@ -578,6 +597,28 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                 ],
                               ),
                             if (isManager)
+                              SizedBox(
+                                height: 10,
+                              ),
+                            if (isManager)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.euro,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'Price: ' + widget.event.price.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                        color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            if (isManager)
                               Container(
                                 width: MediaQuery.of(context).size.width / 1.2,
                                 decoration: BoxDecoration(
@@ -612,7 +653,6 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                             child: ListView.builder(
-                                                physics: ScrollPhysics(),
                                                 primary: false,
                                                 key: Key("list view"),
                                                 scrollDirection: Axis.vertical,
