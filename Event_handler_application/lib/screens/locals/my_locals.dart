@@ -121,73 +121,99 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                     ),
                   ),
                 ),
-                FutureBuilder(
-                  future: widget.databaseService!.getMyLocals(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<Local>> myLocals) {
-                    return Container(
-                      alignment: Alignment.center,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 40, horizontal: 2),
-                      child: Column(
+                SizedBox(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: ListView(
+                        physics: ScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
                         children: [
-                          if (myLocals.data != null)
-                            for (int i = 0; i < myLocals.data!.length; i++)
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                          FutureBuilder(
+                            future: widget.databaseService!.getMyLocals(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<Local>> myLocals) {
+                              return SizedBox(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 40, horizontal: 2),
+                                  child: Column(
                                     children: [
-                                      Icon(
-                                        Icons.place,
-                                        color: Colors.white,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        myLocals.data != null
-                                            ? myLocals.data![i].localName
-                                            : 'You own no local',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600),
-                                      ),
+                                      if (myLocals.data != null)
+                                        for (int i = 0;
+                                            i < myLocals.data!.length;
+                                            i++)
+                                          Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.place,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    myLocals.data != null
+                                                        ? myLocals
+                                                            .data![i].localName
+                                                        : 'You own no local',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                myLocals.data != null
+                                                    ? myLocals
+                                                        .data![i].localAddress
+                                                    : 'You own no local',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(
+                                                    top: 10, bottom: 10),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 80),
+                                                child: Divider(
+                                                  thickness: 1.5,
+                                                  color: Colors.white,
+                                                  height: 15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                      SizedBox(height: 20),
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    myLocals.data != null
-                                        ? myLocals.data![i].localAddress
-                                        : 'You own no local',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                  Container(
-                                    margin:
-                                        EdgeInsets.only(top: 10, bottom: 10),
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 80),
-                                    child: Divider(
-                                      thickness: 1.5,
-                                      color: Colors.white,
-                                      height: 15,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                          SizedBox(height: 20),
+                                ),
+                              );
+                            },
+                          ),
                         ],
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
               ],
             ),

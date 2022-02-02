@@ -665,94 +665,94 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         SizedBox(
                           height: size.height / 30,
                         ),
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: size.width / 2.7, right: size.width / 2.7),
-                          margin: EdgeInsets.symmetric(
-                              vertical: size.height * 0.005),
-                          alignment: Alignment.center,
-                          child: Row(
-                            children: <Widget>[
-                              buildDivider(),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  "OR",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16),
-                                ),
-                              ),
-                              buildDivider(),
-                            ],
-                          ),
-                          // child: Text(
-                          //   'OR',
-                          //   style: TextStyle(
-                          //       color: Colors.black,
-                          //       fontWeight: FontWeight.w600),
-                          // ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: size.width / 10, right: size.width / 10),
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Sign Up with',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 16),
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height / 50,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: size.width / 8, right: size.width / 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.transparent,
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/facebook.png"))),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () async {
-                                  await widget.authServices!
-                                      .signInWithGoogle()
-                                      .then((UserCredential value) {
-                                    final displayName = value.user!.displayName;
-                                    print(displayName);
-                                    Navigator.pop(context);
-                                  });
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.transparent,
-                                      image: DecorationImage(
-                                          image:
-                                              AssetImage("assets/google.png"))),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Container(
+                        //   padding: EdgeInsets.only(
+                        //       left: size.width / 2.7, right: size.width / 2.7),
+                        //   margin: EdgeInsets.symmetric(
+                        //       vertical: size.height * 0.005),
+                        //   alignment: Alignment.center,
+                        //   child: Row(
+                        //     children: <Widget>[
+                        //       buildDivider(),
+                        //       Padding(
+                        //         padding:
+                        //             const EdgeInsets.symmetric(horizontal: 10),
+                        //         child: Text(
+                        //           "OR",
+                        //           style: TextStyle(
+                        //               fontWeight: FontWeight.w600,
+                        //               fontSize: 16),
+                        //         ),
+                        //       ),
+                        //       buildDivider(),
+                        //     ],
+                        //   ),
+                        //   // child: Text(
+                        //   //   'OR',
+                        //   //   style: TextStyle(
+                        //   //       color: Colors.black,
+                        //   //       fontWeight: FontWeight.w600),
+                        //   // ),
+                        // ),
+                        // Container(
+                        //   padding: EdgeInsets.only(
+                        //       left: size.width / 10, right: size.width / 10),
+                        //   alignment: Alignment.center,
+                        //   child: Text(
+                        //     'Sign Up with',
+                        //     style: TextStyle(
+                        //         color: Colors.white,
+                        //         fontWeight: FontWeight.normal,
+                        //         fontSize: 16),
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: size.height / 50,
+                        // ),
+                        // Container(
+                        //   padding: EdgeInsets.only(
+                        //       left: size.width / 8, right: size.width / 8),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //     children: <Widget>[
+                        //       GestureDetector(
+                        //         onTap: () {},
+                        //         child: Container(
+                        //           height: 40,
+                        //           width: 40,
+                        //           decoration: BoxDecoration(
+                        //               shape: BoxShape.circle,
+                        //               color: Colors.transparent,
+                        //               image: DecorationImage(
+                        //                   image: AssetImage(
+                        //                       "assets/facebook.png"))),
+                        //         ),
+                        //       ),
+                        //       GestureDetector(
+                        //         onTap: () async {
+                        //           await widget.authServices!
+                        //               .signInWithGoogle()
+                        //               .then((UserCredential value) {
+                        //             final displayName = value.user!.displayName;
+                        //             print(displayName);
+                        //             Navigator.pop(context);
+                        //           });
+                        //           setState(() {});
+                        //         },
+                        //         child: Container(
+                        //           height: 40,
+                        //           width: 40,
+                        //           decoration: BoxDecoration(
+                        //               shape: BoxShape.circle,
+                        //               color: Colors.transparent,
+                        //               image: DecorationImage(
+                        //                   image:
+                        //                       AssetImage("assets/google.png"))),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],
@@ -1377,94 +1377,94 @@ class _WideLayoutState extends State<WideLayout> {
                         SizedBox(
                           height: size.height / 30,
                         ),
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: size.width / 2.7, right: size.width / 2.7),
-                          margin: EdgeInsets.symmetric(
-                              vertical: size.height * 0.005),
-                          alignment: Alignment.center,
-                          child: Row(
-                            children: <Widget>[
-                              buildDivider(),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  "OR",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16),
-                                ),
-                              ),
-                              buildDivider(),
-                            ],
-                          ),
-                          // child: Text(
-                          //   'OR',
-                          //   style: TextStyle(
-                          //       color: Colors.black,
-                          //       fontWeight: FontWeight.w600),
-                          // ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: size.width / 10, right: size.width / 10),
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Sign Up with',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 16),
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height / 50,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: size.width / 8, right: size.width / 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.transparent,
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/facebook.png"))),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () async {
-                                  await widget.authServices!
-                                      .signInWithGoogle()
-                                      .then((UserCredential value) {
-                                    final displayName = value.user!.displayName;
-                                    print(displayName);
-                                    Navigator.pop(context);
-                                  });
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.transparent,
-                                      image: DecorationImage(
-                                          image:
-                                              AssetImage("assets/google.png"))),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Container(
+                        //   padding: EdgeInsets.only(
+                        //       left: size.width / 2.7, right: size.width / 2.7),
+                        //   margin: EdgeInsets.symmetric(
+                        //       vertical: size.height * 0.005),
+                        //   alignment: Alignment.center,
+                        //   child: Row(
+                        //     children: <Widget>[
+                        //       buildDivider(),
+                        //       Padding(
+                        //         padding:
+                        //             const EdgeInsets.symmetric(horizontal: 10),
+                        //         child: Text(
+                        //           "OR",
+                        //           style: TextStyle(
+                        //               fontWeight: FontWeight.w600,
+                        //               fontSize: 16),
+                        //         ),
+                        //       ),
+                        //       buildDivider(),
+                        //     ],
+                        //   ),
+                        //   // child: Text(
+                        //   //   'OR',
+                        //   //   style: TextStyle(
+                        //   //       color: Colors.black,
+                        //   //       fontWeight: FontWeight.w600),
+                        //   // ),
+                        // ),
+                        // Container(
+                        //   padding: EdgeInsets.only(
+                        //       left: size.width / 10, right: size.width / 10),
+                        //   alignment: Alignment.center,
+                        //   child: Text(
+                        //     'Sign Up with',
+                        //     style: TextStyle(
+                        //         color: Colors.white,
+                        //         fontWeight: FontWeight.normal,
+                        //         fontSize: 16),
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: size.height / 50,
+                        // ),
+                        // Container(
+                        //   padding: EdgeInsets.only(
+                        //       left: size.width / 8, right: size.width / 8),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //     children: <Widget>[
+                        //       GestureDetector(
+                        //         onTap: () {},
+                        //         child: Container(
+                        //           height: 40,
+                        //           width: 40,
+                        //           decoration: BoxDecoration(
+                        //               shape: BoxShape.circle,
+                        //               color: Colors.transparent,
+                        //               image: DecorationImage(
+                        //                   image: AssetImage(
+                        //                       "assets/facebook.png"))),
+                        //         ),
+                        //       ),
+                        //       GestureDetector(
+                        //         onTap: () async {
+                        //           await widget.authServices!
+                        //               .signInWithGoogle()
+                        //               .then((UserCredential value) {
+                        //             final displayName = value.user!.displayName;
+                        //             print(displayName);
+                        //             Navigator.pop(context);
+                        //           });
+                        //           setState(() {});
+                        //         },
+                        //         child: Container(
+                        //           height: 40,
+                        //           width: 40,
+                        //           decoration: BoxDecoration(
+                        //               shape: BoxShape.circle,
+                        //               color: Colors.transparent,
+                        //               image: DecorationImage(
+                        //                   image:
+                        //                       AssetImage("assets/google.png"))),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],

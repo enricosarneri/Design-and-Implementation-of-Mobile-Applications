@@ -1952,7 +1952,7 @@ class _WideLayoutState extends State<WideLayout> {
             }
           }
         }
-        if (_valuesDates.length == 0) {
+        if (_valuesDates.isEmpty) {
           if ((_event_list[i].maxPartecipants <= _valuesPeopleR.end) &&
               (_event_list[i].partecipants.length >= _valuesPeopleR.start) &&
               (_valuesPricesR.start <= _event_list[i].price) &&

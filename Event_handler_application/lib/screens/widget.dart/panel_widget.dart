@@ -206,6 +206,7 @@ class PanelWidget extends StatelessWidget {
               // Align(
               //   alignment: Alignment.topLeft,
               //   child: Container(
+
               //     margin: EdgeInsets.only(top: 5, bottom: 5, left: 30),
               //     decoration: BoxDecoration(
               //       borderRadius: BorderRadius.circular(20),
@@ -247,33 +248,31 @@ class PanelWidget extends StatelessWidget {
                           fontWeight: FontWeight.w300),
                     ),
                     TextSpan(
-                      // text: DateTime.tryParse(event.dateBegin)
-                      //     .toString()
-                      //     .substring(0, 10),
+                      text: DateTime.tryParse(event.dateBegin).toString(),
                       style: TextStyle(
                           fontSize:
                               MediaQuery.of(context).size.width > 900 ? 18 : 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w600),
                     ),
-                    TextSpan(
-                      text: " at ",
-                      style: TextStyle(
-                          fontSize:
-                              MediaQuery.of(context).size.width > 900 ? 18 : 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    TextSpan(
-                      // text: DateTime.tryParse(event.dateBegin)
-                      //     .toString()
-                      //     .substring(11, 16),
-                      style: TextStyle(
-                          fontSize:
-                              MediaQuery.of(context).size.width > 900 ? 18 : 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                    ),
+                    // TextSpan(
+                    //   text: " at ",
+                    //   style: TextStyle(
+                    //       fontSize:
+                    //           MediaQuery.of(context).size.width > 900 ? 18 : 16,
+                    //       color: Colors.white,
+                    //       fontWeight: FontWeight.w300),
+                    // ),
+                    // TextSpan(
+                    //   text: DateTime.tryParse(event.dateBegin)
+                    //       .toString()
+                    //       .substring(11, 16),
+                    //   style: TextStyle(
+                    //       fontSize:
+                    //           MediaQuery.of(context).size.width > 900 ? 18 : 16,
+                    //       color: Colors.white,
+                    //       fontWeight: FontWeight.w600),
+                    // ),
                   ]))
                 ],
               ),
@@ -294,33 +293,31 @@ class PanelWidget extends StatelessWidget {
                           fontWeight: FontWeight.w300),
                     ),
                     TextSpan(
-                      // text: DateTime.tryParse(event.dateEnd)
-                      //     .toString()
-                      //     .substring(0, 10),
+                      text: DateTime.tryParse(event.dateEnd).toString(),
                       style: TextStyle(
                           fontSize:
                               MediaQuery.of(context).size.width > 900 ? 18 : 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w600),
                     ),
-                    TextSpan(
-                      text: " at: ",
-                      style: TextStyle(
-                          fontSize:
-                              MediaQuery.of(context).size.width > 900 ? 18 : 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    TextSpan(
-                      // text: DateTime.tryParse(event.dateEnd)
-                      //     .toString()
-                      //     .substring(11, 16),
-                      style: TextStyle(
-                          fontSize:
-                              MediaQuery.of(context).size.width > 900 ? 18 : 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                    ),
+                    // TextSpan(
+                    //   text: " at: ",
+                    //   style: TextStyle(
+                    //       fontSize:
+                    //           MediaQuery.of(context).size.width > 900 ? 18 : 16,
+                    //       color: Colors.white,
+                    //       fontWeight: FontWeight.w300),
+                    // ),
+                    // TextSpan(
+                    //   // text: DateTime.tryParse(event.dateEnd)
+                    //   //     .toString()
+                    //   //     .substring(11, 16),
+                    //   style: TextStyle(
+                    //       fontSize:
+                    //           MediaQuery.of(context).size.width > 900 ? 18 : 16,
+                    //       color: Colors.white,
+                    //       fontWeight: FontWeight.w600),
+                    // ),
                   ]))
                 ],
               ),
@@ -1078,9 +1075,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                           fontWeight: FontWeight.w300),
                     ),
                     TextSpan(
-                      // text: DateTime.tryParse(event.dateBegin)
-                      //     .toString()
-                      //     .substring(0, 10),
+                      text: DateTime.tryParse(widget.event!.dateBegin)
+                          .toString()
+                          .substring(0, 10),
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -1094,9 +1091,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                           fontWeight: FontWeight.w300),
                     ),
                     TextSpan(
-                      // text: DateTime.tryParse(event.dateBegin)
-                      //     .toString()
-                      //     .substring(11, 16),
+                      text: DateTime.tryParse(widget.event!.dateBegin)
+                          .toString()
+                          .substring(11, 16),
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
