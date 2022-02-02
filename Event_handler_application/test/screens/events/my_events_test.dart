@@ -79,6 +79,7 @@ void main() {
     expect(eventName, findsNothing);
   });
 
+/*
   testWidgets('Exactly 1 event when i partecipate to 1 event', (tester) async {
     mockNetworkImagesFor(() async {
       await tester.pumpWidget(MaterialApp(
@@ -127,4 +128,5 @@ void main() {
       expect(event3Name, findsOneWidget);
     });
   });
+  */
 }

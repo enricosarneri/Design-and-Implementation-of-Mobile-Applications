@@ -192,12 +192,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                               ),
                               Container(
                                 child: FutureBuilder(
-                                  future: DatabaseService(
-                                          widget.authService
-                                              .getCurrentUser()!
-                                              .uid,
-                                          FirebaseFirestore.instance)
-                                      .getTotalLocals(),
+                                  future:
+                                      widget.databaseService.getTotalLocals(),
                                   builder: (BuildContext context,
                                       AsyncSnapshot<List<Local>> totalLocals) {
                                     return Container(
@@ -265,8 +261,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                           topRight: Radius.circular(30),
                         ),
                         child: ListView(
+                          //key: Key("list view"),
                           shrinkWrap: true,
-                          key: Key("list view"),
                           children: [
                             SizedBox(height: 15),
                             Align(
@@ -369,24 +365,26 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                     width: 5,
                                   ),
                                   RichText(
+                                      key: Key("people asking to join"),
                                       text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'People asking to join: ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 16,
-                                            color: Colors.white),
-                                      ),
-                                      TextSpan(
-                                          text: widget.event.applicants.length
-                                              .toString(),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                              color: Colors.white))
-                                    ],
-                                  )),
+                                        children: [
+                                          TextSpan(
+                                            text: 'People asking to join: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                          TextSpan(
+                                              text: widget
+                                                  .event.applicants.length
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  color: Colors.white))
+                                        ],
+                                      )),
                                 ],
                               ),
                             if (isManager)
@@ -551,27 +549,29 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                     width: 5,
                                   ),
                                   RichText(
+                                      key: Key("partecipants"),
                                       text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Partecipants: ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 16,
-                                            color: Colors.white),
-                                      ),
-                                      TextSpan(
-                                          text: widget.event.partecipants.length
-                                                  .toString() +
-                                              '/' +
-                                              widget.event.maxPartecipants
-                                                  .toString(),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                              color: Colors.white))
-                                    ],
-                                  )
+                                        children: [
+                                          TextSpan(
+                                            text: 'Partecipants: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w300,
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                          TextSpan(
+                                              text: widget
+                                                      .event.partecipants.length
+                                                      .toString() +
+                                                  '/' +
+                                                  widget.event.maxPartecipants
+                                                      .toString(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  color: Colors.white))
+                                        ],
+                                      )
 
                                       //
                                       ),

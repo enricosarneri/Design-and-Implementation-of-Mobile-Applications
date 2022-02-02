@@ -246,6 +246,105 @@ void main() {
     expect(firebasePartecipantList.length, 1);
     expect(firebasePartecipantList[0], "my userID");
   });
+
+  testWidgets(
+      'Checks if addEventApplicant does not add a user already in the applicantList',
+      (tester) async {
+    applicants.add('my userID');
+    Event event2 = Event(
+        "managerID",
+        "name",
+        "urlImage",
+        "description",
+        2.3,
+        2.3,
+        "placeName",
+        "typeOfPlace",
+        "eventType",
+        "12/12/2021",
+        "12/12/2023",
+        55,
+        5,
+        "eventId",
+        partecipants,
+        applicants,
+        qrCodes,
+        0);
+    databaseService.addEventApplicant(event2);
+    fakeFirebaseFirestore.collection("events").add({
+      "eventId": "eventId",
+      "applicants": applicants,
+      "partecipants": partecipants,
+      "qrCodeList": qrCodes,
+    });
+
+    //get the list of the applicantList from the fakeFirestore
+    List<String> firebaseApplicantsList = [];
+    final eventCollection = fakeFirebaseFirestore.collection("events");
+    await eventCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].get('eventId') == event.eventId)
+                {
+                  firebaseApplicantsList =
+                      List<String>.from(value.docs[i].get('applicants'))
+                }
+            }
+        });
+    //get the list of the partecipants from the fakeFirestore
+    List<String> firebasePartecipantList = [];
+    await eventCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].get('eventId') == event.eventId)
+                {
+                  firebasePartecipantList =
+                      List<String>.from(value.docs[i].get('partecipants'))
+                }
+            }
+        });
+
+    expect(applicants.length, 1);
+    expect(firebaseApplicantsList.length, 1);
+    expect(firebasePartecipantList.length, 0);
+    expect(firebaseApplicantsList[0], "my userID");
+  });
+
+  testWidgets(
+      'Checks if the Accept Applicance is refusing an user that is not in the applicant list',
+      (tester) async {
+    applicants.add('my userIDasd');
+    qrCodes.add("asddsa");
+    qrCodes.add("4112");
+    await fakeFirebaseFirestore.collection("events").add({
+      "eventId": "eventId",
+      "applicants": applicants,
+      "partecipants": partecipants,
+      "qrCodeList": qrCodes,
+      "manager": "notme",
+      'firstFreeQrCode': 0,
+    });
+    databaseService.acceptApplicance(event, 'my userID');
+    await tester.pump(Duration(seconds: 2));
+
+    //get the list of the partecipants from the fakeFirestore
+    List<String> firebasePartecipantList = [];
+    final eventCollection = fakeFirebaseFirestore.collection("events");
+    await eventCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].get('eventId') == event.eventId)
+                {
+                  firebasePartecipantList =
+                      List<String>.from(value.docs[i].get('partecipants'))
+                }
+            }
+        });
+
+    expect(applicants.length, 1);
+    expect(firebasePartecipantList.length, 0);
+  });
+
   testWidgets(
       'Checks if the Accept Applicance is accepting an user in the applicanceList when he s the only one applying',
       (tester) async {
@@ -529,6 +628,57 @@ void main() {
     expect(qrcodes[1], "4112");
     expect(qrcodesUser, "4112");
     expect(qrcodesUser, qrcodes[1]);
+  });
+
+  testWidgets(
+      'Checks if the Refuse Applicance is doing nothing when the user is not in the applicant list',
+      (tester) async {
+    applicants.add('my userID123');
+    partecipants.add("partecipant1");
+    partecipants.add("partecipant2");
+    await fakeFirebaseFirestore.collection("events").add({
+      "eventId": "eventId",
+      "applicants": applicants,
+      "partecipants": partecipants,
+      "qrCodeList": qrCodes,
+      "manager": "notme",
+      'firstFreeQrCode': 0,
+    });
+    databaseService.refuseApplicance(event, 'my userID');
+    await tester.pump(Duration(seconds: 2));
+
+    //get the list of the partecipants from the fakeFirestore
+    List<String> firebasePartecipantList = [];
+    final eventCollection = fakeFirebaseFirestore.collection("events");
+    await eventCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].get('eventId') == event.eventId)
+                {
+                  firebasePartecipantList =
+                      List<String>.from(value.docs[i].get('partecipants'))
+                }
+            }
+        });
+    //get the list of the partecipants from the fakeFirestore
+    List<String> firebaseApplicanceList = [];
+    await eventCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              if (value.docs[i].get('eventId') == event.eventId)
+                {
+                  firebaseApplicanceList =
+                      List<String>.from(value.docs[i].get('applicants'))
+                }
+            }
+        });
+
+    expect(applicants.length, 1);
+    expect(firebasePartecipantList.length, 2);
+    expect(firebasePartecipantList[0], "partecipant1");
+    expect(firebasePartecipantList[1], "partecipant2");
+    expect(firebaseApplicanceList.length, 1);
+    expect(firebaseApplicanceList[0], 'my userID123');
   });
 
   testWidgets(
@@ -922,4 +1072,148 @@ void main() {
     await tester.pump(Duration(seconds: 2));
     expect(qrCode, "");
   });
+
+  testWidgets('Check that totalLocals returns all the locals actually present',
+      (tester) async {
+    final ownerLocalCollection =
+        fakeFirebaseFirestore.collection("ownerLocals");
+
+    await ownerLocalCollection.add({
+      "owner": "user1",
+      "longitude": 4.56,
+      "localName": "local name",
+      "localAddress": "local address",
+      "latitude": 4.51,
+    });
+
+    await ownerLocalCollection.add({
+      "owner": "user2",
+      "longitude": 5.56,
+      "localName": "local name2",
+      "localAddress": "local address2",
+      "latitude": 5.521,
+    });
+
+    await ownerLocalCollection.add({
+      "owner": "user3",
+      "longitude": 14.56,
+      "localName": "local name3",
+      "localAddress": "local address3",
+      "latitude": 3.52341,
+    });
+
+    await tester.pump(Duration(seconds: 5));
+    List<Local> localList = await databaseService.getTotalLocals();
+    await tester.pump(Duration(seconds: 5));
+    expect(localList.length, 3);
+  });
+
+  testWidgets(
+      'Check that totalLocals returns an empty list if the list has no local',
+      (tester) async {
+    final ownerLocalCollection =
+        fakeFirebaseFirestore.collection("ownerLocals");
+
+    await tester.pump(Duration(seconds: 5));
+    List<Local> localList = await databaseService.getTotalLocals();
+    await tester.pump(Duration(seconds: 5));
+    expect(localList.length, 0);
+  });
+
+  testWidgets(
+      'Check that createEvent adds an event into the FakeFirebaseFirestore database',
+      (tester) async {
+    final ownerLocalCollection =
+        fakeFirebaseFirestore.collection("ownerLocals");
+
+    await ownerLocalCollection.add({
+      "owner": "user1",
+      "longitude": 4.56,
+      "localName": "pizzeria da luigi",
+      "localAddress": "local address",
+      "latitude": 4.51,
+    });
+
+    databaseService.createEventData(
+        "name",
+        "urlImage",
+        "very nice restaurant",
+        "address",
+        "pizzeria da luigi",
+        "resteraunt",
+        "party",
+        DateTime(1996),
+        DateTime(2022),
+        "5",
+        "5",
+        0,
+        "pizzeria da luigi");
+    await tester.pump(Duration(seconds: 5));
+
+    String eventName = "";
+    String urlImage = "";
+    String description = "";
+    String placeName = "";
+    String typeOfPlace = "";
+    String eventType = "";
+
+    final eventCollection = fakeFirebaseFirestore.collection("events");
+    await eventCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              eventName = value.docs[i].get('name'),
+              urlImage = value.docs[i].get('urlImage'),
+              description = value.docs[i].get('description'),
+              placeName = value.docs[i].get('placeName'),
+              urlImage = value.docs[i].get('urlImage'),
+              typeOfPlace = value.docs[i].get('typeOfPlace'),
+              eventType = value.docs[i].get('eventType'),
+            }
+        });
+
+    await tester.pump(Duration(seconds: 5));
+    expect(eventName, "name");
+    expect(urlImage, "urlImage");
+    expect(description, "very nice restaurant");
+    expect(placeName, "pizzeria da luigi");
+    expect(typeOfPlace, "resteraunt");
+    expect(eventType, "party");
+  });
+
+/*
+  testWidgets(
+      'Check that createEvent adds an event into the FakeFirebaseFirestore database',
+      (tester) async {
+    final ownerLocalCollection =
+        fakeFirebaseFirestore.collection("ownerLocals");
+
+    await databaseService.addLocalForCurrentUser(
+        "pizza duomo, Milano", "duomo");
+    await tester.pump(Duration(seconds: 5));
+
+    String owner = "";
+    String latitude = "";
+    String localAddress = "";
+    String localName = "";
+    String longitude = "";
+
+    await ownerLocalCollection.get().then((value) => {
+          for (var i = 0; i < value.size; i++)
+            {
+              owner = value.docs[i].get('owner'),
+              latitude = value.docs[i].get('latitude'),
+              localAddress = value.docs[i].get('localAddress'),
+              localName = value.docs[i].get('localName'),
+              longitude = value.docs[i].get('longitude'),
+            }
+        });
+
+    await tester.pump(Duration(seconds: 5));
+    //expect(owner, "my userID");
+    //expect(latitude, "45.463699999999996");
+    expect(localAddress, "pizza duomo, Milano");
+    expect(localName, "pizzeria da luigi");
+    expect(longitude, "9.1905995");
+  });
+  */
 }

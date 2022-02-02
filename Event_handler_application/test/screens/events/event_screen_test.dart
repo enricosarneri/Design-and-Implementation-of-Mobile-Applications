@@ -146,13 +146,10 @@ void main() {
       ),
     ));
     await tester.pump(Duration(seconds: 3));
-    final maxPartecipantText = find.text('Partecipants: ' +
-        partecipants.length.toString() +
-        '/' +
-        maxPartecipants.toString());
+    final maxPartecipantText = find.byKey(Key("partecipants"));
+
     final eventName = find.text('name');
-    final peopleAskinTojoin =
-        find.text('People asking to join: ' + applicants.length.toString());
+    final peopleAskinTojoin = find.byKey(Key("people asking to join"));
     await tester.drag(find.byKey(Key('list view')), const Offset(0.0, -500));
     await tester.pump();
 
