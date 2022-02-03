@@ -237,6 +237,13 @@ class PanelWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Icon(
+                    Icons.date_range,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
                   RichText(
                       text: TextSpan(children: [
                     TextSpan(
@@ -248,7 +255,11 @@ class PanelWidget extends StatelessWidget {
                           fontWeight: FontWeight.w300),
                     ),
                     TextSpan(
-                      text: DateTime.tryParse(event.dateBegin).toString(),
+                      text: event.dateBegin.isEmpty
+                          ? ""
+                          : event.dateBegin.substring(0, 10) +
+                              " " +
+                              event.dateBegin.substring(11, 16),
                       style: TextStyle(
                           fontSize:
                               MediaQuery.of(context).size.width > 900 ? 18 : 16,
@@ -282,6 +293,13 @@ class PanelWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Icon(
+                    Icons.date_range,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
                   RichText(
                       text: TextSpan(children: [
                     TextSpan(
@@ -293,7 +311,11 @@ class PanelWidget extends StatelessWidget {
                           fontWeight: FontWeight.w300),
                     ),
                     TextSpan(
-                      text: DateTime.tryParse(event.dateEnd).toString(),
+                      text: event.dateEnd.isEmpty
+                          ? ""
+                          : event.dateEnd.substring(0, 10) +
+                              " " +
+                              event.dateEnd.substring(11, 16),
                       style: TextStyle(
                           fontSize:
                               MediaQuery.of(context).size.width > 900 ? 18 : 16,
@@ -1065,40 +1087,53 @@ class _NarrowLayoutState extends State<NarrowLayout> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Icon(
+                    Icons.date_range,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
                   RichText(
                       text: TextSpan(children: [
                     TextSpan(
                       text: "From: ",
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize:
+                              MediaQuery.of(context).size.width > 900 ? 18 : 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w300),
                     ),
                     TextSpan(
-                      text: DateTime.tryParse(widget.event!.dateBegin)
-                          .toString()
-                          .substring(0, 10),
+                      text: widget.event!.dateBegin.isEmpty
+                          ? ""
+                          : widget.event!.dateBegin.substring(0, 10) +
+                              " " +
+                              widget.event!.dateBegin.substring(11, 16),
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize:
+                              MediaQuery.of(context).size.width > 900 ? 18 : 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w600),
                     ),
-                    TextSpan(
-                      text: " at ",
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    TextSpan(
-                      text: DateTime.tryParse(widget.event!.dateBegin)
-                          .toString()
-                          .substring(11, 16),
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                    ),
+                    // TextSpan(
+                    //   text: " at ",
+                    //   style: TextStyle(
+                    //       fontSize:
+                    //           MediaQuery.of(context).size.width > 900 ? 18 : 16,
+                    //       color: Colors.white,
+                    //       fontWeight: FontWeight.w300),
+                    // ),
+                    // TextSpan(
+                    //   text: DateTime.tryParse(event.dateBegin)
+                    //       .toString()
+                    //       .substring(11, 16),
+                    //   style: TextStyle(
+                    //       fontSize:
+                    //           MediaQuery.of(context).size.width > 900 ? 18 : 16,
+                    //       color: Colors.white,
+                    //       fontWeight: FontWeight.w600),
+                    // ),
                   ]))
                 ],
               ),
@@ -1108,40 +1143,53 @@ class _NarrowLayoutState extends State<NarrowLayout> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Icon(
+                    Icons.date_range,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
                   RichText(
                       text: TextSpan(children: [
                     TextSpan(
-                      text: "To: ",
+                      text: "From: ",
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize:
+                              MediaQuery.of(context).size.width > 900 ? 18 : 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w300),
                     ),
                     TextSpan(
-                      // text: DateTime.tryParse(event.dateEnd)
-                      //     .toString()
-                      //     .substring(0, 10),
+                      text: widget.event!.dateEnd.isEmpty
+                          ? ""
+                          : widget.event!.dateEnd.substring(0, 10) +
+                              " " +
+                              widget.event!.dateEnd.substring(11, 16),
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize:
+                              MediaQuery.of(context).size.width > 900 ? 18 : 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w600),
                     ),
-                    TextSpan(
-                      text: " at: ",
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    TextSpan(
-                      // text: DateTime.tryParse(event.dateEnd)
-                      //     .toString()
-                      //     .substring(11, 16),
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                    ),
+                    // TextSpan(
+                    //   text: " at ",
+                    //   style: TextStyle(
+                    //       fontSize:
+                    //           MediaQuery.of(context).size.width > 900 ? 18 : 16,
+                    //       color: Colors.white,
+                    //       fontWeight: FontWeight.w300),
+                    // ),
+                    // TextSpan(
+                    //   text: DateTime.tryParse(event.dateBegin)
+                    //       .toString()
+                    //       .substring(11, 16),
+                    //   style: TextStyle(
+                    //       fontSize:
+                    //           MediaQuery.of(context).size.width > 900 ? 18 : 16,
+                    //       color: Colors.white,
+                    //       fontWeight: FontWeight.w600),
+                    // ),
                   ]))
                 ],
               ),

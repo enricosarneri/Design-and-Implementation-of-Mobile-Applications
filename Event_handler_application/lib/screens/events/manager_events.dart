@@ -118,8 +118,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                               ),
                               margin: EdgeInsets.all(10),
                               child: SizedBox(
-                                // height:
-                                //     MediaQuery.of(context).size.height / 3.5,
+                                height:
+                                    MediaQuery.of(context).size.height / 2.3,
                                 child: Stack(
                                   children: [
                                     ShaderMask(

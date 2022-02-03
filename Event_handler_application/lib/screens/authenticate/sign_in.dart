@@ -92,35 +92,34 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.only(top: size.height / 12),
-                      height: size.height * 0.15,
+                      height: size.height * 0.3,
                       width: size.width,
-                      //   // child: ShaderMask(
-                      //   //   shaderCallback: (rect) {
-                      //   //     return LinearGradient(
-                      //   //       begin: Alignment.bottomCenter,
-                      //   //       end: Alignment.topCenter,
-                      //   //       colors: [
-                      //   //         Colors.transparent,
-                      //   //         Colors.black38,
-                      //   //         Colors.transparent
-                      //   //       ],
-                      //   //     ).createShader(
-                      //   //         Rect.fromLTRB(0, 0, rect.width, rect.height));
-                      //   //   },
-                      //   //   blendMode: BlendMode.dstIn,
-                      //   // child: Image.asset(
-                      //   //   'assets/bap.png',
-                      //   //   fit: BoxFit.cover,
-                      //   // ),
-                      // ),
+                      // child: ShaderMask(
+                      //   shaderCallback: (rect) {
+                      //     return LinearGradient(
+                      //       begin: Alignment.bottomCenter,
+                      //       end: Alignment.topCenter,
+                      //       colors: [
+                      //         Colors.transparent,
+                      //         Colors.black38,
+                      //         Colors.transparent
+                      //       ],
+                      //     ).createShader(
+                      //         Rect.fromLTRB(0, 0, rect.width, rect.height));
+                      //   },
+                      //   blendMode: BlendMode.dstIn,
+                      child: Image.asset(
+                        'assets/photo166.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    Text(
-                      "Sign In",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 28),
-                    ),
+                    // Text(
+                    //   "Sign In",
+                    //   style: TextStyle(
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.black,
+                    //       fontSize: 22),
+                    // ),
                     SizedBox(
                       height: size.height / 60,
                     ),
@@ -463,7 +462,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         //   ),
                         // ),
                         SizedBox(
-                          height: size.height / 13,
+                          height: size.height / 40,
                         ),
                         Container(
                           margin: EdgeInsets.only(
@@ -588,35 +587,34 @@ class _WideLayoutState extends State<WideLayout> {
                     children: <Widget>[
                       Container(
                         margin: EdgeInsets.only(top: size.height / 12),
-                        height: size.height * 0.15,
+                        height: size.height * 0.3,
                         width: size.width,
-                        //   // child: ShaderMask(
-                        //   //   shaderCallback: (rect) {
-                        //   //     return LinearGradient(
-                        //   //       begin: Alignment.bottomCenter,
-                        //   //       end: Alignment.topCenter,
-                        //   //       colors: [
-                        //   //         Colors.transparent,
-                        //   //         Colors.black38,
-                        //   //         Colors.transparent
-                        //   //       ],
-                        //   //     ).createShader(
-                        //   //         Rect.fromLTRB(0, 0, rect.width, rect.height));
-                        //   //   },
-                        //   //   blendMode: BlendMode.dstIn,
-                        //   // child: Image.asset(
-                        //   //   'assets/bap.png',
-                        //   //   fit: BoxFit.cover,
-                        //   // ),
-                        // ),
+                        // child: ShaderMask(
+                        //   shaderCallback: (rect) {
+                        //     return LinearGradient(
+                        //       begin: Alignment.bottomCenter,
+                        //       end: Alignment.topCenter,
+                        //       colors: [
+                        //         Colors.transparent,
+                        //         Colors.black38,
+                        //         Colors.transparent
+                        //       ],
+                        //     ).createShader(
+                        //         Rect.fromLTRB(0, 0, rect.width, rect.height));
+                        //   },
+                        //   blendMode: BlendMode.dstIn,
+                        child: Image.asset(
+                          'assets/photo166.png',
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                      Text(
-                        "Sign In",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 28),
-                      ),
+                      // Text(
+                      //   "Sign In",
+                      //   style: TextStyle(
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.black,
+                      //       fontSize: 24),
+                      // ),
                       SizedBox(
                         height: size.height / 60,
                       ),
@@ -900,72 +898,72 @@ class _WideLayoutState extends State<WideLayout> {
                             //       fontWeight: FontWeight.w600),
                             // ),
                           ),
-                          Container(
-                            padding: EdgeInsets.only(
-                                left: size.width / 10, right: size.width / 10),
-                            alignment: Alignment.center,
-                            child: Text(
-                              'Sign In with',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 16),
-                            ),
-                          ),
+                          // Container(
+                          //   padding: EdgeInsets.only(
+                          //       left: size.width / 10, right: size.width / 10),
+                          //   alignment: Alignment.center,
+                          //   child: Text(
+                          //     'Sign In with',
+                          //     style: TextStyle(
+                          //         color: Colors.white,
+                          //         fontWeight: FontWeight.normal,
+                          //         fontSize: 16),
+                          //   ),
+                          // ),
                           SizedBox(
                             height: size.height / 50,
                           ),
-                          Container(
-                            padding: EdgeInsets.only(
-                                left: size.width / 8, right: size.width / 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    height: 40,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/facebook.png"))),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    await widget.authServices!
-                                        .signInWithGoogle()
-                                        .then((UserCredential value) {
-                                      final displayName =
-                                          value.user!.displayName;
-                                      print(displayName);
-                                      Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Wrapper()),
-                                          (route) => false);
-                                    });
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                    height: 40,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/google.png"))),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   padding: EdgeInsets.only(
+                          //       left: size.width / 8, right: size.width / 8),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //     children: <Widget>[
+                          //       GestureDetector(
+                          //         onTap: () {},
+                          //         child: Container(
+                          //           height: 40,
+                          //           width: 40,
+                          //           decoration: BoxDecoration(
+                          //               shape: BoxShape.circle,
+                          //               color: Colors.transparent,
+                          //               image: DecorationImage(
+                          //                   image: AssetImage(
+                          //                       "assets/facebook.png"))),
+                          //         ),
+                          //       ),
+                          //       GestureDetector(
+                          //         onTap: () async {
+                          //           await widget.authServices!
+                          //               .signInWithGoogle()
+                          //               .then((UserCredential value) {
+                          //             final displayName =
+                          //                 value.user!.displayName;
+                          //             print(displayName);
+                          //             Navigator.pushAndRemoveUntil(
+                          //                 context,
+                          //                 MaterialPageRoute(
+                          //                     builder: (context) => Wrapper()),
+                          //                 (route) => false);
+                          //           });
+                          //           setState(() {});
+                          //         },
+                          //         child: Container(
+                          //           height: 40,
+                          //           width: 40,
+                          //           decoration: BoxDecoration(
+                          //               shape: BoxShape.circle,
+                          //               color: Colors.transparent,
+                          //               image: DecorationImage(
+                          //                   image: AssetImage(
+                          //                       "assets/google.png"))),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           SizedBox(
-                            height: size.height / 13,
+                            height: size.height / 20,
                           ),
                           Container(
                             margin: EdgeInsets.only(

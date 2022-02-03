@@ -561,6 +561,28 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
+                                    Icons.euro,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'Price: ' + widget.event.price.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                        color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            if (isManager)
+                              SizedBox(
+                                height: 10,
+                              ),
+                            if (isManager)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
                                     Icons.people,
                                     color: Colors.white,
                                   ),
@@ -599,24 +621,6 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                             if (isManager)
                               SizedBox(
                                 height: 10,
-                              ),
-                            if (isManager)
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.euro,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    'Price: ' + widget.event.price.toString(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                        color: Colors.white),
-                                  ),
-                                ],
                               ),
                             if (isManager)
                               Container(
@@ -742,7 +746,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                             if (partecipantList.contains(
                                 widget.authService.getCurrentUser()!.uid))
                               Container(
-                                margin: EdgeInsets.only(bottom: 10),
+                                margin: EdgeInsets.only(bottom: 10, top: 20),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -762,9 +766,22 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                             if (applicantList.contains(
                                 widget.authService.getCurrentUser()!.uid))
                               Container(
-                                child: Text(
-                                    "Waiting for the response of the owner",
-                                    style: TextStyle(color: Colors.white)),
+                                margin: EdgeInsets.only(bottom: 10, top: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                        "Waiting for the response of the owner",
+                                        style: TextStyle(color: Colors.white)),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Icon(
+                                      Icons.sentiment_dissatisfied_outlined,
+                                      color: Colors.white,
+                                    )
+                                  ],
+                                ),
                               ),
                             SizedBox(height: 15),
                             if (isManager)
@@ -834,45 +851,45 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         ),
                       ),
                     ),
-                  Container(
-                    padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height / 18,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                primary: Colors.transparent,
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color: Colors.white,
+                  if (isManager)
+                    Container(
+                      padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: MediaQuery.of(context).size.height / 18,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  primary: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                      color: Colors.white,
+                                    ),
+                                    borderRadius: BorderRadius.circular(30.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  //  shadowColor: Colors.grey.shade400),
                                 ),
-                                //  shadowColor: Colors.grey.shade400),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.share_outlined),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      'Share the Link',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                onPressed: () {
+                                  Share.share(widget.event.getEventId);
+                                },
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.share_outlined),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    'Share the Link',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                              onPressed: () {
-                                Share.share(widget.event.getEventId);
-                              },
                             ),
-                          ),
-                          if (isManager)
                             Container(
                               height: MediaQuery.of(context).size.height / 18,
                               child: ElevatedButton(
@@ -915,24 +932,51 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                     );
                                   }),
                             ),
-                          // if (!isManager)
-                          //   FutureBuilder(
-                          //     future: widget.databaseService
-                          //         .getQrCodeByUserEvent(widget.event, userId),
-                          //     initialData: "Loading text..",
-                          //     builder:
-                          //         (BuildContext context, AsyncSnapshot<String> text) {
-                          //       return QrImage(
-                          //         key: Key('qrCode'),
-                          //         data: text.data!,
-                          //         size: 200,
-                          //         backgroundColor: Colors.white,
-                          //       );
-                          //     },
-                          //   ),
-                          if (!isManager &&
-                              partecipantList.contains(
-                                  widget.authService.getCurrentUser()!.uid))
+                          ],
+                        ),
+                      ),
+                    ),
+                  if (!isManager &&
+                      partecipantList
+                          .contains(widget.authService.getCurrentUser()!.uid))
+                    Container(
+                      padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: MediaQuery.of(context).size.height / 18,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  primary: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                      color: Colors.white,
+                                    ),
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  //  shadowColor: Colors.grey.shade400),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.share_outlined),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      'Share the Link',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                onPressed: () {
+                                  Share.share(widget.event.getEventId);
+                                },
+                              ),
+                            ),
                             Container(
                               height: MediaQuery.of(context).size.height / 18,
                               child: ElevatedButton(
@@ -961,21 +1005,6 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                       ),
                                       Hero(
                                         tag: "hero1",
-                                        // child: (FutureBuilder(
-                                        //   future: widget.databaseService
-                                        //       .getQrCodeByUserEvent(
-                                        //           widget.event, userId),
-                                        //   initialData: "Loading text..",
-                                        //   builder: (BuildContext context,
-                                        //       AsyncSnapshot<String> text) {
-                                        //     return QrImage(
-                                        //       size: 42,
-                                        //       key: Key('qrCode'),
-                                        //       data: text.data!,
-                                        //       backgroundColor: Colors.white,
-                                        //     );
-                                        //   },
-                                        // )),
                                         child: ClipOval(
                                           child: Icon(
                                             Icons.qr_code_2,
@@ -1014,10 +1043,54 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                     );
                                   }),
                             ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
+                  if (!isManager &&
+                      !partecipantList
+                          .contains(widget.authService.getCurrentUser()!.uid))
+                    Container(
+                      padding: EdgeInsets.only(
+                        top: 10,
+                      ),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.symmetric(horizontal: 90),
+                          height: MediaQuery.of(context).size.height / 18,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              primary: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: Colors.white,
+                                ),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              //  shadowColor: Colors.grey.shade400),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.share_outlined),
+                                SizedBox(width: 5),
+                                Text(
+                                  'Share the Link',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            onPressed: () {
+                              Share.share(widget.event.getEventId);
+                            },
+                          ),
+                        ),
+                      ),
+                    )
                 ],
               ),
             ),

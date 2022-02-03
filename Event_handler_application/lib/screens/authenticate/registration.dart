@@ -242,25 +242,36 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      height: size.height * 0.14,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          // image: DecorationImage(
-                          //   image: AssetImage("assets/google.png"),
-                          // ),
-                          ),
+                      margin: EdgeInsets.only(top: size.height / 12),
+                      height: size.height * 0.25,
+
+                      width: size.width,
+                      // child: ShaderMask(
+                      //   shaderCallback: (rect) {
+                      //     return LinearGradient(
+                      //       begin: Alignment.bottomCenter,
+                      //       end: Alignment.topCenter,
+                      //       colors: [
+                      //         Colors.transparent,
+                      //         Colors.black38,
+                      //         Colors.transparent
+                      //       ],
+                      //     ).createShader(
+                      //         Rect.fromLTRB(0, 0, rect.width, rect.height));
+                      //   },
+                      //   blendMode: BlendMode.dstIn,
+                      child: Image.asset(
+                        'assets/photo166.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    // SvgPicture.asset(
-                    //   "",
-                    //   height: size.height * 0.25,
+                    // Text(
+                    //   "Sign Up",
+                    //   style: TextStyle(
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.black,
+                    //       fontSize: 22),
                     // ),
-                    Text(
-                      "Sign Up",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 28),
-                    ),
                     SizedBox(
                       height: size.height / 60,
                     ),
@@ -956,25 +967,35 @@ class _WideLayoutState extends State<WideLayout> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      height: size.height * 0.14,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          // image: DecorationImage(
-                          //   image: AssetImage("assets/google.png"),
-                          // ),
-                          ),
+                      margin: EdgeInsets.only(top: size.height / 12),
+                      height: size.height * 0.25,
+                      width: size.width,
+                      // child: ShaderMask(
+                      //   shaderCallback: (rect) {
+                      //     return LinearGradient(
+                      //       begin: Alignment.bottomCenter,
+                      //       end: Alignment.topCenter,
+                      //       colors: [
+                      //         Colors.transparent,
+                      //         Colors.black38,
+                      //         Colors.transparent
+                      //       ],
+                      //     ).createShader(
+                      //         Rect.fromLTRB(0, 0, rect.width, rect.height));
+                      //   },
+                      //   blendMode: BlendMode.dstIn,
+                      child: Image.asset(
+                        'assets/photo166.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    // SvgPicture.asset(
-                    //   "",
-                    //   height: size.height * 0.25,
+                    // Text(
+                    //   "Sign Up",
+                    //   style: TextStyle(
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.black,
+                    //       fontSize: 28),
                     // ),
-                    Text(
-                      "Sign Up",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 28),
-                    ),
                     SizedBox(
                       height: size.height / 60,
                     ),
