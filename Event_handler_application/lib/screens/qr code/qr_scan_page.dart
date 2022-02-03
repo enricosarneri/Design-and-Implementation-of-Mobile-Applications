@@ -19,6 +19,7 @@ class _QrScanPageState extends State<QrScanPage> {
   Barcode? barcode;
   QRViewController? controller;
   bool isQrCodeValid = false;
+  String text = 'Scan a QrCode please';
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -40,9 +41,10 @@ class _QrScanPageState extends State<QrScanPage> {
         ),
         child: Text(
           //(barcode != null && widget.event.getPartecipantList.contains(barcode!.code)) ? 'The Qr code is OK!' : 'Scan a code',
-          barcode != null && isQrCodeValid
-              ? 'This is a valid QRCode'
-              : 'Scan a valid Qrcode please',
+          //barcode != null && isQrCodeValid
+          //    ? 'This is a valid QRCode'
+          //    : 'Scan a valid Qrcode please',
+          barcode != null ? text : 'Scan a QrCode please',
           maxLines: 3,
         ),
       );
@@ -66,13 +68,22 @@ class _QrScanPageState extends State<QrScanPage> {
                     setState(() {
                       this.barcode = barcode;
                       isQrCodeValid = true;
+                      text = 'This is a valid qrCode';
                     }),
                   }
                 }
             },
-          Timer(Duration(seconds: 2), () {
+          if (isQrCodeValid == false)
+            {
+              setState(() {
+                this.barcode = barcode;
+                text = 'This is a NOT a valid qrCode';
+              })
+            },
+          Timer(Duration(seconds: 4), () {
             setState(() {
-              isQrCodeValid = false;
+              //isQrCodeValid = false;
+              text = 'Scan a Qr code please';
             });
           })
         });
