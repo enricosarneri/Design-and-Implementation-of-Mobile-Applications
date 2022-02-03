@@ -9,6 +9,7 @@ import 'package:event_handler/services/database%20services/database.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AddLocal extends StatefulWidget {
   const AddLocal({Key? key, required this.authService}) : super(key: key);
@@ -340,39 +341,43 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                 widget.authService!.getCurrentUser()!.uid,
                                 FirebaseFirestore.instance)
                             .addLocalForCurrentUser(_localAddress, _localName);
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext builderContext) {
-                              _timer = Timer(Duration(milliseconds: 1200), () {
-                                Navigator.of(context).pop();
-                              });
+                        // showDialog(
+                        //     context: context,
+                        //     builder: (BuildContext builderContext) {
+                        //       _timer = Timer(Duration(milliseconds: 1200), () {
+                        //         Navigator.of(context).pop();
+                        //       });
 
-                              return Container(
-                                margin: EdgeInsets.only(
-                                    bottom: 50, left: 12, right: 12),
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                child: AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30)),
-                                  elevation: 20,
-                                  backgroundColor:
-                                      Colors.white.withOpacity(0.8),
-                                  content: SingleChildScrollView(
-                                    child: Text(
-                                      'Your local has been added successfully!',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }).then((val) {
-                          if (_timer.isActive) {
-                            _timer.cancel();
-                          }
-                        });
+                        //       return Container(
+                        //         margin: EdgeInsets.only(
+                        //             bottom: 50, left: 12, right: 12),
+                        //         decoration: BoxDecoration(
+                        //           color: Colors.transparent,
+                        //           borderRadius: BorderRadius.circular(40),
+                        //         ),
+                        //         // child: AlertDialog(
+                        //         //   shape: RoundedRectangleBorder(
+                        //         //       borderRadius: BorderRadius.circular(30)),
+                        //         //   elevation: 20,
+                        //         //   backgroundColor:
+                        //         //       Colors.white.withOpacity(0.8),
+                        //         //   content: SingleChildScrollView(
+                        //         //     child: Text(
+                        //         //       'Your local has been added successfully!',
+                        //         //       textAlign: TextAlign.center,
+                        //         //     ),
+                        //         //   ),
+                        //         // ),
+                        //       );
+                        //     }).then((val) {
+                        //   if (_timer.isActive) {
+                        //     _timer.cancel();
+                        //   }
+                        // });
+                        Fluttertoast.showToast(
+                            msg: "Your local has been added successfuly!",
+                            gravity: ToastGravity.CENTER);
+
                         Navigator.pop(
                           context,
                         );
@@ -691,39 +696,42 @@ class _WideLayoutState extends State<WideLayout> {
                                 widget.authService!.getCurrentUser()!.uid,
                                 FirebaseFirestore.instance)
                             .addLocalForCurrentUser(_localAddress, _localName);
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext builderContext) {
-                              _timer = Timer(Duration(milliseconds: 1200), () {
-                                Navigator.of(context).pop();
-                              });
+                        // showDialog(
+                        //     context: context,
+                        //     builder: (BuildContext builderContext) {
+                        //       _timer = Timer(Duration(milliseconds: 1200), () {
+                        //         Navigator.of(context).pop();
+                        //       });
 
-                              return Container(
-                                margin: EdgeInsets.only(
-                                    bottom: 50, left: 12, right: 12),
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                child: AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30)),
-                                  elevation: 20,
-                                  backgroundColor:
-                                      Colors.white.withOpacity(0.8),
-                                  content: SingleChildScrollView(
-                                    child: Text(
-                                      'Your local has been added successfully!',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }).then((val) {
-                          if (_timer.isActive) {
-                            _timer.cancel();
-                          }
-                        });
+                        //       return Container(
+                        //         margin: EdgeInsets.only(
+                        //             bottom: 50, left: 12, right: 12),
+                        //         decoration: BoxDecoration(
+                        //           color: Colors.transparent,
+                        //           borderRadius: BorderRadius.circular(40),
+                        //         ),
+                        //         // child: AlertDialog(
+                        //         //   shape: RoundedRectangleBorder(
+                        //         //       borderRadius: BorderRadius.circular(30)),
+                        //         //   elevation: 20,
+                        //         //   backgroundColor:
+                        //         //       Colors.white.withOpacity(0.8),
+                        //         //   content: SingleChildScrollView(
+                        //         //     child: Text(
+                        //         //       'Your local has been added successfully!',
+                        //         //       textAlign: TextAlign.center,
+                        //         //     ),
+                        //         //   ),
+                        //         // ),
+                        //       );
+                        //     }).then((val) {
+                        //   if (_timer.isActive) {
+                        //     _timer.cancel();
+                        //   }
+                        // });
+                        Fluttertoast.showToast(
+                            msg: "You've succesfully applied for the event!",
+                            gravity: ToastGravity.CENTER);
                         Navigator.pop(
                           context,
                         );

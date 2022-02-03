@@ -435,10 +435,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
   }
 
   Future pickStartDate(BuildContext context) async {
-    final initialDate = DateTime.now();
-    final newDate = await showDatePicker(
+    final initialDate1 = DateTime.now();
+    final newDate1 = await showDatePicker(
         context: context,
-        initialDate: initialDate,
+        initialDate: initialDate1,
         firstDate: DateTime(DateTime.now().year - 1),
         lastDate: DateTime(DateTime.now().year + 2),
         selectableDayPredicate: _decideWhichDayToEnable,
@@ -465,10 +465,10 @@ class _NarrowLayoutState extends State<NarrowLayout> {
             child: child!,
           );
         });
-    if (newDate == null) return;
+    if (newDate1 == null) return;
 
     setState(() {
-      _startEventDate = newDate;
+      _startEventDate = newDate1;
       _eventDateBegin = _startEventDate!;
     });
   }
@@ -512,8 +512,8 @@ class _NarrowLayoutState extends State<NarrowLayout> {
           _eventDateBegin.year,
           _eventDateBegin.month,
           _eventDateBegin.day,
-          _eventDateBegin.hour,
-          _eventDateBegin.minute);
+          _startEventTime.hour,
+          _startEventTime.minute);
     });
   }
 

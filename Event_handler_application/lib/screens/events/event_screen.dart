@@ -247,7 +247,7 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                   ),
                   SizedBox(height: 10),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height / 2.5,
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(

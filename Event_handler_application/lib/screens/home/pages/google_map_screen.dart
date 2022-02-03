@@ -264,8 +264,12 @@ class _NarrowLayoutState extends State<NarrowLayout> {
     final applicationBlock = Provider.of<ApplicationBlock>(context);
 
     void filterMarkers_people() {
+      log("valore partecipanti: " +
+          _valuesPeopleR.start.toString() +
+          " " +
+          _valuesPeopleR.end.toString());
       listaDaFiltrare = _event_list;
-      print("lista da filtrare" + listaDaFiltrare.toString());
+      log("event list" + _event_list.toString());
       List<Event> result = [];
       for (int i = 0; i < _event_list.length; i++) {
         double distance = Geolocator.distanceBetween(
@@ -293,6 +297,30 @@ class _NarrowLayoutState extends State<NarrowLayout> {
           }
         }
         if (_valuesDates.length == 0) {
+          // log((_event_list[i].maxPartecipants <= _valuesPeopleR.end)
+          //     .toString());
+          // log((_event_list[i].partecipants.length >= _valuesPeopleR.start)
+          //     .toString());
+          // log((_valuesPricesR.start <= _event_list[i].price).toString());
+          // log((_valuesPricesR.end >= _event_list[i].price).toString());
+          log("Distance Rounded: " + (distance_rounded / 1000).toString());
+          log("Values km end: " + (_valuesKmR.end).toString());
+
+          log(((distance_rounded / 1000) <= _valuesKmR.end).toString());
+          // log(((distance_rounded / 1000) >= _valuesKmR.start).toString());
+          // log((_event_list[i].eventType == 'Public').toString());
+          // log((filtro_presente != 0).toString());
+          // log(DateTime.parse(_event_list[i].dateBegin)
+          //     .isAfter(
+          //       DateTime.now(),
+          //     )
+          //     .toString());
+          //   log(()
+          // .toString());
+
+          //   log(()
+          // .toString());
+
           if ((_event_list[i].maxPartecipants <= _valuesPeopleR.end) &&
               (_event_list[i].partecipants.length >= _valuesPeopleR.start) &&
               (_valuesPricesR.start <= _event_list[i].price) &&
@@ -332,9 +360,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
           }
         }
       }
-
+      log("result: " + result.toString());
       listaDaFiltrare = result;
-      print("lista filtrata: " + listaDaFiltrare.toString());
+      log("lista filtrata: " + listaDaFiltrare.toString());
     }
 
     return Scaffold(

@@ -96,15 +96,15 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                         bottomRight: Radius.circular(30),
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30)),
-                    child: TransformerPageView(
-                        pageController: TransformerPageController(
-                            initialPage: 0,
-                            viewportFraction: 0.6,
-                            itemCount: data.size),
-                        curve: Curves.easeInBack,
-                        transformer: transformers[3],
+                    child: ListView.builder(
+                        // pageController: TransformerPageController(
+                        //     initialPage: 0,
+                        //     viewportFraction: 0.6,
+                        //     itemCount: data.size),
+                        // curve: Curves.easeInBack,
+                        // transformer: transformers[3],
                         scrollDirection: Axis.vertical,
-                        // shrinkWrap: true,
+                        shrinkWrap: true,
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
                           if (data.docs[index]['manager'] ==
@@ -155,318 +155,318 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                                         right: 15,
                                         bottom: 30,
                                       ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '${data.docs[index]['name']}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 28,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          SizedBox(height: 5),
-                                          Align(
-                                            alignment: Alignment.topCenter,
-                                            child: Container(
-                                              width: 30,
-                                              height: 3,
-                                              decoration: BoxDecoration(
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              '${data.docs[index]['name']}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 28,
                                                 color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.date_range_rounded,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              RichText(
-                                                  text: TextSpan(children: [
-                                                TextSpan(
-                                                  text: "From: ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14,
-                                                      color: Colors.white),
+                                            SizedBox(height: 5),
+                                            Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Container(
+                                                width: 30,
+                                                height: 3,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
                                                 ),
-                                                TextSpan(
-                                                  text:
-                                                      '${data.docs[index]['dateBegin']}'
-                                                          .substring(0, 10),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontSize: 14,
-                                                      color: Colors.white),
-                                                ),
-                                                TextSpan(
-                                                  text: " at: ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14,
-                                                      color: Colors.white),
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      '${data.docs[index]['dateBegin']}'
-                                                          .substring(11, 16),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontSize: 14,
-                                                      color: Colors.white),
-                                                ),
-                                              ])),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.date_range_rounded,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              RichText(
-                                                  text: TextSpan(children: [
-                                                TextSpan(
-                                                  text: "To: ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14,
-                                                      color: Colors.white),
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      '${data.docs[index]['dateEnd']}'
-                                                          .substring(0, 10),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontSize: 14,
-                                                      color: Colors.white),
-                                                ),
-                                                TextSpan(
-                                                  text: " at: ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 16,
-                                                      color: Colors.white),
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      '${data.docs[index]['dateEnd']}'
-                                                          .substring(11, 16),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      fontSize: 14,
-                                                      color: Colors.white),
-                                                ),
-                                              ])),
-                                            ],
-                                          ),
-                                          SizedBox(height: 10),
-                                          Align(
-                                            alignment: Alignment.topCenter,
-                                            child: Container(
-                                              width: 30,
-                                              height: 3,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.place,
-                                                color: Colors.white,
-                                              ),
-                                              Text(
-                                                  '${data.docs[index]['placeName']}',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14,
-                                                      color: Colors.white)),
-                                            ],
-                                          ),
-                                          SizedBox(height: 5),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.privacy_tip_outlined,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              RichText(
-                                                text: TextSpan(
-                                                  children: [
-                                                    TextSpan(
-                                                      text: 'Event Privacy: ',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w300,
-                                                          fontSize: 14,
-                                                          color: Colors.white),
-                                                    ),
-                                                    TextSpan(
-                                                        text:
-                                                            '${data.docs[index]['eventType']}',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize: 14,
-                                                            color:
-                                                                Colors.white)),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(height: 5),
-                                          SizedBox(
-                                            child: Row(
+                                            SizedBox(height: 10),
+                                            Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    elevation: 0,
-                                                    primary: Colors.white,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      side: BorderSide(
-                                                        color: Colors.white,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30.0),
-                                                    ),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'More Info',
-                                                        style: TextStyle(
-                                                            color: Color(
-                                                                0xFF121B22),
-                                                            fontSize: 14),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Icon(
-                                                        Icons.info,
-                                                        color:
-                                                            Color(0xFF121B22),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  onPressed: () {
-                                                    Event event = Event(
-                                                        data.docs[index]
-                                                            ['manager'],
-                                                        data.docs[index]
-                                                            ['name'],
-                                                        data.docs[index]
-                                                            ['urlImage'],
-                                                        data.docs[index]
-                                                            ['description'],
-                                                        data.docs[index]
-                                                            ['latitude'],
-                                                        data.docs[index]
-                                                            ['longitude'],
-                                                        data.docs[index]
-                                                            ['placeName'],
-                                                        data.docs[index]
-                                                            ['typeOfPlace'],
-                                                        data.docs[index]
-                                                            ['eventType'],
-                                                        data.docs[index]
-                                                            ['dateBegin'],
-                                                        data.docs[index]
-                                                            ['dateEnd'],
-                                                        data.docs[index]
-                                                            ['maxPartecipants'],
-                                                        data.docs[index]
-                                                            ['price'],
-                                                        data.docs[index]
-                                                            ['eventId'],
-                                                        List<String>.from(data
-                                                                .docs[index]
-                                                            ['partecipants']),
-                                                        List<String>.from(
-                                                            data.docs[index]
-                                                                ['applicants']),
-                                                        List<String>.from(
-                                                            data.docs[index]
-                                                                ['qrCodeList']),
-                                                        data.docs[index]
-                                                            ['firstFreeQrCode']);
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) => EventScreen(
-                                                              event: event,
-                                                              authService:
-                                                                  AuthService(
-                                                                      FirebaseAuth
-                                                                          .instance),
-                                                              databaseService: DatabaseService(
-                                                                  AuthService(FirebaseAuth
-                                                                          .instance)
-                                                                      .getCurrentUser()!
-                                                                      .uid,
-                                                                  FirebaseFirestore
-                                                                      .instance))),
-                                                      //  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
-                                                    );
-                                                  },
+                                                Icon(
+                                                  Icons.date_range_rounded,
+                                                  color: Colors.white,
                                                 ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                RichText(
+                                                    text: TextSpan(children: [
+                                                  TextSpan(
+                                                    text: "From: ",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 14,
+                                                        color: Colors.white),
+                                                  ),
+                                                  TextSpan(
+                                                    text:
+                                                        '${data.docs[index]['dateBegin']}'
+                                                            .substring(0, 10),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        fontSize: 14,
+                                                        color: Colors.white),
+                                                  ),
+                                                  TextSpan(
+                                                    text: " at: ",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 14,
+                                                        color: Colors.white),
+                                                  ),
+                                                  TextSpan(
+                                                    text:
+                                                        '${data.docs[index]['dateBegin']}'
+                                                            .substring(11, 16),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        fontSize: 14,
+                                                        color: Colors.white),
+                                                  ),
+                                                ])),
                                               ],
                                             ),
-                                          ),
-                                        ],
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.date_range_rounded,
+                                                  color: Colors.white,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                RichText(
+                                                    text: TextSpan(children: [
+                                                  TextSpan(
+                                                    text: "To: ",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 14,
+                                                        color: Colors.white),
+                                                  ),
+                                                  TextSpan(
+                                                    text:
+                                                        '${data.docs[index]['dateEnd']}'
+                                                            .substring(0, 10),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        fontSize: 14,
+                                                        color: Colors.white),
+                                                  ),
+                                                  TextSpan(
+                                                    text: " at: ",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 16,
+                                                        color: Colors.white),
+                                                  ),
+                                                  TextSpan(
+                                                    text:
+                                                        '${data.docs[index]['dateEnd']}'
+                                                            .substring(11, 16),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                        fontSize: 14,
+                                                        color: Colors.white),
+                                                  ),
+                                                ])),
+                                              ],
+                                            ),
+                                            SizedBox(height: 10),
+                                            Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Container(
+                                                width: 30,
+                                                height: 3,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.place,
+                                                  color: Colors.white,
+                                                ),
+                                                Text(
+                                                    '${data.docs[index]['placeName']}',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 14,
+                                                        color: Colors.white)),
+                                              ],
+                                            ),
+                                            SizedBox(height: 5),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.privacy_tip_outlined,
+                                                  color: Colors.white,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                RichText(
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: 'Event Privacy: ',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            fontSize: 14,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      TextSpan(
+                                                          text:
+                                                              '${data.docs[index]['eventType']}',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: 14,
+                                                              color: Colors
+                                                                  .white)),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(height: 5),
+                                            SizedBox(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      elevation: 0,
+                                                      primary: Colors.white,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        side: BorderSide(
+                                                          color: Colors.white,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30.0),
+                                                      ),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'More Info',
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF121B22),
+                                                              fontSize: 14),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Icon(
+                                                          Icons.info,
+                                                          color:
+                                                              Color(0xFF121B22),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    onPressed: () {
+                                                      Event event = Event(
+                                                          data.docs[index]
+                                                              ['manager'],
+                                                          data.docs[index]
+                                                              ['name'],
+                                                          data.docs[index]
+                                                              ['urlImage'],
+                                                          data.docs[index]
+                                                              ['description'],
+                                                          data.docs[index]
+                                                              ['latitude'],
+                                                          data.docs[index]
+                                                              ['longitude'],
+                                                          data.docs[index]
+                                                              ['placeName'],
+                                                          data.docs[index]
+                                                              ['typeOfPlace'],
+                                                          data.docs[index]
+                                                              ['eventType'],
+                                                          data.docs[index]
+                                                              ['dateBegin'],
+                                                          data.docs[index]
+                                                              ['dateEnd'],
+                                                          data.docs[index][
+                                                              'maxPartecipants'],
+                                                          data.docs[index]
+                                                              ['price'],
+                                                          data.docs[index]
+                                                              ['eventId'],
+                                                          List<String>.from(data
+                                                                  .docs[index]
+                                                              ['partecipants']),
+                                                          List<String>.from(
+                                                              data.docs[index]['applicants']),
+                                                          List<String>.from(data.docs[index]['qrCodeList']),
+                                                          data.docs[index]['firstFreeQrCode']);
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) => EventScreen(
+                                                                event: event,
+                                                                authService:
+                                                                    AuthService(
+                                                                        FirebaseAuth
+                                                                            .instance),
+                                                                databaseService: DatabaseService(
+                                                                    AuthService(FirebaseAuth
+                                                                            .instance)
+                                                                        .getCurrentUser()!
+                                                                        .uid,
+                                                                    FirebaseFirestore
+                                                                        .instance))),
+                                                        //  Event(this.managerId, this.name, this.description, this.latitude, this.longitude, this.placeName,this.eventType,this.date, this.maxPartecipants, this.eventId, this.partecipants, this.applicants, this.qrCodes);
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
