@@ -930,7 +930,9 @@ class _NarrowLayoutState extends State<NarrowLayout> {
                           //       );
                           //     },
                           //   ),
-                          if (!isManager)
+                          if (!isManager &&
+                              partecipantList.contains(
+                                  widget.authService.getCurrentUser()!.uid))
                             Container(
                               height: MediaQuery.of(context).size.height / 18,
                               child: ElevatedButton(
