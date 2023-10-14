@@ -1,4 +1,4 @@
-# event_handler
+# Book a Place - Design and Implementation of Mobile Application Project
 
 A new Flutter project.
 
